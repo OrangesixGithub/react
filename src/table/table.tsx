@@ -3,6 +3,7 @@ import { TableProps } from "./types";
 import React, { useState } from "react";
 import { tableCore } from "./core/core";
 import { tableSort } from "./core/sort";
+import { tableClick } from "./core/click";
 import { tableGroup } from "./core/group";
 import { Column } from "primereact/column";
 import { tableReorder } from "./core/reorder";
@@ -34,6 +35,7 @@ export function Table<T = any>(props: TableProps<T>) {
                 tableClassName={props.className}
                 {...tableCore(props)}
                 {...tableSort(props)}
+                {...tableClick(props)}
                 {...tableReorder(props)}
                 {...tableSelection(props)}
                 {...tablePagination(props)}

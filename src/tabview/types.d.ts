@@ -43,6 +43,11 @@ export interface TabViewProps extends ApiComponentProps {
     tabIndex?: number
 
     /**
+     * Determina se tabview vai se renderizada todas as vezes que for ativa
+     */
+    tabActiveRender?: boolean
+
+    /**
      * Função retorna o evento da tabview quando é moficada
      */
     onChange?: (event: TabViewTabChangeEvent) => void

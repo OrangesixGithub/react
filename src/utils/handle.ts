@@ -3,20 +3,23 @@
  *
  * @param valor - O valor a ser formatado.
  * @param format - O formato desejado: "money" para monetário ou "decimal" para decimal.
+ * @param decimals - Quantidade de casa decimal
  * @returns O valor formatado como string.
  */
 export function handleNumber(
     valor: string,
-    format: "money" | "decimal" = "decimal"
+    format: "money" | "decimal" = "decimal",
+    decimals: number = 2
 ): string {
     let value = valor.replace(/[^0-9.,]/g, "");
     if (format === "decimal") {
-        return value.replace(",", ".").replace(/(\..*)\./g, "$1");
+        return parseFloat(value.replace(",", ".").replace(/(\..*)\./g, "$1")).toFixed(decimals);
     }
-    return parseFloat(value.replace(",", ".")).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    }).replace(".", " ");
+    return parseFloat(value.replace(",", "."))
+        .toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        }).replace(".", " ");
 }
 
 /**

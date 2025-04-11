@@ -17,7 +17,7 @@ export function autocompleCore(
         id: props.id,
         field: "name",
         name: props.name,
-        forceSelection: true,
+        forceSelection: props.forceSelect ?? true,
         style: props.css ?? {},
         disabled: props.disabled,
         required: props.required,

@@ -36,6 +36,11 @@ export interface AutocompleteProps extends ApiComponentProps, ApiFieldComponentP
     appendTo?: "self" | HTMLElement;
 
     /**
+     * Determina se é obrigatório a seleção do elemento
+     */
+    forceSelect?: boolean
+
+    /**
      * Define o tempo para realizar a pesquisa da sugestão de dados.
      */
     searchDelay?: number

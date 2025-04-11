@@ -18,6 +18,7 @@ export const Tabview = ({ ...props }: TabViewProps) => {
         <TabView activeIndex={props.tabIndex}
                  className={props.className + " w-100"}
                  id={props.id}
+                 renderActiveOnly={props.tabActiveRender ?? true}
                  onTabChange={props.onChange}
                  onTabClose={props.onClosed}>
             {props.tabs.map((item, index) => {
