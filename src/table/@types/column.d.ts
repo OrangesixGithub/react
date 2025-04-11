@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import { ColumnBodyOptions, ColumnHeaderOptions } from "primereact/column";
+import { ColumnBodyOptions, ColumnEditorOptions, ColumnEvent, ColumnHeaderOptions } from "primereact/column";
 
 export interface TableColumnProps {
 
@@ -47,4 +47,14 @@ export interface TableColumnProps {
      * Define se coluna vai ser congelada e qual posição
      */
     frozen?: boolean
+
+    /**
+     * Define o elemento de edição dentro de cada coluna
+     */
+    editor?: (options: ColumnEditorOptions) => React.ReactNode
+
+    /**
+     * Retorno de chamada a ser executado quando o editor for enviado.
+     */
+    onEditorComplete?: (event: ColumnEvent) => void
 }

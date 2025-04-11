@@ -9,6 +9,7 @@ import { TableSelectionProps } from "./@types/selection";
 import { TablePaginationProps } from "./@types/pagination";
 import { TableReorderProps } from "./@types/reorder";
 import { TableClickProps } from "./@types/click";
+import { TableEditProps } from "./@types/edit";
 
 export type TableLazyProps = {
 
@@ -35,6 +36,7 @@ export type TableLazyProps = {
 
 export interface TableProps<T> extends ApiComponentProps,
     TableSortProps,
+    TableEditProps,
     TableStyleProps,
     TableClickProps,
     TableGroupProps,

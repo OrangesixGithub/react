@@ -31,6 +31,7 @@ export function Table<T = any>(props: TableProps<T>) {
              size={props.size ?? "100"}>
             {/*@ts-ignore*/}
             <DataTable<any>
+                editMode={props.edit ? "cell" : undefined}
                 pt={{ ...bootstrapTableStyle(props) }}
                 tableClassName={props.className}
                 {...tableCore(props)}
@@ -61,12 +62,14 @@ export function Table<T = any>(props: TableProps<T>) {
                                 alignHeader={obj.alignHeader}
                                 body={obj.body}
                                 columnKey={obj.id}
+                                editor={obj.editor}
                                 field={obj.id}
                                 frozen={obj.frozen !== undefined}
                                 header={obj.header}
                                 key={obj.id}
                                 sortable={obj.sort ?? false}
-                                style={obj.style}/>
+                                style={obj.style}
+                                onCellEditComplete={obj.onEditorComplete}/>
                     );
                 })}
             </DataTable>
