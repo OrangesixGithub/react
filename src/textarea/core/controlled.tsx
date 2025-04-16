@@ -27,7 +27,11 @@ export function TextareaControlled({ core, ...props }: TextareaProps<"Controlled
                                    props.onBlur(event.target.value);
                                }
                            }}
-                           onChange={event => props.onChange(event.target.value)}/>
+                           onChange={event => {
+                               if (props.onChange) {
+                                   props.onChange(event.target.value);
+                               }
+                           }}/>
             <InputFeedback {...props}/>
         </>
     );

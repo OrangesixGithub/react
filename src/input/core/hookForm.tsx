@@ -31,6 +31,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                      {...field}
                                      {...masker}
                                      invalid={!!errors[props.name]}
+                                     readOnly={props.readonly}
                                      required={props.required}
                                      onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
                                      onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
@@ -40,12 +41,14 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                         {...password}
                                         autoComplete="current-password"
                                         invalid={!!errors[props.name]}
+                                        readOnly={props.readonly}
                                         required={props.required}
                                         onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
                                         onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
                             : <InputText {...core}
                                          {...field}
                                          invalid={!!errors[props.name]}
+                                         readOnly={props.readonly}
                                          ref={props.ref}
                                          required={props.required}
                                          onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}

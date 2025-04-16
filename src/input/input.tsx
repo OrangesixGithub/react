@@ -6,8 +6,8 @@ import { ApiFieldModeProps } from "../api/types";
 import { PasswordProps } from "primereact/password";
 import { InputControlled } from "./core/controlled";
 import { InputTextProps } from "primereact/inputtext";
-import { InputLabel, InputProps as getInputProps } from "../api";
 import { InputMaskProps } from "primereact/inputmask";
+import { InputLabel, InputProps as getInputProps } from "../api";
 
 /**
  * Componente - `Input`

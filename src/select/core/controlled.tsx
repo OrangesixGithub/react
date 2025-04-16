@@ -28,7 +28,11 @@ export function SelectControlled(props: SelectProps<"Controlled"> & { mode?: any
                     ref={props.ref}
                     required={props.required}
                     value={props.value}
-                    onChange={event => props.onChange(event.target.value)}>
+                    onChange={event => {
+                        if (props.onChange) {
+                            props.onChange(event.target.value);
+                        }
+                    }}>
                 {init}
                 {props.options.map((item) => (
                     <option disabled={item.disabled}

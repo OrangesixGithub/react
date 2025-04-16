@@ -8,6 +8,11 @@ export interface ModalProps extends Pick<DialogProps, "maximizable" | "maximized
     children: React.ReactNode;
 
     /**
+     * Define a classe de personalização da modal
+     */
+    className?: string
+
+    /**
      * Define o state da modal aberta ou fechada
      */
     visible: boolean;

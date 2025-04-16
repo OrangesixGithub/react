@@ -178,17 +178,53 @@ export interface ApiFieldComponentProps {
      * Define a opção de filtro de dados do componente
      */
     keyfilter?: KeyFilterType;
+
+    /**
+     * Determina se campo é apenas de leitura
+     */
+    readonly?: boolean
 }
 
 /**
  * Define os tipos `default` para componente de entrada de dados controlled
+ * quando a propriedade `Readonly` estiver habilitada
  */
-export interface ApiFieldControlledProps {
-
+interface ApiFieldReadonlyControlledProps {
     /**
      * Define o valor do componente controlado
      */
     value: any
+
+    /**
+     * Determina se campo é apenas de leitura
+     */
+    readonly: true
+
+    /**
+     * Função para alterar o valor do componente controlado
+     */
+    onChange?: (value: any) => void
+
+    /**
+     * Função quando um usuário sai de um componente controlado
+     */
+    onBlur?: (value: any) => void
+}
+
+/**
+ Define os tipos `default` para componente de entrada de dados controlled
+ quando a propriedade `Readonly` estiver desabilitada
+ */
+interface ApiFieldWritableControlledProps {
+    /**
+     * Define o valor do componente controlado
+     */
+    value: any
+
+    /**
+     * Determina se campo é apenas de leitura
+     */
+    readonly?: false
 
     /**
      * Função para alterar o valor do componente controlado
@@ -200,6 +236,13 @@ export interface ApiFieldControlledProps {
      */
     onBlur?: (value: any) => void
 }
+
+/**
+ * Define os tipos `default` para componente de entrada de dados controlled
+ */
+export type ApiFieldControlledProps =
+    | ApiFieldReadonlyControlledProps
+    | ApiFieldWritableControlledProps;
 
 /**
  * Define os tipos `default` para componente de entrada de dados HookFomr

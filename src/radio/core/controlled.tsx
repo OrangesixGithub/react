@@ -1,5 +1,5 @@
-import React from "react";
 import { RadioProps } from "../types";
+import React, { Fragment } from "react";
 import { InputFeedback } from "../../api";
 
 type Props = {
@@ -21,9 +21,8 @@ export function RadioControlled({ core, ...props }: RadioProps<"Controlled"> & P
         <div className={`w-100 d-flex gap-3 ${align}`}>
             {props.options.map((item) => {
                     return (
-                        <>
-                            <div className="d-flex align-items-center form-check"
-                                 key={item.value}>
+                        <Fragment key={item.value}>
+                            <div className="d-flex align-items-center form-check">
                                 <input checked={item.value === props.value}
                                        className="form-check-input"
                                        disabled={props.disabled || item.disabled}
@@ -32,12 +31,15 @@ export function RadioControlled({ core, ...props }: RadioProps<"Controlled"> & P
                                        required={props.required}
                                        type="radio"
                                        value={item.value}
-                                       onChange={event => props.onChange(event.target.value)}/>
+                                       onChange={event => {
+                                           if (props.onChange) {
+                                               props.onChange(event.target.value);
+                                           }
+                                       }}/>
                                 <label className="ms-2"
                                        htmlFor={props.name + "-" + item.value}>{item.label}</label>
                             </div>
-
-                        </>
+                        </Fragment>
                     );
                 }
             )}

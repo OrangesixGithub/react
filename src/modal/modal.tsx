@@ -27,6 +27,7 @@ export function Modal(props: ModalProps) {
                     "768px": "80%",
                     "576px": "90%",
                 }}
+                className={props.className}
                 maximized={maximized}
                 onMaximize={() => setMaximized(!maximized)}>
             {props.children}
