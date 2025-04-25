@@ -31,6 +31,7 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
                      size="100">
                     {confirm && <Button color="success"
                                         icon="check2-circle"
+                                        isLoading={props.isLoading ?? false}
                                         label={props.confirmLabel ?? "Confirmar"}
                                         onClick={() => {
                                             if (props.onConfirm) {
@@ -40,7 +41,13 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
                     {cancel && <Button color="danger"
                                        icon="slash-circle"
                                        label={props.cancelarLabel ?? "Cancelar"}
-                                       onClick={() => props.onVisible(false)}/>}
+                                       onClick={() => {
+                                           if (props.onCancel) {
+                                               props.onCancel();
+                                           } else {
+                                               props.onVisible(false);
+                                           }
+                                       }}/>}
                 </Box>
             </Box>
         </Modal>

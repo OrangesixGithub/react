@@ -164,7 +164,7 @@ export function handleGetValueNumber(
         .reverse()
         .find(item => str?.endsWith(item));
     if (exists && str !== undefined) {
-        return handleNumber(str.slice(0, -exists.length), "decimal");
+        return handleNumber(str.slice(0, -exists.length), "decimal", 0);
     }
-    return handleNumber(str ?? "", "decimal");
+    return handleNumber(str ?? "", "decimal", 0);
 }

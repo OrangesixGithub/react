@@ -15,6 +15,6 @@ export function Number<T extends keyof InputFilterOptionsMap>(props: InputFilter
                name={(props.name ?? "input-filter") + "-number"}
                placeholder={props.placeholder}
                value={handleGetValueNumber(props.value, props.options ?? "")}
-               onChange={event => props.onChange(handleNumber(event.target.value, "decimal") + props.select)}/>
+               onChange={event => props.onChange(handleNumber(event.target.value, "decimal", 0) + props.select)}/>
     );
 }

@@ -19,6 +19,11 @@ interface MessageBaseProps {
     message: string
 
     /**
+     * Define se componente está no estado de carregando
+     */
+    isLoading?: boolean
+
+    /**
      * Define o titulo da message
      */
     title?: string
@@ -47,6 +52,11 @@ interface MessageBaseProps {
      * Define o metodo de confirmação
      */
     onConfirm?: () => void
+
+    /**
+     * Define o metodo no cancelamento
+     */
+    onCancel?: () => void
 
     /**
      * Metodo responsável por atualizar state do message

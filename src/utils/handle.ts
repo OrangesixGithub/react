@@ -13,7 +13,10 @@ export function handleNumber(
 ): string {
     let value = valor.replace(/[^0-9.,]/g, "");
     if (format === "decimal") {
-        return parseFloat(value.replace(",", ".").replace(/(\..*)\./g, "$1")).toFixed(decimals);
+        if (value.length > 0) {
+            return parseFloat(value.replace(",", ".").replace(/(\..*)\./g, "$1")).toFixed(decimals);
+        }
+        return "";
     }
     return parseFloat(value.replace(",", "."))
         .toLocaleString("pt-BR", {

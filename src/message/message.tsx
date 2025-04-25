@@ -21,3 +21,5 @@ export function Message<T extends MessageModeProps = "modal">(props: MessageProp
         </>
     );
 }
+
+Message.displayName = "Message";
