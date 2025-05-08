@@ -25,7 +25,7 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
                onVisible={props.onVisible}>
             <Box direction="column"
                  size="100">
-                <p>{props.message}</p>
+                <div dangerouslySetInnerHTML={{ __html: props.message ?? "" }}/>
                 <Box className="gap-2"
                      justify={"justify-content-" + (props.modalOptionsPosition ?? "end") as JustifyContentProps}
                      size="100">
