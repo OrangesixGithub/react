@@ -1,6 +1,6 @@
-import Root from "./src";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Root from "./src";
 
 //Libs
 import "tippy.js/dist/tippy.css";
