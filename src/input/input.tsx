@@ -41,7 +41,7 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
         mask: props.mask === "cpf"
             ? "999.999.999-99"
             : props.mask === "cnpj"
-                ? "00.000.000/0000-00"
+                ? "99.999.999/9999-99"
                 : props.mask,
         autoClear: props.maskAutoClear
     };
