@@ -1,17 +1,13 @@
 import React from "react";
-import { Message } from "../../src/message";
-import { Switch } from "../../src/switch";
+import { Input } from "../../src/input";
 
 const Root = () => {
 
     return (
         <>
-            <Message message="nando"
-                 visible={false}
-                 onVisible={console.log}/>
-            <Switch value
-                    mode="Controlled"
-                    onChange={() => {}}/>
+            <Input readonly
+                   mask="cnpj"
+                   value="47531169000131"/>
         </>
     );
 };
