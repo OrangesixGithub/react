@@ -1,5 +1,3 @@
-import { SortOrder } from "primereact/datatable";
-
 export interface TablePaginationProps {
 
     /**
@@ -16,6 +14,11 @@ export interface TablePaginationProps {
      * Define o alinhamento da paginação
      */
     paginatorAlign?: "end" | "center" | "start"
+
+    /**
+     * Define o texto da quantidade de registro na paginação
+     */
+    paginatorTotalElementsLabel?: string
 
     /**
      * Método para realizar paginação manual

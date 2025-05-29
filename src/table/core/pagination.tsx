@@ -28,7 +28,8 @@ export function tablePagination(
             layout: "RowsPerPageDropdown FirstPageLink PageLinks LastPageLink CurrentPageReport",
             CurrentPageReport: options => {
                 return (
-                    <span className="ms-2">Total de registros: {options.totalRecords}</span>
+                    <span
+                        className="ms-2">{props.paginatorTotalElementsLabel ?? "Total"}: {options.totalRecords}</span>
                 );
             },
         },

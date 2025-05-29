@@ -1,13 +1,13 @@
 import React from "react";
-import { Input } from "../../src/input";
+import { Table } from "../../src/table";
 
 const Root = () => {
 
     return (
         <>
-            <Input readonly
-                   mask="cnpj"
-                   value="47531169000131"/>
+            <Table paginator
+                   column={[]}
+                   data={[]}/>
         </>
     );
 };
