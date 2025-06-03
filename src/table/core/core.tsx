@@ -9,9 +9,16 @@ import { DataTableBaseProps } from "primereact/datatable";
 export function tableCore(
     props: TableProps<any>
 ): Partial<DataTableBaseProps<any>> {
+
+    const cellRender = (isRender?: boolean) => {
+        return isRender === undefined ? {} : {
+            cellMemo: props.cellRender ?? undefined
+        };
+    };
+
     return {
-        value: props.data as any,
         dataKey: "id",
+        value: props.data as any,
         lazy: props.lazy !== undefined,
         resizableColumns: props.styleResizable ?? false,
         columnResizeMode: "expand",
@@ -20,6 +27,7 @@ export function tableCore(
         footer: props.templateFooter,
         stripedRows: props.styleStriped,
         size: props.styleSize,
-        showGridlines: props.styleType === "bordered"
+        showGridlines: props.styleType === "bordered",
+        ...cellRender(props.cellRender)
     };
 }

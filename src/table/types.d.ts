@@ -64,4 +64,9 @@ export interface TableProps<T> extends ApiComponentProps,
      * Define se a gerenciamento da tabela vai ser manual ou dinamica
      */
     lazy?: TableLazyProps
+
+    /**
+     * Define se componente `Column` vai ser renderizado todas as vezes que mudar state do selection
+     */
+    cellRender?: boolean
 }
