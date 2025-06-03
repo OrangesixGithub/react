@@ -1,7 +1,7 @@
 {
   "name": "@orangesix/react",
   "type": "module",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "Biblioteca de components React UI.",
   "author": "Luiz Fernando Bernardes de Paula",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "primeicons": "^7.0.0",
     "primereact": "^10.9.6",
     "react": "^19.1.0",
-    "react-dom": "^.1.0",
+    "react-dom": "^19.1.0",
     "sweetalert2": "^11.22.0",
     "sweetalert2-react-content": "^5.1.0",
     "tippy.js": "^6.3.7"
