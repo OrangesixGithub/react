@@ -40,3 +40,5 @@ export const Tabview = ({ ...props }: TabViewProps) => {
         </TabView>
     );
 };
+
+Tabview.displayName = "Tabview";

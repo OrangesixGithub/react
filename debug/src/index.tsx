@@ -1,29 +1,16 @@
 import React, { useState } from "react";
-import { Table } from "../../src/table";
+import { Message } from "../../src/message";
+import { Button } from "../../src/button";
 
 const Root = () => {
-    const [select, setSelect] = useState<any>(null);
-
+    const [visible, setVisible] = useState<boolean>(false);
     return (
         <>
-            <Table column={[
-                { id: "id", header: "Código" },
-                { id: "name", header: "Nome" },
-                {
-                    id: "option",
-                    header: "Opções",
-                    body: data => {
-                        return data?.id === select?.id ? <p>Nando</p> : "-";
-                    }
-                },
-            ]}
-                   data={[
-                       { id: 1, name: "Luiz Fernando" },
-                       { id: 2, name: "Dayana" },
-                       { id: 3, name: "Lara" },
-                   ]}
-                   selection={select}
-                   onSelection={setSelect}/>
+            <Button label="message"
+                    onClick={() => setVisible(!visible)}/>
+            <Message message="teste"
+                     visible={visible}
+                     onVisible={value => setVisible(value)}/>
         </>
     );
 };

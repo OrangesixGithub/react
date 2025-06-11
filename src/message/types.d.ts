@@ -82,6 +82,11 @@ interface MessageModalProps {
      * Define o posicionamento das opções da message
      */
     modalOptionsPosition?: "center" | "start" | "end"
+
+    /**
+     * Define se modal de messagem vai ter botão de fechar
+     */
+    modalClosable?: boolean
 }
 
 /**

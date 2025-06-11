@@ -30,3 +30,5 @@ export function Select<T extends ApiFieldModeProps = "Controlled">(props: Select
         </Box>
     );
 }
+
+Select.displayName = "Select";

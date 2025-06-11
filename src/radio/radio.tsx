@@ -35,3 +35,5 @@ export function Radio<T extends ApiFieldModeProps = "Controlled">(props: RadioPr
         </Box>
     );
 }
+
+Radio.displayName = "Radio";

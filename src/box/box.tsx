@@ -42,3 +42,5 @@ export const Box = ({ children, ...props }: BoxProps) => {
         <div {...attr as any}>{children}</div>
     );
 };
+
+Box.displayName = "Box";

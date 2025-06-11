@@ -45,3 +45,5 @@ export const TablePivot = forwardRef<TablePivotRefProps, TablePivotProps>(
             </Box>
         );
     });
+
+TablePivot.displayName = "TablePivot";

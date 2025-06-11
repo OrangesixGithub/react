@@ -29,3 +29,5 @@ export const Autocomplete = ({ ...props }: AutocompleteProps) => {
         </Box>
     );
 };
+
+Autocomplete.displayName = "Autocomplete";

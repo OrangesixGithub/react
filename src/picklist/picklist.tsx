@@ -53,3 +53,5 @@ export function PickList(props: PickListProps) {
         </Box>
     );
 }
+
+PickList.displayName = "PickList";

@@ -76,3 +76,5 @@ export function Table<T = any>(props: TableProps<T>) {
         </Box>
     );
 }
+
+Table.displayName = "Table";

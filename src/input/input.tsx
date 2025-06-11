@@ -68,3 +68,5 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
         </Box>
     );
 }
+
+Input.displayName = "Input";

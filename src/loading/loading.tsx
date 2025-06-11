@@ -41,3 +41,5 @@ export const Loading = ({ opacity = "0.5", ...props }: LoadingProps) => {
         </div>
     );
 };
+
+Loading.displayName = "Loading";

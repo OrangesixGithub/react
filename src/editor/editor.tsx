@@ -1,12 +1,12 @@
 import { Box } from "../box";
 import { EditorMenu } from "./core";
-import { InputFeedback, InputLabel } from "../api";
 import { EditorProps } from "./types";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
 import { editorBasic, editorFull } from "./const";
+import { InputFeedback, InputLabel } from "../api";
 import React, { useEffect, useState } from "react";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
@@ -84,4 +84,4 @@ export const Editor = ({ options = "basic", iconPrefix = "bi bi-", ...props }: E
     );
 };
 
-export default Editor;
+Editor.displayName = "Editor";

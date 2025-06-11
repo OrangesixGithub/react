@@ -16,7 +16,9 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
     |------------------------------------------
     */
     return (
-        <Modal className="message"
+        <Modal backdrop={true}
+               className="message"
+               closable={props.modalClosable ?? true}
                header={props.title ?? "Confirmação"}
                icon={props.modalIcon ?? "cone-striped"}
                iconPrefix={props.modalIconPrefix ?? "bi bi-"}

@@ -34,3 +34,5 @@ export const Button = ({ ...props }: ButtonProps) => {
                           onClick={props.onClick}/>
     );
 };
+
+Button.displayName = "Button";

@@ -34,3 +34,5 @@ export function Modal(props: ModalProps) {
         </Dialog>
     );
 }
+
+Modal.displayName = "Modal";

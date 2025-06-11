@@ -38,3 +38,5 @@ export function Textarea<T extends ApiFieldModeProps = "Controlled">(props: Text
         </Box>
     );
 }
+
+Textarea.displayName = "Textarea";

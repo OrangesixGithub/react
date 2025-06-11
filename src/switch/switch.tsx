@@ -30,3 +30,5 @@ export function Switch<T extends ApiFieldModeProps = "Controlled">(props: Switch
         </Box>
     );
 }
+
+Switch.displayName = "Switch";

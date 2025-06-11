@@ -98,3 +98,5 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
         </Box>
     );
 }
+
+InputFilter.displayName = "InputFilter";
