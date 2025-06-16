@@ -12,7 +12,7 @@ import { InputLabel, InputProps as getInputProps } from "../api";
 /**
  * Componente - `Input`
  *
- * Um componente versátil que é utilizado para entrada de dados simples.
+ * Um componente versátil utilizado para entrada de dados simples.
  */
 export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputProps<T> & { mode?: T }) {
 
@@ -56,15 +56,21 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
              css={props.css}
              size={props.size ?? "100"}>
             <InputLabel {...props}/>
-            {!props.mode || props.mode === "Controlled"
-                ? <InputControlled core={core}
-                                   masker={mask}
-                                   password={password}
-                                   {...propsCore}/>
-                : <InputHookForm core={core}
-                                 masker={mask}
-                                 password={password}
-                                 {...propsCore}/>}
+            {/*@ts-ignore*/}
+            {props.readonly && props.readonlyType === "label"
+                ? (
+                    //@ts-ignore
+                    <p className="w-100 form-label-readonly">{props.value}</p>
+                )
+                : (!props.mode || props.mode === "Controlled"
+                    ? <InputControlled core={core}
+                                       masker={mask}
+                                       password={password}
+                                       {...propsCore}/>
+                    : <InputHookForm core={core}
+                                     masker={mask}
+                                     password={password}
+                                     {...propsCore}/>)}
         </Box>
     );
 }

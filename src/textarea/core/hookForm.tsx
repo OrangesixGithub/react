@@ -26,6 +26,7 @@ export function TextareaHookForm({ core, ...props }: TextareaProps<"HookForm"> &
                                invalid={!!errors[props.name]}
                                ref={props.ref}
                                required={props.required}
+                               value={field.value ?? ""}
                                onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
                                onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
                 <InputFeedback {...props}

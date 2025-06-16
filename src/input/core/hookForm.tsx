@@ -33,6 +33,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                      invalid={!!errors[props.name]}
                                      readOnly={props.readonly}
                                      required={props.required}
+                                     value={field.value ?? ""}
                                      onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
                                      onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
                         : (props.type === "password"
@@ -43,6 +44,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                         invalid={!!errors[props.name]}
                                         readOnly={props.readonly}
                                         required={props.required}
+                                        value={field.value ?? ""}
                                         onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
                                         onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
                             : <InputText {...core}
@@ -51,6 +53,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                          readOnly={props.readonly}
                                          ref={props.ref}
                                          required={props.required}
+                                         value={field.value ?? ""}
                                          onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
                                          onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>)}
                     <InputFeedback {...props}

@@ -201,6 +201,11 @@ interface ApiFieldReadonlyControlledProps {
     readonly: true
 
     /**
+     * Define o tipo de exibição do input quando for readOnly
+     */
+    readonlyType?: "label" | "field"
+
+    /**
      * Função para alterar o valor do componente controlado
      */
     onChange?: (value: any) => void

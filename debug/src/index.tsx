@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Message } from "../../src/message";
-import { Button } from "../../src/button";
+import React from "react";
+import { Input } from "../../src/input";
+import { useForm } from "react-hook-form";
 
 const Root = () => {
-    const [visible, setVisible] = useState<boolean>(false);
+    const { control } = useForm();
     return (
         <>
-            <Button label="message"
-                    onClick={() => setVisible(!visible)}/>
-            <Message message="teste"
-                     visible={visible}
-                     onVisible={value => setVisible(value)}/>
+            <Input required
+                   control={control}
+                   label="Nando"
+                   mode="HookForm"
+                   name="nando"/>
         </>
     );
 };
