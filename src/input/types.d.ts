@@ -42,7 +42,55 @@ interface InputPasswordProps {
     passwordTemplate?: (props: PasswordProps) => React.ReactNode
 }
 
-interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProps, InputPasswordProps, InputMaskProps {
+interface InputNumberProps {
+
+    /**
+     * Define o tamanho mínimo para input do tipo 'Number'
+     */
+    numberMin?: number
+
+    /**
+     * Define o tamanho máximo para input do tipo 'Number'
+     */
+    numberMax?: number
+
+    /**
+     * Define o modo para input do tipo 'Number'
+     */
+    numberMode?: "decimal" | "currency"
+
+    /**
+     * Define o modo de dinheiro para input do tipo 'Number'
+     */
+    numberCurrency?: "BRL" | string
+
+    /**
+     * Define o prfixo para input do tipo 'Number'
+     */
+    numberPrefix?: string
+
+    /**
+     * Define o sufixo para input do tipo 'Number'
+     */
+    numberSuffix?: string
+
+    /**
+     * Define se separador decimal vai ser exibibo para input do tipo 'Number'
+     */
+    numberDecimalSeparator?: boolean
+
+    /**
+     * Define o mínimo de casas decimais para input do tipo 'Number'
+     */
+    numberMaxFractionDigits?: number
+
+    /**
+     * Define o máximo de casas decimais para input do tipo 'Number'
+     */
+    numberMinFractionDigits?: number
+}
+
+interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProps, InputPasswordProps, InputMaskProps, InputNumberProps {
 
     /**
      * Define o tipo de dados do componente

@@ -38,6 +38,7 @@ const __dependeciesExternal = [
     "primereact/keyfilter",
     "primereact/inputtext",
     "primereact/inputmask",
+    "primereact/inputnumber",
     "primereact/inputswitch",
     "primereact/autocomplete",
     "primereact/inputtextarea",

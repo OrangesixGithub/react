@@ -114,7 +114,7 @@
         .p-tabview-nav-link {
           background: $tabviewHeaderActiveBg;
           border-color: $tabviewHeaderActiveBorderColor;
-          color: $tabviewHeaderTextActiveColor;
+          color: $tabviewHeaderTextActiveColor !important;
         }
       }
     }

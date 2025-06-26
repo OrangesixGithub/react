@@ -2,6 +2,7 @@ import React from "react";
 import { InputProps } from "../types";
 import { InputFeedback } from "../../api";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { Password, PasswordProps } from "primereact/password";
 import { InputMask, InputMaskProps } from "primereact/inputmask";
 
@@ -16,6 +17,7 @@ type Props = {
  * Define o componente controlled
  */
 export function InputControlled({ core, password, masker, ...props }: InputProps<"Controlled"> & Props) {
+    const { type, ...coreNumber } = core;
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -54,20 +56,45 @@ export function InputControlled({ core, password, masker, ...props }: InputProps
                                         props.onChange(event.target.value);
                                     }
                                 }}/>
-                    : <InputText {...core}
-                                 readOnly={props.readonly}
-                                 ref={props.ref}
-                                 value={props.value}
-                                 onBlur={event => {
-                                     if (props.onBlur) {
-                                         props.onBlur(event.target.value);
-                                     }
-                                 }}
-                                 onChange={event => {
-                                     if (props.onChange) {
-                                         props.onChange(event.target.value);
-                                     }
-                                 }}/>)}
+                    : (props.type === "number"
+                            ? <InputNumber {...coreNumber}
+                                           currency={props.numberCurrency ?? "BRL"}
+                                           locale="pt-BR"
+                                           max={props.numberMax}
+                                           maxFractionDigits={props.numberMaxFractionDigits}
+                                           min={props.numberMin}
+                                           minFractionDigits={props.numberMinFractionDigits}
+                                           mode={props.numberMode}
+                                           prefix={props.numberPrefix}
+                                           readOnly={props.readonly}
+                                           suffix={props.numberSuffix}
+                                           useGrouping={props.numberDecimalSeparator ?? false}
+                                           value={props.value}
+                                           onBlur={event => {
+                                               if (props.onBlur) {
+                                                   props.onBlur(event.target.value);
+                                               }
+                                           }}
+                                           onValueChange={event => {
+                                               if (props.onChange) {
+                                                   props.onChange(event.value);
+                                               }
+                                           }}/>
+                            : <InputText {...core}
+                                         readOnly={props.readonly}
+                                         ref={props.ref}
+                                         value={props.value}
+                                         onBlur={event => {
+                                             if (props.onBlur) {
+                                                 props.onBlur(event.target.value);
+                                             }
+                                         }}
+                                         onChange={event => {
+                                             if (props.onChange) {
+                                                 props.onChange(event.target.value);
+                                             }
+                                         }}/>
+                    ))}
             <InputFeedback {...props}/>
         </>
     );
