@@ -26,7 +26,6 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
     */
     return (
         <Controller render={({ field, formState: { errors } }) => {
-            console.log(field);
             return (
                 <>
                     {props.mask !== undefined
@@ -62,6 +61,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                                    minFractionDigits={props.numberMinFractionDigits}
                                                    mode={props.numberMode}
                                                    prefix={props.numberPrefix}
+                                                   pt={{ input: { root: { className: "w-100" } } }}
                                                    readOnly={props.readonly}
                                                    suffix={props.numberSuffix}
                                                    useGrouping={props.numberDecimalSeparator ?? false}

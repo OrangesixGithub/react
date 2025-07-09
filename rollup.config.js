@@ -37,6 +37,7 @@ const __dependeciesExternal = [
     "primereact/datatable",
     "primereact/keyfilter",
     "primereact/inputtext",
+    "primereact/accordion",
     "primereact/inputmask",
     "primereact/inputnumber",
     "primereact/inputswitch",

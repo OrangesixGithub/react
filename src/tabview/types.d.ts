@@ -1,6 +1,6 @@
 import React from "react";
-import { TabPanelHeaderTemplateOptions, TabViewTabChangeEvent, TabViewTabCloseEvent } from "primereact/tabview";
 import { ApiComponentProps, ApiFieldComponentProps } from "../api/types";
+import { TabPanelHeaderTemplateOptions, TabViewTabChangeEvent, TabViewTabCloseEvent } from "primereact/tabview";
 
 export interface TabViewTabProps extends Pick<ApiFieldComponentProps, "iconPrefix" | "icon" | "id" | "disabled"> {
 

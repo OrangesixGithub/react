@@ -2,18 +2,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "npx cypress open",
     "sass-watch": "sass assets/scss:assets/css --watch --no-source-map 2> nul"
   },
   "dependencies": {
-    "@orangesix/react": "^1.3.9-beta.3",
+    "@orangesix/react": "^1.3.9-beta.7",
     "tippy.js": "^6.3.7",
-    "react-hook-form": "^7.58.1"
+    "react-hook-form": "^7.60.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.6.0",
     "sass": "^1.89.2",
-    "vite": "^7.0.0",
+    "vite": "^7.0.3",
     "vite-plugin-commonjs": "^0.10.4"
   }
 }

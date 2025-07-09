@@ -1,19 +1,17 @@
-import React from "react";
-import { Input } from "../../src/input";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { Accordion } from "../../src/accordion";
 
 const Root = () => {
-    const { control } = useForm({
-        defaultValues: { nando: 10 }
-    });
+    const [activeIndex, setActiveIndex] = useState<number[] | number>(0);
     return (
         <>
-            <Input required
-                   control={control}
-                   label="Nando"
-                   mode="HookForm"
-                   name="nando"
-                   type="number"/>
+            <Accordion tabs={[
+                { header: "Nando", content: <p>Nando</p> },
+                { header: "Dayana", content: <p>Nando</p> },
+                { header: "Lara", content: <p>Nando</p> },
+            ]}
+                       activeIndex={activeIndex}
+                       onChange={event => setActiveIndex(event.index)}/>
         </>
     );
 };
