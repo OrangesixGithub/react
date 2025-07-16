@@ -3,5 +3,4 @@ dist/
 node_modules/
 debug/assets/
 debug/build/
-
 package-lock.json
