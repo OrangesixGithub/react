@@ -1,13 +1,11 @@
 import React from "react";
-import { Box } from "../../dist/box";
+import { Box } from "@orangesix-dev/box";
 
 const Root = () => {
     return (
-        <>
-            <Box>
-                <p>nando</p>
-            </Box>
-        </>
+        <Box>
+            <p>nando</p>
+        </Box>
     );
 };
 export default Root;

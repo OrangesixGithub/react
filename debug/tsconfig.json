@@ -16,6 +16,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@orangesix/*": [
+        "../dist/*"
+      ],
+      "@orangesix-dev/*": [
+        "../src/*"
+      ]
+    }
   }
 }

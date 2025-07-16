@@ -6,8 +6,8 @@
   "author": "Luiz Fernando Bernardes de Paula",
   "license": "MIT",
   "scripts": {
-    "dev": "cd debug && npm run dev",
     "build": "vite build",
+    "dev": "cd debug && npm run dev",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
   },
@@ -40,6 +40,7 @@
   "devDependencies": {
     "@stylistic/eslint-plugin-jsx": "^4.4.1",
     "@stylistic/eslint-plugin-ts": "^4.4.1",
+    "@types/jquery": "^3.5.32",
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.1",
     "@vitejs/plugin-react": "^4.6.0",
