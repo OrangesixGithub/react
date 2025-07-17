@@ -40,11 +40,11 @@ function getComponentAssets() {
         .forEach(name => {
             const componentDir = path.join(srcDir, name);
             const scssDir = path.join(componentDir, "scss");
-            const typesFile = path.join(componentDir, "types.d.ts");
+            const scssFile = path.join(componentDir, `_${name}.scss`);
             const packageFile = path.join(componentDir, "package.json");
 
-            if (fs.existsSync(typesFile)) {
-                targets.push({ src: `src/${name}/types.d.ts`, dest: `${name}` });
+            if (fs.existsSync(scssFile)) {
+                targets.push({ src: `src/${name}/_${name}.scss`, dest: `${name}` });
             }
 
             if (fs.existsSync(packageFile)) {
@@ -66,16 +66,11 @@ export default defineConfig({
             targets: getComponentAssets()
         }),
         viteDTS({
-            entryRoot: "src",
+            include: ["src/**/*.{ts,tsx}"],
+            exclude: ["src/**/*.test.ts", "src/**/*.test.tsx"],
             outDir: "dist",
             insertTypesEntry: false,
-            rollupTypes: false,
-            include: ["src/**/*"],
-            exclude: ["**/*.stories.tsx", "**/*.test.tsx"],
-            compilerOptions: {
-                declaration: true,
-                emitDeclarationOnly: true,
-            }
+            copyDtsFiles: true
         })
     ],
     build: {
@@ -95,6 +90,6 @@ export default defineConfig({
         },
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx"]
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".d.ts"]
     }
 });

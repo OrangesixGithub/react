@@ -12,7 +12,7 @@
     "allowJs": true
   },
   "include": [
-    "src/**/*"
+    "src"
   ],
   "exclude": [
     "doc",

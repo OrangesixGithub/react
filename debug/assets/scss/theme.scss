@@ -1,9 +1,3 @@
 @import "variables";
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 @import "../../../dist/style/scss/bootstrap";
-
-.p-picklist {
-  .p-picklist-item {
-    border-bottom: 1px solid $shade100 !important;
-  }
-}

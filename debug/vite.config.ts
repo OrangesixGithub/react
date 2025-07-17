@@ -10,6 +10,7 @@ export default defineConfig({
         alias: {
             "@orangesix": path.resolve(__dirname, "../dist"),
             "@orangesix-dev": path.resolve(__dirname, "../src"),
-        }
+        },
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".d.ts"],
     }
 });

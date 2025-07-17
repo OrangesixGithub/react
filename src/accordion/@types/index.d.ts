@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ApiComponentProps } from "../api/types";
+import { ApiComponentProps } from "../../api/@types/index";
 import { AccordionTabChangeEvent, AccordionTabProps as AccordionTabPrimeReactProps } from "primereact/accordion";
 
 export interface AccordionTabProps {

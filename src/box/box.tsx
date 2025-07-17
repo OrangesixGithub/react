@@ -1,4 +1,4 @@
-import { BoxProps } from "./types";
+import { BoxProps } from "./@types/index";
 import React, { HTMLAttributes } from "react";
 import { classNames } from "primereact/utils";
 
@@ -7,15 +7,6 @@ import { classNames } from "primereact/utils";
  *
  * Um componente versátil que pode ser utilizado para criar seções ou caixas em uma página.
  * Permite personalizar o estilo e o conteúdo através de propriedades.
- *
- * Exemplo de uso:
- * ```tsx
- * <Box align="align-items-center"
- *      justify="justify-content-end"
- *      size="25">
- *   ...conteúdo HTML
- * </Box>
- * ```
  */
 export const Box = ({ children, ...props }: BoxProps) => {
     const css = {
