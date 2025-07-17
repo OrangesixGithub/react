@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@orangesix-dev/box";
+import { Box } from "@orangesix/box";
 
 const Root = () => {
     return (

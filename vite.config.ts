@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
+import viteDTS from "vite-plugin-dts";
 import viteReact from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import viteDynamicImport from "vite-plugin-dynamic-import";
@@ -39,7 +40,12 @@ function getComponentAssets() {
         .forEach(name => {
             const componentDir = path.join(srcDir, name);
             const scssDir = path.join(componentDir, "scss");
+            const typesFile = path.join(componentDir, "types.d.ts");
             const packageFile = path.join(componentDir, "package.json");
+
+            if (fs.existsSync(typesFile)) {
+                targets.push({ src: `src/${name}/types.d.ts`, dest: `${name}` });
+            }
 
             if (fs.existsSync(packageFile)) {
                 targets.push({ src: `src/${name}/package.json`, dest: `${name}` });
@@ -59,6 +65,18 @@ export default defineConfig({
         viteStaticCopy({
             targets: getComponentAssets()
         }),
+        viteDTS({
+            entryRoot: "src",
+            outDir: "dist",
+            insertTypesEntry: false,
+            rollupTypes: false,
+            include: ["src/**/*"],
+            exclude: ["**/*.stories.tsx", "**/*.test.tsx"],
+            compilerOptions: {
+                declaration: true,
+                emitDeclarationOnly: true,
+            }
+        })
     ],
     build: {
         outDir: "dist",

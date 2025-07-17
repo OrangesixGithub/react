@@ -17,6 +17,10 @@
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "paths": {
       "@orangesix/*": [
         "../dist/*"
