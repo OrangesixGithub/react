@@ -1,27 +1,23 @@
-import { AutocompleteProps } from "../types";
-import {
-    AutoCompleteChangeEvent,
-    AutoCompleteCompleteEvent,
-    AutoCompleteProps as AutoCompletePropsPrimeReact, AutoCompleteSelectEvent
-} from "primereact/autocomplete";
+import { AutocompleteProps } from "../@types/index";
+import * as AutoCompletePrimeReact from "primereact/autocomplete";
 
 /**
  * Componente - `Autocomplete`
  *
  * Define as configuração de evento do componente
  */
-export function autocompleteEvent(props: AutocompleteProps): Partial<AutoCompletePropsPrimeReact> {
+export function autocompleteEvent(props: AutocompleteProps): Partial<AutoCompletePrimeReact.AutoCompleteProps> {
     return {
-        completeMethod(event: AutoCompleteCompleteEvent) {
-            props.onSearch(event.query);
-        },
-        onChange(event: AutoCompleteChangeEvent) {
+        onChange(event: AutoCompletePrimeReact.AutoCompleteChangeEvent) {
             props.onChange(event.value);
         },
-        onSelect(event: AutoCompleteSelectEvent) {
+        onSelect(event: AutoCompletePrimeReact.AutoCompleteSelectEvent) {
             if (props.onSelect) {
                 props.onSelect(event.value);
             }
-        }
+        },
+        completeMethod(event: AutoCompletePrimeReact.AutoCompleteCompleteEvent) {
+            props.onSearch(event.query);
+        },
     };
 }

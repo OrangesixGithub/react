@@ -1,5 +1,5 @@
-import { AutocompleteProps } from "../types";
-import { AutoCompleteProps as AutoCompletePropsPrimeReact } from "primereact/autocomplete";
+import { AutocompleteProps } from "../@types/index";
+import * as AutoCompletePrimeReact from "primereact/autocomplete";
 
 /**
  * Componente - `Autocomplete`
@@ -8,11 +8,11 @@ import { AutoCompleteProps as AutoCompletePropsPrimeReact } from "primereact/aut
  */
 export function autocompleCore(
     props: AutocompleteProps
-): Partial<AutoCompletePropsPrimeReact> {
+): Partial<AutoCompletePrimeReact.AutoCompleteProps> {
 
-    const itemTemplate: Partial<AutoCompletePropsPrimeReact> = props.dataTemplate
-        ? { itemTemplate: props.dataTemplate }
-        : {};
+    const itemTemplate: Partial<AutoCompletePrimeReact.AutoCompleteProps> = props.dataTemplate
+        ? { itemTemplate: props.dataTemplate } : {};
+
     return {
         id: props.id,
         field: "name",

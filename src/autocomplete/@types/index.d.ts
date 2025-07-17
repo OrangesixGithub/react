@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiComponentProps, ApiFieldComponentProps } from "../api/types";
+import { ApiComponentProps, ApiFieldComponentProps } from "../../api/@types/index";
 
 export interface AutocompleteDataProps {
     /**
@@ -14,7 +14,6 @@ export interface AutocompleteDataProps {
 }
 
 export interface AutocompleteProps extends ApiComponentProps, ApiFieldComponentProps {
-
     /**
      * Valor padrão
      */
@@ -56,6 +55,11 @@ export interface AutocompleteProps extends ApiComponentProps, ApiFieldComponentP
     searchMax?: number
 
     /**
+     * Executa após a seleção do objeto do autocomplete.
+     */
+    onSelect?: (value: any) => void;
+
+    /**
      * Retorno de chamada a ser invocado quando o valor de preenchimento automático for alterado.
      */
     onChange(value: any): void;
@@ -64,9 +68,4 @@ export interface AutocompleteProps extends ApiComponentProps, ApiFieldComponentP
      * Retorno de chamada para invocar a busca por sugestões.
      */
     onSearch(query: string): void;
-
-    /**
-     * Executa após a seleção do objeto do autocomplete.
-     */
-    onSelect?: (value: any) => void;
 }

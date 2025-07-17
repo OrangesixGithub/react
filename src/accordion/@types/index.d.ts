@@ -1,12 +1,12 @@
 import * as React from "react";
 import { ApiComponentProps } from "../../api/@types/index";
-import { AccordionTabChangeEvent, AccordionTabProps as AccordionTabPrimeReactProps } from "primereact/accordion";
+import * as AccordionPrimeReact from "primereact/accordion";
 
 export interface AccordionTabProps {
     /**
      * Define o cabeçalho de cada accordion
      */
-    header: React.ReactNode | ((props: AccordionTabPrimeReactProps) => React.ReactNode) | string
+    header: React.ReactNode | ((props: AccordionPrimeReact.AccordionTabPrimeReactProps) => React.ReactNode) | string
 
     /**
      * Define o conteudo do accordion
@@ -53,5 +53,5 @@ export interface AccordionProps extends ApiComponentProps {
     /**
      * Função retorna o evento quando o accordion é modificado
      */
-    onChange?: (event: AccordionTabChangeEvent) => void
+    onChange?: (event: AccordionPrimeReact.AccordionTabChangeEvent) => void
 }

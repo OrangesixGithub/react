@@ -6,6 +6,7 @@
     "sass-watch": "sass assets/scss:assets/css --watch --no-source-map 2> nul"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.13.1",
     "react-hook-form": "^7.60.0"
   },
   "devDependencies": {

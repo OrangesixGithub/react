@@ -9,8 +9,6 @@ import * as AccordionPrimeReact from "primereact/accordion";
  * Um componente versátil que pode ser utilizado para agrupar conteúdo em lista.
  */
 export const Accordion = ({ ...props }: AccordionProps) => {
-    const core: AccordionPrimeReact.AccordionProps = props.onChange !== undefined
-        ? { onChange: event => props.onChange(event) } : {};
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -26,7 +24,7 @@ export const Accordion = ({ ...props }: AccordionProps) => {
                                            expandIcon={props.iconCollapse}
                                            id={props.id}
                                            multiple={props.multiple}
-                                           {...core}>
+                                           onTabChange={props.onChange}>
                 {props.tabs.map((item, index) => (
                     <AccordionPrimeReact.AccordionTab className={item.className}
                                                       disabled={item.disabled}
@@ -39,5 +37,4 @@ export const Accordion = ({ ...props }: AccordionProps) => {
         </Box>
     );
 };
-
 Accordion.displayName = "Accordion";
