@@ -1,5 +1,5 @@
 import React from "react";
-import { AlignItemsProps, ApiComponentProps, JustifyContentProps } from "../../api/@types/index";
+import { AlignItemsProps, ApiComponentProps, JustifyContentProps } from "../../api";
 
 export interface BoxProps extends ApiComponentProps {
 

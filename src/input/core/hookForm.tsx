@@ -1,5 +1,5 @@
 import React from "react";
-import { InputProps } from "../types";
+import { InputProps } from "..";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
 import { InputText } from "primereact/inputtext";

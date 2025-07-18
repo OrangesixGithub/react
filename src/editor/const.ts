@@ -1,4 +1,4 @@
-import { EditorOptionsProps } from "./types";
+import { EditorOptionsProps } from ".";
 
 export const editorBasic: EditorOptionsProps = {
     text: true,

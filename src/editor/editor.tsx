@@ -1,6 +1,6 @@
 import { Box } from "../box";
+import { EditorProps } from ".";
 import { EditorMenu } from "./core";
-import { EditorProps } from "./types";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
@@ -83,5 +83,4 @@ export const Editor = ({ options = "basic", iconPrefix = "bi bi-", ...props }: E
         </Box>
     );
 };
-
 Editor.displayName = "Editor";

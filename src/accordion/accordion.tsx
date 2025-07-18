@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "../box";
-import { AccordionProps } from "./@types/index";
+import { AccordionProps } from ".";
 import * as AccordionPrimeReact from "primereact/accordion";
 
 /**

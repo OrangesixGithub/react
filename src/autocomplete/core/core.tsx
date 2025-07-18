@@ -1,4 +1,4 @@
-import { AutocompleteProps } from "../@types/index";
+import { AutocompleteProps } from "..";
 import * as AutoCompletePrimeReact from "primereact/autocomplete";
 
 /**

@@ -6,9 +6,14 @@ import {
     ApiFieldHookFormProps,
     ApiFieldComponentProps,
     ApiFieldControlledProps,
-} from "../api/types";
+} from "../../api";
 
 interface InputMaskProps {
+    /**
+     * Define mascara no campo de dados
+     */
+    mask?: string | "cpf" | "cnpj"
+
     /**
      * Define se campo vai ser limpo se mascara tiver imcompleta
      */
@@ -106,11 +111,6 @@ interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProps, Inpu
      * Define o tamanho do componente
      */
     sizes?: "small" | "large"
-
-    /**
-     * Define mascara no campo de dados
-     */
-    mask?: string | "cpf" | "cnpj"
 }
 
 export type InputProps<T extends ApiFieldModeProps> = T extends "Controlled"

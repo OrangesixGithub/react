@@ -1,4 +1,4 @@
-import { BoxProps } from "./@types/index";
+import { BoxProps } from ".";
 import React, { HTMLAttributes } from "react";
 import { classNames } from "primereact/utils";
 

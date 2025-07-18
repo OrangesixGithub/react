@@ -1,26 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
-    "baseUrl": "./",
     "moduleResolution": "node",
     "jsx": "react",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "noEmitOnError": true,
     "strict": true,
-    "allowJs": true,
-    "checkJs": false,
-    "noImplicitAny": false,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "checkJs": false,
+    "allowJs": true,
     "paths": {
       "@orangesix/*": [
         "../dist/*"

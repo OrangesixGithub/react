@@ -11,7 +11,7 @@ import { Orderlist } from "./orderlist";
 import { Underline } from "./underline";
 import { Highlight } from "./highlight";
 import { Bulletlist } from "./bulletlist";
-import { EditorCoreProps, EditorOptionsProps } from "../types";
+import { EditorCoreProps, EditorOptionsProps } from "..";
 
 /**
  * Core - `Menu`

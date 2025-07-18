@@ -1,12 +1,12 @@
 import React from "react";
 import { Box } from "../box";
-import { InputProps } from "./types";
+import { InputProps } from ".";
+import { ApiFieldModeProps } from "../api";
 import { InputHookForm } from "./core/hookForm";
-import { ApiFieldModeProps } from "../api/types";
 import { PasswordProps } from "primereact/password";
 import { InputControlled } from "./core/controlled";
-import { InputTextProps } from "primereact/inputtext";
 import { InputMaskProps } from "primereact/inputmask";
+import { InputTextProps } from "primereact/inputtext";
 import { InputLabel, InputProps as getInputProps } from "../api";
 
 /**

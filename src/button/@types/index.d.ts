@@ -1,5 +1,5 @@
 import { Ref } from "react";
-import { ApiComponentProps } from "../api/types";
+import { ApiComponentProps, ColorProps } from "../../api";
 
 export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
     /**
@@ -65,7 +65,7 @@ export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
     /**
      * Define a cor do botão
      */
-    color?: "secondary" | "success" | "info" | "warning" | "danger" | "help" | "contrast";
+    color?: ColorProps
 
     /**
      * Evento de click dentro do botão

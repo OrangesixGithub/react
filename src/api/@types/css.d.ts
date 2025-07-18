@@ -87,4 +87,6 @@ export type ColorProps =
     "gray" |
     "info" |
     "dark" |
+    "help" |
+    "contrast" |
     "white";

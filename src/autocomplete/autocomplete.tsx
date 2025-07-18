@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "../box";
 import { InputLabel } from "../api";
+import { AutocompleteProps } from ".";
 import { autocompleCore } from "./core/core";
 import { autocompleteEvent } from "./core/event";
-import { AutocompleteProps } from "./@types/index";
 import * as AutoCompletePrimeReact from "primereact/autocomplete";
 
 /**

@@ -1,4 +1,4 @@
-import { EditorCoreProps } from "../types";
+import { EditorCoreProps } from "..";
 import React, { useEffect, useState } from "react";
 
 /**

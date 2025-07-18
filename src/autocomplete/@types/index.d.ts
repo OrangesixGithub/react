@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiComponentProps, ApiFieldComponentProps } from "../../api/@types/index";
+import { ApiComponentProps, ApiFieldComponentProps } from "../../api";
 
 export interface AutocompleteDataProps {
     /**

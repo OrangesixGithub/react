@@ -1,5 +1,5 @@
 import React from "react";
-import { EditorCoreProps } from "../types";
+import { EditorCoreProps } from "..";
 
 /**
  * Core - `Code`

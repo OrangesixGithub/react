@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiComponentProps, ApiFieldComponentProps } from "./@types/index";
+import { ApiComponentProps, ApiFieldComponentProps } from ".";
 
 /**
  * API - `InputLabel`

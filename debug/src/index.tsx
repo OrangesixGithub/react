@@ -1,29 +1,25 @@
 import React, { useState } from "react";
 
 import { Box } from "@orangesix/box";
-import { Accordion } from "@orangesix/accordion";
-import { Autocomplete, AutocompleteDataProps } from "@orangesix/autocomplete";
+import { Input } from "@orangesix/input";
+import { Editor } from "@orangesix/editor";
 
 const Root = () => {
-    const [data, setData] = useState<AutocompleteDataProps[]>([]);
-    const [value, setValue] = useState<any>(null);
+    const [value, setValue] = useState<any>("");
 
-    console.log(value);
     return (
         <Box className="bg-light rounded">
-            <Accordion tabs={[
-                { header: "Luiz Fernando", content: <></> },
-                { header: "Lara", content: <></> }
-            ]}/>
-            <Autocomplete required
-                          data={data}
-                          icon="house"
-                          label="Cliente"
-                          value={value}
-                          onSearch={() => setData([
-                              { code: 1, name: "Nando" }
-                          ])}
-                          onChange={setValue}/>
+            <Editor required
+                    icon="pen"
+                    label="Editor"
+                    options="full"
+                    value={value}
+                    onChange={setValue}/>
+            <Input required
+                   icon="gear"
+                   label="Field"
+                   value={value}
+                   onChange={setValue}/>
         </Box>
     );
 };
