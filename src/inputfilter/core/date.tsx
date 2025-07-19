@@ -1,5 +1,5 @@
 import React from "react";
-import { InputFilterCoreProps, InputFilterOptionsMap } from "../types";
+import { InputFilterCoreProps, InputFilterOptionsMap } from "..";
 import { handleGetValueDate, handleSetValueDate } from "../function/handle";
 
 /**

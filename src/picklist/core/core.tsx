@@ -1,7 +1,7 @@
 import React from "react";
 import { Checkbox } from "primereact/checkbox";
-import { PickListDataProps, PickListProps } from "../types";
-import { PickListProps as PickListPrimeProps } from "primereact/picklist";
+import { PickListDataProps, PickListProps } from "..";
+import * as PickListPrimeReact from "primereact/picklist";
 
 /**
  * `Template`
@@ -26,7 +26,7 @@ function pickListItemTemplate(
  */
 export function pickListCore(
     props: PickListProps
-): PickListPrimeProps {
+): PickListPrimeReact.PickListProps {
     return {
         dataKey: props.dataKey ?? "id",
         showSourceControls: false,

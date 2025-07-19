@@ -1,5 +1,5 @@
 import * as Webdatarocks from "./webdatarocks";
-import { ApiComponentProps } from "../api/types";
+import { ApiComponentProps } from "../../api";
 
 export interface TablePivotProps extends ApiComponentProps {
     /**

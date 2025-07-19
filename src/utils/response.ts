@@ -1,7 +1,7 @@
 import $ from "jquery";
 import { sendMessage } from "./message";
 import { getElementDOM } from "./helper";
-import { IUtilsResponseType, IUtilsResponseError } from "./types";
+import { IUtilsResponseType, IUtilsResponseError } from ".";
 
 /**
  * Realizei o gerenciamento do objeto de resposta

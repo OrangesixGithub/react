@@ -1,5 +1,5 @@
 import React from "react";
-import { TextareaProps } from "../types";
+import { TextareaProps } from "..";
 import { InputFeedback } from "../../api";
 import { InputTextarea, InputTextareaProps } from "primereact/inputtextarea";
 

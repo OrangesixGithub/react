@@ -1,5 +1,5 @@
 import React from "react";
-import { SwitchProps } from "../types";
+import { SwitchProps } from "..";
 import { InputFeedback } from "../../api";
 import { InputSwitch } from "primereact/inputswitch";
 

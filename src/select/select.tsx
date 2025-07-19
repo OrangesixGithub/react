@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "../box";
 import { InputLabel } from "../api";
-import { SelectProps } from "./types";
-import { ApiFieldModeProps } from "../api/types";
+import { SelectProps } from ".";
+import { ApiFieldModeProps } from "../api";
 import { SelectHookForm } from "./core/hookForm";
 import { SelectControlled } from "./core/controlled";
 

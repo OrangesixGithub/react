@@ -1,4 +1,4 @@
-import { TableProps } from "./types";
+import { TableProps } from ".";
 import { classNames } from "primereact/utils";
 import { DataTablePassThroughOptions } from "primereact/datatable";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { SelectProps } from "../types";
+import { SelectProps } from "..";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
 

@@ -8,7 +8,7 @@ import { classNames } from "primereact/utils";
 import { Autocomplete } from "./core/autocomplete";
 import React, { useState, useEffect } from "react";
 import { optionsDefault, optionsLabel } from "./const";
-import { InputFilterOptionsMap, InputFilterProps } from "./types";
+import { InputFilterOptionsMap, InputFilterProps } from ".";
 
 /**
  * Componente - `InputFilter`

@@ -1,5 +1,5 @@
 import React from "react";
-import { TextareaProps } from "../types";
+import { TextareaProps } from "..";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
 import { InputTextarea, InputTextareaProps } from "primereact/inputtextarea";
@@ -36,6 +36,5 @@ export function TextareaHookForm({ core, ...props }: TextareaProps<"HookForm"> &
                     control={props.control}
                     name={props.name}
                     rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
-
     );
 }

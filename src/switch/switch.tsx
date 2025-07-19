@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "../box";
+import { SwitchProps } from ".";
 import { InputLabel } from "../api";
-import { SwitchProps } from "./types";
-import { ApiFieldModeProps } from "../api/types";
+import { ApiFieldModeProps } from "../api";
 import { SwitchHookForm } from "./core/hookForm";
 import { SwitchControlled } from "./core/controlled";
 

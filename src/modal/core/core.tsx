@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalProps } from "../types";
+import { ModalProps } from "..";
 import { DialogProps } from "primereact/dialog";
 
 /**

@@ -1,7 +1,7 @@
 import React from "react";
 import { handleNumber } from "../../utils";
 import { handleGetValueNumber } from "../function/handle";
-import { InputFilterCoreProps, InputFilterOptionsMap } from "../types";
+import { InputFilterCoreProps, InputFilterOptionsMap } from "..";
 
 /**
  * Core - `Number`

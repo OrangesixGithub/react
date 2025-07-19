@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "../../box";
+import { MessageProps } from "..";
 import { Modal } from "../../modal";
 import { Button } from "../../button";
-import { MessageProps } from "../types";
-import { JustifyContentProps } from "../../api/types";
+import { JustifyContentProps } from "../../api";
 
 /**
  * Core - `ModalMessage`

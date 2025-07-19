@@ -1,11 +1,29 @@
+import React from "react";
 import {
     ApiComponentProps,
     ApiFieldModeProps,
     ApiFieldHookFormProps,
     ApiFieldComponentProps,
     ApiFieldControlledProps,
-} from "../api/types";
-import React from "react";
+} from "../../api";
+
+export type SelectOptionsProps = {
+
+    /**
+     * Define o ID da opção
+     */
+    id: any
+
+    /**
+     * Define a label da opção
+     */
+    name: string;
+
+    /**
+     * Define se seleção do elemento está desabilitada
+     */
+    disabled?: boolean;
+};
 
 interface SelectBaseProps extends ApiComponentProps, ApiFieldComponentProps {
 
@@ -29,24 +47,6 @@ interface SelectBaseProps extends ApiComponentProps, ApiFieldComponentProps {
      */
     sizes?: "small" | "large"
 }
-
-export type SelectOptionsProps = {
-
-    /**
-     * Define o ID da opção
-     */
-    id: any
-
-    /**
-     * Define a label da opção
-     */
-    name: string;
-
-    /**
-     * Define se seleção do elemento está desabilitada
-     */
-    disabled?: boolean;
-};
 
 export type SelectProps<T extends ApiFieldModeProps> = T extends "Controlled"
     ? SelectBaseProps & ApiFieldControlledProps

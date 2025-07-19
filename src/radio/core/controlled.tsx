@@ -1,4 +1,4 @@
-import { RadioProps } from "../types";
+import { RadioProps } from "..";
 import React, { Fragment } from "react";
 import { InputFeedback } from "../../api";
 

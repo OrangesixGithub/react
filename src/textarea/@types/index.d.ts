@@ -1,12 +1,11 @@
 import React from "react";
-import { KeyFilterType } from "primereact/keyfilter";
 import {
     ApiComponentProps,
     ApiFieldModeProps,
     ApiFieldHookFormProps,
     ApiFieldComponentProps,
     ApiFieldControlledProps,
-} from "../api/types";
+} from "../../api";
 
 interface TextareaBaseProps extends ApiComponentProps, ApiFieldComponentProps {
 

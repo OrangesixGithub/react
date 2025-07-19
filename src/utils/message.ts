@@ -1,6 +1,6 @@
 import Snackbar from "node-snackbar";
+import { IUtilsMessage, IUtilsMessageOptions } from ".";
 import SweetAlert, { SweetAlertOptions } from "sweetalert2";
-import { IUtilsMessage, IUtilsMessageOptions } from "./types";
 
 /**
  * Envia a mensagem para o evento da janela

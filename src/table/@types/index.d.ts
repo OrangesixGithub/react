@@ -1,15 +1,15 @@
-import { TableSortProps } from "./@types/sort";
-import { TableGroupProps } from "./@types/group";
+import { TableSortProps } from "./sort";
+import { TableEditProps } from "./edit";
+import { TableStyleProps } from "./style";
+import { TableClickProps } from "./click";
+import { TableGroupProps } from "./group";
+import { TableColumnProps } from "./column";
+import { TableReorderProps } from "./reorder";
+import { ApiComponentProps } from "../../api";
+import { TableTemplateProps } from "./template";
 import { SortOrder } from "primereact/datatable";
-import { ApiComponentProps } from "../api/types";
-import { TableStyleProps } from "./@types/style";
-import { TableColumnProps } from "./@types/column";
-import { TableTemplateProps } from "./@types/template";
-import { TableSelectionProps } from "./@types/selection";
-import { TablePaginationProps } from "./@types/pagination";
-import { TableReorderProps } from "./@types/reorder";
-import { TableClickProps } from "./@types/click";
-import { TableEditProps } from "./@types/edit";
+import { TableSelectionProps } from "./selection";
+import { TablePaginationProps } from "./pagination";
 
 export type TableLazyProps = {
 

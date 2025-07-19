@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ModalProps } from "./types";
+import { ModalProps } from ".";
 import { modalCore } from "./core/core";
+import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
 
 /**

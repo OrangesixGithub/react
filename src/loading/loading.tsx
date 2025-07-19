@@ -1,4 +1,4 @@
-import { LoadingProps } from "./types";
+import { LoadingProps } from ".";
 import React, { HTMLAttributes } from "react";
 import { classNames } from "primereact/utils";
 

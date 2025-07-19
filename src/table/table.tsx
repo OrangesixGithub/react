@@ -1,5 +1,5 @@
 import { Box } from "../box";
-import { TableProps } from "./types";
+import { TableProps } from ".";
 import React, { useState } from "react";
 import { tableCore } from "./core/core";
 import { tableSort } from "./core/sort";

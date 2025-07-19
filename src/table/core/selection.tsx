@@ -1,4 +1,4 @@
-import { TableProps } from "../types";
+import { TableProps } from "..";
 import { DataTableProps, DataTableSelectionSingleChangeEvent } from "primereact/datatable";
 
 /**

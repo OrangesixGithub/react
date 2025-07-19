@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE, TOKEN } from "./const";
 import { messageFieldClear, response } from "./response";
-import { IUtilsRequestPostOptions, IUtilsResponseType } from "./types";
+import { IUtilsRequestPostOptions, IUtilsResponseType } from ".";
 
 /**
  * Simplifica a solicitação POST HTTP usando a biblioteca axios

@@ -1,29 +1,3 @@
-import { SweetAlertOptions } from "sweetalert2";
-
-/**
- * Retorna os tipos do arquivo <b>request.ts</b>
- *
- * @module utils
- * @author Luiz Fernando Bernardes de Paula
- */
-export interface IUtilsRequestPostOptions {
-
-    /**
-     * Blocks multiple simultaneous requests
-     */
-    blockedToManyRequest?: boolean
-
-    /**
-     * Blocks the execution of the response method upon return from the post.
-     */
-    blockedResponse?: boolean
-
-    /**
-     * Replace the BASE url with the absolute url provided
-     */
-    url?: string
-}
-
 /**
  * Retorna os tipos do arquivo <b>helper.ts</b>
  *
@@ -78,22 +52,4 @@ export interface IUtilsResponseMessage {
     message?: string
     text?: string
     icon?: string
-}
-
-/**
- * Retorna os tipos do arquivo <b>message.ts</b>
- *
- * @module utils
- * @author Luiz Fernando Bernardes de Paula
- */
-export interface IUtilsMessage<T extends keyof IUtilsMessageOptions> {
-    message: IUtilsResponseMessage,
-    type?: "toast" | "message",
-    options?: IUtilsMessageOptions[T],
-    library?: keyof IUtilsMessageOptions
-}
-
-export interface IUtilsMessageOptions {
-    sweetAlert: SweetAlertOptions,
-    snackbar: SnackbarOptions
 }

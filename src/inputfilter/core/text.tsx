@@ -1,6 +1,6 @@
 import React from "react";
 import { handleGetValueText } from "../function/handle";
-import { InputFilterCoreProps, InputFilterOptionsMap } from "../types";
+import { InputFilterCoreProps, InputFilterOptionsMap } from "..";
 
 /**
  * Core - `Text`

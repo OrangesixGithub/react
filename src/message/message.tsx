@@ -1,6 +1,6 @@
 import React from "react";
 import { ModalMessage } from "./core/modal";
-import { MessageModeProps, MessageProps } from "./types";
+import { MessageModeProps, MessageProps } from ".";
 
 /**
  * Componente - `Message`

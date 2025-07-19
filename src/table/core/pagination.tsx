@@ -1,5 +1,5 @@
 import React from "react";
-import { TableProps } from "../types";
+import { TableProps } from "..";
 import { DataTableBaseProps, DataTableStateEvent } from "primereact/datatable";
 
 /**

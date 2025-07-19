@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioProps } from "../types";
+import { RadioProps } from "..";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
 

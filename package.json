@@ -8,6 +8,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "cd debug && npm run dev",
+    "test": "vitest",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
   },
@@ -50,7 +51,9 @@
     "vite": "^7.0.4",
     "vite-plugin-commonjs": "^0.10.4",
     "vite-plugin-dts": "^4.5.4",
-    "vite-plugin-static-copy": "^3.1.1"
+    "vite-plugin-static-copy": "^3.1.1",
+    "vitest": "^3.2.4",
+    "vitest-browser-react": "^0.1.1"
   },
   "peerDependencies": {
     "react-hook-form": "^7.60.0"

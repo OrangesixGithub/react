@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "../box";
-import { TextareaProps } from "./types";
+import { TextareaProps } from ".";
+import { ApiFieldModeProps } from "../api";
 import { InputLabel, InputProps } from "../api";
-import { ApiFieldModeProps } from "../api/types";
 import { TextareaHookForm } from "./core/hookForm";
 import { TextareaControlled } from "./core/controlled";
 import { InputTextareaProps } from "primereact/inputtextarea";

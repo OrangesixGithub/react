@@ -1,8 +1,8 @@
 import { Box } from "../box";
 import React, { forwardRef } from "react";
 import { translation } from "./lang/pt-br";
+import { TablePivotProps, TablePivotRefProps } from ".";
 import { handleToolbarOptions } from "./function/handle";
-import { TablePivotProps, TablePivotRefProps } from "./types";
 import * as WebDataRocksReact from "@webdatarocks/react-webdatarocks";
 
 /**
@@ -12,7 +12,6 @@ import * as WebDataRocksReact from "@webdatarocks/react-webdatarocks";
  */
 export const TablePivot = forwardRef<TablePivotRefProps, TablePivotProps>(
     ({ toolbar = true, id = "pivotTable", ...props }, ref) => {
-
         /*
         |------------------------------------------
         | render() - Renderização do componente

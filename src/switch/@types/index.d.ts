@@ -4,7 +4,7 @@ import {
     ApiFieldHookFormProps,
     ApiFieldComponentProps,
     ApiFieldControlledProps,
-} from "../api/types";
+} from "../../api";
 
 interface SwitchBaseProps extends ApiComponentProps, ApiFieldComponentProps {
     /**

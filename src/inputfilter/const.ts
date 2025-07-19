@@ -1,4 +1,4 @@
-import { InputFilterOptionsMap, InputFilterOptionsProps } from "./types";
+import { InputFilterOptionsMap, InputFilterOptionsProps } from ".";
 
 export const optionsDefault: Array<InputFilterOptionsMap["text"]> = ["=", "!=", "%", "!%"];
 

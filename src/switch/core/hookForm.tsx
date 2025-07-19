@@ -1,5 +1,5 @@
 import React from "react";
-import { SwitchProps } from "../types";
+import { SwitchProps } from "..";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
 import { InputSwitch } from "primereact/inputswitch";

@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "../box";
-import { RadioProps } from "./types";
+import { RadioProps } from ".";
+import { ApiFieldModeProps } from "../api";
 import { InputLabel, InputProps } from "../api";
 import { RadioHookForm } from "./core/hookForm";
-import { ApiFieldModeProps } from "../api/types";
 import { RadioControlled } from "./core/controlled";
 
 /**

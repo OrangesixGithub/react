@@ -1,7 +1,7 @@
 import $ from "jquery";
 import axios from "axios";
 import { message } from "./message";
-import { IUtilsHelperResponse } from "./types";
+import { IUtilsHelperResponse } from ".";
 
 /**
  * Realiza a pesquisa do elemento html na DOM<br>

@@ -1,4 +1,4 @@
-import { AlignItemsProps, ApiColorProps, ApiComponentProps, JustifyContentProps } from "../api/types";
+import { AlignItemsProps, ColorProps, ApiComponentProps, JustifyContentProps } from "../../api";
 
 export interface LoadingProps extends Omit<ApiComponentProps, "size" | "id"> {
     /**
@@ -36,7 +36,7 @@ export interface LoadingProps extends Omit<ApiComponentProps, "size" | "id"> {
     /**
      * Define as cores padrão do component
      */
-    color?: ApiColorProps
+    color?: ColorProps
 
     /**
      * Personaliza a propriedade zindex do componente de loading
