@@ -58,6 +58,23 @@ function getComponentAssets() {
     return targets;
 }
 
+/**
+ * Realiza a cópia do package.json principal para a pasta de distribuição do pacote
+ */
+function copyPackageJson() {
+    const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
+    delete packageJson.devDependencies;
+
+    if (!fs.existsSync("./dist")) {
+        fs.mkdirSync("./dist", { recursive: true });
+    }
+
+    fs.writeFileSync(
+        "./dist/package.json",
+        JSON.stringify(packageJson, null, 2)
+    );
+}
+
 export default defineConfig({
     plugins: [
         viteReact(),
@@ -71,7 +88,13 @@ export default defineConfig({
             outDir: "dist",
             insertTypesEntry: false,
             copyDtsFiles: true
-        })
+        }),
+        {
+            name: "copy-package-json",
+            closeBundle() {
+                copyPackageJson();
+            }
+        }
     ],
     build: {
         outDir: "dist",
