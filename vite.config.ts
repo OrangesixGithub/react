@@ -63,7 +63,23 @@ function getComponentAssets() {
  */
 function copyPackageJson() {
     const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
-    delete packageJson.devDependencies;
+    const Package = {
+        "name": "@orangesix/react",
+        "version": packageJson.version,
+        "private": false,
+        "author": "Luiz Fernando Bernardes de Paula",
+        "description": "Biblioteca de components React UI.",
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/Nandovga/orangesix-react.git"
+        },
+        "license": "MIT",
+        "bugs": {
+            "url": "https://github.com/Nandovga/orangesix-react/issues"
+        },
+        "dependencies": packageJson.dependencies,
+        "peerDependencies": packageJson.peerDependencies,
+    };
 
     if (!fs.existsSync("./dist")) {
         fs.mkdirSync("./dist", { recursive: true });
@@ -71,7 +87,7 @@ function copyPackageJson() {
 
     fs.writeFileSync(
         "./dist/package.json",
-        JSON.stringify(packageJson, null, 2)
+        JSON.stringify(Package, null, 2)
     );
 }
 

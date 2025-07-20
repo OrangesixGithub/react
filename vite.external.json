@@ -1,9 +1,10 @@
 {
   "external": [
     "react",
+    "react-dom",
+    "react/jsx-runtime",
     "axios",
     "jquery",
-    "react-dom",
     "bootstrap",
     "sweetalert2",
     "node-snackbar",
@@ -35,6 +36,7 @@
     "@tiptap/extension-link",
     "@tiptap/extension-image",
     "@tiptap/extension-highlight",
-    "@tiptap/extension-color"
+    "@tiptap/extension-color",
+    "react-hook-form"
   ]
 }

@@ -8,7 +8,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            "@orangesix": path.resolve(__dirname, "../dist"),
+            "@orangesix": path.resolve(__dirname, "./node_modules/@orangesix/react"),
             "@orangesix-dev": path.resolve(__dirname, "../src"),
         },
         extensions: [".ts", ".tsx", ".js", ".jsx", ".d.ts"],
