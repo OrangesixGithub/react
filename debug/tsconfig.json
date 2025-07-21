@@ -11,11 +11,11 @@
     "checkJs": false,
     "allowJs": true,
     "paths": {
-      "@orangesix/*": [
-        "../dist/*"
-      ],
       "@orangesix-dev/*": [
         "../src/*"
+      ],
+      "@orangesix/*": [
+        "./node_modules/@orangesix/react/*"
       ]
     }
   }

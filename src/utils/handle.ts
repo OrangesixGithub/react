@@ -42,8 +42,13 @@ export function handleHours(valor: string): string {
     value = parts.join(".");
     if (value.length > 2) {
         value = value.substring(0, value.length - 2) + ":" + value.substring(value.length - 2);
+    } else {
+        value = value + ":00";
     }
-    return value;
+    let hours = value.replace(".", "");
+    let hoursParts = hours.split(":");
+    hoursParts[0] = hoursParts[0].padStart(2, "0");
+    return `${hoursParts[0]}:${hoursParts[1]}`;
 }
 
 /**

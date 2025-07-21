@@ -6,9 +6,9 @@
   "author": "Luiz Fernando Bernardes de Paula",
   "license": "MIT",
   "scripts": {
-    "build": "vite build",
+    "build": "vitest run && vite build",
     "dev": "cd debug && npm run dev",
-    "test": "vitest",
+    "test": "vitest --ui",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
   },
@@ -45,15 +45,16 @@
     "@types/node": "^24.0.14",
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.1",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "@vitest/ui": "^3.2.4",
     "eslint": "^9.30.1",
+    "jsdom": "^26.1.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.4",
     "vite-plugin-commonjs": "^0.10.4",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-static-copy": "^3.1.1",
-    "vitest": "^3.2.4",
-    "vitest-browser-react": "^0.1.1"
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "react-hook-form": "^7.60.0"

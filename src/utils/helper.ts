@@ -18,8 +18,21 @@ export function getMetaContent(id: string): string | null {
  */
 export async function getCep(value: string): Promise<IUtilsHelperResponse["gep_cep"]> {
     let cep = value.length === 0 ? "00000000" : value.replace("-", "");
-    return await axios.get<IUtilsHelperResponse["gep_cep"]>("https://viacep.com.br/ws/" + cep + "/json/")
-        .then(data => data.data);
+    try {
+        return await axios.get<IUtilsHelperResponse["gep_cep"]>("https://viacep.com.br/ws/" + cep + "/json/")
+            .then(data => data.data);
+    } catch (error) {
+        return new Promise((resolve) => {
+            resolve({
+                cep: "",
+                logradouro: "",
+                complemento: "",
+                bairro: "",
+                localidade: "",
+                uf: ""
+            });
+        });
+    }
 }
 
 /**
