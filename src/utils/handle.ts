@@ -34,11 +34,9 @@ export function handleNumber(
 export function handleHours(valor: string): string {
     let value = valor.replace(/[^\d.]/g, "");
     const parts = value.split(".");
-
     if (parts.length > 1) {
         parts[1] = parts[1].substring(0, 2);
     }
-
     value = parts.join(".");
     if (value.length > 2) {
         value = value.substring(0, value.length - 2) + ":" + value.substring(value.length - 2);

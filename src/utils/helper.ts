@@ -38,7 +38,7 @@ export async function getCep(value: string): Promise<IUtilsHelperResponse["gep_c
 /**
  * Realiza a pesquisa do elemento na árvore DOM
  */
-export function getElementDOM(element?: string, preloadTimeOut?: number): Promise<null | JQuery<HTMLElement>> {
+export async function getElementDOM(element?: string, preloadTimeOut?: number): Promise<null | JQuery<HTMLElement>> {
     return new Promise((resolve) => {
         // @ts-ignore
         let body = window.self === window.top ? $("body") : $(window.frameElement).parents("body");

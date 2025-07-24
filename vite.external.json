@@ -2,6 +2,7 @@
   "external": [
     "react",
     "react-dom",
+    "react-pdf",
     "react/jsx-runtime",
     "axios",
     "jquery",

@@ -40,6 +40,8 @@ function getComponentAssets() {
         .forEach(name => {
             const componentDir = path.join(srcDir, name);
             const scssDir = path.join(componentDir, "scss");
+            const cssDir = path.join(componentDir, "style");
+
             const scssFile = path.join(componentDir, `_${name}.scss`);
             const packageFile = path.join(componentDir, "package.json");
 
@@ -53,6 +55,10 @@ function getComponentAssets() {
 
             if (fs.existsSync(scssDir) && fs.statSync(scssDir).isDirectory()) {
                 targets.push({ src: `src/${name}/scss/**/*`, dest: `${name}/scss` });
+            }
+
+            if (fs.existsSync(cssDir) && fs.statSync(cssDir).isDirectory()) {
+                targets.push({ src: `src/${name}/style/**/*`, dest: `${name}/style` });
             }
         });
     return targets;

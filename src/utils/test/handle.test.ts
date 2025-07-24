@@ -1,5 +1,5 @@
-import { describe, expect, test } from "vitest";
 import * as Handle from "../handle";
+import { describe, expect, test } from "vitest";
 
 describe("Utils -> Handle", function () {
     test("handleHours() -> Verificar se os formatos de horas estão corretos", function () {
@@ -8,6 +8,11 @@ describe("Utils -> Handle", function () {
         expect(Handle.handleHours("2.10")).toBe("02:10");
         expect(Handle.handleHours("0.10")).toBe("00:10");
         expect(Handle.handleHours("200.10")).toBe("200:10");
+        expect(Handle.handleHours("1H")).toBe("01:00");
+        expect(Handle.handleHours("1H.20M")).toBe("01:20");
+        expect(Handle.handleHours("1H,20M")).toBe("01:20");
+        expect(Handle.handleHours("horas")).toBe("00:00");
+        expect(Handle.handleHours("true")).toBe("00:00");
     });
 
     test("handleNumber() -> Verificar se formatação do valor numérico para o formato decimal ou monetário estão corretas", function () {

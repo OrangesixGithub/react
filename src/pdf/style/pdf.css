@@ -1,0 +1,54 @@
+.pdf {
+    position: relative;
+    width: 100%;
+}
+
+.pdf .pdf-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 10px 0;
+    position: relative;
+}
+
+.pdf .pdf-container .react-pdf__Document {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pdf .pdf-container .react-pdf__Page {
+    margin: .5em 0;
+    box-shadow: 0 30px 40px 0 rgba(16, 36, 94, .2);
+}
+
+.pdf .pdf-container .pdf-pagination {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    background: #fff;
+    opacity: 0;
+    transform: translate(-50%);
+    transition: opacity ease-in-out .2s;
+    box-shadow: 0 30px 40px 0 rgba(16, 36, 94, .2);
+    border-radius: 5px;
+    z-index: 2;
+    font-size: .9em;
+}
+
+.pdf .pdf-container .pdf-pagination.active {
+    opacity: 1;
+    transform: translate(-50%);
+    transition: opacity ease-in-out .2s;
+}
+
+.pdf .pdf-container .pdf-pagination .pdf-page {
+    width: 44px;
+    height: 44px;
+    background: #fff;
+    border: 0;
+    font: inherit;
+    border-radius: 5px;
+}
