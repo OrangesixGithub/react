@@ -3,6 +3,7 @@
     "react",
     "react-dom",
     "react-pdf",
+    "react-hook-form",
     "react/jsx-runtime",
     "axios",
     "jquery",
@@ -37,7 +38,6 @@
     "@tiptap/extension-link",
     "@tiptap/extension-image",
     "@tiptap/extension-highlight",
-    "@tiptap/extension-color",
-    "react-hook-form"
+    "@tiptap/extension-color"
   ]
 }

@@ -70,3 +70,5 @@ export interface TableProps<T> extends ApiComponentProps,
      */
     cellRender?: boolean
 }
+
+export * from "./column";

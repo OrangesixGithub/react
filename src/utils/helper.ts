@@ -4,13 +4,21 @@ import { message } from "./message";
 import { IUtilsHelperResponse } from ".";
 
 /**
- * Realiza a pesquisa do elemento html na DOM<br>
+ * Realiza a pesquisa do content das tag meta na HEAD da DOM
  * <meta id="???" name="???" content="your-url">
  */
 export function getMetaContent(id: string): string | null {
-    let element: any = document.getElementById(id);
-    let url: null | string = element === null ? null : (element.content).replace(".br/", ".br");
-    return url === null ? null : url.substr(-1) === "/" ? url.slice(0, url.length - 1) : url;
+    const element = document.querySelector(`meta#${id}`);
+    if (!element) {
+        return null;
+    }
+
+    const content = element.getAttribute("content");
+    if (!content) {
+        return null;
+    }
+
+    return content.replace(/\/$/, "");
 }
 
 /**
@@ -38,33 +46,33 @@ export async function getCep(value: string): Promise<IUtilsHelperResponse["gep_c
 /**
  * Realiza a pesquisa do elemento na árvore DOM
  */
-export async function getElementDOM(element?: string, preloadTimeOut?: number): Promise<null | JQuery<HTMLElement>> {
+export async function getElementDOM<T>(
+    element: string = "body",
+    preloadTimeOut: number = 300,
+    all: boolean = false
+): Promise<T | null> {
     return new Promise((resolve) => {
         // @ts-ignore
         let body = window.self === window.top ? $("body") : $(window.frameElement).parents("body");
-        if (!element || element.length === 0) {
-            resolve(body);
+        if (element === "body") {
+            resolve(all ? body : body[0]);
         }
 
-        if (element === "#" || element === ".") {
-            resolve(null);
-        }
-
-        let elementFound = body.find(element);
-        if (elementFound.length > 0) {
-            resolve(elementFound);
+        let elementFind = body.find(element);
+        if (elementFind.length > 0) {
+            resolve(all ? elementFind : elementFind[0]);
         } else {
             setTimeout(() => {
                 let iframe = body.find("iframe").contents();
                 if (iframe.length === 0) {
                     resolve(null);
                 }
-                elementFound = iframe.find(element);
-                if (elementFound.length > 0) {
-                    resolve(elementFound);
+                elementFind = iframe.find(element);
+                if (elementFind.length > 0) {
+                    resolve(all ? elementFind : elementFind[0]);
                 }
                 resolve(null);
-            }, preloadTimeOut ?? 300);
+            }, preloadTimeOut);
         }
     });
 }

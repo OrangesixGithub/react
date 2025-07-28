@@ -1,3 +1,4 @@
+import $ from "jquery";
 import * as Helpers from "../helper";
 import { beforeEach, describe, expect, test } from "vitest";
 
@@ -7,18 +8,7 @@ describe("Utils -> Helper", function () {
         document.body.innerHTML = "";
     });
 
-    test("getMetaContent() -> Valida o retorno da função está de acordo com o conteúdo tag 'Meta' na DOM.", function () {
-        const metaID = "test";
-        const metaContent = "http://localhost";
-        const metaElement = document.createElement("meta");
-        metaElement.id = metaID;
-        metaElement.content = metaContent;
-        document.head.appendChild(metaElement);
-
-        expect(Helpers.getMetaContent(metaID)).toBe(metaContent);
-    });
-
-    test("getCep() -> Valida se o retorno da função está correto.", async function () {
+    test("getCep() -> Valida se o retorno da função retorna os dados do cep informado.", async function () {
         const cep = await Helpers.getCep("37048060");
         const cepError = await Helpers.getCep("000");
 
@@ -28,18 +18,27 @@ describe("Utils -> Helper", function () {
         expect(cepError?.logradouro).toBe("");
     });
 
-    test("getElementDOM() -> Valida se o retorno da função está correto", async function () {
-        const button = document.createElement("button");
-        const a = document.createElement("a");
-        a.id = "a-test";
-        button.id = "button-test";
-        document.body.appendChild(a);
-        document.body.appendChild(button);
+    test("getMetaContent() -> Valida o retorno da função está de acordo com o conteúdo tag 'Meta' na DOM.", function () {
+        $("head").append(`
+            <meta id="test" name="test" content="http://localhost">
+        `);
+        expect(Helpers.getMetaContent("test")).toBe("http://localhost");
+    });
 
-        let element1 = await Helpers.getElementDOM("#a-test");
-        let element2 = await Helpers.getElementDOM("#not-found");
+    test("getElementDOM() -> Valida se o retorno da função retorna o elementos HTML.", async function () {
+        $("body").append(`
+            <a id="a-test" href="http://localhost">Link 1</a>
+            <a id="a-test2" href="http://localhost">Link 2</a>
+        `);
 
-        // expect(element1?.[0]).toBeInstanceOf(HTMLAnchorElement);
-        // expect(element2?.[0]).toBe(null);
+        let body = await Helpers.getElementDOM<HTMLBodyElement>();
+        let notFound = await Helpers.getElementDOM<null>("#not-found");
+        let a = await Helpers.getElementDOM<HTMLAnchorElement>("#a-test");
+        let a2 = await Helpers.getElementDOM<HTMLAnchorElement[]>("a", 300, true);
+
+        expect(body).toBeInstanceOf(HTMLBodyElement);
+        expect(notFound).toBe(null);
+        expect(a?.href).toBe("http://localhost/");
+        expect(a2?.length).toBe(2);
     });
 });
