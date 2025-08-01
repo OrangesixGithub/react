@@ -44,13 +44,13 @@ export function messageField(
     form: string = "",
     type: string = "is-invalid"
 ): void {
-    tabViewActiveError(form, data);
-    getElementDOM("#" + form)
+    getElementDOM<HTMLFormElement>("#" + form)
         .then(formulario => {
             if (formulario === null) {
                 return;
             }
 
+            let form = $(formulario);
             let validationFeedbackClass: string = type === "is-invalid" ? "invalid-feedback" : "valid-feedback";
             let removeValidationFeedbackClass: string = type === "is-invalid" ? "is-valid" : "is-invalid";
 
@@ -58,7 +58,7 @@ export function messageField(
                 let text = "";
                 value.forEach(value => text += value + "<br>");
 
-                formulario.find("input[name='" + key + "']")
+                form.find("input[name='" + key + "']")
                     .addClass(type)
                     .parent()
                     .find("#j_feedback[data-name='" + key + "']")
@@ -66,7 +66,7 @@ export function messageField(
                     .removeClass(removeValidationFeedbackClass)
                     .html(text);
 
-                formulario.find("input[name='" + key + "']")
+                form.find("input[name='" + key + "']")
                     .addClass(type)
                     .parent()
                     .parent()
@@ -75,7 +75,7 @@ export function messageField(
                     .removeClass(removeValidationFeedbackClass)
                     .html(text);
 
-                formulario.find("input[name='" + key + "']")
+                form.find("input[name='" + key + "']")
                     .addClass(type)
                     .parent()
                     .parent()
@@ -85,7 +85,7 @@ export function messageField(
                     .removeClass(removeValidationFeedbackClass)
                     .html(text);
 
-                formulario.find("select[name='" + key + "']")
+                form.find("select[name='" + key + "']")
                     .addClass(type)
                     .parent()
                     .find("#j_feedback[data-name='" + key + "']")
@@ -93,7 +93,7 @@ export function messageField(
                     .removeClass(removeValidationFeedbackClass)
                     .html(text);
 
-                formulario.find("textarea[name='" + key + "']")
+                form.find("textarea[name='" + key + "']")
                     .addClass(type)
                     .parent()
                     .find("#j_feedback[data-name='" + key + "']")
@@ -101,7 +101,7 @@ export function messageField(
                     .removeClass(removeValidationFeedbackClass)
                     .html(text);
 
-                formulario.find("#j_feedback[data-name='" + key + "']")
+                form.find("#j_feedback[data-name='" + key + "']")
                     .addClass(type)
                     .html(text);
             });
@@ -114,16 +114,17 @@ export function messageField(
 export function messageFieldClear(
     form: string = ""
 ): void {
-    getElementDOM("#" + form)
+    getElementDOM<HTMLFormElement>("#" + form)
         .then(formulario => {
             if (formulario === null) {
                 return;
             }
 
+            let form = $(formulario);
             let validationClass: string[] = ["is-invalid", "is-valid", "p-invalid"];
             let validationFeedbackClass: string[] = ["invalid-feedback", "valid-feedback"];
 
-            $.each(formulario.find("input"), function () {
+            $.each(form.find("input"), function () {
                 $(this)
                     .removeClass(validationClass)
                     .parent()
@@ -149,7 +150,7 @@ export function messageFieldClear(
                     .html("");
             });
 
-            $.each(formulario.find("select"), function () {
+            $.each(form.find("select"), function () {
                 $(this)
                     .removeClass(validationClass)
                     .parent()
@@ -158,7 +159,7 @@ export function messageFieldClear(
                     .html("");
             });
 
-            $.each(formulario.find("textarea"), function () {
+            $.each(form.find("textarea"), function () {
                 $(this)
                     .removeClass(validationClass)
                     .parent()
@@ -167,41 +168,8 @@ export function messageFieldClear(
                     .html("");
             });
 
-            $.each(formulario.find("#j_feedback"), function () {
+            $.each(form.find("#j_feedback"), function () {
                 $(this).removeClass(validationClass).html("");
-            });
-        });
-}
-
-/**
- * Ativa o TabView quando o campo apresenta erro
- */
-export function tabViewActiveError(
-    form: string = "",
-    errors: IUtilsResponseError
-): void {
-    getElementDOM("#" + form)
-        .then(TabView => {
-            if (TabView === null) {
-                return;
-            }
-
-            let fieldError = Object.keys(errors)[0];
-
-            let TabViewSelected = TabView.find("*[id='" + fieldError + "']").closest(".tab-pane");
-            let TabViewSelectedId = TabViewSelected.attr("id");
-            let TabViewNav = TabViewSelected.parent().parent().find(".nav");
-
-            TabViewSelected.parent(".tab-content").children(".tab-pane").each(function (_, value) {
-                if (typeof value !== "undefined") {
-                    if ($(value).attr("id") === TabViewSelectedId) {
-                        $(value).addClass("show active");
-                        TabViewNav.find("button[data-bs-target='#" + TabViewSelectedId + "']").addClass("active show");
-                    } else {
-                        $(value).removeClass("show active");
-                        TabViewNav.find("button[data-bs-target='#" + $(value).attr("id") + "']").removeClass("active");
-                    }
-                }
             });
         });
 }
