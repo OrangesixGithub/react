@@ -38,7 +38,10 @@ export function post<TypeDataResponse = IUtilsResponseType<any>>(
 /**
  * Bloqueia várias solicitações simultâneas
  */
-function handleToManyRequest(url: string, blocked: boolean): void {
+function handleToManyRequest(
+    url: string,
+    blocked: boolean
+): void {
     let requestCount = 0;
     axios.interceptors.request.use(config => {
         requestCount = requestCount + 1;

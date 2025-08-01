@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
 import { Box } from "@orangesix/box";
+import React, { useEffect } from "react";
 import { Input } from "@orangesix/input";
 import { messageField } from "@orangesix-dev/utils";
 
