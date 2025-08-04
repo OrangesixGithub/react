@@ -1,39 +1,16 @@
-import { Box } from "@orangesix/box";
-import React, { useEffect } from "react";
-import { Input } from "@orangesix/input";
-import { messageField } from "@orangesix-dev/utils";
+import React, { useState } from "react";
+import { Box } from "@orangesix-dev/box";
+import { Editor } from "@orangesix-dev/editor";
 
 const Root = () => {
-
-    useEffect(() => {
-        setTimeout(() => {
-            messageField({
-                "password": [
-                    "A senha informada está incorreta."
-                ]
-            }, "manager");
-        }, 300);
-    }, []);
+    const [v, setV] = useState("");
 
     return (
         <Box className="bg-light p-0 m-0"
              size="100">
-            <form id="manager">
-                <Input required
-                       icon="gear"
-                       label="Login"
-                       name="input"
-                       value=""
-                       onChange={console.log}/>
-                <Input passwordShow
-                       required
-                       icon="gear"
-                       label="Senha"
-                       name="password"
-                       type="password"
-                       value=""
-                       onChange={console.log}/>
-            </form>
+            <Editor options="full"
+                    value={v}
+                    onChange={setV}/>
         </Box>
     );
 };

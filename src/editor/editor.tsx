@@ -10,7 +10,7 @@ import { InputFeedback, InputLabel } from "../api";
 import React, { useEffect, useState } from "react";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
-import TextStyle from "@tiptap/extension-text-style";
+import { TextStyle } from "@tiptap/extension-text-style";
 import { EditorContent as EditorTipTap, useEditor } from "@tiptap/react";
 
 /**
