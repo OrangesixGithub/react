@@ -9,6 +9,7 @@ import * as TabViewPrimeReact from "primereact/tabview";
  */
 export const Tabview = ({ ...props }: TabViewProps) => {
 
+    console.log(props.className);
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -17,7 +18,7 @@ export const Tabview = ({ ...props }: TabViewProps) => {
     return (
         <TabViewPrimeReact.TabView
             activeIndex={props.tabIndex}
-            className={`${props.className ? "" : props.className} w-100`}
+            className={"w-100 " + (props.className ?? "")}
             id={props.id}
             renderActiveOnly={props.tabActiveRender ?? true}
             onTabChange={props.onChange}
@@ -26,7 +27,7 @@ export const Tabview = ({ ...props }: TabViewProps) => {
                 let positionIcon = item.iconPosition === undefined || item.iconPosition === "left"
                     ? { leftIcon: `${(item.iconPrefix === undefined ? "bi bi-" : "pi pi-")}${item.icon} me-1` }
                     : { rightIcon: `${(item.iconPrefix === undefined ? "bi bi-" : "pi pi-")}${item.icon} ms-1` };
-                
+
                 return (
                     <TabViewPrimeReact.TabPanel
                         closable={item.closed}

@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@orangesix-dev/box";
-import { Editor } from "@orangesix-dev/editor";
+import { Tabview } from "@orangesix-dev/tabview";
 
 const Root = () => {
-    const [v, setV] = useState("");
-
     return (
         <Box className="bg-light p-0 m-0"
              size="100">
-            <Editor options="full"
-                    value={v}
-                    onChange={setV}/>
+            <Tabview tabs={[
+                { tab: "register", icon: "house", content: <></> }
+            ]}/>
         </Box>
     );
 };
