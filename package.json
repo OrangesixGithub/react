@@ -1,7 +1,7 @@
 {
   "name": "@orangesix/react",
   "type": "module",
-  "version": "2.0.1-beta.7",
+  "version": "2.0.1-beta.8",
   "description": "Biblioteca de components React UI.",
   "author": "Luiz Fernando Bernardes de Paula",
   "license": "MIT",
@@ -28,6 +28,7 @@
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
     "bootstrap-icons": "^1.13.1",
+    "date-fns": "^4.1.0",
     "jquery": "^3.7.1",
     "node-snackbar": "^0.1.16",
     "primeicons": "^7.0.0",

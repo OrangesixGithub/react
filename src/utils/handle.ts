@@ -1,3 +1,6 @@
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 /**
  * Formata um valor numérico para o formato decimal ou monetário.
  *
@@ -61,4 +64,35 @@ export function handleDateNow(): string {
     const mes = String(hoje.getMonth() + 1).padStart(2, "0");
     const dia = String(hoje.getDate()).padStart(2, "0");
     return `${ano}-${mes}-${dia}`;
+}
+
+/**
+ * Realiza formatação de data em vários formatos
+ * @param date
+ * @param pattern
+ */
+export function handleDateFormat(
+    date: string,
+    pattern: string = "dd/MM/yyyy"
+): string {
+    try {
+        let formattedDate: Date;
+
+        if (pattern.includes("HH") || pattern.includes("mm") || pattern.includes("ss")) {
+            const [datePart, timePart] = date.split(/[T ]/);
+            const [year, month, day] = datePart.split("-").map(Number);
+            const [hour, minute, second] = timePart ? timePart.split(":").map(Number) : [0, 0];
+
+            formattedDate = new Date(year, month - 1, day, hour, minute, second);
+        } else {
+            const [datePart] = date.split(/[T ]/);
+            const [year, month, day] = datePart.split("-").map(Number);
+
+            formattedDate = new Date(year, month - 1, day);
+        }
+
+        return format(formattedDate, pattern, { locale: ptBR });
+    } catch (error) {
+        return "-";
+    }
 }

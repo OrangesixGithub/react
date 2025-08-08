@@ -24,4 +24,13 @@ describe("Utils -> Handle", function () {
         expect(Handle.handleNumber("1,20", "money")).toBe("R$ 1,20");
         expect(Handle.handleNumber("200,2024", "money")).toBe("R$ 200,20");
     });
+
+    test("handleDateFormat() -> Verificar se formatação da data estão sendo retornadas corretas", function () {
+        expect(Handle.handleDateFormat("format_error",)).toBe("-");
+        expect(Handle.handleDateFormat("2025-07-31")).toBe("31/07/2025");
+        expect(Handle.handleDateFormat("2025-07-31T00:00:00.000Z")).toBe("31/07/2025");
+        expect(Handle.handleDateFormat("2025-07-31T00:00:00.000Z", "yyyy-MM-dd")).toBe("2025-07-31");
+        expect(Handle.handleDateFormat("2025-07-31 08:00:00", "dd/MM/yyyy HH:mm")).toBe("31/07/2025 08:00");
+        expect(Handle.handleDateFormat("2025-07-31 08:00:25", "dd/MM/yyyy HH:mm:ss")).toBe("31/07/2025 08:00:25");
+    });
 });

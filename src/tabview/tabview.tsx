@@ -8,8 +8,6 @@ import * as TabViewPrimeReact from "primereact/tabview";
  * Um componente versátil que pode ser utilizado para agrupar conteúdo com guias.
  */
 export const Tabview = ({ ...props }: TabViewProps) => {
-
-    console.log(props.className);
     /*
     |------------------------------------------
     | render() - Renderização do componente

@@ -38,6 +38,7 @@
     "@tiptap/extension-link",
     "@tiptap/extension-image",
     "@tiptap/extension-highlight",
-    "@tiptap/extension-color"
+    "@tiptap/extension-color",
+    "date-fns"
   ]
 }
