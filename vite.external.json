@@ -16,6 +16,7 @@
     "primereact/editor",
     "primereact/column",
     "primereact/button",
+    "primereact/tooltip",
     "primereact/picklist",
     "primereact/checkbox",
     "primereact/tabview",
@@ -23,6 +24,7 @@
     "primereact/datatable",
     "primereact/keyfilter",
     "primereact/inputtext",
+    "primereact/accordion",
     "primereact/accordion",
     "primereact/inputmask",
     "primereact/inputnumber",
@@ -39,6 +41,7 @@
     "@tiptap/extension-image",
     "@tiptap/extension-highlight",
     "@tiptap/extension-color",
-    "date-fns"
+    "date-fns",
+    "date-fns/locale"
   ]
 }
