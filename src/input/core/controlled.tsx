@@ -29,6 +29,7 @@ export function InputControlled({ core, password, masker, ...props }: InputProps
                 ? <InputMask {...core}
                              {...masker}
                              readOnly={props.readonly}
+                             ref={props.ref}
                              value={props.value}
                              onBlur={event => {
                                  if (props.onBlur) {
@@ -45,6 +46,7 @@ export function InputControlled({ core, password, masker, ...props }: InputProps
                                 {...password}
                                 autoComplete="current-password"
                                 readOnly={props.readonly}
+                                ref={props.ref}
                                 value={props.value}
                                 onBlur={event => {
                                     if (props.onBlur) {
@@ -68,6 +70,7 @@ export function InputControlled({ core, password, masker, ...props }: InputProps
                                            prefix={props.numberPrefix}
                                            pt={{ input: { root: { className: "w-100" } } }}
                                            readOnly={props.readonly}
+                                           ref={props.ref}
                                            suffix={props.numberSuffix}
                                            useGrouping={props.numberDecimalSeparator ?? false}
                                            value={props.value}

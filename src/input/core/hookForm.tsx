@@ -34,6 +34,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                      {...masker}
                                      invalid={!!errors[props.name]}
                                      readOnly={props.readonly}
+                                     ref={props.ref}
                                      required={props.required}
                                      value={field.value ?? ""}
                                      onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
@@ -45,6 +46,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                         autoComplete="current-password"
                                         invalid={!!errors[props.name]}
                                         readOnly={props.readonly}
+                                        ref={props.ref}
                                         required={props.required}
                                         value={field.value ?? ""}
                                         onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
@@ -63,6 +65,7 @@ export function InputHookForm({ core, password, masker, ...props }: InputProps<"
                                                    prefix={props.numberPrefix}
                                                    pt={{ input: { root: { className: "w-100" } } }}
                                                    readOnly={props.readonly}
+                                                   ref={props.ref}
                                                    suffix={props.numberSuffix}
                                                    useGrouping={props.numberDecimalSeparator ?? false}
                                                    value={field.value ?? ""}
