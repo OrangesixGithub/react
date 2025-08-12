@@ -8,8 +8,8 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
 
-    # Verifica se está na branch master
-    if: github.ref == 'refs/heads/master'
+    #    # Verifica se está na branch master
+    #    if: github.ref == 'refs/heads/master'
 
     steps:
       # Fazendo Checkout do código
