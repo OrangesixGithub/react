@@ -33,6 +33,6 @@ jobs:
       # Publica pacote no NPM
       - name: Publicar no NPM
         working-directory: ./dist
-        run: npm publish
+        run: npm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
