@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: '22.x'
           registry-url: 'https://registry.npmjs.org/'
+          scope: '@orangesix'
 
       # Instalando dependências
       - name: Instalar dependências
@@ -34,7 +35,8 @@ jobs:
       # Publica pacote no NPM
       - name: Publicar no NPM
         working-directory: ./dist
-        run: npm publish --tag beta
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
