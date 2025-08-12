@@ -22,12 +22,13 @@ jobs:
         with:
           node-version: '22.x'
           registry-url: 'https://registry.npmjs.org/'
+          scope: '@orangesix'
 
       # Autencicar no NPM
       - name: Configurar NPM Auth
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "@orangesix=https://registry.npmjs.org/" >> ~/.npmrc
 
       # Instalando dependências
       - name: Instalar dependências
