@@ -24,4 +24,4 @@ jobs:
 
       # Instalando dependências
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
