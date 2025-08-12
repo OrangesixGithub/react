@@ -24,6 +24,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           scope: '@orangesix'
 
+      # Autencicar no NPM
+      - name: Configurar NPM Auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          npm config set access public          
+
       # Instalando dependências
       - name: Instalar dependências
         run: npm install
@@ -35,8 +42,4 @@ jobs:
       # Publica pacote no NPM
       - name: Publicar no NPM
         working-directory: ./dist
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm publish --tag beta
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag beta
