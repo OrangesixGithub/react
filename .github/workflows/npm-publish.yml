@@ -1,0 +1,27 @@
+name: Build and Published NPM Package
+
+on:
+  push:
+    branches: [ master, "2.0.0" ]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    # Verifica se está na branch master
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      # Fazendo Checkout do código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Instalando NodeJs
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      # Instalando dependências
+      - name: Instalar dependências
+        run: npm ci
