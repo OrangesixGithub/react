@@ -25,3 +25,15 @@ jobs:
       # Instalando dependências
       - name: Instalar dependências
         run: npm ci
+
+      # Executando build dos components
+      - name: Build
+        run: npm run build
+
+      # Publica pacote no NPM
+      - name: Publicar no NPM
+        working-directory: ./dist
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
