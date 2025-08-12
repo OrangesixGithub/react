@@ -4,10 +4,6 @@ on:
   push:
     branches: [ master, "2.0.0" ]
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -28,10 +24,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
 
       # Autencicar no NPM
-      #      - name: Configurar NPM Auth
-      #        run: |
-      #          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
-      #          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+      - name: Configurar NPM Auth
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
 
       # Instalando dependências
       - name: Instalar dependências
@@ -43,5 +40,7 @@ jobs:
 
       # Publica pacote no NPM
       - name: Publicar no NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./dist
         run: npm publish --tag beta
