@@ -24,7 +24,7 @@ jobs:
 
       # Instalando dependências
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
 
       # Executando build dos components
       - name: Build
@@ -36,4 +36,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
