@@ -29,6 +29,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
           echo "@orangesix=https://registry.npmjs.org/" >> ~/.npmrc
+          npm config set access public
 
       # Instalando dependências
       - name: Instalar dependências
@@ -40,5 +41,9 @@ jobs:
 
       # Publica pacote no NPM
       - name: Publicar no NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./dist
-        run: npm publish --tag beta
+        run: |
+          npm config set access public
+          npm publish --access public --tag beta --verbose
