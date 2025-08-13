@@ -3,14 +3,17 @@ name: Generate Release
 on:
   push:
     tags: [ '*.*.*' ]
-    branches: [ master, beta ]
+    branches: [ master ]
 
 jobs:
-  build-and-publish:
+  generate-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: read
+
+    # Verifica se está na branch master
+    if: github.ref == 'refs/heads/master'
 
     steps:
       # Fazendo Checkout do código
