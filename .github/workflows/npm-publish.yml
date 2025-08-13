@@ -4,6 +4,10 @@ on:
   push:
     branches: [ master, "2.0.0" ]
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -21,12 +25,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org/'
-          scope: '@orangesix'
 
       # Autencicar no NPM
-      - name: Configurar NPM Auth
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      #      - name: Configurar NPM Auth
+      #        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       # Instalando dependências
       - name: Instalar dependências
@@ -39,6 +41,4 @@ jobs:
       # Publica pacote no NPM
       - name: Publicar no NPM
         working-directory: ./dist
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --tag beta
+        run: npm publish --tag beta --provenance
