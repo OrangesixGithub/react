@@ -44,7 +44,7 @@ jobs:
           # Verifica se a versão anterior existe
           if npm view "${PACKAGE_NAME}@${PREV_VERSION}" version &>/dev/null; then
             echo "Removendo versão anterior: ${PACKAGE_NAME}@${PREV_VERSION}"
-            npm unpublish "${PACKAGE_NAME}@${PREV_VERSION} --force"
+            npm unpublish "${PACKAGE_NAME}@${PREV_VERSION}" --force
           else
             echo "Versão anterior ${PREV_VERSION} não encontrada"
           fi
