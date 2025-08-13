@@ -2,9 +2,11 @@ import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
 import viteDTS from "vite-plugin-dts";
-import viteReact from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import viteDynamicImport from "vite-plugin-dynamic-import";
+
+// @ts-ignore
+import viteReact from "@vitejs/plugin-react";
 
 /**
  * Obtém a entrada de cada componente da UI através do arquivo `./src/???/index.ts` e realizar o mapeamento para
@@ -77,11 +79,11 @@ function copyPackageJson() {
         "description": "Biblioteca de components React UI.",
         "repository": {
             "type": "git",
-            "url": "https://github.com/Nandovga/orangesix-react.git"
+            "url": "https://github.com/OrangesixGithub/react"
         },
         "license": "MIT",
         "bugs": {
-            "url": "https://github.com/Nandovga/orangesix-react/issues"
+            "url": "https://github.com/OrangesixGithub/react/issues"
         },
         "dependencies": packageJson.dependencies,
         "peerDependencies": packageJson.peerDependencies,

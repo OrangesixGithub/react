@@ -25,7 +25,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       # Instalando dependências
-      - name: Instalar dependências
+      - name: Install dependencies
         run: npm install
 
       # Executando build dos components
@@ -33,7 +33,7 @@ jobs:
         run: npm run build
 
       # Publica pacote no NPM
-      - name: Publicar no NPM
+      - name: Publish NPM
         working-directory: ./dist
         run: npm publish
         env:

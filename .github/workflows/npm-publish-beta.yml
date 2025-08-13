@@ -24,7 +24,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       # Instalando dependências
-      - name: Instalar dependências
+      - name: Install dependencies
         run: npm install
 
       # Executando build dos components
@@ -32,7 +32,7 @@ jobs:
         run: npm run build
 
       # Verifica e remove versão beta anterior
-      - name: Verificar e remover versão beta anterior
+      - name: Check and remove previous beta version
         working-directory: ./dist
         run: |
           PACKAGE_NAME=$(node -p "require('./package.json').name")
@@ -52,7 +52,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # Publica pacote no NPM
-      - name: Publicar no NPM
+      - name: Publish NPM - BETA
         working-directory: ./dist
         run: npm publish --tag beta
         env:
