@@ -13,7 +13,7 @@ jobs:
       issues: read
 
     # Verifica se está na branch master
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
 
     steps:
       # Fazendo Checkout do código
@@ -26,7 +26,9 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const tag = context.ref.replace('refs/tags/', '');
+            const tag = context.ref.startsWith('refs/tags/') 
+            ? context.ref.replace('refs/tags/', '')
+            : context.ref_name;
             
             const milestones = await github.rest.issues.listMilestones({
               owner: context.repo.owner,
@@ -35,7 +37,7 @@ jobs:
             });
             
             const milestone = milestones.data.find(m => m.title === tag);
-            if (!milestone) return '';
+            if (!milestone) return 'No milestone found for this tag';
             
             const issues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
@@ -44,19 +46,21 @@ jobs:
               state: 'all'
             });
             
-            const issuesList = issues.data
+            if (issues.data.length === 0) return 'No issues found in this milestone';
+            
+            return issues.data
               .map(issue => `#${issue.number} - ${issue.title}`)
               .join('\n');
-            
-            return issuesList;
 
       # Realiza a criação do release
       - name: Create Release
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           name: "Release ${{ github.ref_name }}"
           body: |
-            Release in this version
+            Release in this version:
+            
             ${{ steps.get-issues.outputs.result }}
           draft: false
           prerelease: false
