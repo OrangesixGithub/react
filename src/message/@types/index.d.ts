@@ -87,6 +87,11 @@ interface MessageModalProps {
      * Define se modal de messagem vai ter botão de fechar
      */
     modalClosable?: boolean
+
+    /**
+     * Define o zindex da modal de message
+     */
+    modalZIndex?: number
 }
 
 /**
