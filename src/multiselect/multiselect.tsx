@@ -17,8 +17,8 @@ export function MultiSelect<T extends ApiFieldModeProps = "Controlled">(props: M
     let core = props as any;
     let options: MultiSelectPrimeReact.MultiSelectProps = {
         display: props.display ?? "chip",
-        optionLabel: "label",
-        optionValue: "value",
+        optionLabel: props.optionLabel ?? "label",
+        optionValue: props.optionValue ?? "value",
         maxSelectedLabels: 3,
         itemTemplate: props.template?.item,
         panelHeaderTemplate: props.template?.header,

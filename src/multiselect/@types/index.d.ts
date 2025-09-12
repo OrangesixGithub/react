@@ -14,6 +14,16 @@ interface MultiSelectBaseProps extends ApiComponentProps, Omit<ApiFieldComponent
     options: SelectItem[]
 
     /**
+     * Define as opções de label do component
+     */
+    optionLabel?: string
+
+    /**
+     * Define as opções de value do component
+     */
+    optionValue?: string
+
+    /**
      * Define se está estado de carregamento
      */
     loading?: boolean
