@@ -1,16 +1,3 @@
 @import "variables";
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 @import "../../../dist/style/scss/bootstrap";
-
-input.is-invalid {
-  border: 1px solid map-get($theme-colors, 'danger') !important;
-}
-
-input.is-valid {
-  border: 1px solid map-get($theme-colors, 'success') !important;
-}
-
-.is-valid,
-.is-invalid {
-  display: block !important;
-}

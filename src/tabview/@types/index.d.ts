@@ -56,4 +56,9 @@ export interface TabViewTabProps extends Pick<ApiFieldComponentProps, "iconPrefi
      * Define se a tabview vai ter a opção de fechar
      */
     closed?: boolean
+
+    /**
+     * Define se tab vai ser visivel
+     */
+    visible?: boolean
 }

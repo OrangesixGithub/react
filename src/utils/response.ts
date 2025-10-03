@@ -106,6 +106,21 @@ export function messageField(
                         .addClass(type)
                         .html(text);
                 });
+
+                //Realiza a resposta por TABVIEW
+                form.find("#j_feedback." + type).each(function (_, element) {
+                    let tabResponseId = ($(element)
+                        .closest("[class^='p-tabview-response-'], [class*=' p-tabview-response-']")
+                        .attr("class"))?.split(/\s+/)
+                        .find(value => value.startsWith("p-tabview-response-")) ?? null;
+                    let tabResponse = form.find(".p-tabview-nav")
+                        .find("." + tabResponseId)
+                        .not(".p-tabview-selected")
+                        .first();
+                    if (tabResponse.length > 0) {
+                        tabResponse.addClass(type);
+                    }
+                });
             });
     }
 }
@@ -173,6 +188,10 @@ export function messageFieldClear(
 
                 $.each(form.find("#j_feedback"), function () {
                     $(this).removeClass(validationClass).html("");
+                });
+
+                $.each(form.find(".p-tabview-nav"), function () {
+                    $(this).find(".is-invalid").removeClass(validationClass);
                 });
             });
     }
