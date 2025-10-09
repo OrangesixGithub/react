@@ -1,7 +1,7 @@
 {
   "name": "@orangesix/react",
   "type": "module",
-  "version": "2.1.0-beta.7",
+  "version": "2.1.0-beta.8",
   "description": "Biblioteca de components React UI.",
   "author": "Luiz Fernando Bernardes de Paula",
   "license": "MIT",
@@ -14,15 +14,15 @@
   },
   "dependencies": {
     "@tippyjs/react": "^4.2.6",
-    "@tiptap/extension-color": "^3.6.3",
-    "@tiptap/extension-highlight": "^3.6.3",
-    "@tiptap/extension-image": "^3.6.3",
-    "@tiptap/extension-link": "^3.6.3",
-    "@tiptap/extension-text-style": "^3.6.3",
-    "@tiptap/extension-underline": "^3.6.3",
-    "@tiptap/pm": "^3.6.3",
-    "@tiptap/react": "^3.6.3",
-    "@tiptap/starter-kit": "^3.6.3",
+    "@tiptap/extension-color": "^3.6.5",
+    "@tiptap/extension-highlight": "^3.6.5",
+    "@tiptap/extension-image": "^3.6.5",
+    "@tiptap/extension-link": "^3.6.5",
+    "@tiptap/extension-text-style": "^3.6.5",
+    "@tiptap/extension-underline": "^3.6.5",
+    "@tiptap/pm": "^3.6.5",
+    "@tiptap/react": "^3.6.5",
+    "@tiptap/starter-kit": "^3.6.5",
     "@webdatarocks/react-webdatarocks": "^1.4.21",
     "animate.css": "^4.1.1",
     "axios": "^1.12.2",
@@ -35,8 +35,8 @@
     "primereact": "^10.9.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-pdf": "^10.1.0",
-    "sweetalert2": "^11.23.0",
+    "react-pdf": "^10.2.0",
+    "sweetalert2": "^11.25.0",
     "sweetalert2-react-content": "^5.1.0",
     "tippy.js": "^6.3.7"
   },
@@ -44,12 +44,12 @@
     "@stylistic/eslint-plugin-jsx": "^4.4.1",
     "@stylistic/eslint-plugin-ts": "^4.4.1",
     "@types/jquery": "^3.5.33",
-    "@types/node": "^24.6.2",
-    "@typescript-eslint/eslint-plugin": "^8.45.0",
-    "@typescript-eslint/parser": "^8.45.0",
+    "@types/node": "^24.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
     "@vitejs/plugin-react": "^5.0.4",
     "@vitest/ui": "^3.2.4",
-    "eslint": "^9.36.0",
+    "eslint": "^9.37.0",
     "jsdom": "^27.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.1.9",
@@ -59,7 +59,7 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "react-hook-form": "^7.63.0"
+    "react-hook-form": "^7.64.0"
   },
   "files": [
     "dist"
