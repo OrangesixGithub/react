@@ -19,17 +19,18 @@ export const Tooltip = ({ children, ...props }: TooltipProps) => {
     return (
         <>
             <div className={"tooltip-target-" + hash}>
-                <TooltipPrimeReact.Tooltip appendTo={props.renderTo ?? "self"}
-                                           baseZIndex={props.zIndex}
-                                           className={props.className}
-                                           content={props.content}
-                                           disabled={props.disabled}
-                                           event={props.event}
-                                           position={props.position}
-                                           style={props.css}
-                                           target={".tooltip-target-" + hash}
-                                           onHide={props.onHide}
-                                           onShow={props.onShow}/>
+                <TooltipPrimeReact.Tooltip
+                    appendTo={props.renderTo ?? "self"}
+                    baseZIndex={props.zIndex}
+                    className={props.className}
+                    content={props.content}
+                    disabled={props.disabled}
+                    event={props.event}
+                    position={props.position}
+                    style={props.css}
+                    target={".tooltip-target-" + hash}
+                    onHide={props.onHide}
+                    onShow={props.onShow}/>
                 {children}
             </div>
         </>

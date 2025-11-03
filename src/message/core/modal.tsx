@@ -24,6 +24,7 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
                iconPrefix={props.modalIconPrefix ?? "bi bi-"}
                sizes="medium"
                visible={props.visible}
+               zIndex={props.modalZIndex ?? 1000}
                onVisible={props.onVisible}>
             <Box direction="column"
                  size="100">

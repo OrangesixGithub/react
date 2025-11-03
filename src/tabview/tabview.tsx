@@ -28,11 +28,13 @@ export const Tabview = ({ ...props }: TabViewProps) => {
 
                 return (
                     <TabViewPrimeReact.TabPanel
+                        className={"p-tabview-response-" + item.id}
                         closable={item.closed}
                         disabled={item.disabled}
                         header={item.tab}
                         headerTemplate={item.headerTemplate}
                         key={index}
+                        visible={item.visible}
                         {...positionIcon}>
                         {item.content}
                     </TabViewPrimeReact.TabPanel>

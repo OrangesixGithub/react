@@ -6,6 +6,11 @@ export interface TableReorderProps {
     reorder?: "rows" | "columns" | "all"
 
     /**
+     * Define o atributo de ordenação
+     */
+    reorderRowsAttr?: string
+
+    /**
      * Callback para atualizar nova ordem.
      */
     onReorder?(data: Array<{ id: any, order: any }>): void;

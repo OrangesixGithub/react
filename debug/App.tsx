@@ -1,6 +1,7 @@
 import React from "react";
 import Root from "./src";
 import ReactDOM from "react-dom/client";
+import "animate.css/animate.compat.css";
 
 //Libs
 import "./assets/css/theme.css";

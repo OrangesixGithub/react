@@ -12,23 +12,14 @@ export function tableReorder(
 
     function onReorder(e: DataTableRowReorderEvent<any>) {
         if (props.onReorder) {
-            let data: any = e.value;
-            let orders = data.map((item: any) => item.order).sort((a: any, b: any) => a - b);
+            let attr = props.reorderRowsAttr ?? "order";
+            let data: any = [...e.value];
+
             data.forEach((item: any, index: number) => {
-                item.order = orders[index];
+                item[attr] = index + 1;
             });
 
-            if (e.dragIndex < e.dropIndex) {
-                return props.onReorder(data.filter((_: any, index: number) => {
-                    return index >= e.dragIndex && index <= e.dropIndex;
-                }));
-            }
-
-            if (e.dragIndex > e.dropIndex) {
-                return props.onReorder(data.filter((_: any, index: number) => {
-                    return index >= e.dropIndex && index <= e.dragIndex;
-                }));
-            }
+            return props.onReorder(data);
         }
     }
 

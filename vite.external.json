@@ -28,6 +28,7 @@
     "primereact/accordion",
     "primereact/inputmask",
     "primereact/inputnumber",
+    "primereact/multiselect",
     "primereact/inputswitch",
     "primereact/autocomplete",
     "primereact/inputtextarea",

@@ -1,11 +1,12 @@
+import React from "react";
 import { Box } from "../box";
 import { TableProps } from ".";
-import React, { useState } from "react";
 import { tableCore } from "./core/core";
 import { tableSort } from "./core/sort";
 import { tableClick } from "./core/click";
 import { tableGroup } from "./core/group";
 import { Column } from "primereact/column";
+import { tableExpand } from "./core/expand";
 import { tableReorder } from "./core/reorder";
 import { bootstrapTableStyle } from "./styled";
 import { DataTable } from "primereact/datatable";
@@ -19,8 +20,6 @@ import { tablePagination } from "./core/pagination";
  * Permite personalizar o estilo e o conteúdo através de propriedades.
  */
 export function Table<T = any>(props: TableProps<T>) {
-    const [expandedRows, setExpandedRows] = useState([]);
-
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -35,12 +34,20 @@ export function Table<T = any>(props: TableProps<T>) {
                 pt={{ ...bootstrapTableStyle(props) }}
                 tableClassName={props.className}
                 {...tableCore(props)}
+                {...tableGroup(props)}
                 {...tableSort(props)}
                 {...tableClick(props)}
+                {...tableExpand(props)}
                 {...tableReorder(props)}
                 {...tableSelection(props)}
-                {...tablePagination(props)}
-                {...tableGroup(props, expandedRows, setExpandedRows)}>
+                {...tablePagination(props)}>
+                {props.rowExpandable !== undefined && (
+                    <Column align="center"
+                            columnKey="key-fixed-expand"
+                            expander={data => data[props.rowExpandableAttr ?? ""] !== undefined}
+                            field="key-fixed-expand"
+                            headerStyle={{ width: "2.5rem" }}
+                            key="key-fixed-expand"/>)}
                 {(props.reorder === "all" || props.reorder === "rows") && (
                     <Column rowReorder
                             align="center"

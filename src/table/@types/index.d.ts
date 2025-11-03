@@ -3,6 +3,7 @@ import { TableEditProps } from "./edit";
 import { TableStyleProps } from "./style";
 import { TableClickProps } from "./click";
 import { TableGroupProps } from "./group";
+import { TableExpandProps } from "./expand";
 import { TableColumnProps } from "./column";
 import { TableReorderProps } from "./reorder";
 import { ApiComponentProps } from "../../api";
@@ -40,6 +41,7 @@ export interface TableProps<T> extends ApiComponentProps,
     TableStyleProps,
     TableClickProps,
     TableGroupProps,
+    TableExpandProps,
     TableReorderProps,
     TableTemplateProps,
     TableSelectionProps,

@@ -10,11 +10,6 @@ export interface TableGroupProps {
     rowGroupMode?: "subheader" | "rowgroup"
 
     /**
-     * Define se o agrupamento vai ser expandido ou não
-     */
-    rowExpandable?: boolean
-
-    /**
      * Define o template do agrupamento - Header
      */
     rowGroupHeaderTemplate?: any
