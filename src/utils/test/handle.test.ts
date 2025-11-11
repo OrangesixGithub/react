@@ -32,5 +32,8 @@ describe("Utils -> Handle", function () {
         expect(Handle.handleDateFormat("2025-07-31T00:00:00.000Z", "yyyy-MM-dd")).toBe("2025-07-31");
         expect(Handle.handleDateFormat("2025-07-31 08:00:00", "dd/MM/yyyy HH:mm")).toBe("31/07/2025 08:00");
         expect(Handle.handleDateFormat("2025-07-31 08:00:25", "dd/MM/yyyy HH:mm:ss")).toBe("31/07/2025 08:00:25");
+
+        expect(Handle.handleDateFormat(new Date())).toBe("11/11/2025");
+        expect(Handle.handleDateFormat(new Date(), "yyyy-MM-dd")).toBe("2025-11-11");
     });
 });
