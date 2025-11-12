@@ -1,12 +1,12 @@
-import { ApiComponentProps, ApiFieldComponentProps, } from "../../api";
+import {
+    ApiFieldModeProps,
+    ApiComponentProps,
+    ApiFieldHookFormProps,
+    ApiFieldComponentProps,
+    ApiFieldControlledProps,
+} from "../../api";
 
-export interface CalendarProps extends ApiComponentProps, ApiFieldComponentProps {
-
-    /**
-     * Valor inicial do calendar
-     */
-    value: any;
-
+export interface CalendarBaseProps extends ApiComponentProps, ApiFieldComponentProps {
     /**
      * Define o formato do calendário
      */
@@ -26,9 +26,8 @@ export interface CalendarProps extends ApiComponentProps, ApiFieldComponentProps
      * Define o local onde vai ser renderizado calendário
      */
     appendTo?: "self" | HTMLElement | undefined | null | (() => HTMLElement)
-
-    /**
-     * Metodo responsável por alterar o valor do state inicial
-     */
-    onChange(value: any): void
 }
+
+export type CalendarProps<T extends ApiFieldModeProps> = T extends "Controlled"
+    ? CalendarBaseProps & ApiFieldControlledProps
+    : CalendarBaseProps & ApiFieldHookFormProps;

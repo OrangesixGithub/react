@@ -1,29 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@orangesix-dev/box";
-import { Modal } from "@orangesix-dev/modal";
+import { useForm } from "react-hook-form";
 import { Calendar } from "@orangesix-dev/calendar";
 
 const Root = () => {
-    const [value, setValue] = useState<Date | null>(null);
+    const { control, watch } = useForm({ defaultValues: { data: "2025-11-12" } });
 
     return (
         <Box className="bg-light"
             size="100">
-            <Modal
-                header="Calendário"
-                sizes="large"
-                visible={true}
-                onVisible={console.log}>
-                <Calendar
-                    required
-                    icon="calendar-week"
-                    label="Data"
-                    name="data"
-                    placeholder="Data"
-                    size="25"
-                    value={value}
-                    onChange={setValue}/>
-            </Modal>
+            <Calendar
+                required
+                control={control}
+                icon="calendar-week"
+                label="Data"
+                mode="HookForm"
+                name="data"
+                placeholder="Data"
+                size="10"/>
         </Box>
     );
 };
