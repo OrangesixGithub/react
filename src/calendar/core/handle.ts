@@ -17,7 +17,7 @@ export function handleResponse(date: Date | null): string | null {
  * @param date
  */
 export function handleValue(date: string): Date | null {
-    if (typeof date === "object") {
+    if (typeof date === "object" || typeof date === "undefined") {
         return null;
     }
 

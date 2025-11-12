@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Calendar } from "@orangesix-dev/calendar";
 
 const Root = () => {
-    const { control, watch } = useForm({ defaultValues: { data: "2025-11-12" } });
+    const { control } = useForm({ defaultValues: { data: undefined } });
 
     return (
         <Box className="bg-light"
