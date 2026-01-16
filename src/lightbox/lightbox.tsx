@@ -16,7 +16,7 @@ export const Lightbox = ({ html, ...props }: LightboxProps) => {
     */
     return (
         <Box
-            className={`lightbox ${(props.className ?? "")}`}
+            className={props.className}
             css={props.css}
             id={props.id}
             size={props.size}>
