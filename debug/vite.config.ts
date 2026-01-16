@@ -12,5 +12,10 @@ export default defineConfig({
             "@orangesix": path.resolve(__dirname, "./node_modules/@orangesix/react"),
         },
         extensions: [".ts", ".tsx", ".js", ".jsx", ".d.ts"],
+    },
+    server: {
+        fs: {
+            allow: ["C:/laragon/www/orangesix/react"]
+        }
     }
 });

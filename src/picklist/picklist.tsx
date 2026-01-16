@@ -24,9 +24,10 @@ export function PickList(props: PickListProps) {
     |------------------------------------------
     */
     return (
-        <Box className={props.className}
-             css={props.css}
-             size={props.size ?? "100"}>
+        <Box
+            className={props.className}
+            css={props.css}
+            size={props.size ?? "100"}>
             <PickListPrimeReact.PickList
                 className="w-100"
                 source={source}
