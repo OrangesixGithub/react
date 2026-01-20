@@ -30,6 +30,11 @@ export interface PickListProps extends ApiComponentProps, Pick<PickListPrimeReac
     dataKey?: string
 
     /**
+     * Define se componente está desabilitado
+     */
+    disabled?: boolean
+
+    /**
      * Callback executado quando o valor do PickList é alterado
      */
     onChange(value: PickListDataProps[]): void;

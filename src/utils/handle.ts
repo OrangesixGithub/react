@@ -72,10 +72,14 @@ export function handleDateNow(): string {
  * @param pattern
  */
 export function handleDateFormat(
-    date: string,
+    date: string | Date,
     pattern: string = "dd/MM/yyyy"
 ): string {
     try {
+        if (date instanceof Date) {
+            return format(date, pattern, { locale: ptBR });
+        }
+
         let formattedDate: Date;
 
         if (pattern.includes("HH") || pattern.includes("mm") || pattern.includes("ss")) {

@@ -52,9 +52,10 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
     |------------------------------------------
     */
     return (
-        <Box className={props.className}
-             css={props.css}
-             size={props.size ?? "100"}>
+        <Box
+            className={props.className}
+            css={props.css}
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
             {/*@ts-ignore*/}
             {props.readonly && props.readonlyType === "label"
@@ -63,14 +64,16 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
                     <p className="w-100 form-label-readonly">{props.value}</p>
                 )
                 : (!props.mode || props.mode === "Controlled"
-                    ? <InputControlled core={core}
-                                       masker={mask}
-                                       password={password}
-                                       {...propsCore}/>
-                    : <InputHookForm core={core}
-                                     masker={mask}
-                                     password={password}
-                                     {...propsCore}/>)}
+                    ? <InputControlled
+                        core={core}
+                        masker={mask}
+                        password={password}
+                        {...propsCore}/>
+                    : <InputHookForm
+                        core={core}
+                        masker={mask}
+                        password={password}
+                        {...propsCore}/>)}
         </Box>
     );
 }

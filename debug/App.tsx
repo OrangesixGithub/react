@@ -1,6 +1,8 @@
 import React from "react";
 import Root from "./src";
 import ReactDOM from "react-dom/client";
+import "lightbox2/dist/js/lightbox";
+import "lightbox2/dist/css/lightbox.css";
 import "animate.css/animate.compat.css";
 
 //Libs
