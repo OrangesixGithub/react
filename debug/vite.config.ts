@@ -1,5 +1,6 @@
 import * as path from "node:path";
 import { defineConfig } from "vite";
+//@ts-ignore
 import viteReact from "@vitejs/plugin-react";
 
 export default defineConfig({

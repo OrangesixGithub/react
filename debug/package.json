@@ -6,13 +6,19 @@
     "sass-watch": "sass assets/scss:assets/css --watch --no-source-map 2> nul"
   },
   "dependencies": {
-    "@orangesix/react": "^2.2.0-beta.3",
+    "@orangesix/react": "^2.2.0",
     "bootstrap-icons": "^1.13.1",
-    "react-hook-form": "^7.71.1"
+    "react-hook-form": "^7.71.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.7.0",
-    "sass": "^1.97.2",
+    "@vitejs/plugin-react": "^5.1.4",
+    "sass": "^1.97.3",
     "vite": "^7.3.1"
+  },
+  "overrides": {
+    "@webdatarocks/react-webdatarocks": {
+      "react": "19.2.4",
+      "react-dom": "19.2.4"
+    }
   }
 }

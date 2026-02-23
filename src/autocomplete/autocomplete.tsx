@@ -13,9 +13,10 @@ import * as AutoCompletePrimeReact from "primereact/autocomplete";
  */
 export const Autocomplete = ({ ...props }: AutocompleteProps) => {
     return (
-        <Box className={"autocomplete" + (props.className ?? "")}
-             css={props.css}
-             size={props.size ?? "100"}>
+        <Box
+            className={"autocomplete" + (props.className ?? "")}
+            css={props.css}
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
             <AutoCompletePrimeReact.AutoComplete
                 delay={props.searchDelay ?? 500}
@@ -26,7 +27,7 @@ export const Autocomplete = ({ ...props }: AutocompleteProps) => {
                 {...autocompleCore(props)}
                 {...autocompleteEvent(props)}/>
             <div data-name={props.name}
-                 id="j_feedback"/>
+                id="j_feedback"/>
         </Box>
     );
 };
