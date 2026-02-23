@@ -1,7 +1,7 @@
 {
   "name": "@orangesix/react",
   "type": "module",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Biblioteca de components React UI.",
   "author": "Luiz Fernando Bernardes de Paula",
   "license": "MIT",
