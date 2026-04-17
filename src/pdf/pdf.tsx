@@ -35,11 +35,11 @@ export function PDF(props: PDFProps) {
     */
     return (
         <Box className={"pdf " + (props.className ?? "")}
-             css={props.css}
-             id={props.id}
-             size={props.size ?? "100"}>
+            css={props.css}
+            id={props.id}
+            size={props.size ?? "100"}>
             <div className="pdf-container"
-                 ref={pdfContainerRef}>
+                ref={pdfContainerRef}>
                 <ReactPDF.Document
                     file={props.file}
                     options={ReactPDFOptions}
@@ -59,27 +59,27 @@ export function PDF(props: PDFProps) {
                 </ReactPDF.Document>
                 {props.mode === "pagination"
                     && <div className={`pdf-pagination ${active ? "active" : ""}`}
-                            onMouseEnter={event => {
-                                event.preventDefault();
-                                setActive(true);
-                            }}>
+                        onMouseEnter={event => {
+                            event.preventDefault();
+                            setActive(true);
+                        }}>
                         <button className="pdf-page"
-                                disabled={currentPage === 1}
-                                onClick={event => {
-                                    event.preventDefault();
-                                    if (currentPage > 0) {
-                                        setCurrentPage(currentPage - 1);
-                                    }
-                                }}><i className="bi bi-chevron-double-left"/></button>
+                            disabled={currentPage === 1}
+                            onClick={event => {
+                                event.preventDefault();
+                                if (currentPage > 0) {
+                                    setCurrentPage(currentPage - 1);
+                                }
+                            }}><i className="bi bi-chevron-double-left"/></button>
                         <span>{currentPage} de {page}</span>
                         <button className="pdf-page"
-                                disabled={currentPage === page}
-                                onClick={event => {
-                                    event.preventDefault();
-                                    if (currentPage < page) {
-                                        setCurrentPage(currentPage + 1);
-                                    }
-                                }}><i className="bi bi-chevron-double-right"/></button>
+                            disabled={currentPage === page}
+                            onClick={event => {
+                                event.preventDefault();
+                                if (currentPage < page) {
+                                    setCurrentPage(currentPage + 1);
+                                }
+                            }}><i className="bi bi-chevron-double-right"/></button>
                     </div>}
             </div>
         </Box>

@@ -27,7 +27,7 @@ export function Table<T = any>(props: TableProps<T>) {
     */
     return (
         <Box className="p-0"
-             size={props.size ?? "100"}>
+            size={props.size ?? "100"}>
             {/*@ts-ignore*/}
             <DataTable<any>
                 editMode={props.edit ? "cell" : undefined}
@@ -43,40 +43,40 @@ export function Table<T = any>(props: TableProps<T>) {
                 {...tablePagination(props)}>
                 {props.rowExpandable !== undefined && (
                     <Column align="center"
-                            columnKey="key-fixed-expand"
-                            expander={data => data[props.rowExpandableAttr ?? ""] !== undefined}
-                            field="key-fixed-expand"
-                            headerStyle={{ width: "2.5rem" }}
-                            key="key-fixed-expand"/>)}
+                        columnKey="key-fixed-expand"
+                        expander={data => data[props.rowExpandableAttr ?? ""] !== undefined}
+                        field="key-fixed-expand"
+                        headerStyle={{ width: "2.5rem" }}
+                        key="key-fixed-expand"/>)}
                 {(props.reorder === "all" || props.reorder === "rows") && (
                     <Column rowReorder
-                            align="center"
-                            columnKey="key-fixed-reorder"
-                            field="key-fixed-reorder"
-                            headerStyle={{ width: "2.5rem" }}
-                            key="key-fixed-reorder"/>)}
+                        align="center"
+                        columnKey="key-fixed-reorder"
+                        field="key-fixed-reorder"
+                        headerStyle={{ width: "2.5rem" }}
+                        key="key-fixed-reorder"/>)}
                 {props.selectionMode === "checkbox"
                     && <Column align="center"
-                               columnKey="key-fixed-select"
-                               field="key-fixed-select"
-                               headerStyle={{ width: "2.5rem" }}
-                               key="key-fixed-select"
-                               selectionMode="multiple"/>}
+                        columnKey="key-fixed-select"
+                        field="key-fixed-select"
+                        headerStyle={{ width: "2.5rem" }}
+                        key="key-fixed-select"
+                        selectionMode="multiple"/>}
                 {props.column.map(obj => {
                     return (
                         <Column align={obj.align}
-                                alignFrozen={obj.frozen ? "right" : undefined}
-                                alignHeader={obj.alignHeader}
-                                body={obj.body}
-                                columnKey={obj.id}
-                                editor={obj.editor}
-                                field={obj.id}
-                                frozen={obj.frozen !== undefined}
-                                header={obj.header}
-                                key={obj.id}
-                                sortable={obj.sort ?? false}
-                                style={obj.style}
-                                onCellEditComplete={obj.onEditorComplete}/>
+                            alignFrozen={obj.frozen ? "right" : undefined}
+                            alignHeader={obj.alignHeader}
+                            body={obj.body}
+                            columnKey={obj.id}
+                            editor={obj.editor}
+                            field={obj.id}
+                            frozen={obj.frozen !== undefined}
+                            header={obj.header}
+                            key={obj.id}
+                            sortable={obj.sort ?? false}
+                            style={obj.style}
+                            onCellEditComplete={obj.onEditorComplete}/>
                     );
                 })}
             </DataTable>

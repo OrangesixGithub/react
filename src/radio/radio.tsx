@@ -24,14 +24,14 @@ export function Radio<T extends ApiFieldModeProps = "Controlled">(props: RadioPr
     */
     return (
         <Box className={props.className}
-             css={props.css}
-             size={props.size ?? "100"}>
+            css={props.css}
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
             {!props.mode || props.mode === "Controlled"
                 ? <RadioControlled core={core}
-                                   {...propsCore}/>
+                    {...propsCore}/>
                 : <RadioHookForm core={core}
-                                 {...propsCore}/>}
+                    {...propsCore}/>}
         </Box>
     );
 }

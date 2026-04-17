@@ -8,10 +8,10 @@ import { EditorCoreProps } from "..";
 export const Underline = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
     return active && (
         <a className={"editor-menu-item" + (editor.isActive("underline") ? " active" : "")}
-           href="#"
-           onClick={event => {
-               event.preventDefault();
-               editor.chain().focus().toggleUnderline().run();
-           }}><i className="bi bi-type-underline"/></a>
+            href="#"
+            onClick={event => {
+                event.preventDefault();
+                editor.chain().focus().toggleUnderline().run();
+            }}><i className="bi bi-type-underline"/></a>
     );
 };

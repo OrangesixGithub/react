@@ -27,31 +27,31 @@ export const EditorMenu = ({ editor, options }: EditorCoreProps & { options: Edi
         <div className="editor-menu">
             <div className="editor-menu-group">
                 <Text active={options.text}
-                      editor={editor}/>
+                    editor={editor}/>
                 <Bold active={options.bold}
-                      editor={editor}/>
+                    editor={editor}/>
                 <Italic active={options.italic}
-                        editor={editor}/>
+                    editor={editor}/>
                 <Color active={options.color}
-                       editor={editor}/>
+                    editor={editor}/>
                 <Strike active={options.strike}
-                        editor={editor}/>
+                    editor={editor}/>
                 <Underline active={options.underline}
-                           editor={editor}/>
+                    editor={editor}/>
                 <Code active={options.code}
-                      editor={editor}/>
+                    editor={editor}/>
                 <Highlight active={options.highlight}
-                           editor={editor}/>
+                    editor={editor}/>
             </div>
             <div className="editor-menu-group">
                 <Bulletlist active={options.bulletlist}
-                            editor={editor}/>
+                    editor={editor}/>
                 <Orderlist active={options.orderlist}
-                           editor={editor}/>
+                    editor={editor}/>
                 <Link active={options.link}
-                      editor={editor}/>
+                    editor={editor}/>
                 <Image active={options.image}
-                       editor={editor}/>
+                    editor={editor}/>
             </div>
         </div>
     );

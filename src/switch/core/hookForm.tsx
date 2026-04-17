@@ -19,19 +19,19 @@ export function SwitchHookForm({ ...props }: SwitchProps<"HookForm">) {
             return <>
                 <div className="w-100 d-flex">
                     <InputSwitch checked={field.value}
-                                 disabled={props.disabled}
-                                 falseValue={props.valueFalse ?? false}
-                                 id={props.id}
-                                 name={field.name}
-                                 trueValue={props.valueTrue ?? true}
-                                 onChange={event => field.onChange(event)}/>
+                        disabled={props.disabled}
+                        falseValue={props.valueFalse ?? false}
+                        id={props.id}
+                        name={field.name}
+                        trueValue={props.valueTrue ?? true}
+                        onChange={event => field.onChange(event)}/>
                     {props.legend && <p className="ms-2 p-inputswitch-legend">{props.legend}</p>}
                 </div>
                 <InputFeedback {...props}
-                               errors={errors}/>
+                    errors={errors}/>
             </>;
         }}
-                    control={props.control}
-                    name={props.name}/>
+        control={props.control}
+        name={props.name}/>
     );
 }

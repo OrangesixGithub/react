@@ -22,14 +22,14 @@ export function Modal(props: ModalProps) {
     */
     return (
         <Dialog style={!maximized ? { width: sizes } : {}}
-                {...modalCore(props)}
-                breakpoints={{
-                    "768px": "80%",
-                    "576px": "90%",
-                }}
-                className={props.className}
-                maximized={maximized}
-                onMaximize={() => setMaximized(!maximized)}>
+            {...modalCore(props)}
+            breakpoints={{
+                "768px": "80%",
+                "576px": "90%",
+            }}
+            className={props.className}
+            maximized={maximized}
+            onMaximize={() => setMaximized(!maximized)}>
             {props.children}
         </Dialog>
     );

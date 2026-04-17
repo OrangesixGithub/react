@@ -65,19 +65,21 @@ export const Editor = ({ options = "basic", iconPrefix = "bi bi-", ...props }: E
     */
     return (
         <Box className={props.className}
-             css={props.css}
-             size={props.size ?? "100"}>
+            css={props.css}
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
             <div className="editor-container">
                 {!props.disabled
-                    && <EditorMenu editor={editor}
-                                   options={options === "basic" ? editorBasic : options === "full" ? editorFull : options}/>}
-                <EditorTipTap className="editor"
-                              disabled={props.disabled}
-                              editor={editor}
-                              id={props.id}
-                              name={props.name}
-                              style={{ minHeight: (props.height ?? 100) + "px" }}/>
+                    && <EditorMenu
+                        editor={editor}
+                        options={options === "basic" ? editorBasic : options === "full" ? editorFull : options}/>}
+                <EditorTipTap
+                    className="editor"
+                    disabled={props.disabled}
+                    editor={editor}
+                    id={props.id}
+                    name={props.name}
+                    style={{ minHeight: (props.height ?? 100) + "px" }}/>
             </div>
             <InputFeedback {...props}/>
         </Box>

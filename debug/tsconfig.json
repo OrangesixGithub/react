@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "jsx": "react",
     "strict": true,
     "skipLibCheck": true,
@@ -18,5 +18,8 @@
         "./node_modules/@orangesix/react/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

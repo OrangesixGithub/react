@@ -20,18 +20,18 @@ export function TextareaControlled({ core, ...props }: TextareaProps<"Controlled
     return (
         <>
             <InputTextarea {...core}
-                           ref={props.ref}
-                           value={props.value}
-                           onBlur={event => {
-                               if (props.onBlur) {
-                                   props.onBlur(event.target.value);
-                               }
-                           }}
-                           onChange={event => {
-                               if (props.onChange) {
-                                   props.onChange(event.target.value);
-                               }
-                           }}/>
+                ref={props.ref}
+                value={props.value}
+                onBlur={event => {
+                    if (props.onBlur) {
+                        props.onBlur(event.target.value);
+                    }
+                }}
+                onChange={event => {
+                    if (props.onChange) {
+                        props.onChange(event.target.value);
+                    }
+                }}/>
             <InputFeedback {...props}/>
         </>
     );

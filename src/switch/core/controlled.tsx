@@ -16,16 +16,16 @@ export function SwitchControlled({ ...props }: SwitchProps<"Controlled">) {
     return <>
         <div className="w-100 d-flex">
             <InputSwitch checked={props.value}
-                         disabled={props.disabled}
-                         falseValue={props.valueFalse ?? false}
-                         id={props.id}
-                         name={props.name}
-                         trueValue={props.valueTrue ?? true}
-                         onChange={event => {
-                             if (props.onChange) {
-                                 props.onChange(event.target.value);
-                             }
-                         }}/>
+                disabled={props.disabled}
+                falseValue={props.valueFalse ?? false}
+                id={props.id}
+                name={props.name}
+                trueValue={props.valueTrue ?? true}
+                onChange={event => {
+                    if (props.onChange) {
+                        props.onChange(event.target.value);
+                    }
+                }}/>
             {props.legend && <p className="ms-2 p-inputswitch-legend">{props.legend}</p>}
         </div>
         <InputFeedback {...props}/>

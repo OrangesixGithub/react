@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "jsx": "react",
     "strict": true,
     "skipLibCheck": true,
@@ -12,7 +12,8 @@
     "allowJs": true
   },
   "include": [
-    "src"
+    "src",
+    "vite.config.ts"
   ],
   "exclude": [
     "doc",

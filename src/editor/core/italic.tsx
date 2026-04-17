@@ -8,10 +8,10 @@ import { EditorCoreProps } from "..";
 export const Italic = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
     return active && (
         <a className={"editor-menu-item" + (editor.isActive("italic") ? " active" : "")}
-           href="#"
-           onClick={event => {
-               event.preventDefault();
-               editor.chain().focus().toggleItalic().run();
-           }}><i className="bi bi-type-italic"/></a>
+            href="#"
+            onClick={event => {
+                event.preventDefault();
+                editor.chain().focus().toggleItalic().run();
+            }}><i className="bi bi-type-italic"/></a>
     );
 };

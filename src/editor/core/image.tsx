@@ -44,15 +44,15 @@ export const Image = ({ editor, active }: EditorCoreProps & { active: boolean })
     return active && (
         <div className="editor-image">
             <input accept="image/png, image/jpeg"
-                   name="editor-image"
-                   type="file"
-                   onChange={event => setFile(event.target.files?.[0])}/>
+                name="editor-image"
+                type="file"
+                onChange={event => setFile(event.target.files?.[0])}/>
             <a className={"editor-menu-item" + (editor.isActive("link") ? " active" : "")}
-               href="#"
-               style={{ fontSize: ".975em" }}
-               onClick={event => {
-                   event.preventDefault();
-               }}><i className="bi bi-image"/></a>
+                href="#"
+                style={{ fontSize: ".975em" }}
+                onClick={event => {
+                    event.preventDefault();
+                }}><i className="bi bi-image"/></a>
         </div>
     );
 };

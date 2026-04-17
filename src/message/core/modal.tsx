@@ -17,40 +17,40 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
     */
     return (
         <Modal backdrop={true}
-               className="message"
-               closable={props.modalClosable ?? true}
-               header={props.title ?? "Confirmação"}
-               icon={props.modalIcon ?? "cone-striped"}
-               iconPrefix={props.modalIconPrefix ?? "bi bi-"}
-               sizes="medium"
-               visible={props.visible}
-               zIndex={props.modalZIndex ?? 1000}
-               onVisible={props.onVisible}>
+            className="message"
+            closable={props.modalClosable ?? true}
+            header={props.title ?? "Confirmação"}
+            icon={props.modalIcon ?? "cone-striped"}
+            iconPrefix={props.modalIconPrefix ?? "bi bi-"}
+            sizes="medium"
+            visible={props.visible}
+            zIndex={props.modalZIndex ?? 1000}
+            onVisible={props.onVisible}>
             <Box direction="column"
-                 size="100">
+                size="100">
                 <div dangerouslySetInnerHTML={{ __html: props.message ?? "" }}/>
                 <Box className="gap-2"
-                     justify={"justify-content-" + (props.modalOptionsPosition ?? "end") as JustifyContentProps}
-                     size="100">
+                    justify={"justify-content-" + (props.modalOptionsPosition ?? "end") as JustifyContentProps}
+                    size="100">
                     {confirm && <Button color="success"
-                                        icon="check2-circle"
-                                        isLoading={props.isLoading ?? false}
-                                        label={props.confirmLabel ?? "Confirmar"}
-                                        onClick={() => {
-                                            if (props.onConfirm) {
-                                                props.onConfirm();
-                                            }
-                                        }}/>}
+                        icon="check2-circle"
+                        isLoading={props.isLoading ?? false}
+                        label={props.confirmLabel ?? "Confirmar"}
+                        onClick={() => {
+                            if (props.onConfirm) {
+                                props.onConfirm();
+                            }
+                        }}/>}
                     {cancel && <Button color="danger"
-                                       icon="slash-circle"
-                                       label={props.cancelarLabel ?? "Cancelar"}
-                                       onClick={() => {
-                                           if (props.onCancel) {
-                                               props.onCancel();
-                                           } else {
-                                               props.onVisible(false);
-                                           }
-                                       }}/>}
+                        icon="slash-circle"
+                        label={props.cancelarLabel ?? "Cancelar"}
+                        onClick={() => {
+                            if (props.onCancel) {
+                                props.onCancel();
+                            } else {
+                                props.onVisible(false);
+                            }
+                        }}/>}
                 </Box>
             </Box>
         </Modal>

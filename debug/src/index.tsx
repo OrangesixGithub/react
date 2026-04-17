@@ -1,13 +1,17 @@
 import React from "react";
 import { Box } from "@orangesix-dev/box";
-import { TablePivot } from "@orangesix/tablepivot";
+import { Input } from "@orangesix-dev/input";
 
 const Root = () => {
     return (
         <Box
             className="bg-light"
             size="100">
-            <TablePivot/>
+            <Input
+                readonly
+                label="Teste"
+                readonlyType="label"
+                value="Teste"/>
         </Box>
     );
 };

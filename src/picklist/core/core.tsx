@@ -13,8 +13,8 @@ function pickListItemTemplate(
     return (
         <div className="w-100 d-flex px-2 align-items-center">
             <Checkbox checked={item.selected ?? false}
-                      className="me-2"
-                      defaultChecked={item.selected}/>
+                className="me-2"
+                defaultChecked={item.selected}/>
             <p className="m-0">{item.label}</p>
         </div>
     );

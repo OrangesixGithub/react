@@ -63,37 +63,37 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
     */
     return (
         <Box {...props}
-             className={classNames([props.className, "input-filter-container"])}>
+            className={classNames([props.className, "input-filter-container"])}>
             <InputLabel {...props}/>
             <div className="input-filter-content"
-                 id={props.id ?? "input-filter"}>
+                id={props.id ?? "input-filter"}>
                 <select className="form-select input-filter-select"
-                        disabled={props.disabled}
-                        id={(props.id ?? "input-filter") + "-select"}
-                        name={(props.name ?? "input-filter") + "-select"}
-                        value={select}
-                        onChange={event => setSelect(event.target.value)}>
+                    disabled={props.disabled}
+                    id={(props.id ?? "input-filter") + "-select"}
+                    name={(props.name ?? "input-filter") + "-select"}
+                    value={select}
+                    onChange={event => setSelect(event.target.value)}>
                     {selectOptions?.map(item => (
                         <option key={item.options}
-                                value={item.options}>{item.label}</option>
+                            value={item.options}>{item.label}</option>
                     ))}
                 </select>
                 {(!props.type || props.type === "text")
                     && <Text<"text"> {...props as InputFilterProps<"text">}
-                                     options={options}
-                                     select={select}/>}
+                        options={options}
+                        select={select}/>}
                 {props.type === "date"
                     && <Date<"date"> {...props as InputFilterProps<"date">}
-                                     options={options}
-                                     select={select}/>}
+                        options={options}
+                        select={select}/>}
                 {props.type === "autocomplete"
                     && <Autocomplete<"autocomplete"> {...props as InputFilterProps<"autocomplete">}
-                                                     options={options}
-                                                     select={select}/>}
+                        options={options}
+                        select={select}/>}
                 {props.type === "number"
                     && <Number<"number"> {...props}
-                                         options={options}
-                                         select={select}/>}
+                        options={options}
+                        select={select}/>}
             </div>
         </Box>
     );

@@ -8,10 +8,10 @@ import { EditorCoreProps } from "..";
 export const Orderlist = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
     return active && (
         <a className={"editor-menu-item" + (editor.isActive("orderedList") ? " active" : "")}
-           href="#"
-           onClick={event => {
-               event.preventDefault();
-               editor.chain().focus().toggleOrderedList().run();
-           }}><i className="bi bi-list-ol"/></a>
+            href="#"
+            onClick={event => {
+                event.preventDefault();
+                editor.chain().focus().toggleOrderedList().run();
+            }}><i className="bi bi-list-ol"/></a>
     );
 };

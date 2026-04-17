@@ -27,14 +27,14 @@ export function Textarea<T extends ApiFieldModeProps = "Controlled">(props: Text
     */
     return (
         <Box className={props.className}
-             css={props.css}
-             size={props.size ?? "100"}>
+            css={props.css}
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
             {!props.mode || props.mode === "Controlled"
                 ? <TextareaControlled core={core}
-                                      {...propsCore}/>
+                    {...propsCore}/>
                 : <TextareaHookForm core={core}
-                                    {...propsCore}/>}
+                    {...propsCore}/>}
         </Box>
     );
 }

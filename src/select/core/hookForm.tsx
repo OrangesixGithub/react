@@ -25,25 +25,25 @@ export function SelectHookForm(props: SelectProps<"HookForm"> & { mode?: any }) 
             return (
                 <>
                     <select {...field}
-                            className={`form-select ${sizes}`}
-                            disabled={props.disabled}
-                            id={props.id}
-                            ref={props.ref}
-                            onChange={event => props.onChange ? props.onChange(event.target.value) : field.onChange(event)}>
+                        className={`form-select ${sizes}`}
+                        disabled={props.disabled}
+                        id={props.id}
+                        ref={props.ref}
+                        onChange={event => props.onChange ? props.onChange(event.target.value) : field.onChange(event)}>
                         {init}
                         {props.options.map((item) => (
                             <option disabled={item.disabled}
-                                    key={item.id}
-                                    value={item.id}>{item.name}</option>
+                                key={item.id}
+                                value={item.id}>{item.name}</option>
                         ))}
                     </select>
                     <InputFeedback {...props}
-                                   errors={errors}/>
+                        errors={errors}/>
                 </>
             );
         }}
-                    control={props.control}
-                    name={props.name}
-                    rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
+        control={props.control}
+        name={props.name}
+        rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
     );
 }

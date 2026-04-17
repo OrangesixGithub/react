@@ -24,20 +24,20 @@ export function MultiSelectHookForm({ ...props }: MultiSelectProps<"HookForm"> &
             return (
                 <>
                     <MultiSelectPrimeReact.MultiSelect {...core}
-                                                       className="w-100 multiselect-field"
-                                                       emptyMessage="Nenhum dado encontrado."
-                                                       invalid={!!errors[props.name]}
-                                                       panelClassName="multiselect-panel"
-                                                       required={props.required}
-                                                       value={field.value ?? ""}
-                                                       onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
+                        className="w-100 multiselect-field"
+                        emptyMessage="Nenhum dado encontrado."
+                        invalid={!!errors[props.name]}
+                        panelClassName="multiselect-panel"
+                        required={props.required}
+                        value={field.value ?? ""}
+                        onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
                     <InputFeedback {...props}
-                                   errors={errors}/>
+                        errors={errors}/>
                 </>
             );
         }}
-                    control={props.control}
-                    name={props.name}
-                    rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
+        control={props.control}
+        name={props.name}
+        rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
     );
 }

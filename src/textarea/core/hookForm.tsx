@@ -22,19 +22,19 @@ export function TextareaHookForm({ core, ...props }: TextareaProps<"HookForm"> &
         <Controller render={({ field, formState: { errors } }) => {
             return <>
                 <InputTextarea {...core}
-                               {...field}
-                               invalid={!!errors[props.name]}
-                               ref={props.ref}
-                               required={props.required}
-                               value={field.value ?? ""}
-                               onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
-                               onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
+                    {...field}
+                    invalid={!!errors[props.name]}
+                    ref={props.ref}
+                    required={props.required}
+                    value={field.value ?? ""}
+                    onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
+                    onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
                 <InputFeedback {...props}
-                               errors={errors}/>
+                    errors={errors}/>
             </>;
         }}
-                    control={props.control}
-                    name={props.name}
-                    rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
+        control={props.control}
+        name={props.name}
+        rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
     );
 }

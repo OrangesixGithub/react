@@ -35,11 +35,11 @@ export const InputFeedback = ({ errors, name, ...props }: ApiFieldComponentProps
     */
     return !props.mode || props.mode === "Controlled"
         ? <div data-name={name}
-               id="j_feedback"/>
+            id="j_feedback"/>
         : <div className={(!errors[name ?? ""] ? "" : "invalid-feedback is-invalid")}
-               data-name={name ?? ""}
-               id="j_feedback"
-               style={{ display: errors[name ?? ""] ? "block" : "none" }}>{!errors[name ?? ""] ? "" : errors[name ?? ""].message}</div>;
+            data-name={name ?? ""}
+            id="j_feedback"
+            style={{ display: errors[name ?? ""] ? "block" : "none" }}>{!errors[name ?? ""] ? "" : errors[name ?? ""].message}</div>;
 };
 
 /**

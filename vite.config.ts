@@ -2,17 +2,14 @@ import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
 import viteDTS from "vite-plugin-dts";
-import { viteStaticCopy } from "vite-plugin-static-copy";
-import viteDynamicImport from "vite-plugin-dynamic-import";
-
-// @ts-ignore
 import viteReact from "@vitejs/plugin-react";
+import { Target, viteStaticCopy } from "vite-plugin-static-copy";
 
 /**
  * Obtém a entrada de cada componente da UI através do arquivo `./src/???/index.ts` e realizar o mapeamento para
  * `vite` realizar a compilação separada.
  */
-function getComponentEntries() {
+export function viteComponentEntries() {
     const srcDir = "./src";
     const entries: any = {};
 
@@ -31,13 +28,13 @@ function getComponentEntries() {
  * Obtém o arquivo `package.json` e pasta `scss` de cada componente e realiza o `copy`
  * junto com build do component
  */
-function getComponentAssets() {
+export function viteComponentAssets() {
     const srcDir = path.join(__dirname, "src");
     if (!fs.existsSync(srcDir)) {
         return [];
     }
 
-    const targets: any[] = [];
+    const targets: Target[] = [];
     fs.readdirSync(srcDir)
         .forEach(name => {
             const componentDir = path.join(srcDir, name);
@@ -48,19 +45,19 @@ function getComponentAssets() {
             const packageFile = path.join(componentDir, "package.json");
 
             if (fs.existsSync(scssFile)) {
-                targets.push({ src: `src/${name}/_${name}.scss`, dest: `${name}` });
+                targets.push({ src: `src/${name}/_${name}.scss`, dest: `${name}`, rename: { stripBase: true } });
             }
 
             if (fs.existsSync(packageFile)) {
-                targets.push({ src: `src/${name}/package.json`, dest: `${name}` });
+                targets.push({ src: `src/${name}/package.json`, dest: `${name}`, rename: { stripBase: true } });
             }
 
             if (fs.existsSync(scssDir) && fs.statSync(scssDir).isDirectory()) {
-                targets.push({ src: `src/${name}/scss/**/*`, dest: `${name}/scss` });
+                targets.push({ src: `src/${name}/scss/**/*`, dest: `${name}/scss`, rename: { stripBase: 3 } });
             }
 
             if (fs.existsSync(cssDir) && fs.statSync(cssDir).isDirectory()) {
-                targets.push({ src: `src/${name}/style/**/*`, dest: `${name}/style` });
+                targets.push({ src: `src/${name}/style/**/*`, dest: `${name}/style`, rename: { stripBase: true } });
             }
         });
     return targets;
@@ -69,7 +66,7 @@ function getComponentAssets() {
 /**
  * Realiza a cópia do package.json principal para a pasta de distribuição do pacote
  */
-function copyPackageJson() {
+function viteCopyPackageJson() {
     const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
     const Package = {
         "name": "@orangesix/react",
@@ -102,21 +99,25 @@ function copyPackageJson() {
 export default defineConfig({
     plugins: [
         viteReact(),
-        viteDynamicImport(),
         viteStaticCopy({
-            targets: getComponentAssets()
+            targets: viteComponentAssets()
         }),
         viteDTS({
             include: ["src/**/*.{ts,tsx}"],
             exclude: ["src/**/*.test.ts", "src/**/*.test.tsx"],
             outDir: "dist",
+            entryRoot: "src",
             insertTypesEntry: false,
-            copyDtsFiles: true
+            copyDtsFiles: true,
+            beforeWriteFile: (filePath, content) => {
+                const newPath = filePath.replace("dist/src/", "dist/");
+                return { filePath: newPath, content, };
+            },
         }),
         {
             name: "copy-package-json",
             closeBundle() {
-                copyPackageJson();
+                viteCopyPackageJson();
             }
         }
     ],
@@ -124,15 +125,15 @@ export default defineConfig({
         outDir: "dist",
         sourcemap: true,
         lib: {
-            entry: getComponentEntries(),
-            formats: ["es", "cjs"],
+            entry: viteComponentEntries(),
+            formats: ["es"],
             fileName: (format, entryName) => `${entryName}/index.${format == "es" ? "esm" : "cjs"}.js`
         },
-        rollupOptions: {
+        rolldownOptions: {
             external: JSON.parse(fs.readFileSync("./vite.external.json", "utf8"))?.external ?? [],
             output: {
                 preserveModules: true,
-                preserveModulesRoot: "src"
+                preserveModulesRoot: "src",
             }
         },
     },

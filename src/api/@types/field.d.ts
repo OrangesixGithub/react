@@ -88,6 +88,11 @@ interface ApiFieldReadonlyControlledProps {
     readonlyType?: "label" | "field"
 
     /**
+     * Define a classe utilizada quando o campo for readOnly
+     */
+    readonlyClassName?: string
+
+    /**
      * Função para alterar o valor do componente controlado
      */
     onChange?: (value: any) => void

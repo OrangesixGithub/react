@@ -21,8 +21,8 @@ export function Select<T extends ApiFieldModeProps = "Controlled">(props: Select
     */
     return (
         <Box className={props.className}
-             css={props.css}
-             size={props.size ?? "100"}>
+            css={props.css}
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
             {!props.mode || props.mode === "Controlled"
                 ? <SelectControlled {...propsCore}/>

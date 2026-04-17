@@ -61,7 +61,7 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
             {props.readonly && props.readonlyType === "label"
                 ? (
                     //@ts-ignore
-                    <p className="w-100 form-label-readonly">{props.value}</p>
+                    <p className={"w-100 form-label-readonly " + (props.readonlyClassName ?? "")}>{props.value}</p>
                 )
                 : (!props.mode || props.mode === "Controlled"
                     ? <InputControlled

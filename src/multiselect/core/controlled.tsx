@@ -21,14 +21,14 @@ export function MultiSelectControlled({ ...props }: MultiSelectProps<"Controlled
     return (
         <>
             <MultiSelectPrimeReact.MultiSelect {...core}
-                                               className="w-100 multiselect-field"
-                                               emptyMessage="Nenhum dado encontrado."
-                                               panelClassName="multiselect-panel"
-                                               onChange={event => {
-                                                   if (props.onChange) {
-                                                       props.onChange(event.value);
-                                                   }
-                                               }}/>
+                className="w-100 multiselect-field"
+                emptyMessage="Nenhum dado encontrado."
+                panelClassName="multiselect-panel"
+                onChange={event => {
+                    if (props.onChange) {
+                        props.onChange(event.value);
+                    }
+                }}/>
             <InputFeedback {...props}/>
         </>
     );

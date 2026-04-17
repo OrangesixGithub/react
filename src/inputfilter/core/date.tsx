@@ -30,13 +30,13 @@ export function Date<T extends keyof InputFilterOptionsMap>(props: InputFilterCo
                     if (index <= 2) {
                         return (
                             <input className={"form-control input-filter-field-date" + (index == 2 ? " year" : "")}
-                                   disabled={props.disabled}
-                                   id={(props.id ?? "input-filter") + "-" + index}
-                                   key={index}
-                                   name={(props.name ?? "input-filter") + "-" + index}
-                                   placeholder={props.placeholder}
-                                   value={item === 0 ? "" : item}
-                                   onChange={event => handleChangeValue(handleSetValueDate(event.target.value, index, date))}/>
+                                disabled={props.disabled}
+                                id={(props.id ?? "input-filter") + "-" + index}
+                                key={index}
+                                name={(props.name ?? "input-filter") + "-" + index}
+                                placeholder={props.placeholder}
+                                value={item === 0 ? "" : item}
+                                onChange={event => handleChangeValue(handleSetValueDate(event.target.value, index, date))}/>
                         );
                     }
                 })}
@@ -47,13 +47,13 @@ export function Date<T extends keyof InputFilterOptionsMap>(props: InputFilterCo
                         if (index >= 4) {
                             return (
                                 <input className={"form-control input-filter-field-date" + (index == 6 ? " year" : "")}
-                                       disabled={props.disabled}
-                                       id={(props.id ?? "input-filter") + "-" + index}
-                                       key={index}
-                                       name={(props.name ?? "input-filter") + "-" + index}
-                                       placeholder={props.placeholder}
-                                       value={item === 0 ? "" : item}
-                                       onChange={event => handleChangeValue(handleSetValueDate(event.target.value, index, date))}/>
+                                    disabled={props.disabled}
+                                    id={(props.id ?? "input-filter") + "-" + index}
+                                    key={index}
+                                    name={(props.name ?? "input-filter") + "-" + index}
+                                    placeholder={props.placeholder}
+                                    value={item === 0 ? "" : item}
+                                    onChange={event => handleChangeValue(handleSetValueDate(event.target.value, index, date))}/>
                             );
                         }
                     })}

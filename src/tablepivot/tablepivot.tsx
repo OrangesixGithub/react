@@ -19,8 +19,8 @@ export const TablePivot = forwardRef<TablePivotRefProps, TablePivotProps>(
         */
         return (
             <Box className={"pivot-table " + (props.className ?? "")}
-                 id={id}
-                 size={props.size}>
+                id={id}
+                size={props.size}>
                 <WebDataRocksReact.Pivot
                     customizeCell={(b: any, d: any) => {
                         if (props.pivotCustomizeCell !== undefined) {
