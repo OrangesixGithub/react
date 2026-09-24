@@ -4,10 +4,11 @@
 
 ```
 src/<componente>/
-  index.ts              ← export * from "./<componente>"; export * from "./@types/index";
+  index.ts              ← apenas reexporta o componente, helpers públicos e os tipos de @types/
   <componente>.tsx      ← componente público
   package.json          ← { main/module: "./index.mjs", types: "./index.d.ts" }
-  @types/index.d.ts     ← props e tipos públicos
+  @types/index.d.ts     ← apenas reexporta os tipos públicos
+  @types/<assunto>.d.ts ← declarações por assunto (ex.: component, form, css)
   core/                 ← (opcional) partes internas
     controlled.tsx      ← variante mode="Controlled"
     hookForm.tsx        ← variante mode="HookForm" (Controller do react-hook-form)
@@ -16,6 +17,7 @@ src/<componente>/
 
 - O nome da pasta é minúsculo, sem hífen, e é o nome público do import (`@orangesix/<pasta>`).
 - **Um componente novo precisa de `index.ts` e `package.json`.** Sem eles, ele não é gerado nem resolvido pelos consumidores. Copie o `package.json` de outra pasta.
+- Mantenha `index.ts` e `@types/index.d.ts` como pontos de exportação. Declare os tipos em arquivos de `@types/` separados por assunto, sem alterar os nomes públicos exportados.
 - Um componente só vai para o `dist/` quando estiver habilitado em `build/components.ts` (ver `docs/build.md`).
 - Tipos compartilhados ficam em `src/api/` (`ApiComponentProps`, `ApiFieldComponentProps`, `ApiFieldControlledProps`, `ApiFieldHookFormProps`...). Helpers de campo (`InputLabel`, `InputFeedback`) também ficam lá.
 - Importações entre componentes são relativas (`import { Box } from "../box";`).
@@ -33,10 +35,12 @@ src/<componente>/
   | `inputtextarea` | `textarea` |
   | `dropdown` / `multiselect` | `select` |
   | `tabview` | `tabs` |
-  | `inputmask`, `picklist`, `keyfilter`, `utils`, `api`, `column` | não existem, precisam de solução própria |
+  | `inputmask`, `picklist`, `utils`, `api`, `column` | não existem, precisam de solução própria |
 
   Antes de migrar, confira a API real em `node_modules/primereact/<componente>/` (arquivos `.d.ts`).
+- `keyfilter` não faz parte da API compartilhada da 3.x; não o encaminhe aos componentes do PrimeReact 11.
 - Estilo: **Tailwind v4**. Não usar classes Bootstrap (`me-1`, `w-100`, `text-danger`, `form-label`, `justify-content-*`...).
+- `AlignItemsProps` e `JustifyContentProps` aceitam apenas classes Tailwind (`items-*`, `justify-*`, com prefixos responsivos).
 - Ícones: `primeicons` (`pi pi-*`).
 
 ## Padrão de código
@@ -102,7 +106,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | Componente | Status |
 |---|---|
 | accordion | pendente |
-| api | pendente |
+| api | migrado; aguarda validação no sandbox |
 | autocomplete | pendente |
 | box | pendente |
 | button | pendente |

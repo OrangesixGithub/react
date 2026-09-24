@@ -7,7 +7,7 @@ Um ambiente Vite para ver e testar os componentes em tempo real enquanto eles s�
 | Comando (em `react-sandbox/`) | Fonte dos componentes | Uso |
 |---|---|---|
 | `npm run dev` | `../react/src` (código-fonte) | Desenvolvimento com HMR |
-| `npm run dev:package` | `node_modules/@orangesix/react` (pacote instalado) | Validar o pacote publicado/buildado |
+| `npm run dev:package` | `../react/dist` (pacote gerado pelo build) | Validar o que será publicado, sem publicar |
 
 ## Como o modo `dev` liga o sandbox à lib
 
@@ -24,4 +24,4 @@ No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não 
 1. Rodar `npm run dev` em `react-sandbox/`.
 2. Editar o componente em `react/src/<comp>/`.
 3. Validar o resultado no sandbox: variações, modos `Controlled`/`HookForm`, estados (disabled, readonly, erro).
-4. Antes de publicar, rodar `npm run build` na lib e conferir com `npm run dev:package`.
+4. Habilitar o componente em `build/components.ts`, rodar `npm run build` na lib e conferir com `npm run dev:package`. Esse modo resolve `@orangesix/react/<comp>` → `react/dist/<comp>` pelo `package.json` da pasta, igual aos consumidores. Sem `react/dist`, o sandbox avisa para rodar o build.

@@ -3,7 +3,12 @@ import { Box } from "../../box";
 import { MessageProps } from "..";
 import { Modal } from "../../modal";
 import { Button } from "../../button";
-import { JustifyContentProps } from "../../api";
+
+const justifyByPosition = {
+    center: "justify-center",
+    start: "justify-start",
+    end: "justify-end",
+} as const;
 
 /**
  * Core - `ModalMessage`
@@ -30,7 +35,7 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
                 size="100">
                 <div dangerouslySetInnerHTML={{ __html: props.message ?? "" }}/>
                 <Box className="gap-2"
-                    justify={"justify-content-" + (props.modalOptionsPosition ?? "end") as JustifyContentProps}
+                    justify={justifyByPosition[props.modalOptionsPosition ?? "end"]}
                     size="100">
                     {confirm && <Button color="success"
                         icon="check2-circle"

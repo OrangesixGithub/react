@@ -1,65 +1,81 @@
-import React from "react";
-import { ApiComponentProps, ApiFieldComponentProps } from ".";
+import type { FieldErrors } from "react-hook-form";
+import type { ApiComponentProps, ApiFieldComponentProps } from "./@types";
 
 /**
  * API - `InputLabel`
  *
- * Um componente utilizado como label em todos os componente de entrada de dados do pacote.
- * Permite personalizar o estilo e o conteúdo através de propriedades.
+ * Exibe o rótulo e indica visualmente quando o campo é obrigatório.
  */
-export const InputLabel = ({ iconPrefix = "bi bi-", ...props }: ApiFieldComponentProps) => {
+export function InputLabel({ id, name, label, icon, iconPrefix = "pi pi-", required }: ApiFieldComponentProps) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
-    return props.label
-        && <p className='form-label'>
-            {props.icon && <i className={iconPrefix + props.icon + " me-1"}/>}
-            {props.label}
-            {props.required && <span className="text-danger">*</span>}
-        </p>;
-};
+    return label && (
+        <label
+            className="mb-1 block text-sm font-medium"
+            htmlFor={id ?? name}>
+            {icon && <i
+                aria-hidden="true"
+                className={`${iconPrefix}${icon} mr-1`}/>}
+            {label}
+            {required && <span
+                aria-hidden="true"
+                className="ml-1 text-red-600">*</span>}
+        </label>
+    );
+}
 
 /**
  * API - `InputFeedback`
  *
- * Um componente utilizado como container de feedback em todos os componente de entrada de dados do pacote.
- * Permite personalizar o estilo e o conteúdo através de propriedades.
+ * Exibe a mensagem de validação informada diretamente ou pelo React Hook Form.
  */
-export const InputFeedback = ({ errors, name, ...props }: ApiFieldComponentProps & { errors?: any }) => {
+export function InputFeedback({ error, errors, id, name, className }: ApiFieldComponentProps & {
+    errors?: FieldErrors
+    className?: string
+}) {
+    const fieldError = name?.split(/[.[\]]+/).filter(Boolean).reduce<unknown>((value, key) => {
+        return value && typeof value === "object" ? (value as Record<string, unknown>)[key] : undefined;
+    }, errors);
+    const message = fieldError && typeof fieldError === "object" && "message" in fieldError
+        ? fieldError.message : undefined;
+    const feedback = error ?? (typeof message === "string" ? message : undefined);
+
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
-    return !props.mode || props.mode === "Controlled"
-        ? <div data-name={name}
-            id="j_feedback"/>
-        : <div className={(!errors[name ?? ""] ? "" : "invalid-feedback is-invalid")}
-            data-name={name ?? ""}
-            id="j_feedback"
-            style={{ display: errors[name ?? ""] ? "block" : "none" }}>{!errors[name ?? ""] ? "" : errors[name ?? ""].message}</div>;
-};
+    return (
+        <div
+            aria-live="polite"
+            className={feedback ? (className ?? "mt-1 text-red-600 text-xs") : undefined}
+            data-name={name}
+            id={id || name ? `${id ?? name}-feedback` : undefined}>
+            {feedback}
+        </div>
+    );
+}
 
 /**
  * API - `InputProps`
  *
- * Retorna o objeto com as `Props` do core dos componentes de entrada de dados
+ * Reúne as propriedades comuns encaminhadas ao controle de entrada.
  */
-export function InputProps<T extends ApiComponentProps & ApiFieldComponentProps & { ref: any }>(props: T) {
+export function InputProps<T extends ApiComponentProps & ApiFieldComponentProps & { ref?: unknown }>(props: T) {
     return {
         ref: props.ref,
-
         id: props.id,
         name: props.name,
         required: props.required,
         disabled: props.disabled,
         placeholder: props.placeholder,
-
         className: props.className,
         style: { width: "100%" },
-
-        keyfilter: props.keyfilter,
     };
 }
+
+InputLabel.displayName = "InputLabel";
+InputFeedback.displayName = "InputFeedback";

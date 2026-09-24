@@ -1,2 +1,2 @@
-export * from "./input";
-export * from "./@types/index";
+export type * from "./@types";
+export { InputFeedback, InputLabel, InputProps } from "./input";

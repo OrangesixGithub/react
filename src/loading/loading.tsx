@@ -10,8 +10,8 @@ import { classNames } from "primereact/utils";
  */
 export const Loading = ({ opacity = "0.5", ...props }: LoadingProps) => {
     const css = {
-        justify: props.justify === undefined ? "justify-content-center" : Array.isArray(props.justify) ? props.justify?.join(" ") : props.justify,
-        align: props.align === undefined ? "align-items-center" : Array.isArray(props.align) ? props.align?.join(" ") : props.align,
+        justify: props.justify === undefined ? "justify-center" : Array.isArray(props.justify) ? props.justify?.join(" ") : props.justify,
+        align: props.align === undefined ? "items-center" : Array.isArray(props.align) ? props.align?.join(" ") : props.align,
     };
     const attr: HTMLAttributes<"div"> = {
         className: classNames([

@@ -1,5 +1,4 @@
-import { Control } from "react-hook-form";
-import { KeyFilterType } from "primereact/keyfilter";
+import type { Control } from "react-hook-form";
 
 /**
  * Define o modo do componente de entrada de dados
@@ -27,6 +26,11 @@ export interface ApiFieldComponentProps {
     label?: string
 
     /**
+     * Mensagem de validação exibida no feedback do campo, inclusive no modo `Controlled`.
+     */
+    error?: string
+
+    /**
      * Define o espaço reservador do campo
      */
     placeholder?: string
@@ -37,7 +41,8 @@ export interface ApiFieldComponentProps {
     icon?: string
 
     /**
-     * Define o prefixo dos icones do pacote
+     * Define o prefixo dos ícones do pacote. O padrão é `pi pi-`.
+     * O valor `bi bi-` permanece aceito para compatibilidade com a 2.x.
      */
     iconPrefix?: "bi bi-" | "pi pi-"
 
@@ -55,11 +60,6 @@ export interface ApiFieldComponentProps {
      * Define o modo do componente de entrada de dados
      */
     mode?: ApiFieldModeProps
-
-    /**
-     * Define a opção de filtro de dados do componente
-     */
-    keyfilter?: KeyFilterType;
 
     /**
      * Determina se campo é apenas de leitura
@@ -137,7 +137,7 @@ export type ApiFieldControlledProps =
     | ApiFieldWritableControlledProps;
 
 /**
- * Define os tipos `default` para componente de entrada de dados HookFomr
+ * Define os tipos `default` para componente de entrada de dados HookForm
  */
 export interface ApiFieldHookFormProps {
 
