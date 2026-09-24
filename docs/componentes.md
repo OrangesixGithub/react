@@ -1,5 +1,18 @@
 # Componentes
 
+## Referência para as próximas migrações: `src/api`
+
+O componente `api` compilou com `npm run build` e serve como base para a **estrutura** dos próximos componentes. Antes de migrar uma pasta, consulte [seus exports](../src/api/index.ts), [o índice de tipos](../src/api/@types/index.d.ts), [os testes](../src/api/test/input.test.tsx) e [o manifesto](../src/api/package.json).
+
+Padrão a repetir:
+
+1. Deixe `index.ts` apenas com exports nomeados dos componentes e helpers públicos e com o reexport dos tipos de `@types/`.
+2. Deixe `@types/index.d.ts` apenas com reexports de tipos. Declare as props em arquivos por assunto, como `core.d.ts`, `form.d.ts` e `css.d.ts` em `src/api/@types/`; crie apenas os assuntos necessários para cada componente.
+3. Documente as props públicas em português no arquivo temático e mantenha os nomes exportados pelo índice. Use `import type` para dependências usadas somente como tipos.
+4. Mantenha o `package.json` da pasta apontando `main`/`module` para `./index.mjs` e `types` para `./index.d.ts`.
+5. Coloque testes em `test/<arquivo>.test.ts` ou `.test.tsx`, com nomes de casos que descrevam o comportamento verificado.
+6. Rode `npx eslint <arquivos alterados>`. Após a validação no sandbox pelo dono do projeto, habilite a pasta em `build/components.ts`, rode `npm run build` e confira `dist/<componente>/index.mjs`, `index.d.ts`, `package.json` e `@types/`.
+
 ## Anatomia de um componente
 
 ```
@@ -8,7 +21,7 @@ src/<componente>/
   <componente>.tsx      ← componente público
   package.json          ← { main/module: "./index.mjs", types: "./index.d.ts" }
   @types/index.d.ts     ← apenas reexporta os tipos públicos
-  @types/<assunto>.d.ts ← declarações por assunto (ex.: component, form, css)
+  @types/<assunto>.d.ts ← declarações por assunto (ex.: core, form, css)
   core/                 ← (opcional) partes internas
     controlled.tsx      ← variante mode="Controlled"
     hookForm.tsx        ← variante mode="HookForm" (Controller do react-hook-form)
@@ -85,7 +98,7 @@ Imediatamente antes do `return` principal, exatamente assim:
 
 ### Exports e props
 - **Sempre export nomeado**, nunca `export default`. Defina também `<Componente>.displayName = "<Componente>"`.
-- Toda prop pública é documentada com JSDoc em `@types/index.d.ts`, em português.
+- Toda prop pública é documentada com JSDoc no arquivo temático de `@types/`, em português. `@types/index.d.ts` apenas reexporta os tipos.
 - JSX: uma prop por linha quando houver mais de uma, e props ordenadas (a regra `jsx-sort-props` do ESLint).
 
 Rode `npx eslint <arquivo>` em todo arquivo alterado.
@@ -106,9 +119,9 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | Componente | Status |
 |---|---|
 | accordion | pendente |
-| api | migrado; aguarda validação no sandbox |
+| api | migrado; build validado |
 | autocomplete | pendente |
-| box | pendente |
+| box | migrado; testes e build validados; aguarda validação visual no sandbox pelo dono |
 | button | pendente |
 | calendar | pendente |
 | editor | pendente |

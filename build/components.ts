@@ -9,7 +9,7 @@ import path from "path";
  */
 export const components: string[] = [
     "api",
-    // "box",
+    "box",
     // "accordion",
     // "autocomplete",
     // "button",

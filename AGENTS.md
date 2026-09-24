@@ -23,6 +23,7 @@ Leia este arquivo inteiro antes de alterar qualquer coisa. Os detalhes estão em
 8. **Sem Bootstrap, jQuery ou SCSS em código novo.** Estilo é Tailwind v4. Ícones: `primeicons`.
 9. **Siga o padrão de código de `docs/componentes.md`** e rode `npx eslint <arquivo>` nos arquivos alterados.
 10. **Só entra no `dist/` o que foi validado no sandbox.** Os componentes são ligados um a um em `build/components.ts`. Nunca habilite um componente que o dono do projeto não validou.
+11. **Use `src/api/` como referência estrutural para as próximas migrações.** Siga os exports, a separação de tipos por assunto, os testes e as verificações descritos em `docs/componentes.md`.
 
 ## Comandos
 
@@ -38,5 +39,5 @@ Para ver um componente em tempo real, rode `npm run dev` em `../react-sandbox`.
 
 - A estrutura do pacote e o build estão definidos e estáveis.
 - **Os componentes ainda usam a API do PrimeReact 10** e estão sendo migrados um a um. Os erros de TypeScript que o `vite-plugin-dts` mostra no build vêm desse código legado e não impedem o build.
-- Enquanto nenhum componente estiver habilitado em `build/components.ts`, o `npm run build` falha de propósito, com a mensagem "Nenhum componente habilitado".
+- `api` está habilitada em `build/components.ts` e seu build foi confirmado. Os próximos componentes entram após validação no sandbox.
 - Ao migrar um componente, atualize a tabela de status em `docs/componentes.md`.
