@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 
 /**
  * Campos do `package.json` raiz que são publicados no `dist/package.json`.

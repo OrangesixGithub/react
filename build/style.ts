@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 import { Scanner } from "@tailwindcss/oxide";
 import { compile, optimize } from "@tailwindcss/node";
 

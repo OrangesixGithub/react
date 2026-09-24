@@ -1,14 +1,14 @@
 import path from "path";
 import { defineConfig } from "vite";
-import { viteTypes } from "./build/types";
-import { viteStyle } from "./build/style";
+import { viteTypes } from "./build/types.ts";
+import { viteStyle } from "./build/style.ts";
 import viteReact from "@vitejs/plugin-react";
-import { viteExternal } from "./build/external";
-import { viteComponentEntries } from "./build/entries";
-import { enabledComponents } from "./build/components";
-import { vitePackageManifest } from "./build/manifest";
+import { viteExternal } from "./build/external.ts";
+import { viteComponentEntries } from "./build/entries.ts";
+import { enabledComponents } from "./build/components.ts";
+import { vitePackageManifest } from "./build/manifest.ts";
 
-const root = __dirname;
+const root = import.meta.dirname;
 const srcDir = path.resolve(root, "src");
 const components = enabledComponents(srcDir);
 

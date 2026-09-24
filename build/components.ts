@@ -8,7 +8,7 @@ import path from "path";
  * As dependências internas (ex.: `input` usa `api` e `box`) também precisam estar habilitadas.
  */
 export const components: string[] = [
-    // "api",
+    "api",
     // "box",
     // "accordion",
     // "autocomplete",

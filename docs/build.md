@@ -25,7 +25,7 @@ react/
 
 Regras:
 - **O `vite.config.ts` só compõe.** Qualquer lógica nova de build vira um arquivo em `build/`, exportando uma função ou um plugin (`name: "orangesix:<nome>"`).
-- **Imports de `build/` são relativos** (`./build/style`). Não criar alias (`#build`, `@build`), por decisão do projeto.
+- **Imports de `build/` são relativos e incluem a extensão** (`./build/style.ts`). Não criar alias (`#build`, `@build`), por decisão do projeto.
 - **Todo arquivo do `dist/` passa pelo pipeline do Vite.** Plugins emitem arquivos com `this.emitFile` no `generateBundle`, nunca com `fs.writeFileSync` no `closeBundle`. Assim tudo aparece no relatório do build e respeita o `emptyOutDir`. Não usar plugins de cópia.
 
 ## Componentes habilitados (`build/components.ts`)
