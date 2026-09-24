@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
+    "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "checkJs": false,
-    "allowJs": true
+    "types": ["node"]
   },
   "include": [
+    "build",
     "src",
-    "vite.config.ts"
+    "vite.config.ts",
+    "vitest.config.ts"
   ],
   "exclude": [
-    "doc",
-    "dist",
-    "debug"
+    "dist"
   ]
 }

@@ -25,7 +25,7 @@ export default [{
                 jsx: true,
             },
             tsconfigRootDir: import.meta.dirname,
-            project: ["./tsconfig.json", "./debug/tsconfig.json"]
+            project: ["./tsconfig.json"]
         },
     },
     plugins: {

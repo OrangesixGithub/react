@@ -1,0 +1,99 @@
+name: Publish
+
+# Publica o pacote no NPM e gera o release no GitHub somente a partir das branches `master` e `beta`.
+# Qualquer outra branch (ex.: 3.0) não dispara nada.
+#   master → versão final (ex.: 3.0.0)        → npm dist-tag "latest" + release
+#   beta   → versão com sufixo (ex.: 3.0.0-beta.2) → npm dist-tag "beta" + pre-release
+# Se a versão do package.json já estiver publicada, o workflow termina sem publicar.
+on:
+  push:
+    branches: [ master, beta ]
+
+concurrency:
+  group: publish-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # Fazendo checkout do código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Instalando NodeJs
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      # Valida a versão para a branch e verifica se ela já foi publicada
+      - name: Verify version
+        id: version
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          if [ "$GITHUB_REF_NAME" = "master" ] && [[ "$VERSION" == *-* ]]; then
+            echo "::error::A branch master só publica versão final. Versão atual: $VERSION"
+            exit 1
+          fi
+          if [ "$GITHUB_REF_NAME" = "beta" ] && [[ "$VERSION" != *-* ]]; then
+            echo "::error::A branch beta só publica versão com sufixo (ex.: 3.0.0-beta.1). Versão atual: $VERSION"
+            exit 1
+          fi
+
+          if [ "$GITHUB_REF_NAME" = "master" ]; then
+            echo "dist-tag=latest" >> "$GITHUB_OUTPUT"
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "dist-tag=beta" >> "$GITHUB_OUTPUT"
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if npm view "$NAME@$VERSION" version > /dev/null 2>&1; then
+            echo "::notice::$NAME@$VERSION já está publicado. Nada a fazer."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Instalando dependências (exatamente as versões do package-lock.json)
+      - name: Install dependencies
+        if: steps.version.outputs.publish == 'true'
+        run: npm ci
+
+      # Verificando padrão de código
+      - name: Lint
+        if: steps.version.outputs.publish == 'true'
+        run: npm run lint
+
+      # Testes + build (falha se houver erro de tipo nos componentes habilitados)
+      - name: Build
+        if: steps.version.outputs.publish == 'true'
+        run: npm run build
+
+      # Publica pacote no NPM
+      - name: Publish NPM
+        if: steps.version.outputs.publish == 'true'
+        working-directory: ./dist
+        run: npm publish --access public --tag ${{ steps.version.outputs.dist-tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Gera a tag e o release no GitHub
+      - name: Create Release
+        if: steps.version.outputs.publish == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          name: ${{ steps.version.outputs.version }}
+          generate_release_notes: true
+          prerelease: ${{ steps.version.outputs.prerelease }}
