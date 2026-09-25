@@ -18,11 +18,11 @@ export type BoxProps<T extends keyof HTMLElementTagNameMap = "div"> = Omit<ApiCo
     /** Define a direção dos elementos dentro da caixa. Padrão: `row`. */
     direction?: "row" | "column"
 
-    /** Classes Tailwind de alinhamento, inclusive em pontos de quebra responsivos. */
-    align?: AlignItemsProps | AlignItemsProps[]
+    /** Classe Tailwind de alinhamento, inclusive com prefixo responsivo. */
+    align?: AlignItemsProps
 
-    /** Classes Tailwind de distribuição, inclusive em pontos de quebra responsivos. */
-    justify?: JustifyContentProps | JustifyContentProps[]
+    /** Classe Tailwind de distribuição, inclusive com prefixo responsivo. */
+    justify?: JustifyContentProps
 
     /** Conteúdo renderizado dentro da caixa. */
     children: ReactNode

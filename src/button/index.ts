@@ -1,2 +1,2 @@
-export * from "./button";
-export * from "./@types/index";
+export { Button } from "./button";
+export type { ButtonProps } from "./@types";

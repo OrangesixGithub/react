@@ -1,6 +1,6 @@
 # Compatibilidade com os consumidores
 
-A 3.x precisa entrar nos projetos que usam a 2.x (ex.: `diretriz-crm`, hoje na 2.4.0) **sem alterar imports de JS/TS**. Somente o CSS muda.
+A 3.x precisa entrar nos projetos que usam a 2.x (ex.: `diretriz-crm`, hoje na 2.4.0) **sem alterar os imports existentes dos componentes**. A aplicação instala o PrimeReact 11 e configura sua chave PrimeUI no provider da raiz.
 
 ## Como os projetos consomem o pacote
 
@@ -44,7 +44,7 @@ O alias cai direto na **pasta** do componente. A partir daí:
 - **Adicionar `exports` no `package.json` raiz:** não fazer. O alias do consumidor ignora esse campo, e ele pode bloquear imports profundos.
 - **Mudar o formato ou a extensão dos arquivos:** só junto com os `package.json` das pastas, que devem apontar para o arquivo certo.
 
-## Migração 2.x → 3.x no consumidor (somente CSS)
+## Migração 2.x → 3.x no consumidor
 
 Remover:
 ```scss
@@ -57,6 +57,20 @@ import "@orangesix/pdf/style/pdf.css";
 Adicionar uma vez, no ponto de entrada:
 ```js
 import "@orangesix/react/style.css";
+```
+
+Instalar as dependências do PrimeReact no projeto consumidor:
+```bash
+npm install primereact@^11.1.0 @primereact/core@^11.1.0
+```
+
+Envolver a aplicação uma vez com o provider do PrimeReact e informar a chave PrimeUI do próprio projeto:
+```tsx
+import { PrimeReactProvider } from "@primereact/core/config";
+
+<PrimeReactProvider license={import.meta.env.VITE_PRIMEUI_LICENSE}>
+    <App/>
+</PrimeReactProvider>
 ```
 
 Outros requisitos da 3.x: **React 19** (exigido pelo PrimeReact 11) e `react-hook-form` ^7.

@@ -1,38 +1,48 @@
-import React from "react";
-import { ButtonProps } from ".";
-import * as ButtonPrimeReact from "primereact/button";
+import type { ButtonProps } from "./@types";
+import { Button as PrimeButton } from "primereact/button";
+import { buttonBadgeVariants, buttonIconVariants, buttonVariants } from "./variants";
 
 /**
  * Componente - `Button`
  *
- * Um componente versátil que pode ser utilizado para realizar ações por exemplo em formulários de dados.
- * Permite personalizar o estilo e o conteúdo através de propriedades.
+ * Aciona operações com rótulo, ícone e estados visuais configuráveis.
  */
-export const Button = ({ ...props }: ButtonProps) => {
+export function Button({ ...props }: ButtonProps) {
+    const position = props.iconPos ?? "left";
+    const icon = buttonIconVariants(props);
+    const iconElement = icon && <i
+        aria-hidden="true"
+        className={icon}/>;
+    const badgeElement = props.badge
+        && <span className={buttonBadgeVariants(props.badgeClassName)}>{props.badge}</span>;
+
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
     return (
-        <ButtonPrimeReact.Button
-            badge={props.badge}
-            badgeClassName={props.badgeClassName}
-            className={props.className}
-            disabled={props.disabled}
-            icon={props.icon !== undefined ? `${props.iconPrefix ?? "bi bi-"}${props.icon ?? ""} ${props.label ? "me-1" : ""}` : undefined}
-            iconPos={props.iconPos}
+        <PrimeButton
+            ref={node => {
+                if (typeof props.ref === "function") {
+                    props.ref(node as HTMLButtonElement);
+                } else if (props.ref) {
+                    props.ref.current = node as HTMLButtonElement;
+                }
+            }}
+            aria-busy={props.isLoading || undefined}
+            className={buttonVariants(props)}
+            disabled={props.disabled || props.isLoading}
             id={props.id}
-            label={props.label}
-            link={props.isLink}
-            loading={props.isLoading}
-            pt={{ loadingIcon: { className: "me-1" } }}
-            ref={props.ref}
-            severity={props.color as any}
-            size={props.size}
             style={props.css}
-            type={props.type}
-            onClick={props.onClick}/>
+            type={props.type ?? "button"}
+            onClick={props.onClick}>
+            {(position === "left" || position === "top") && iconElement}
+            {props.label && <span>{props.label}</span>}
+            {(position === "right" || position === "bottom") && iconElement}
+            {badgeElement}
+        </PrimeButton>
     );
-};
+}
+
 Button.displayName = "Button";

@@ -19,6 +19,7 @@ Padrão a repetir:
 src/<componente>/
   index.ts              ← apenas reexporta o componente, helpers públicos e os tipos de @types/
   <componente>.tsx      ← componente público
+  variants.ts           ← classes e variantes de estilo do componente
   package.json          ← { main/module: "./index.mjs", types: "./index.d.ts" }
   @types/index.d.ts     ← apenas reexporta os tipos públicos
   @types/<assunto>.d.ts ← declarações por assunto (ex.: core, form, css)
@@ -29,10 +30,13 @@ src/<componente>/
 ```
 
 - O nome da pasta é minúsculo, sem hífen, e é o nome público do import (`@orangesix/<pasta>`).
+- Mantenha classes e decisões de estilo em `variants.ts`, usando `tv` de `tailwind-variants`; o componente apenas seleciona as variantes e renderiza o resultado.
+- No PhpStorm, `src/style/tailwind.editor.css` ativa o Language Server do Tailwind v4 sem alterar o CSS publicado. Em **Settings → Languages & Frameworks → Style Sheets → Tailwind CSS → Configuration**, adicione `"classFunctions": ["tv"]` para completar classes dentro de `tv(...)`; depois reinicie o serviço Tailwind CSS pelo indicador **Language Services** na barra de status. O CSS publicado continua vindo de `src/style/style.css`.
 - **Um componente novo precisa de `index.ts` e `package.json`.** Sem eles, ele não é gerado nem resolvido pelos consumidores. Copie o `package.json` de outra pasta.
 - Mantenha `index.ts` e `@types/index.d.ts` como pontos de exportação. Declare os tipos em arquivos de `@types/` separados por assunto, sem alterar os nomes públicos exportados.
 - Um componente só vai para o `dist/` quando estiver habilitado em `build/components.ts` (ver `docs/build.md`).
 - Tipos compartilhados ficam em `src/api/` (`ApiComponentProps`, `ApiFieldComponentProps`, `ApiFieldControlledProps`, `ApiFieldHookFormProps`...). Helpers de campo (`InputLabel`, `InputFeedback`) também ficam lá.
+- `primereact` é `peerDependency`: o aplicativo consumidor instala o PrimeReact 11 e envolve sua raiz uma vez com `PrimeReactProvider` de `@primereact/core/config`, passando a própria chave PrimeUI. Componentes Orange Six não criam providers internos.
 - Importações entre componentes são relativas (`import { Box } from "../box";`).
 
 ## Encapsulando o PrimeReact 11
@@ -122,7 +126,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | api | migrado; build validado |
 | autocomplete | pendente |
 | box | migrado; testes e build validados; aguarda validação visual no sandbox pelo dono |
-| button | pendente |
+| button | migrado; testes e sandbox preparados; aguarda validação visual pelo dono |
 | calendar | pendente |
 | editor | pendente |
 | input | pendente |

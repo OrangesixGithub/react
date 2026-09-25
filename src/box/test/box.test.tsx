@@ -11,18 +11,18 @@ describe("Box", () => {
         expect(html).toContain("Conteúdo");
     });
 
-    it("Box -> aceita alinhamento responsivo, classes e CSS personalizado", () => {
+    it("Box -> combina alinhamento com classes responsivas e CSS personalizado", () => {
         const html = renderToStaticMarkup(
             <Box
-                align={["items-center", "md:items-start"]}
-                className="gap-2"
+                align="items-center"
+                className="gap-2 md:items-start"
                 css={{ color: "red", width: "42%" }}
                 direction="column"
                 id="exemplo"
                 justify="justify-between"
                 size="12-5">Conteúdo</Box>
         );
-        expect(html).toContain("flex-col items-center md:items-start justify-between gap-2");
+        expect(html).toContain("flex-col items-center justify-between gap-2 md:items-start");
         expect(html).toContain("id=\"exemplo\"");
         expect(html).toContain("width:42%");
         expect(html).toContain("color:red");

@@ -14,7 +14,8 @@ Um ambiente Vite para ver e testar os componentes em tempo real enquanto eles s�
 Em `react-sandbox/vite.config.ts`:
 - `@orangesix/react/<comp>` → `../react/src/<comp>`: editar um arquivo em `react/src` atualiza o sandbox na hora.
 - `@orangesix/react/style.css` → `../react/src/style/style.css`: o `@tailwindcss/vite` do sandbox compila o CSS da lib ao vivo. **Não é preciso rodar build na lib.**
-- `resolve.dedupe: ["react", "react-dom"]` evita duas cópias do React.
+- `resolve.dedupe` evita duas cópias de React e PrimeReact entre sandbox e biblioteca.
+- O sandbox instala o PrimeReact 11 como consumidor e configura `PrimeReactProvider` em `src/main.tsx`.
 - `server.fs.allow` libera a leitura da pasta `../react`.
 
 No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não o alias curto dos consumidores (`@orangesix/button`).
@@ -22,6 +23,7 @@ No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não 
 ## Fluxo de trabalho
 
 1. Rodar `npm run dev` em `react-sandbox/`.
+   Para testar com uma chave PrimeUI válida, defina `VITE_PRIMEUI_LICENSE` no `.env.local` do sandbox.
 2. Editar o componente em `react/src/<comp>/`.
 3. Validar o resultado no sandbox: variações, modos `Controlled`/`HookForm`, estados (disabled, readonly, erro).
 4. Habilitar o componente em `build/components.ts`, rodar `npm run build` na lib e conferir com `npm run dev:package`. Esse modo resolve `@orangesix/react/<comp>` → `react/dist/<comp>` pelo `package.json` da pasta, igual aos consumidores. Sem `react/dist`, o sandbox avisa para rodar o build.

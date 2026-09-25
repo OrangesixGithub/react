@@ -10,9 +10,9 @@ import path from "path";
 export const components: string[] = [
     "api",
     "box",
+    "button",
     // "accordion",
     // "autocomplete",
-    // "button",
     // "calendar",
     // "editor",
     // "input",
