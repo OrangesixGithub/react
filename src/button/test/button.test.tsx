@@ -15,9 +15,21 @@ describe("Button", () => {
         );
         expect(html).toContain("<button");
         expect(html).toContain("<span>Enviar</span>");
-        expect(html).toContain("pi-save");
+        expect(html).toContain("pi pi-save");
         expect(html).toContain(">3</span>");
         expect(html).toContain("rounded-md");
+    });
+
+    it("Button -> mantém ícones Bootstrap quando o prefixo é informado", () => {
+        const html = renderToStaticMarkup(
+            <PrimeReactProvider license="">
+                <Button
+                    icon="save"
+                    iconPrefix="bi bi-"
+                    label="Gravar"/>
+            </PrimeReactProvider>
+        );
+        expect(html).toContain("bi bi-save");
     });
 
     it("Button -> renderiza apenas children quando informado", () => {

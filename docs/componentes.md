@@ -129,7 +129,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | button | migrado; testes e sandbox preparados; aguarda validação visual pelo dono |
 | calendar | pendente |
 | editor | pendente |
-| input | pendente |
+| input | migrado; testes e sandbox preparados; aguarda validação visual pelo dono |
 | inputfilter | pendente |
 | lightbox | pendente |
 | loading | pendente |

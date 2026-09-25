@@ -13,7 +13,7 @@ describe("API -> Input", () => {
                 label="Usuário"/>
         );
         expect(html).toContain("for=\"usuario\"");
-        expect(html).toContain("pi pi-user");
+        expect(html).toContain("bi bi-user");
         expect(html).toContain("Usuário");
         expect(html).toContain("text-red-600");
     });

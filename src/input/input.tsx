@@ -1,51 +1,20 @@
-import React from "react";
 import { Box } from "../box";
-import { InputProps } from ".";
-import { ApiFieldModeProps } from "../api";
+import { InputLabel } from "../api";
 import { InputHookForm } from "./core/hookForm";
-import { PasswordProps } from "primereact/password";
 import { InputControlled } from "./core/controlled";
-import { InputMaskProps } from "primereact/inputmask";
-import { InputTextProps } from "primereact/inputtext";
-import { InputLabel, InputProps as getInputProps } from "../api";
+import type { ApiFieldModeProps } from "../api";
+import type { InputProps } from "./@types";
+import type { FieldValues } from "react-hook-form";
 
 /**
  * Componente - `Input`
  *
- * Um componente versátil utilizado para entrada de dados simples.
+ * Reúne campos de texto, número, senha e máscara com a API da Orange Six.
  */
-export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputProps<T> & { mode?: T }) {
-
-    let propsCore = props as any;
-    let sizes = props.sizes === "small" ? "p-inputtext-sm" : props.sizes === "large" ? "p-inputtext-lg" : "";
-
-    let core: InputTextProps & { ref: React.Ref<HTMLInputElement> | undefined } = {
-        ...getInputProps(propsCore),
-        className: sizes,
-        type: props.type ?? "text",
-    };
-    let password: PasswordProps = {
-        appendTo: "self",
-        feedback: props.passwordFeedback,
-        footer: props.passwordFooterTemplate,
-        header: props.passwordHeaderTemplate,
-        mediumLabel: "Média",
-        promptLabel: "Por favor, insira uma senha",
-        pt: { input: { className: "w-100" } },
-        strongLabel: "Forte",
-        toggleMask: props.passwordShow,
-        weakLabel: "Fraca",
-        content: props.passwordTemplate
-    };
-    let mask: InputMaskProps = {
-        mask: props.mask === "cpf"
-            ? "999.999.999-99"
-            : props.mask === "cnpj"
-                ? "99.999.999/9999-99"
-                : props.mask,
-        autoClear: props.maskAutoClear
-    };
-
+export function Input<T extends ApiFieldModeProps = "Controlled", TValues extends FieldValues = FieldValues>(props: InputProps<T, TValues> & {
+    mode?: T
+}) {
+    const readOnlyLabel = props.readonly && "readonlyType" in props && props.readonlyType === "label";
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -53,27 +22,17 @@ export function Input<T extends ApiFieldModeProps = "Controlled">(props: InputPr
     */
     return (
         <Box
-            className={props.className}
+            className={`text-neutral-700 dark:text-neutral-300 ${props.className ?? ""}`}
             css={props.css}
+            direction="column"
             size={props.size ?? "100"}>
             <InputLabel {...props}/>
-            {/*@ts-ignore*/}
-            {props.readonly && props.readonlyType === "label"
-                ? (
-                    //@ts-ignore
-                    <p className={"w-100 form-label-readonly " + (props.readonlyClassName ?? "")}>{props.value}</p>
-                )
-                : (!props.mode || props.mode === "Controlled"
-                    ? <InputControlled
-                        core={core}
-                        masker={mask}
-                        password={password}
-                        {...propsCore}/>
-                    : <InputHookForm
-                        core={core}
-                        masker={mask}
-                        password={password}
-                        {...propsCore}/>)}
+            {readOnlyLabel
+                ? <p className={"w-full " + ("readonlyClassName" in props ? props.readonlyClassName ?? "" : "")}>
+                    {String("value" in props ? props.value ?? "" : "")}</p>
+                : props.mode === "HookForm"
+                    ? <InputHookForm {...props as InputProps<"HookForm">}/>
+                    : <InputControlled {...props as InputProps<"Controlled">}/>}
         </Box>
     );
 }

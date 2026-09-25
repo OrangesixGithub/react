@@ -3,4 +3,6 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "primeicons/primeicons.css";
 
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
 @source "../";

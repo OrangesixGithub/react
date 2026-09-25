@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@primereact/hooks": "^11.1.0",
     "@tippyjs/react": "^4.2.6",
     "@tiptap/extension-color": "^3.31.3",
     "@tiptap/extension-highlight": "^3.31.3",
@@ -49,6 +50,7 @@
     "primeicons": "^8.0.2",
     "react-pdf": "^11.0.0",
     "sweetalert2": "^11.26.25",
+    "tailwind-variants": "^3.3.1",
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
@@ -71,7 +73,6 @@
     "react-dom": "^19.3.0",
     "react-hook-form": "^7.88.0",
     "tailwind-merge": "^3.7.0",
-    "tailwind-variants": "^3.3.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vite": "^8.3.0",
@@ -79,9 +80,16 @@
     "vitest": "^5.0.1"
   },
   "peerDependencies": {
+    "@primereact/core": "^11.1.0",
+    "bootstrap-icons": "^1.13.1",
     "primereact": "^11.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.76.1"
+  },
+  "peerDependenciesMeta": {
+    "bootstrap-icons": {
+      "optional": true
+    }
   }
 }

@@ -6,7 +6,7 @@ import type { ApiComponentProps, ApiFieldComponentProps } from "./@types";
  *
  * Exibe o rótulo e indica visualmente quando o campo é obrigatório.
  */
-export function InputLabel({ id, name, label, icon, iconPrefix = "pi pi-", required }: ApiFieldComponentProps) {
+export function InputLabel({ id, name, label, icon, iconPrefix = "bi bi-", required }: ApiFieldComponentProps) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -22,7 +22,7 @@ export function InputLabel({ id, name, label, icon, iconPrefix = "pi pi-", requi
             {label}
             {required && <span
                 aria-hidden="true"
-                className="ml-1 text-red-600">*</span>}
+                className="text-red-600">*</span>}
         </label>
     );
 }

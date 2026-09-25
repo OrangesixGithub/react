@@ -78,7 +78,7 @@ export function buttonIconVariants(props: ButtonProps) {
     if (props.isLoading) {
         return "pi pi-spinner pi-spin";
     }
-    return props.icon === undefined ? undefined : `${props.iconPrefix ?? "bi bi-"}${props.icon}`;
+    return props.icon === undefined ? undefined : `${props.iconPrefix ?? "pi pi-"}${props.icon}`;
 }
 
 /** Classes do badge, incluindo as classes informadas pelo consumidor. */
