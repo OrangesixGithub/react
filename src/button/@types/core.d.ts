@@ -1,4 +1,4 @@
-import type { Ref, MouseEventHandler } from "react";
+import type { Ref, ReactNode, MouseEventHandler } from "react";
 import type { ApiComponentProps, ColorProps } from "../../api";
 
 /** Propriedades públicas do componente Button. */
@@ -12,11 +12,17 @@ export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
     /** Texto exibido no botão. */
     label?: string;
 
+    /** Conteúdo interno que substitui o rótulo, o ícone e o badge quando informado. */
+    children?: ReactNode;
+
     /** Desabilita a ação do botão. */
     disabled?: boolean;
 
     /** Tamanho do botão. */
     size?: "small" | "large";
+
+    /** Deixa o botão totalmente arredondado. */
+    rounded?: boolean;
 
     /** Texto do indicador exibido junto ao conteúdo. */
     badge?: string;
@@ -31,8 +37,13 @@ export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
     isLoading?: boolean;
 
     /**
+     * Define se button vai está visível na tela
+     */
+    isVisible?: boolean;
+
+    /**
      * Prefixo de classes do ícone. O padrão é `pi pi-`.
-     * @deprecated `bi bi-` permanece aceito para compatibilidade; prefira `pi pi-`.
+     * `bi bi-` permanece aceito para compatibilidade; prefira `pi pi-`.
      */
     iconPrefix?: "bi bi-" | "pi pi-";
 

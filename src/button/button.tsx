@@ -10,9 +10,10 @@ import { buttonBadgeVariants, buttonIconVariants, buttonVariants } from "./varia
 export function Button({ ...props }: ButtonProps) {
     const position = props.iconPos ?? "left";
     const icon = buttonIconVariants(props);
-    const iconElement = icon && <i
-        aria-hidden="true"
-        className={icon}/>;
+    const iconElement = icon
+        && <i
+            aria-hidden="true"
+            className={icon}/>;
     const badgeElement = props.badge
         && <span className={buttonBadgeVariants(props.badgeClassName)}>{props.badge}</span>;
 
@@ -34,13 +35,18 @@ export function Button({ ...props }: ButtonProps) {
             className={buttonVariants(props)}
             disabled={props.disabled || props.isLoading}
             id={props.id}
+            pIf={props.isVisible ?? true}
             style={props.css}
             type={props.type ?? "button"}
             onClick={props.onClick}>
-            {(position === "left" || position === "top") && iconElement}
-            {props.label && <span>{props.label}</span>}
-            {(position === "right" || position === "bottom") && iconElement}
-            {badgeElement}
+            {props.children != null
+                ? props.children
+                : <>
+                    {(position === "left" || position === "top") && iconElement}
+                    {props.label && <span>{props.label}</span>}
+                    {(position === "right" || position === "bottom") && iconElement}
+                    {badgeElement}
+                </>}
         </PrimeButton>
     );
 }

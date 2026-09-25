@@ -3,8 +3,12 @@ import type { ColorProps } from "../api";
 import type { ButtonProps } from "./@types";
 
 const root = tv({
-    base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+    base: "inline-flex cursor-pointer items-center justify-center gap-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
     variants: {
+        rounded: {
+            true: "rounded-full",
+            false: "rounded-md",
+        },
         size: {
             small: "min-h-8 px-3 py-1 text-sm",
             normal: "min-h-10 px-4 py-2 text-base",
@@ -51,7 +55,7 @@ const root = tv({
 });
 
 const badge = tv({
-    base: "inline-flex min-w-5 items-center justify-center rounded-full bg-black/20 px-1 text-xs",
+    base: "inline-flex min-w-5 items-center justify-center rounded-full bg-black/30 px-1 text-xs",
 });
 
 /** Classes do botão conforme aparência, cor, tamanho e posição do ícone. */
@@ -59,6 +63,7 @@ export function buttonVariants(props: ButtonProps) {
     const color = props.color ?? "primary";
 
     return root({
+        rounded: props.rounded ?? false,
         size: props.size ?? "normal",
         color: props.isLink ? undefined : color,
         linkColor: props.isLink ? color : undefined,
@@ -73,7 +78,7 @@ export function buttonIconVariants(props: ButtonProps) {
     if (props.isLoading) {
         return "pi pi-spinner pi-spin";
     }
-    return props.icon === undefined ? undefined : `${props.iconPrefix ?? "pi pi-"}${props.icon}`;
+    return props.icon === undefined ? undefined : `${props.iconPrefix ?? "bi bi-"}${props.icon}`;
 }
 
 /** Classes do badge, incluindo as classes informadas pelo consumidor. */
