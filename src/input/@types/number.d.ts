@@ -26,4 +26,15 @@ export interface InputNumberProps {
 
     /** Número mínimo de casas decimais. */
     numberMinFractionDigits?: number;
+
+    /**
+     * Define se vai aparecer button de incremento e decremento no junto ao input de número
+     */
+    numberButton?: boolean;
+
+    /**
+     * Define o posicionamento do botão do número
+     * @defaultValue stacked
+     */
+    numberButtonLayout?: "stacked" | "horizontal" | "vertical" | undefined;
 }

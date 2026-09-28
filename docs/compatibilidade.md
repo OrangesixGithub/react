@@ -1,6 +1,6 @@
 # Compatibilidade com os consumidores
 
-A 3.x precisa entrar nos projetos que usam a 2.x (ex.: `diretriz-crm`, hoje na 2.4.0) **sem alterar os imports existentes dos componentes**. A aplicação instala o PrimeReact 11 e configura sua chave PrimeUI no provider da raiz.
+A 3.x precisa entrar nos projetos que usam a 2.x (ex.: `diretriz-crm`, hoje na 2.4.0) **sem alterar os imports existentes dos componentes**. A aplicação instala o PrimeReact 10.9.9 e configura o modo unstyled no provider da raiz.
 
 ## Como os projetos consomem o pacote
 
@@ -61,16 +61,18 @@ import "@orangesix/react/style.css";
 
 Instalar as dependências do PrimeReact no projeto consumidor:
 ```bash
-npm install primereact@^11.1.0 @primereact/core@^11.1.0
+npm install primereact@10.9.9
 ```
 
-Envolver a aplicação uma vez com o provider do PrimeReact e informar a chave PrimeUI do próprio projeto:
+Envolver a aplicação uma vez com o provider do PrimeReact em modo unstyled:
 ```tsx
-import { PrimeReactProvider } from "@primereact/core/config";
+import { PrimeReactProvider } from "primereact/api";
 
-<PrimeReactProvider license={import.meta.env.VITE_PRIMEUI_LICENSE}>
+<PrimeReactProvider value={{ unstyled: true }}>
     <App/>
 </PrimeReactProvider>
 ```
 
-Outros requisitos da 3.x: **React 19** (exigido pelo PrimeReact 11) e `react-hook-form` ^7.
+Outros requisitos da 3.x: **React 19** (versão atualmente adotada pela Orange Six) e `react-hook-form` ^7.
+
+Não importar temas ou `primereact/resources/primereact.min.css`: os estilos dos componentes modernizados vêm do Tailwind v4 da Orange Six.

@@ -20,25 +20,25 @@ componentes flexíveis e personalizáveis para criar aplicações web modernas e
 
 - React >= 19.1.0
 - ReactDOM >= 19.1.0
-- PrimeReact 11
+- PrimeReact 10.9.9
 
-## PrimeReact 11 nos projetos consumidores
+## PrimeReact 10.9.9 e Tailwind v4 nos projetos consumidores
 
-O PrimeReact 11 é uma `peerDependency` da Orange Six. Cada projeto consumidor instala o PrimeReact e configura sua chave PrimeUI uma vez na raiz:
+O PrimeReact 10.9.9 é uma `peerDependency` fixada da Orange Six. Cada projeto consumidor instala essa versão e configura o modo unstyled uma vez na raiz:
 
 ```bash
-npm install primereact@^11.1.0 @primereact/core@^11.1.0
+npm install primereact@10.9.9
 ```
 
 ```tsx
-import { PrimeReactProvider } from "@primereact/core/config";
+import { PrimeReactProvider } from "primereact/api";
 
-<PrimeReactProvider license={import.meta.env.VITE_PRIMEUI_LICENSE}>
+<PrimeReactProvider value={{ unstyled: true }}>
     <App/>
 </PrimeReactProvider>
 ```
 
-Em projetos Vite, defina `VITE_PRIMEUI_LICENSE` na configuração de ambiente da aplicação. A chave não é incluída no pacote Orange Six. A licença MIT deste repositório não substitui a licença PrimeUI exigida para desenvolver com o PrimeReact 11; consulte os [termos oficiais](https://primeui.dev/licenses).
+Importe `@orangesix/react/style.css` uma vez na entrada da aplicação. Os componentes modernizados usam estilos próprios com Tailwind v4, sem importar temas CSS do PrimeReact. A versão 10.9.9 do PrimeReact é distribuída sob [licença MIT](https://github.com/primefaces/primereact/blob/10.9.9/LICENSE.md).
 
 ## 🤝 Contribuição
 

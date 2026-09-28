@@ -1,8 +1,8 @@
-import { Controller } from "react-hook-form";
+import type { Ref } from "react";
 import { InputField } from "./field";
 import { InputFeedback } from "../../api";
-import type { Ref } from "react";
 import type { InputProps } from "../@types";
+import { Controller } from "react-hook-form";
 
 /**
  * Core - `InputHookForm`
@@ -38,7 +38,6 @@ export function InputHookForm(props: InputProps<"HookForm">) {
                         }}/>
                     <InputFeedback
                         {...props}
-                        className="mt-1 text-xs text-red-600 dark:text-red-400"
                         errors={formState.errors}/>
                 </>
             )}

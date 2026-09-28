@@ -12,10 +12,7 @@ import type {
 } from "../../api";
 
 /** Propriedades compartilhadas do componente Input. */
-export interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProps, InputMaskProps, InputNumberProps, InputPasswordProps {
-    /** Tipo de dado apresentado pelo campo. */
-    type?: Extract<HTMLInputTypeAttribute, "text" | "date" | "email" | "time" | "number" | "password">;
-
+export interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProps {
     /** Referência ao elemento HTML de entrada. */
     ref?: Ref<HTMLInputElement>;
 
@@ -23,7 +20,16 @@ export interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProp
     sizes?: "small" | "large";
 }
 
+/** Configuração disponível conforme o tipo do campo. */
+type InputOtherType = Extract<HTMLInputTypeAttribute, "date" | "email" | "time">;
+
+type InputTypeProps =
+    | ({ type: "number" } & InputNumberProps)
+    | ({ type: "password" } & InputPasswordProps)
+    | ({ type?: "text" } & InputMaskProps & { [K in keyof InputNumberProps | keyof InputPasswordProps]?: never })
+    | { type: InputOtherType };
+
 /** Props do Input conforme o modo Controlled ou HookForm. */
 export type InputProps<T extends ApiFieldModeProps, TValues extends FieldValues = FieldValues> = T extends "Controlled"
-    ? InputBaseProps & ApiFieldControlledProps
-    : InputBaseProps & Omit<ApiFieldHookFormProps, "control"> & { control: Control<TValues> };
+    ? InputBaseProps & InputTypeProps & ApiFieldControlledProps
+    : InputBaseProps & InputTypeProps & Omit<ApiFieldHookFormProps, "control"> & { control: Control<TValues> };

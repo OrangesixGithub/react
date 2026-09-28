@@ -2,8 +2,8 @@
 
 ## Formato
 
-- **Somente ESM, extensão `.mjs`**, como no PrimeReact 11. Com `.mjs` o arquivo é ESM independente do campo `"type"`, e funciona em bundlers e no Node puro.
-- **Não gerar CommonJS.** O PrimeReact 11 não tem build CJS, então um `.cjs` do pacote não funcionaria de qualquer forma. Se algum dia for necessário, bastaria adicionar `"cjs"` em `build.lib.formats`.
+- **Somente ESM, extensão `.mjs`**. Com `.mjs` o arquivo é ESM independente do campo `"type"`, e funciona em bundlers e no Node puro.
+- **Não gerar CommonJS.** O formato ESM é uma decisão da biblioteca e permanece com PrimeReact 10.9.9.
 
 ## Estrutura do repositório
 
@@ -90,7 +90,7 @@ dist/
 
 ## Dependências externas
 
-`build/external.ts` marca como externo todo nome listado em `dependencies` e `peerDependencies`, além dos subpaths (`primereact/button`, `react/jsx-runtime`) e `@primereact/*`. Consequências:
+`build/external.ts` marca como externo todo nome listado em `dependencies` e `peerDependencies`, além dos subpaths (`primereact/button`, `react/jsx-runtime`). Consequências:
 - **Não existe lista manual de externos.** Não recriar o antigo `vite.external.json`.
 - **Uma dependência de runtime em `devDependencies` seria embutida no bundle.** Sempre declare onde ela é usada.
 

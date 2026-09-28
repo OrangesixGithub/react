@@ -1,12 +1,29 @@
 import { Button } from "../index";
 import { describe, expect, it } from "vitest";
+import { PrimeReactProvider } from "primereact/api";
 import { renderToStaticMarkup } from "react-dom/server";
-import { PrimeReactProvider } from "@primereact/core/config";
 
 describe("Button", () => {
+    it("Button -> não renderiza quando isVisible é false", () => {
+        const html = renderToStaticMarkup(<Button
+            isVisible={false}
+            label="Oculto"/>);
+        expect(html).toBe("");
+    });
+
+    it("Button -> impede cliques durante carregamento sem estilos do PrimeReact", () => {
+        const html = renderToStaticMarkup(<Button
+            isLoading
+            label="Salvar"/>);
+        expect(html).toContain("disabled");
+        expect(html).toContain("aria-busy=\"true\"");
+        expect(html).not.toContain("p-button");
+        expect(html).not.toContain("pIf");
+    });
+
     it("Button -> renderiza rótulo, ícone e badge por padrão", () => {
         const html = renderToStaticMarkup(
-            <PrimeReactProvider license="">
+            <PrimeReactProvider value={{ unstyled: true }}>
                 <Button
                     badge="3"
                     icon="save"
@@ -22,7 +39,7 @@ describe("Button", () => {
 
     it("Button -> mantém ícones Bootstrap quando o prefixo é informado", () => {
         const html = renderToStaticMarkup(
-            <PrimeReactProvider license="">
+            <PrimeReactProvider value={{ unstyled: true }}>
                 <Button
                     icon="save"
                     iconPrefix="bi bi-"
@@ -34,7 +51,7 @@ describe("Button", () => {
 
     it("Button -> renderiza apenas children quando informado", () => {
         const html = renderToStaticMarkup(
-            <PrimeReactProvider license="">
+            <PrimeReactProvider value={{ unstyled: true }}>
                 <Button
                     badge="3"
                     icon="save"
@@ -49,7 +66,7 @@ describe("Button", () => {
 
     it("Button -> aplica bordas totalmente arredondadas com rounded", () => {
         const rounded = renderToStaticMarkup(
-            <PrimeReactProvider license="">
+            <PrimeReactProvider value={{ unstyled: true }}>
                 <Button
                     rounded
                     label="Redondo"/>

@@ -22,20 +22,22 @@ export function Button({ ...props }: ButtonProps) {
     | render() - Renderização do componente
     |------------------------------------------
     */
-    return (
+    return props.isVisible === false ? null : (
         <PrimeButton
-            ref={node => {
+            unstyled
+            ref={(node: unknown) => {
+                // Na v10, o Button encaminha o elemento HTML apesar da declaração como classe React.
+                const button = node as HTMLButtonElement | null;
                 if (typeof props.ref === "function") {
-                    props.ref(node as HTMLButtonElement);
+                    props.ref(button);
                 } else if (props.ref) {
-                    props.ref.current = node as HTMLButtonElement;
+                    props.ref.current = button;
                 }
             }}
             aria-busy={props.isLoading || undefined}
             className={buttonVariants(props)}
             disabled={props.disabled || props.isLoading}
             id={props.id}
-            pIf={props.isVisible ?? true}
             style={props.css}
             type={props.type ?? "button"}
             onClick={props.onClick}>

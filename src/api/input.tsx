@@ -51,7 +51,7 @@ export function InputFeedback({ error, errors, id, name, className }: ApiFieldCo
     return (
         <div
             aria-live="polite"
-            className={feedback ? (className ?? "mt-1 text-red-600 text-xs") : undefined}
+            className={feedback ? (className ?? "mt-1 text-xs text-red-600 dark:text-red-400") : undefined}
             data-name={name}
             id={id || name ? `${id ?? name}-feedback` : undefined}>
             {feedback}

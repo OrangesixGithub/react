@@ -1,6 +1,6 @@
 # @orangesix/react: guia para agentes de IA
 
-Biblioteca de componentes React da Orange Six. A versão **3.x** encapsula o **PrimeReact 11** com estilo próprio (Tailwind v4) e precisa continuar compatível com os projetos que usam a **2.x**.
+Biblioteca de componentes React da Orange Six. A versão **3.x** encapsula o **PrimeReact 10.9.9** com estilo próprio (Tailwind v4) e precisa continuar compatível com os projetos que usam a **2.x**.
 
 Leia este arquivo inteiro antes de alterar qualquer coisa. Os detalhes estão em `docs/`:
 
@@ -14,7 +14,7 @@ Leia este arquivo inteiro antes de alterar qualquer coisa. Os detalhes estão em
 ## Regras inegociáveis
 
 1. **Não quebrar os consumidores 2.x.** Os projetos importam `@orangesix/<componente>` através de um alias apontando para a pasta do componente no pacote. A estrutura `dist/<componente>/{index.mjs, index.d.ts, package.json, @types/}` é contrato público.
-2. **Só ESM, com extensão `.mjs`.** Não gerar CommonJS. O PrimeReact 11 é ESM-only.
+2. **Só ESM, com extensão `.mjs`.** Não gerar CommonJS. Esse formato é o contrato do pacote Orange Six.
 3. **Cada `src/<componente>/` tem um `package.json`** com `main`/`module` → `./index.mjs` e `types` → `./index.d.ts`. Não remover e não substituir por `exports` na raiz.
 4. **Dependências nunca entram no bundle.** Tudo em `dependencies`/`peerDependencies` fica externo automaticamente (`build/external.ts`). Nova dependência de runtime vai em `dependencies`, e não em `devDependencies`.
 5. **Um único build.** `npm run build` (vitest + `vite build`) gera JS, tipos, `style.css`, fontes e manifests. Não criar scripts de build paralelos. Erro de tipo em componente habilitado **falha o build**, de propósito; não contornar.
@@ -38,6 +38,6 @@ Para ver um componente em tempo real, rode `npm run dev` em `../react-sandbox`.
 ## Estado atual (3.0.0-beta)
 
 - A estrutura do pacote e o build estão definidos e estáveis.
-- **Os componentes ainda usam a API do PrimeReact 10** e estão sendo migrados um a um. Os erros de TypeScript que o `vite-plugin-dts` mostra no build vêm desse código legado e não impedem o build.
-- `api` está habilitada em `build/components.ts` e seu build foi confirmado. Os próximos componentes entram após validação no sandbox.
+- **A base é PrimeReact 10.9.9 em modo `unstyled`, com Tailwind v4.** Os componentes são modernizados um a um preservando a API 2.x. Erros de TypeScript em componentes habilitados falham o build.
+- `api`, `box` e `button` estão habilitados em `build/components.ts`. Os próximos componentes entram após validação no sandbox.
 - Ao migrar um componente, atualize a tabela de status em `docs/componentes.md`.

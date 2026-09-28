@@ -26,6 +26,7 @@ export function InputPassword(props: PasswordProps) {
         <div className="w-full">
             <div className="relative">
                 <InputText
+                    unstyled
                     ref={(node: unknown) => {
                         const input = node as HTMLInputElement | null;
                         if (typeof props.inputRef === "function") props.inputRef(input);

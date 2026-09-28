@@ -9,7 +9,6 @@ export function viteExternal(packageFile: string) {
     const packages = [
         ...Object.keys(packageJson.dependencies ?? {}),
         ...Object.keys(packageJson.peerDependencies ?? {}),
-        "@primereact",
     ];
     return (id: string) => packages.some(name => id === name || id.startsWith(`${name}/`));
 }

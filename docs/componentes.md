@@ -36,26 +36,15 @@ src/<componente>/
 - Mantenha `index.ts` e `@types/index.d.ts` como pontos de exportação. Declare os tipos em arquivos de `@types/` separados por assunto, sem alterar os nomes públicos exportados.
 - Um componente só vai para o `dist/` quando estiver habilitado em `build/components.ts` (ver `docs/build.md`).
 - Tipos compartilhados ficam em `src/api/` (`ApiComponentProps`, `ApiFieldComponentProps`, `ApiFieldControlledProps`, `ApiFieldHookFormProps`...). Helpers de campo (`InputLabel`, `InputFeedback`) também ficam lá.
-- `primereact` é `peerDependency`: o aplicativo consumidor instala o PrimeReact 11 e envolve sua raiz uma vez com `PrimeReactProvider` de `@primereact/core/config`, passando a própria chave PrimeUI. Componentes Orange Six não criam providers internos.
+- `primereact` é `peerDependency`, fixada em `10.9.9`: o aplicativo consumidor instala essa versão e envolve sua raiz uma vez com `PrimeReactProvider` de `primereact/api`, usando `value={{ unstyled: true }}`. Componentes Orange Six não criam providers internos e usam `unstyled` para manter seus estilos Tailwind.
 - Importações entre componentes são relativas (`import { Box } from "../box";`).
 
-## Encapsulando o PrimeReact 11
+## Encapsulando o PrimeReact 10.9.9
 
-- O componente Orange Six **mantém a API da 2.x** e traduz internamente para a API do PrimeReact 11. O consumidor nunca deve precisar conhecer o PrimeReact.
-- O PrimeReact 11 é **composto** (`Select.Root`, `Select.Trigger`, `Select.List`...) e mudou nomes. Mapeamentos conhecidos da v10 para a v11:
-
-  | v10 | v11 |
-  |---|---|
-  | `calendar` | `datepicker` |
-  | `password` | `inputpassword` |
-  | `inputswitch` | `toggleswitch` |
-  | `inputtextarea` | `textarea` |
-  | `dropdown` / `multiselect` | `select` |
-  | `tabview` | `tabs` |
-  | `inputmask`, `picklist`, `utils`, `api`, `column` | não existem, precisam de solução própria |
-
-  Antes de migrar, confira a API real em `node_modules/primereact/<componente>/` (arquivos `.d.ts`).
-- `keyfilter` não faz parte da API compartilhada da 3.x; não o encaminhe aos componentes do PrimeReact 11.
+- O componente Orange Six **mantém a API da 2.x** e encapsula a API do PrimeReact 10.9.9. A modernização concentra-se nos estilos Tailwind e na organização dos componentes.
+- Use os imports da v10 (`primereact/button`, `primereact/inputmask`, `primereact/inputnumber`, `primereact/calendar` etc.) e confira as declarações em `node_modules/primereact/<componente>/`.
+- Use o modo **unstyled** e classes próprias em `variants.ts`. Para elementos internos, use as props específicas ou Pass Through (`pt`); não importe temas CSS do PrimeReact.
+- Não usar dependências `@primereact/*`, APIs compostas da v11 ou configuração de chave PrimeUI.
 - Estilo: **Tailwind v4**. Não usar classes Bootstrap (`me-1`, `w-100`, `text-danger`, `form-label`, `justify-content-*`...).
 - `AlignItemsProps` e `JustifyContentProps` aceitam apenas classes Tailwind (`items-*`, `justify-*`, com prefixos responsivos).
 - Ícones: `primeicons` (`pi pi-*`).
@@ -110,26 +99,26 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 ## Checklist de migração de um componente
 
 1. Ler o componente atual e seus `@types` (a API 2.x a preservar).
-2. Ler a API do PrimeReact 11 correspondente em `node_modules/primereact/`.
-3. Reescrever o motor interno mantendo props e exports.
+2. Ler a API do PrimeReact 10.9.9 correspondente em `node_modules/primereact/`.
+3. Adaptar os estilos para unstyled + Tailwind mantendo props e exports.
 4. Remover as classes Bootstrap e usar Tailwind.
 5. Criar ou atualizar a página do componente no sandbox (`docs/sandbox.md`) e validar visualmente os dois modos (`Controlled` e `HookForm`).
 6. **Depois da validação do dono do projeto no sandbox**, habilitar o componente em `build/components.ts` (e as dependências dele, se o build pedir).
 7. Rodar lint, `npm run build` e confirmar que o componente não aparece mais nos erros do dts.
 8. Atualizar a tabela abaixo.
 
-## Status da migração para PrimeReact 11
+## Status da modernização com PrimeReact 10.9.9
 
 | Componente | Status |
 |---|---|
 | accordion | pendente |
 | api | migrado; build validado |
 | autocomplete | pendente |
-| box | migrado; testes e build validados; aguarda validação visual no sandbox pelo dono |
-| button | migrado; testes e sandbox preparados; aguarda validação visual pelo dono |
+| box | modernizado com Tailwind; habilitado no build |
+| button | adaptado para PrimeReact 10.9.9 unstyled; habilitado no build; revalidar visual no sandbox |
 | calendar | pendente |
 | editor | pendente |
-| input | migrado; testes e sandbox preparados; aguarda validação visual pelo dono |
+| input | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
 | inputfilter | pendente |
 | lightbox | pendente |
 | loading | pendente |

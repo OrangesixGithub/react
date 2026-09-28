@@ -1,25 +1,29 @@
-import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
 import { InputMasked } from "./masked";
 import { InputPassword } from "./password";
-import { inputVariants } from "../variants";
-import type { ChangeEvent, FocusEvent, Ref } from "react";
+import { InputText } from "primereact/inputtext";
 import type { InputBaseProps } from "../@types/core";
+import { InputNumber } from "primereact/inputnumber";
+import type { ChangeEvent, FocusEvent, Ref } from "react";
+import { inputVariants, inputNumberVariants } from "../variants";
+import type { InputMaskProps, InputNumberProps, InputPasswordProps } from "../@types";
 
-export type InputFieldProps = InputBaseProps & {
+export type InputFieldProps = InputBaseProps & InputMaskProps & InputNumberProps & InputPasswordProps & {
+    type?: "text" | "date" | "email" | "time" | "number" | "password";
     value: unknown;
     invalid?: boolean;
     inputRef?: Ref<HTMLInputElement>;
-    onValueChange: (value: string | number | null) => void;
     onFieldBlur: (value: string) => void;
+    onValueChange: (value: string | number | null) => void;
 };
 
 /**
  * Core - `InputField`
- * Seleciona a implementação do PrimeReact 11 para cada tipo de campo.
+ * Seleciona a implementação do PrimeReact 10.9.9 para cada tipo de campo.
  */
 export function InputField(props: InputFieldProps) {
     const classes = inputVariants(props.invalid, props.sizes);
+    const numberClasses = inputNumberVariants(props);
+    const numberLayout = props.numberButtonLayout ?? "stacked";
     const textValue = props.value == null ? "" : String(props.value);
     const numberValue = typeof props.value === "number" ? props.value : null;
     /*
@@ -38,9 +42,24 @@ export function InputField(props: InputFieldProps) {
                 className={classes}
                 value={textValue}/>
             : props.type === "number"
-                ? <InputNumber.Root
+                ? <InputNumber
+                    unstyled
+                    pt={{
+                        buttonGroup: { className: numberClasses.buttonGroup },
+                        incrementButton: { disabled: props.disabled || props.readonly },
+                        decrementButton: { disabled: props.disabled || props.readonly },
+                    }}
+                    buttonLayout={numberLayout}
+                    className={numberClasses.root}
                     currency={props.numberCurrency ?? "BRL"}
+                    decrementButtonClassName={numberClasses.decrementButton}
+                    decrementButtonIcon={`pi ${numberLayout === "stacked" ? "pi-angle-down" : "pi-minus"} ${numberClasses.icon}`}
                     disabled={props.disabled}
+                    incrementButtonClassName={numberClasses.incrementButton}
+                    incrementButtonIcon={`pi ${numberLayout === "stacked" ? "pi-angle-up" : "pi-plus"} ${numberClasses.icon}`}
+                    inputClassName={numberClasses.input}
+                    inputId={props.id ?? props.name}
+                    inputRef={props.inputRef}
                     invalid={props.invalid}
                     locale="pt-BR"
                     max={props.numberMax}
@@ -49,27 +68,18 @@ export function InputField(props: InputFieldProps) {
                     minFractionDigits={props.numberMinFractionDigits}
                     mode={props.numberMode}
                     name={props.name}
+                    placeholder={props.placeholder}
                     prefix={props.numberPrefix}
                     readOnly={props.readonly}
+                    required={props.required}
+                    showButtons={props.numberButton ?? false}
                     suffix={props.numberSuffix}
                     useGrouping={props.numberDecimalSeparator ?? false}
                     value={numberValue}
-                    onValueChange={(event: { value: number }) => props.onValueChange(event.value)}>
-                    <InputNumber.Input
-                        ref={(node: unknown) => {
-                            const input = node as HTMLInputElement | null;
-                            if (typeof props.inputRef === "function") props.inputRef(input);
-                            else if (props.inputRef) props.inputRef.current = input;
-                        }}
-                        aria-invalid={props.invalid || undefined}
-                        className={classes}
-                        id={props.id ?? props.name}
-                        name={props.name}
-                        placeholder={props.placeholder}
-                        required={props.required}
-                        onBlur={(event: FocusEvent<HTMLInputElement>) => props.onFieldBlur(event.target.value)}/>
-                </InputNumber.Root>
+                    onBlur={(event: FocusEvent<HTMLInputElement>) => props.onFieldBlur(event.target.value)}
+                    onValueChange={event => props.onValueChange(event.value ?? null)}/>
                 : <InputText
+                    unstyled
                     ref={(node: unknown) => {
                         const input = node as HTMLInputElement | null;
                         if (typeof props.inputRef === "function") props.inputRef(input);

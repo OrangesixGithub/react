@@ -1,9 +1,9 @@
 import { Box } from "../box";
 import { InputLabel } from "../api";
+import type { InputProps } from "./@types";
+import type { ApiFieldModeProps } from "../api";
 import { InputHookForm } from "./core/hookForm";
 import { InputControlled } from "./core/controlled";
-import type { ApiFieldModeProps } from "../api";
-import type { InputProps } from "./@types";
 import type { FieldValues } from "react-hook-form";
 
 /**

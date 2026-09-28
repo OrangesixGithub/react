@@ -20,9 +20,7 @@ export function InputControlled(props: InputProps<"Controlled">) {
                 invalid={Boolean(props.error)}
                 onFieldBlur={value => props.onBlur?.(value)}
                 onValueChange={value => props.onChange?.(value)}/>
-            <InputFeedback
-                {...props}
-                className="mt-1 text-xs text-red-600 dark:text-red-400"/>
+            <InputFeedback {...props}/>
         </>
     );
 }
