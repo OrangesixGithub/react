@@ -1,0 +1,4 @@
+@theme static {
+    /* Espaçamento horizontal total: metade em cada lado do Box. */
+    --spacing-box: .5rem;
+}

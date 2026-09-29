@@ -15,7 +15,7 @@ const root = tv({
             large: "min-h-11 px-5 py-2.5 text-lg",
         },
         color: {
-            primary: "bg-blue-500 text-white hover:bg-blue-700 focus-visible:ring-blue-300",
+            primary: "bg-primary-500 text-white hover:bg-primary-700 focus-visible:ring-primary-300",
             secondary: "bg-slate-500 text-white hover:bg-slate-700 focus-visible:ring-slate-300",
             success: "bg-green-500 text-white hover:bg-green-700 focus-visible:ring-green-300",
             danger: "bg-red-500 text-white hover:bg-red-700 focus-visible:ring-red-300",
@@ -29,7 +29,7 @@ const root = tv({
             white: "bg-white text-slate-900 hover:bg-slate-100 focus-visible:ring-slate-300",
         } satisfies Record<ColorProps, string>,
         linkColor: {
-            primary: "text-blue-600 hover:text-blue-700",
+            primary: "text-primary-600 hover:text-primary-700",
             secondary: "text-slate-600 hover:text-slate-700",
             success: "text-green-600 hover:text-green-700",
             danger: "text-red-600 hover:text-red-700",

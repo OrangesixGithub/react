@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { InputFieldProps } from "./field";
 import { InputText } from "primereact/inputtext";
 import type { ChangeEvent, FocusEvent } from "react";
-import type { InputPasswordTemplateProps } from "../@types/password";
+import type { InputPasswordTemplateProps } from "../@types";
 
 type PasswordProps = InputFieldProps & {
     className: string;
@@ -48,7 +48,7 @@ export function InputPassword(props: PasswordProps) {
                 {props.passwordShow
                     && <button
                         aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-input-password-toggle hover:text-input-password-toggle-hover"
                         disabled={props.disabled}
                         type="button"
                         onClick={() => setVisible(current => !current)}>
@@ -60,7 +60,7 @@ export function InputPassword(props: PasswordProps) {
             {props.passwordFeedback && !props.readonly &&
                 <div
                     aria-live="polite"
-                    className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+                    className="mt-1 text-xs text-input-password-feedback">
                     {props.passwordHeaderTemplate?.(templateProps)}
                     {props.passwordTemplate?.(templateProps) ?? (props.value ? strength : "Por favor, insira uma senha")}
                     {props.passwordFooterTemplate?.(templateProps)}

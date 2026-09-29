@@ -19,6 +19,8 @@ Em `react-sandbox/vite.config.ts`:
 - `resolve.dedupe` evita duas cópias de React e PrimeReact entre sandbox e biblioteca.
 - O sandbox instala o PrimeReact 10.9.9 como consumidor e configura `PrimeReactProvider` de `primereact/api`, com `value={{ unstyled: true }}`, em `src/main.tsx`.
 - `server.fs.allow` libera a leitura da pasta `../react`.
+- As bordas dos painéis do sandbox usam `--color-shell-border`. Não reutilize `--color-border` nesse layout:
+  esse token pertence ao tema dos componentes e uma definição no sandbox sobrescreve o valor de `core.css`.
 
 No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não o alias curto dos consumidores (`@orangesix/button`).
 

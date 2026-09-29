@@ -20,7 +20,7 @@ Leia este arquivo inteiro antes de alterar qualquer coisa. Os detalhes estão em
 5. **Um único build.** `npm run build` (vitest + `vite build`) gera JS, tipos, `style.css`, fontes e manifests. Não criar scripts de build paralelos. Erro de tipo em componente habilitado **falha o build**, de propósito; não contornar.
 6. **Metadados só no `package.json` raiz** (`private: true`). O `dist/package.json` é derivado dele. Publicação **só pelas branches `master` (final) e `beta` (pré-release)**; demais branches não publicam (ver `docs/build.md`).
 7. **Preservar a API pública da 2.x** (nomes de props, `mode="Controlled" | "HookForm"`, nomes exportados). Prop obsoleta recebe `@deprecated`, e não é removida.
-8. **Sem Bootstrap, jQuery ou SCSS em código novo.** Estilo é Tailwind v4. Ícones: `primeicons`.
+8. **Sem Bootstrap, jQuery ou SCSS em código novo.** Estilo é Tailwind v4. O prefixo padrão de ícones é `bi bi-` (Bootstrap Icons); `pi pi-` é uma opção explícita. Bootstrap Icons não implica usar o framework Bootstrap.
 9. **Siga o padrão de código de `docs/componentes.md`** e rode `npx eslint <arquivo>` nos arquivos alterados.
 10. **Só entra no `dist/` o que foi validado no sandbox.** Os componentes são ligados um a um em `build/components.ts`. Nunca habilite um componente que o dono do projeto não validou.
 11. **Use `src/api/` como referência estrutural para as próximas migrações.** Siga os exports, a separação de tipos por assunto, os testes e as verificações descritos em `docs/componentes.md`.

@@ -1,0 +1,47 @@
+@theme static {
+    --color-primary-50: var(--color-blue-50);
+    --color-primary-100: var(--color-blue-100);
+    --color-primary-200: var(--color-blue-200);
+    --color-primary-300: var(--color-blue-300);
+    --color-primary-400: var(--color-blue-400);
+    --color-primary-500: var(--color-blue-500);
+    --color-primary-600: var(--color-blue-600);
+    --color-primary-700: var(--color-blue-700);
+    --color-primary-800: var(--color-blue-800);
+    --color-primary-900: var(--color-blue-900);
+    --color-primary-950: var(--color-blue-950);
+}
+
+@theme {
+    --color-text: var(--color-neutral-700);
+    --color-text-label: var(--color-neutral-500);
+    --color-text-disabled: var(--color-neutral-500);
+    --color-border: var(--color-neutral-300);
+    --color-background: transparent;
+    --color-background-readonly: var(--color-neutral-50);
+    --color-background-disabled: var(--color-neutral-200);
+    --color-placeholder: var(--color-neutral-400);
+    --color-focus: var(--color-primary-500);
+    --color-focus-ring: color-mix(in oklab, var(--color-primary-500) 10%, transparent);
+    --color-invalid: var(--color-red-500);
+    --color-invalid-ring: color-mix(in oklab, var(--color-red-500) 20%, transparent);
+    --color-required: var(--color-red-600);
+    --color-error: var(--color-red-600);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-text: var(--color-white);
+        --color-text-label: var(--color-neutral-400);
+        --color-text-disabled: var(--color-neutral-200);
+        --color-border: var(--color-neutral-700);
+        --color-background: var(--color-neutral-900);
+        --color-background-readonly: var(--color-neutral-800);
+        --color-background-disabled: var(--color-neutral-700);
+        --color-placeholder: var(--color-neutral-400);
+        --color-focus-ring: color-mix(in oklab, var(--color-primary-500) 35%, transparent);
+        --color-invalid: var(--color-red-400);
+        --color-invalid-ring: color-mix(in oklab, var(--color-red-400) 25%, transparent);
+        --color-error: var(--color-red-400);
+    }
+}

@@ -16,7 +16,7 @@ export function Box<T extends keyof HTMLElementTagNameMap = "div">({
     ...props
 }: BoxProps<T>) {
     const { as, align, justify, className, css, children, ...htmlProps } = props;
-    
+
     const sizes: BoxResponsiveSize = typeof size === "string" ? { base: size } : size;
     const width: Record<string, string> = {
         "--box-width": `${(sizes.base ?? "100").replace("-", ".")}%`
@@ -29,12 +29,13 @@ export function Box<T extends keyof HTMLElementTagNameMap = "div">({
 
     const classes = clsx(
         "flex",
-        "w-[var(--box-width)]",
-        sizes.sm && "sm:w-[var(--box-width-sm)]",
-        sizes.md && "md:w-[var(--box-width-md)]",
-        sizes.lg && "lg:w-[var(--box-width-lg)]",
-        sizes.xl && "xl:w-[var(--box-width-xl)]",
-        sizes["2xl"] && "2xl:w-[var(--box-width-2xl)]",
+        "box-border mx-[calc(var(--spacing-box,0px)/2)]",
+        "w-[calc(var(--box-width)-var(--spacing-box,0px))]",
+        sizes.sm && "sm:w-[calc(var(--box-width-sm)-var(--spacing-box,0px))]",
+        sizes.md && "md:w-[calc(var(--box-width-md)-var(--spacing-box,0px))]",
+        sizes.lg && "lg:w-[calc(var(--box-width-lg)-var(--spacing-box,0px))]",
+        sizes.xl && "xl:w-[calc(var(--box-width-xl)-var(--spacing-box,0px))]",
+        sizes["2xl"] && "2xl:w-[calc(var(--box-width-2xl)-var(--spacing-box,0px))]",
         direction === "column" ? "flex-col" : "flex-row",
         align,
         justify,

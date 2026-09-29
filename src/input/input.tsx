@@ -22,7 +22,7 @@ export function Input<T extends ApiFieldModeProps = "Controlled", TValues extend
     */
     return (
         <Box
-            className={`text-neutral-700 dark:text-neutral-300 ${props.className ?? ""}`}
+            className={`${props.className ?? ""}`}
             css={props.css}
             direction="column"
             size={props.size ?? "100"}>

@@ -42,8 +42,8 @@ describe("Box", () => {
         expect(html).toContain("--box-width-md:50%");
         expect(html).not.toContain("--box-width-lg:");
         expect(html).toContain("--box-width-xl:25%");
-        expect(html).toContain("md:w-[var(--box-width-md)]");
-        expect(html).toContain("xl:w-[var(--box-width-xl)]");
+        expect(html).toContain("md:w-[calc(var(--box-width-md)-var(--spacing-box,0px))]");
+        expect(html).toContain("xl:w-[calc(var(--box-width-xl)-var(--spacing-box,0px))]");
     });
 
     it("Box -> renderiza o elemento HTML solicitado e encaminha seus atributos", () => {

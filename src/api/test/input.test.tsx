@@ -15,7 +15,7 @@ describe("API -> Input", () => {
         expect(html).toContain("for=\"usuario\"");
         expect(html).toContain("bi bi-user");
         expect(html).toContain("Usuário");
-        expect(html).toContain("text-red-600");
+        expect(html).toContain("text-input-required");
     });
 
     it("InputFeedback -> exibe erros em Controlled e HookForm", () => {

@@ -18,6 +18,11 @@ export interface InputBaseProps extends ApiComponentProps, ApiFieldComponentProp
 
     /** Tamanho visual do campo. */
     sizes?: "small" | "large";
+    
+    /**
+     * Define a classe somente do input
+     */
+    inputClassName?: string;
 }
 
 /** Configuração disponível conforme o tipo do campo. */

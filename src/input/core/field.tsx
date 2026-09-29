@@ -1,10 +1,11 @@
+import clsx from "clsx";
 import { InputMasked } from "./masked";
+import { InputNumber } from "./number";
 import { InputPassword } from "./password";
+import { inputVariants } from "../variants";
 import { InputText } from "primereact/inputtext";
 import type { InputBaseProps } from "../@types/core";
-import { InputNumber } from "primereact/inputnumber";
 import type { ChangeEvent, FocusEvent, Ref } from "react";
-import { inputVariants, inputNumberVariants } from "../variants";
 import type { InputMaskProps, InputNumberProps, InputPasswordProps } from "../@types";
 
 export type InputFieldProps = InputBaseProps & InputMaskProps & InputNumberProps & InputPasswordProps & {
@@ -22,8 +23,6 @@ export type InputFieldProps = InputBaseProps & InputMaskProps & InputNumberProps
  */
 export function InputField(props: InputFieldProps) {
     const classes = inputVariants(props.invalid, props.sizes);
-    const numberClasses = inputNumberVariants(props);
-    const numberLayout = props.numberButtonLayout ?? "stacked";
     const textValue = props.value == null ? "" : String(props.value);
     const numberValue = typeof props.value === "number" ? props.value : null;
     /*
@@ -43,41 +42,8 @@ export function InputField(props: InputFieldProps) {
                 value={textValue}/>
             : props.type === "number"
                 ? <InputNumber
-                    unstyled
-                    pt={{
-                        buttonGroup: { className: numberClasses.buttonGroup },
-                        incrementButton: { disabled: props.disabled || props.readonly },
-                        decrementButton: { disabled: props.disabled || props.readonly },
-                    }}
-                    buttonLayout={numberLayout}
-                    className={numberClasses.root}
-                    currency={props.numberCurrency ?? "BRL"}
-                    decrementButtonClassName={numberClasses.decrementButton}
-                    decrementButtonIcon={`pi ${numberLayout === "stacked" ? "pi-angle-down" : "pi-minus"} ${numberClasses.icon}`}
-                    disabled={props.disabled}
-                    incrementButtonClassName={numberClasses.incrementButton}
-                    incrementButtonIcon={`pi ${numberLayout === "stacked" ? "pi-angle-up" : "pi-plus"} ${numberClasses.icon}`}
-                    inputClassName={numberClasses.input}
-                    inputId={props.id ?? props.name}
-                    inputRef={props.inputRef}
-                    invalid={props.invalid}
-                    locale="pt-BR"
-                    max={props.numberMax}
-                    maxFractionDigits={props.numberMaxFractionDigits}
-                    min={props.numberMin}
-                    minFractionDigits={props.numberMinFractionDigits}
-                    mode={props.numberMode}
-                    name={props.name}
-                    placeholder={props.placeholder}
-                    prefix={props.numberPrefix}
-                    readOnly={props.readonly}
-                    required={props.required}
-                    showButtons={props.numberButton ?? false}
-                    suffix={props.numberSuffix}
-                    useGrouping={props.numberDecimalSeparator ?? false}
-                    value={numberValue}
-                    onBlur={(event: FocusEvent<HTMLInputElement>) => props.onFieldBlur(event.target.value)}
-                    onValueChange={event => props.onValueChange(event.value ?? null)}/>
+                    {...props}
+                    value={numberValue}/>
                 : <InputText
                     unstyled
                     ref={(node: unknown) => {
@@ -86,7 +52,7 @@ export function InputField(props: InputFieldProps) {
                         else if (props.inputRef) props.inputRef.current = input;
                     }}
                     aria-invalid={props.invalid || undefined}
-                    className={classes}
+                    className={clsx(classes, props.inputClassName)}
                     disabled={props.disabled}
                     id={props.id ?? props.name}
                     name={props.name}

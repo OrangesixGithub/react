@@ -14,7 +14,7 @@ export function InputLabel({ id, name, label, icon, iconPrefix = "bi bi-", requi
     */
     return label && (
         <label
-            className="mb-1 block text-sm font-medium"
+            className="mb-1 block text-sm font-medium text-input-label"
             htmlFor={id ?? name}>
             {icon && <i
                 aria-hidden="true"
@@ -22,7 +22,7 @@ export function InputLabel({ id, name, label, icon, iconPrefix = "bi bi-", requi
             {label}
             {required && <span
                 aria-hidden="true"
-                className="text-red-600">*</span>}
+                className="text-input-required">*</span>}
         </label>
     );
 }
@@ -51,7 +51,7 @@ export function InputFeedback({ error, errors, id, name, className }: ApiFieldCo
     return (
         <div
             aria-live="polite"
-            className={feedback ? (className ?? "mt-1 text-xs text-red-600 dark:text-red-400") : undefined}
+            className={feedback ? (className ?? "mt-1 text-xs text-input-feedback-error") : undefined}
             data-name={name}
             id={id || name ? `${id ?? name}-feedback` : undefined}>
             {feedback}

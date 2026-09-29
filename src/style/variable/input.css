@@ -1,0 +1,51 @@
+@theme {
+    --color-input-text: var(--color-text);
+    --color-input-border: var(--color-border);
+    --color-input-background: var(--color-background);
+    --color-input-label: var(--color-text-label);
+    --color-input-placeholder: var(--color-placeholder);
+    --color-input-focus-border: var(--color-focus);
+    --color-input-focus-ring: var(--color-focus-ring);
+    --color-input-readonly-background: var(--color-background-readonly);
+    --color-input-disabled-background: var(--color-background-disabled);
+    --color-input-disabled-text: var(--color-text-disabled);
+    --color-input-invalid-border: var(--color-invalid);
+    --color-input-invalid-ring: var(--color-invalid-ring);
+    --color-input-required: var(--color-required);
+    --color-input-feedback-error: var(--color-error);
+
+    --color-input-number-button-text: var(--color-white);
+    --color-input-number-button-focus-ring: color-mix(in oklab, var(--color-primary-500) 30%, transparent);
+    --color-input-number-stacked: var(--color-primary-500);
+    --color-input-number-stacked-hover: var(--color-primary-600);
+    --color-input-number-horizontal-increment: var(--color-primary-500);
+    --color-input-number-horizontal-increment-hover: var(--color-primary-600);
+    --color-input-number-horizontal-decrement: var(--color-primary-500);
+    --color-input-number-horizontal-decrement-hover: var(--color-primary-600);
+    --color-input-number-vertical: var(--color-primary-500);
+    --color-input-number-vertical-hover: var(--color-primary-600);
+
+    --color-input-password-toggle: var(--color-slate-500);
+    --color-input-password-toggle-hover: var(--color-slate-700);
+    --color-input-password-feedback: var(--color-slate-600);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-input-text: var(--color-text);
+        --color-input-border: var(--color-border);
+        --color-input-background: var(--color-background);
+        --color-input-label: var(--color-text-label);
+        --color-input-placeholder: var(--color-placeholder);
+        --color-input-focus-ring: var(--color-focus-ring);
+        --color-input-readonly-background: var(--color-background-readonly);
+        --color-input-disabled-background: var(--color-background-disabled);
+        --color-input-disabled-text: var(--color-text-disabled);
+        --color-input-invalid-border: var(--color-invalid);
+        --color-input-invalid-ring: var(--color-invalid-ring);
+        --color-input-password-toggle: var(--color-slate-300);
+        --color-input-password-toggle-hover: var(--color-white);
+        --color-input-password-feedback: var(--color-slate-300);
+        --color-input-feedback-error: var(--color-error);
+    }
+}

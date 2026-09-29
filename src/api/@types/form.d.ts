@@ -41,8 +41,8 @@ export interface ApiFieldComponentProps {
     icon?: string
 
     /**
-     * Define o prefixo dos ícones do pacote. O padrão é `pi pi-`.
-     * O valor `bi bi-` permanece aceito para compatibilidade com a 2.x.
+     * Define o prefixo dos ícones do pacote. O padrão é `bi bi-`, compatível com a 2.x.
+     * O consumidor deve importar o CSS do Bootstrap Icons; `pi pi-` permite usar PrimeIcons.
      */
     iconPrefix?: "bi bi-" | "pi pi-"
 

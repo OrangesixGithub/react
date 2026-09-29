@@ -42,8 +42,8 @@ export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
     isVisible?: boolean;
 
     /**
-     * Prefixo de classes do ícone. O padrão é `pi pi-`.
-     * `bi bi-` permanece aceito para compatibilidade e exige que o consumidor importe o CSS do Bootstrap Icons.
+     * Prefixo de classes do ícone. O padrão é `bi bi-` e exige o CSS do Bootstrap Icons no consumidor.
+     * `pi pi-` pode ser informado para usar PrimeIcons.
      */
     iconPrefix?: "bi bi-" | "pi pi-";
 

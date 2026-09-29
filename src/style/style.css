@@ -1,7 +1,10 @@
 @layer theme, utilities;
+
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "primeicons/primeicons.css";
+
+@import "./variable/root.css";
 
 @custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 

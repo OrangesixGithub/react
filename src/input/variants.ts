@@ -3,11 +3,12 @@ import type { InputNumberProps } from "./@types";
 
 const field = tv({
     base: "w-full min-h-10 rounded-lg border px-3 py-2 " +
-        "border-neutral-300 text-neutral-700 placeholder:text-neutral-300 outline-none transition-colors focus:border-blue-500 focus:ring-3 focus:ring-blue-500/10 read-only:bg-neutral-50 disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-500 " +
-        "dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:placeholder:text-neutral-400 dark:focus:border-blue-500 dark:focus:ring-blue-500/35 dark:read-only:bg-neutral-800 dark:disabled:bg-neutral-700 dark:disabled:text-neutral-200",
+        "border-input-border bg-input-background text-input-text placeholder:text-input-placeholder outline-none " +
+        "transition-colors focus:border-input-focus-border focus:ring-3 focus:ring-input-focus-ring " +
+        "read-only:bg-input-readonly-background disabled:cursor-not-allowed disabled:bg-input-disabled-background disabled:text-input-disabled-text",
     variants: {
         invalid: {
-            true: "border-red-500 focus:border-red-500 focus:ring-red-500/20 dark:border-red-400 dark:focus:border-red-400 dark:focus:ring-red-400/25",
+            true: "border-input-invalid-border focus:border-input-invalid-border focus:ring-input-invalid-ring",
         },
         size: {
             small: "min-h-8 py-1 text-sm",
@@ -21,28 +22,34 @@ const number = tv({
         root: "inline-flex w-full min-w-0",
         input: "min-w-0 flex-1 relative focus:z-10",
         buttonGroup: "flex shrink-0 flex-col w-10",
-        incrementButton: "inline-flex shrink-0 cursor-pointer items-center justify-center border-0 p-0 text-white transition-colors focus-visible:z-20 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-50",
-        decrementButton: "inline-flex shrink-0 cursor-pointer items-center justify-center border-0 p-0 text-white transition-colors focus-visible:z-20 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-50",
+        incrementButton: "inline-flex shrink-0 cursor-pointer items-center justify-center border-0 p-0 " +
+            "text-input-number-button-text transition-colors focus-visible:z-20 focus-visible:outline-none " +
+            "focus-visible:ring-3 focus-visible:ring-input-number-button-focus-ring disabled:cursor-not-allowed " +
+            "disabled:opacity-50",
+        decrementButton: "inline-flex shrink-0 cursor-pointer items-center justify-center border-0 p-0 " +
+            "text-input-number-button-text transition-colors focus-visible:z-20 focus-visible:outline-none " +
+            "focus-visible:ring-3 focus-visible:ring-input-number-button-focus-ring disabled:cursor-not-allowed " +
+            "disabled:opacity-50",
         icon: "h-4 w-4",
     },
     variants: {
         layout: {
             stacked: {
                 input: "rounded-r-none",
-                incrementButton: "w-full flex-1 rounded-tr-lg bg-cyan-500 enabled:hover:bg-cyan-600",
-                decrementButton: "w-full flex-1 rounded-br-lg bg-cyan-500 enabled:hover:bg-cyan-600",
+                incrementButton: "w-full flex-1 rounded-tr-lg bg-input-number-stacked enabled:hover:bg-input-number-stacked-hover",
+                decrementButton: "w-full flex-1 rounded-br-lg bg-input-number-stacked enabled:hover:bg-input-number-stacked-hover",
                 icon: "h-3 w-3",
             },
             horizontal: {
                 input: "order-2 rounded-none",
-                incrementButton: "order-3 w-10 rounded-r-lg bg-green-500 enabled:hover:bg-green-600",
-                decrementButton: "order-1 w-10 rounded-l-lg bg-red-500 enabled:hover:bg-red-600",
+                incrementButton: "order-3 w-10 rounded-r-lg bg-input-number-horizontal-increment enabled:hover:bg-input-number-horizontal-increment-hover",
+                decrementButton: "order-1 w-10 rounded-l-lg bg-input-number-horizontal-decrement enabled:hover:bg-input-number-horizontal-decrement-hover",
             },
             vertical: {
                 root: "w-14 max-w-full flex-col",
                 input: "order-2 rounded-none px-0 text-center",
-                incrementButton: "order-1 h-10 w-full rounded-t-lg bg-slate-500 enabled:hover:bg-slate-600",
-                decrementButton: "order-3 h-10 w-full rounded-b-lg bg-slate-500 enabled:hover:bg-slate-600",
+                incrementButton: "order-1 h-10 w-full rounded-t-lg bg-input-number-vertical enabled:hover:bg-input-number-vertical-hover",
+                decrementButton: "order-3 h-10 w-full rounded-b-lg bg-input-number-vertical enabled:hover:bg-input-number-vertical-hover",
             },
         },
         size: {
@@ -55,10 +62,26 @@ const number = tv({
         },
     },
     compoundVariants: [
-        { layout: "horizontal", size: "small", class: { incrementButton: "w-8", decrementButton: "w-8" } },
-        { layout: "horizontal", size: "large", class: { incrementButton: "w-11", decrementButton: "w-11" } },
-        { layout: "vertical", size: "small", class: { incrementButton: "h-8", decrementButton: "h-8" } },
-        { layout: "vertical", size: "large", class: { incrementButton: "h-11", decrementButton: "h-11" } },
+        {
+            layout: "horizontal",
+            size: "small",
+            class: { incrementButton: "w-8", decrementButton: "w-8" }
+        },
+        {
+            layout: "horizontal",
+            size: "large",
+            class: { incrementButton: "w-11", decrementButton: "w-11" }
+        },
+        {
+            layout: "vertical",
+            size: "small",
+            class: { incrementButton: "h-8", decrementButton: "h-8" }
+        },
+        {
+            layout: "vertical",
+            size: "large",
+            class: { incrementButton: "h-11", decrementButton: "h-11" }
+        },
     ],
 });
 
