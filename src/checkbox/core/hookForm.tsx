@@ -1,13 +1,13 @@
+import { CheckboxField } from "./field";
 import { InputFeedback } from "../../api";
-import { MultiSelectField } from "./field";
 import { Controller } from "react-hook-form";
-import type { MultiSelectProps } from "../@types";
+import type { CheckboxProps } from "../@types";
 
 /**
- * Core - `MultiSelectHookForm`
+ * Core - `CheckboxHookForm`
  * Liga o campo ao React Hook Form e preserva os callbacks públicos.
  */
-export function MultiSelectHookForm(props: MultiSelectProps<"HookForm">) {
+export function CheckboxHookForm(props: CheckboxProps<"HookForm">) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -17,7 +17,7 @@ export function MultiSelectHookForm(props: MultiSelectProps<"HookForm">) {
         <Controller
             render={({ field, fieldState, formState }) => (
                 <>
-                    <MultiSelectField
+                    <CheckboxField
                         {...props}
                         focusInputRef={field.ref}
                         invalid={Boolean(fieldState.error || props.error)}
@@ -37,8 +37,8 @@ export function MultiSelectHookForm(props: MultiSelectProps<"HookForm">) {
             )}
             control={props.control}
             name={props.name}
-            rules={{ required: props.required ? "Campo obrigatório" : false }}/>
+            rules={{ validate: value => !props.required || (Array.isArray(value) && value.length > 0) || "Campo obrigatório" }}/>
     );
 }
 
-MultiSelectHookForm.displayName = "MultiSelectHookForm";
+CheckboxHookForm.displayName = "CheckboxHookForm";

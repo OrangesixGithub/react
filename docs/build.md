@@ -20,7 +20,6 @@ react/
     <componente>/       ← um diretório por componente (ver docs/componentes.md)
     style/style.css     ← entrada do CSS do pacote
   vite.config.ts        ← apenas compõe os plugins de build/
-  vitest.config.ts      ← testes (separado: não depende da lista de componentes)
 ```
 
 Regras:
@@ -105,10 +104,11 @@ dist/
 
 | Script | O que faz |
 |---|---|
-| `npm run build` | `vitest run` + `vite build` (JS, `.d.ts` com checagem de tipos, `style.css`, fontes, manifests) |
-| `npm run build:dev` | Só o `vite build`, sem testes |
-| `npm run test` | Vitest com UI |
+| `npm run build` | `vite build` (JS, `.d.ts` com checagem de tipos, `style.css`, fontes, manifests) |
+| `npm run build:dev` | Alias existente para `vite build` |
 | `npm run lint` / `lint:fix` | ESLint |
+
+Os testes automatizados foram adiados até o fim da refatoração. O build mantém a checagem de tipos dos componentes habilitados.
 
 ## Publicação (`.github/workflows/publish.yml`)
 

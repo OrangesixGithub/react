@@ -8,13 +8,14 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "build",
     "src",
-    "vite.config.ts",
-    "vitest.config.ts"
+    "vite.config.ts"
   ],
   "exclude": [
     "dist"

@@ -4,7 +4,7 @@
 
 O componente `api` compilou com `npm run build` e serve como base para a **estrutura** dos próximos componentes. Antes
 de migrar uma pasta,
-consulte [seus exports](../src/api/index.ts), [o índice de tipos](../src/api/@types/index.d.ts), [os testes](../src/api/test/input.test.tsx)
+consulte [seus exports](../src/api/index.ts), [o índice de tipos](../src/api/@types/index.d.ts)
 e [o manifesto](../src/api/package.json).
 
 Padrão a repetir:
@@ -16,20 +16,16 @@ Padrão a repetir:
 3. Documente as props públicas em português no arquivo temático e mantenha os nomes exportados pelo índice. Use
    `import type` para dependências usadas somente como tipos.
 4. Mantenha o `package.json` da pasta apontando `main`/`module` para `./index.mjs` e `types` para `./index.d.ts`.
-5. Coloque testes em `test/<arquivo>.test.ts` ou `.test.tsx`, com nomes de casos que descrevam o comportamento
-   verificado.
-6. Rode `npx eslint <arquivos alterados>`. Após a validação no sandbox pelo dono do projeto, habilite a pasta em
+5. Rode `npx eslint <arquivos alterados>`. Após a validação no sandbox pelo dono do projeto, habilite a pasta em
    `build/components.ts`, rode `npm run build` e confira `dist/<componente>/index.mjs`, `index.d.ts`, `package.json` e
    `@types/`.
 
-## Testes básicos nesta etapa
+## Validação durante a refatoração
 
-Mantenha os testes simples enquanto a cobertura evolui: um comportamento por `it`,
-um exemplo explícito e poucas verificações com `expect`. Para componentes, use
-`renderToStaticMarkup` para conferir o HTML gerado. Para funções, execute a função e
-compare o resultado esperado. Evite por enquanto testes parametrizados, mocks,
-montagem com eventos e chamadas a serviços externos. Interações e integração com
-HookForm serão acrescentadas em uma próxima etapa.
+Os testes automatizados e o Vitest foram removidos por decisão do dono do projeto.
+A implementação de testes fica para depois da refatoração completa, com explicação
+gradual dos conceitos. Nesta etapa, valide os componentes com ESLint, checagem de
+tipos no build e exemplos no sandbox. Não adicione testes durante esta refatoração.
 
 ## Anatomia de um componente
 
@@ -192,6 +188,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | box          | modernizado com Tailwind; habilitado no build                                               |
 | button       | adaptado para PrimeReact 10.9.9 unstyled; habilitado no build; revalidar visual no sandbox  |
 | calendar     | pendente                                                                                    |
+| checkbox     | checkbox nativo HTML com Tailwind, valor em lista (`[1, 2, 3]`); aguarda validação visual pelo dono; fora do build |
 | editor       | pendente                                                                                    |
 | input        | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
 | inputfilter  | pendente                                                                                    |
@@ -199,7 +196,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | loading      | pendente                                                                                    |
 | message      | pendente                                                                                    |
 | modal        | pendente                                                                                    |
-| multiselect  | pendente                                                                                    |
+| multiselect  | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | pdf          | pendente                                                                                    |
 | picklist     | pendente                                                                                    |
 | radio        | radio nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |

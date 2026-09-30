@@ -26,7 +26,7 @@ export const components: string[] = [
     // "picklist",
     "radio",
     "select",
-    // "switch",
+    "switch",
     // "table",
     // "tablepivot",
     // "tabview",
@@ -36,7 +36,7 @@ export const components: string[] = [
 ];
 
 /**
- * Lista os arquivos de código de um diretório (recursivo), ignorando testes.
+ * Lista os arquivos de código de um diretório (recursivo).
  */
 function sourceFiles(dir: string): string[] {
     return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
@@ -44,7 +44,7 @@ function sourceFiles(dir: string): string[] {
         if (entry.isDirectory()) {
             return sourceFiles(file);
         }
-        return /\.tsx?$/.test(entry.name) && !/\.test\.tsx?$/.test(entry.name) ? [file] : [];
+        return /\.tsx?$/.test(entry.name) ? [file] : [];
     });
 }
 

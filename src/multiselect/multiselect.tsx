@@ -1,61 +1,41 @@
-import React from "react";
 import { Box } from "../box";
+import { useId } from "react";
 import { InputLabel } from "../api";
-import { MultiSelectProps } from ".";
-import { ApiFieldModeProps } from "../api";
+import type { ApiFieldModeProps } from "../api";
+import type { MultiSelectProps } from "./@types";
+import type { FieldValues } from "react-hook-form";
 import { MultiSelectHookForm } from "./core/hookForm";
 import { MultiSelectControlled } from "./core/controlled";
-import * as MultiSelectPrimeReact from "primereact/multiselect";
-import { MultiSelectFilterEvent } from "primereact/multiselect";
 
 /**
  * Componente - `MultiSelect`
  *
- * Um componente versátil utilizado seleção de vários dados.
+ * Seleciona múltiplas opções com PrimeReact unstyled e a API Orange Six.
  */
-export function MultiSelect<T extends ApiFieldModeProps = "Controlled">(props: MultiSelectProps<T> & { mode?: T }) {
-    let core = props as any;
-    let options: MultiSelectPrimeReact.MultiSelectProps = {
-        display: props.display ?? "chip",
-        optionLabel: props.optionLabel ?? "label",
-        optionValue: props.optionValue ?? "value",
-        maxSelectedLabels: 3,
-        itemTemplate: props.template?.item,
-        panelHeaderTemplate: props.template?.header,
-        panelFooterTemplate: props.template?.footer,
-    };
-    let filter: MultiSelectPrimeReact.MultiSelectProps = {
-        filter: props.filter !== undefined,
-        emptyFilterMessage: "Nenhum resultado encontrado.",
-        filterPlaceholder: props.filter?.placeholder,
-        filterInputAutoFocus: props.filter?.autoFocus ?? false,
-        filterMatchMode: props.filter?.modeFilter ?? "contains",
-        filterDelay: props.filter?.delay,
-        resetFilterOnHide: props.filter?.reset,
-        onFilter(event: MultiSelectFilterEvent) {
-            if (props.filter?.onFilter) {
-                props.filter.onFilter(event.filter);
-            }
-        }
-    };
-
+export function MultiSelect<T extends ApiFieldModeProps = "Controlled", TValues extends FieldValues = FieldValues>(props: MultiSelectProps<T, TValues> & { mode?: T }) {
+    const generatedId = useId();
+    const id = props.id ?? props.name ?? generatedId;
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
     return (
-        <Box className={`multiselect ${props.className ?? ""}`}
+        <Box
+            className={props.className}
             css={props.css}
+            direction="column"
             size={props.size ?? "100"}>
-            <InputLabel {...props}/>
-            {!props.mode || props.mode === "Controlled"
-                ? <MultiSelectControlled {...core}
-                    {...filter}
-                    {...options}/>
-                : <MultiSelectHookForm {...core}
-                    {...filter}
-                    {...options}/>}
+            <InputLabel
+                {...props}
+                id={id}/>
+            {props.mode === "HookForm"
+                ? <MultiSelectHookForm
+                    {...props as MultiSelectProps<"HookForm">}
+                    id={id}/>
+                : <MultiSelectControlled
+                    {...props as MultiSelectProps<"Controlled">}
+                    id={id}/>}
         </Box>
     );
 }

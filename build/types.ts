@@ -8,7 +8,6 @@ import viteDTS from "vite-plugin-dts";
 export function viteTypes(options: { components: string[] }) {
     return viteDTS({
         include: options.components.map(name => `src/${name}/**/*.{ts,tsx}`),
-        exclude: ["src/**/*.test.ts", "src/**/*.test.tsx"],
         entryRoot: "src",
         insertTypesEntry: false,
         copyDtsFiles: true,

@@ -1,0 +1,52 @@
+@theme {
+    --multiselect-color-scheme: light;
+    --color-multiselect-selected: var(--color-primary-500);
+    --color-multiselect-chip-background: var(--color-primary-100);
+    --color-multiselect-chip-text: var(--color-primary-900);
+    --color-multiselect-item-hover: var(--color-neutral-100);
+    --color-multiselect-item-selected: var(--color-primary-50);
+    --color-multiselect-item-selected-text: var(--color-primary-900);
+    --color-multiselect-text: var(--color-text);
+    --color-multiselect-icon: var(--color-placeholder);
+    --color-multiselect-placeholder: var(--color-placeholder);
+    --color-multiselect-border: var(--color-border);
+    --color-multiselect-background: var(--color-background);
+    --color-multiselect-focus-border: var(--color-focus);
+    --color-multiselect-focus-ring: var(--color-focus-ring);
+    --color-multiselect-readonly-background: var(--color-background-readonly);
+    --color-multiselect-disabled-background: var(--color-background-disabled);
+    --color-multiselect-disabled-text: var(--color-text-disabled);
+    --color-multiselect-invalid-border: var(--color-invalid);
+    --color-multiselect-invalid-ring: var(--color-invalid-ring);
+    --color-multiselect-panel-background: var(--color-white);
+    --color-multiselect-header-background: var(--color-neutral-100);
+    --color-multiselect-header-text: var(--color-placeholder);
+    --color-multiselect-filter-background: var(--color-white);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --multiselect-color-scheme: dark;
+        --color-multiselect-chip-background: var(--color-primary-500);
+        --color-multiselect-chip-text: var(--color-primary-50);
+        --color-multiselect-item-hover: var(--color-neutral-800);
+        --color-multiselect-item-selected: rgba(from var(--color-neutral-800) r g b / 0.3);
+        --color-multiselect-item-selected-text: var(--color-primary-50);
+        --color-multiselect-text: var(--color-text);
+        --color-multiselect-icon: var(--color-placeholder);
+        --color-multiselect-placeholder: var(--color-placeholder);
+        --color-multiselect-border: var(--color-border);
+        --color-multiselect-background: var(--color-background);
+        --color-multiselect-focus-border: var(--color-focus);
+        --color-multiselect-focus-ring: var(--color-focus-ring);
+        --color-multiselect-readonly-background: var(--color-background-readonly);
+        --color-multiselect-disabled-background: var(--color-background-disabled);
+        --color-multiselect-disabled-text: var(--color-text-disabled);
+        --color-multiselect-invalid-border: var(--color-invalid);
+        --color-multiselect-invalid-ring: var(--color-invalid-ring);
+        --color-multiselect-panel-background: var(--color-neutral-900);
+        --color-multiselect-header-background: var(--color-neutral-800);
+        --color-multiselect-header-text: var(--color-placeholder);
+        --color-multiselect-filter-background: var(--color-background);
+    }
+}

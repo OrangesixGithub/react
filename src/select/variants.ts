@@ -7,7 +7,7 @@ export const selectVariants = tv({
         root: "block box-border w-full min-w-0 h-10 appearance-none cursor-pointer rounded-lg border border-select-border bg-select-background pl-3 pr-10 py-2 " +
             "font-[inherit] text-base leading-normal text-select-text outline-none transition-colors focus:border-select-focus-border focus:ring-3 focus:ring-select-focus-ring",
         icon: "pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm leading-none text-select-icon transition-colors group-focus-within:text-select-focus-border",
-        option: "bg-select-option-background text-select-text",
+        option: "bg-select-option-background text-select-text disabled:text-select-disabled-text",
     },
     variants: {
         invalid: {
