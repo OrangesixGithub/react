@@ -204,7 +204,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | picklist     | pendente                                                                                    |
 | radio        | radio nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | select       | select nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
-| switch       | pendente                                                                                    |
+| switch       | checkbox nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | table        | pendente                                                                                    |
 | tablepivot   | pendente                                                                                    |
 | tabview      | pendente                                                                                    |

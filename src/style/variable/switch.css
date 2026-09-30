@@ -1,0 +1,24 @@
+@theme {
+    --color-switch-text: var(--color-text);
+    --color-switch-disabled-text: var(--color-text-disabled);
+    --color-switch-border: var(--color-border);
+    --color-switch-background: var(--color-background-disabled);
+    --color-switch-selected: var(--color-primary-500);
+    --color-switch-thumb: var(--color-white);
+    --color-switch-focus: var(--color-focus);
+    --color-switch-focus-ring: var(--color-focus-ring);
+    --color-switch-invalid: var(--color-invalid);
+    --color-switch-invalid-ring: var(--color-invalid-ring);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-switch-text: var(--color-text);
+        --color-switch-disabled-text: var(--color-text-disabled);
+        --color-switch-border: var(--color-border);
+        --color-switch-background: var(--color-background-disabled);
+        --color-switch-focus-ring: var(--color-focus-ring);
+        --color-switch-invalid: var(--color-invalid);
+        --color-switch-invalid-ring: var(--color-invalid-ring);
+    }
+}

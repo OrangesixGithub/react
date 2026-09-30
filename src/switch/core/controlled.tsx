@@ -1,33 +1,30 @@
-import React from "react";
-import { SwitchProps } from "..";
+import { SwitchField } from "./field";
 import { InputFeedback } from "../../api";
-import { InputSwitch } from "primereact/inputswitch";
+import type { SwitchProps } from "../@types";
 
 /**
  * Core - `SwitchControlled`
- * Define o componente controlled
+ * Renderiza o valor controlado pelo consumidor.
  */
-export function SwitchControlled({ ...props }: SwitchProps<"Controlled">) {
+export function SwitchControlled(props: SwitchProps<"Controlled">) {
+    const readonlyLabel = props.readonly && props.readonlyType === "label";
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
-    return <>
-        <div className="w-100 d-flex">
-            <InputSwitch checked={props.value}
-                disabled={props.disabled}
-                falseValue={props.valueFalse ?? false}
-                id={props.id}
-                name={props.name}
-                trueValue={props.valueTrue ?? true}
-                onChange={event => {
-                    if (props.onChange) {
-                        props.onChange(event.target.value);
-                    }
-                }}/>
-            {props.legend && <p className="ms-2 p-inputswitch-legend">{props.legend}</p>}
-        </div>
-        <InputFeedback {...props}/>
-    </>;
+    return (
+        <>
+            {readonlyLabel
+                ? <p className={props.readonlyClassName}>{String(props.value ?? props.valueFalse ?? false)}</p>
+                : <SwitchField
+                    {...props}
+                    invalid={Boolean(props.error)}
+                    onFieldBlur={value => props.onBlur?.(value)}
+                    onValueChange={value => props.onChange?.(value)}/>}
+            <InputFeedback {...props}/>
+        </>
+    );
 }
+
+SwitchControlled.displayName = "SwitchControlled";

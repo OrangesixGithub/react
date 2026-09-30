@@ -17,6 +17,9 @@ Valide os estilos novos do select nativo com `npm run dev`. A habilitação no b
 A mesma regra vale para `radio`: enquanto `dist/radio` não existir, a página usa `../react/src/radio`.
 Valide o visual com `npm run dev`; a habilitação no build depende da validação pelo dono.
 
+A mesma regra vale para `switch`: enquanto `dist/switch` não existir, a página usa `../react/src/switch`.
+Valide os estilos com `npm run dev`; a habilitação no build depende da validação pelo dono.
+
 ## Como o modo `dev` liga o sandbox à lib
 
 Em `react-sandbox/vite.config.ts`:

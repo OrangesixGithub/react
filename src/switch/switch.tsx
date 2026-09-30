@@ -1,32 +1,41 @@
-import React from "react";
 import { Box } from "../box";
-import { SwitchProps } from ".";
+import { useId } from "react";
 import { InputLabel } from "../api";
-import { ApiFieldModeProps } from "../api";
+import type { SwitchProps } from "./@types";
+import type { ApiFieldModeProps } from "../api";
 import { SwitchHookForm } from "./core/hookForm";
+import type { FieldValues } from "react-hook-form";
 import { SwitchControlled } from "./core/controlled";
 
 /**
  * Componente - `Switch`
  *
- * Um componente versátil que é utilizado para entrada de dados do tipo booleano.
+ * Alterna um valor com o checkbox nativo do HTML e a API Orange Six.
  */
-export function Switch<T extends ApiFieldModeProps = "Controlled">(props: SwitchProps<T> & { mode?: T }) {
-    let propsCore = props as any;
-
+export function Switch<T extends ApiFieldModeProps = "Controlled", TValues extends FieldValues = FieldValues>(props: SwitchProps<T, TValues> & { mode?: T }) {
+    const generatedId = useId();
+    const id = props.id ?? props.name ?? generatedId;
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
     return (
-        <Box className={props.className}
+        <Box
+            className={props.className}
             css={props.css}
+            direction="column"
             size={props.size ?? "100"}>
-            <InputLabel {...props}/>
-            {!props.mode || props.mode === "Controlled"
-                ? <SwitchControlled {...propsCore}/>
-                : <SwitchHookForm {...propsCore}/>}
+            <InputLabel
+                {...props}
+                id={id}/>
+            {props.mode === "HookForm"
+                ? <SwitchHookForm
+                    {...props as SwitchProps<"HookForm">}
+                    id={id}/>
+                : <SwitchControlled
+                    {...props as SwitchProps<"Controlled">}
+                    id={id}/>}
         </Box>
     );
 }

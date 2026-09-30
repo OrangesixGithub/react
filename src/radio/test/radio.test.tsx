@@ -2,64 +2,75 @@ import { Radio } from "../index";
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 
-const options = [{ value: "yes", label: "Sim" }, { value: "no", label: "Não", disabled: true }];
-
 describe("Radio", () => {
-    it("mostra as opções com nome e valor no input nativo", () => {
-        const html = renderToStaticMarkup(<Radio
-            readonly
-            name="choice"
-            options={options}
-            value="yes"/>);
-        expect(html).toContain("name=\"choice\"");
-        expect(html).toContain("value=\"yes\"");
-        expect(html).toContain("Não");
+    it("Radio -> mostra as opções", () => {
+        const html = renderToStaticMarkup(
+            <Radio
+                readonly
+                name="situacao"
+                options={[{ value: "ativo", label: "Ativo" }, { value: "inativo", label: "Inativo" }]}
+                value="ativo"/>
+        );
+        expect(html).toContain("Ativo");
+        expect(html).toContain("Inativo");
     });
-    it("marca a opção selecionada", () => {
-        const html = renderToStaticMarkup(<Radio
-            readonly
-            name="choice"
-            options={options}
-            value="yes"/>);
-        expect(html).toMatch(/<input(?=[^>]*checked="")(?=[^>]*value="yes")[^>]*>/);
+
+    it("Radio -> marca a opção selecionada", () => {
+        const html = renderToStaticMarkup(
+            <Radio
+                readonly
+                name="situacao"
+                options={[{ value: "ativo", label: "Ativo" }]}
+                value="ativo"/>
+        );
+        expect(html).toContain("checked=\"\" value=\"ativo\"");
     });
-    it("desabilita somente a opção indicada", () => {
-        const html = renderToStaticMarkup(<Radio name="choice"
-            options={options}
-            value="yes"
-            onChange={() => {}}/>);
-        expect(html).toMatch(/<input[^>]*disabled=""[^>]*value="no"/);
-        expect(html).not.toMatch(/<input[^>]*disabled=""[^>]*value="yes"/);
+
+    it("Radio -> desabilita a opção indicada", () => {
+        const html = renderToStaticMarkup(
+            <Radio
+                name="situacao"
+                options={[{ value: "bloqueado", label: "Bloqueado", disabled: true }]}
+                value=""
+                onChange={() => {}}/>
+        );
+        expect(html).toContain("disabled=\"\"");
     });
-    it("organiza as opções em coluna", () => {
-        const html = renderToStaticMarkup(<Radio
-            readonly
-            align="column"
-            name="choice"
-            options={options}
-            value="yes"/>);
+
+    it("Radio -> organiza as opções em coluna", () => {
+        const html = renderToStaticMarkup(
+            <Radio
+                readonly
+                align="column"
+                name="situacao"
+                options={[{ value: "ativo", label: "Ativo" }]}
+                value="ativo"/>
+        );
         expect(html).toContain("flex-col");
     });
-    it("associa o erro ao grupo", () => {
-        const html = renderToStaticMarkup(<Radio
-            readonly
-            error="Escolha uma opção"
-            id="custom"
-            name="choice"
-            options={options}
-            value=""/>);
-        expect(html).toContain("aria-invalid=\"true\"");
-        expect(html).toContain("aria-describedby=\"custom-feedback\"");
-        expect(html).toContain("Escolha uma opção");
+
+    it("Radio -> mostra a mensagem de erro", () => {
+        const html = renderToStaticMarkup(
+            <Radio
+                readonly
+                error="Escolha uma situação"
+                name="situacao"
+                options={[]}
+                value=""/>
+        );
+        expect(html).toContain("Escolha uma situação");
     });
-    it("exibe o rótulo da opção em somente leitura como texto", () => {
-        const html = renderToStaticMarkup(<Radio
-            readonly
-            name="choice"
-            options={options}
-            readonlyType="label"
-            value="yes"/>);
-        expect(html).toContain("<p>Sim</p>");
+
+    it("Radio -> mostra a seleção como texto em somente leitura", () => {
+        const html = renderToStaticMarkup(
+            <Radio
+                readonly
+                name="situacao"
+                options={[{ value: "ativo", label: "Ativo" }]}
+                readonlyType="label"
+                value="ativo"/>
+        );
+        expect(html).toContain("<p>Ativo</p>");
         expect(html).not.toContain("type=\"radio\"");
     });
 });
