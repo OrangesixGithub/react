@@ -27,6 +27,8 @@
     --color-invalid-ring: color-mix(in oklab, var(--color-red-500) 20%, transparent);
     --color-required: var(--color-red-600);
     --color-error: var(--color-red-600);
+    --color-scrollbar-thumb: var(--color-border);
+    --color-scrollbar-track: transparent;
 }
 
 @layer theme {
@@ -43,5 +45,13 @@
         --color-invalid: var(--color-red-400);
         --color-invalid-ring: color-mix(in oklab, var(--color-red-400) 25%, transparent);
         --color-error: var(--color-red-400);
+        --color-scrollbar-thumb: var(--color-border);
+        --color-scrollbar-track: transparent;
     }
+}
+
+/* Barra de rolagem fina e temática, compartilhada pelos componentes com rolagem própria. */
+@utility scrollbar-themed {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
 }

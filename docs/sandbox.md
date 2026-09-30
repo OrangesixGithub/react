@@ -26,6 +26,9 @@ Valide com `npm run dev`; a habilitação no build depende da validação pelo d
 A mesma regra vale para `multiselect`: enquanto `dist/multiselect` não existir, a página usa `../react/src/multiselect`.
 Valide o campo e o painel com `npm run dev`; a habilitação no build depende da validação pelo dono.
 
+A mesma regra vale para `textarea`: enquanto `dist/textarea` não existir, a página usa `../react/src/textarea`.
+Valide com `npm run dev` (modos `Controlled` e `HookForm`, `autoResize`, erro, disabled e readonly); a habilitação no build depende da validação pelo dono.
+
 ## Como o modo `dev` liga o sandbox à lib
 
 Em `react-sandbox/vite.config.ts`:
@@ -46,3 +49,6 @@ No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não 
 3. Validar o resultado no sandbox: variações, modos `Controlled`/`HookForm`, estados (disabled, readonly, erro).
    O botão de sol/lua no cabeçalho da prévia alterna o tema do conteúdo entre claro e escuro.
 4. Habilitar o componente em `build/components.ts`, rodar `npm run build` na lib e conferir com `npm run dev:package`. Esse modo resolve `@orangesix/react/<comp>` → `react/dist/<comp>` pelo `package.json` da pasta, igual aos consumidores. Sem `react/dist`, o sandbox avisa para rodar o build.
+
+A mesma regra vale para `autocomplete`: enquanto `dist/autocomplete` não existir, a página usa `../react/src/autocomplete`.
+Valide os modos Controlled e HookForm, sugestões, template e estados com `npm run dev`; a habilitação depende da validação pelo dono.

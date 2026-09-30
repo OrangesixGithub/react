@@ -184,11 +184,11 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 |--------------|---------------------------------------------------------------------------------------------|
 | accordion    | pendente                                                                                    |
 | api          | migrado; build validado                                                                     |
-| autocomplete | pendente                                                                                    |
+| autocomplete | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | box          | modernizado com Tailwind; habilitado no build                                               |
 | button       | adaptado para PrimeReact 10.9.9 unstyled; habilitado no build; revalidar visual no sandbox  |
 | calendar     | pendente                                                                                    |
-| checkbox     | checkbox nativo HTML com Tailwind, valor em lista (`[1, 2, 3]`); aguarda validação visual pelo dono; fora do build |
+| checkbox     | checkbox nativo HTML com Tailwind, valor em lista (`[1, 2, 3]`); validado no sandbox; habilitado no build |
 | editor       | pendente                                                                                    |
 | input        | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
 | inputfilter  | pendente                                                                                    |
@@ -205,6 +205,6 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | table        | pendente                                                                                    |
 | tablepivot   | pendente                                                                                    |
 | tabview      | pendente                                                                                    |
-| textarea     | pendente                                                                                    |
+| textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-input-*`); aguarda validação visual pelo dono; fora do build |
 | tooltip      | pendente                                                                                    |
 | utils        | pendente                                                                                    |

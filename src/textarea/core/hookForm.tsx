@@ -1,40 +1,50 @@
-import React from "react";
-import { TextareaProps } from "..";
+import type { Ref } from "react";
+import { TextareaField } from "./field";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
-import { InputTextarea, InputTextareaProps } from "primereact/inputtextarea";
-
-type Props = {
-    core: InputTextareaProps & { ref: React.Ref<HTMLInputElement> | undefined }
-};
+import type { TextareaProps } from "../@types";
 
 /**
  * Core - `TextareaHookForm`
- * Define o componente utilizando o HookForm
+ * Liga o campo ao React Hook Form e preserva os callbacks públicos.
  */
-export function TextareaHookForm({ core, ...props }: TextareaProps<"HookForm"> & Props) {
+export function TextareaHookForm(props: TextareaProps<"HookForm">) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
     return (
-        <Controller render={({ field, formState: { errors } }) => {
-            return <>
-                <InputTextarea {...core}
-                    {...field}
-                    invalid={!!errors[props.name]}
-                    ref={props.ref}
-                    required={props.required}
-                    value={field.value ?? ""}
-                    onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}
-                    onChange={e => props.onChange !== undefined ? props.onChange(e.target.value) : field.onChange(e)}/>
-                <InputFeedback {...props}
-                    errors={errors}/>
-            </>;
-        }}
-        control={props.control}
-        name={props.name}
-        rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
+        <Controller
+            render={({ field, fieldState, formState }) => (
+                <>
+                    <TextareaField
+                        {...props}
+                        inputRef={node => {
+                            field.ref(node);
+                            const inputRef: Ref<HTMLTextAreaElement> | undefined = props.ref;
+                            if (typeof inputRef === "function") inputRef(node);
+                            else if (inputRef) inputRef.current = node;
+                        }}
+                        invalid={Boolean(fieldState.error || props.error)}
+                        value={field.value}
+                        onFieldBlur={value => {
+                            field.onBlur();
+                            props.onBlur?.(value);
+                        }}
+                        onValueChange={value => {
+                            field.onChange(value);
+                            props.onChange?.(value);
+                        }}/>
+                    <InputFeedback
+                        {...props}
+                        errors={formState.errors}/>
+                </>
+            )}
+            control={props.control}
+            name={props.name}
+            rules={{ required: props.required ? "Campo obrigatório" : false }}/>
     );
 }
+
+TextareaHookForm.displayName = "TextareaHookForm";

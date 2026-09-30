@@ -1,17 +1,12 @@
-import React from "react";
-import { TextareaProps } from "..";
+import { TextareaField } from "./field";
 import { InputFeedback } from "../../api";
-import { InputTextarea, InputTextareaProps } from "primereact/inputtextarea";
-
-type Props = {
-    core: InputTextareaProps & { ref: React.Ref<HTMLTextAreaElement> | undefined }
-};
+import type { TextareaProps } from "../@types";
 
 /**
  * Core - `TextareaControlled`
- * Define o componente controlled
+ * Renderiza o campo com valor controlado pelo consumidor.
  */
-export function TextareaControlled({ core, ...props }: TextareaProps<"Controlled"> & Props) {
+export function TextareaControlled(props: TextareaProps<"Controlled">) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -19,20 +14,15 @@ export function TextareaControlled({ core, ...props }: TextareaProps<"Controlled
     */
     return (
         <>
-            <InputTextarea {...core}
-                ref={props.ref}
-                value={props.value}
-                onBlur={event => {
-                    if (props.onBlur) {
-                        props.onBlur(event.target.value);
-                    }
-                }}
-                onChange={event => {
-                    if (props.onChange) {
-                        props.onChange(event.target.value);
-                    }
-                }}/>
+            <TextareaField
+                {...props}
+                inputRef={props.ref}
+                invalid={Boolean(props.error)}
+                onFieldBlur={value => props.onBlur?.(value)}
+                onValueChange={value => props.onChange?.(value)}/>
             <InputFeedback {...props}/>
         </>
     );
 }
+
+TextareaControlled.displayName = "TextareaControlled";

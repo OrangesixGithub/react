@@ -1,2 +1,2 @@
-export * from "./autocomplete";
-export * from "./@types/index";
+export { Autocomplete } from "./autocomplete";
+export type * from "./@types";

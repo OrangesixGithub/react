@@ -1,2 +1,2 @@
-export * from "./textarea";
-export * from "./@types/index";
+export type * from "./@types";
+export { Textarea } from "./textarea";

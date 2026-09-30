@@ -8,12 +8,13 @@ import path from "path";
  * As dependências internas (ex.: `input` usa `api` e `box`) também precisam estar habilitadas.
  */
 export const components: string[] = [
+    // "accordion",
     "api",
+    "autocomplete",
     "box",
     "button",
-    // "accordion",
-    // "autocomplete",
     // "calendar",
+    "checkbox",
     // "editor",
     "input",
     // "inputfilter",
@@ -21,7 +22,7 @@ export const components: string[] = [
     // "loading",
     // "message",
     // "modal",
-    // "multiselect",
+    "multiselect",
     // "pdf",
     // "picklist",
     "radio",
@@ -30,7 +31,7 @@ export const components: string[] = [
     // "table",
     // "tablepivot",
     // "tabview",
-    // "textarea",
+    "textarea",
     // "tooltip",
     // "utils",
 ];

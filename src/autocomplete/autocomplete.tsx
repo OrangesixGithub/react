@@ -1,34 +1,35 @@
-import React from "react";
 import { Box } from "../box";
 import { InputLabel } from "../api";
-import { AutocompleteProps } from ".";
-import { autocompleCore } from "./core/core";
-import { autocompleteEvent } from "./core/event";
-import * as AutoCompletePrimeReact from "primereact/autocomplete";
+import type { ApiFieldModeProps } from "../api";
+import type { AutocompleteProps } from "./@types";
+import type { FieldValues } from "react-hook-form";
+import { AutocompleteHookForm } from "./core/hookForm";
+import { AutocompleteControlled } from "./core/controlled";
 
 /**
  * Componente - `Autocomplete`
- *
- * AutoComplete é um componente de entrada que fornece sugestões em tempo real enquanto é digitado
+ * Sugere opções durante a digitação, com controle externo ou React Hook Form.
  */
-export const Autocomplete = ({ ...props }: AutocompleteProps) => {
+export function Autocomplete<T extends ApiFieldModeProps = "Controlled", TValues extends FieldValues = FieldValues>(props: AutocompleteProps<T, TValues> & {
+    mode?: T
+}) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
     return (
         <Box
-            className={"autocomplete" + (props.className ?? "")}
+            className={props.className}
             css={props.css}
+            direction="column"
             size={props.size ?? "100"}>
             <InputLabel {...props}/>
-            <AutoCompletePrimeReact.AutoComplete
-                delay={props.searchDelay ?? 500}
-                maxLength={props.searchMax}
-                minLength={props.searchMin ?? 1}
-                suggestions={props.data ?? []}
-                value={props.value}
-                {...autocompleCore(props)}
-                {...autocompleteEvent(props)}/>
-            <div data-name={props.name}
-                id="j_feedback"/>
+            {props.mode === "HookForm"
+                ? <AutocompleteHookForm {...props as AutocompleteProps<"HookForm">}/>
+                : <AutocompleteControlled {...props as AutocompleteProps}/>}
         </Box>
     );
-};
+}
+
 Autocomplete.displayName = "Autocomplete";

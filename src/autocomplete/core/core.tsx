@@ -1,30 +1,33 @@
-import { AutocompleteProps } from "..";
-import * as AutoCompletePrimeReact from "primereact/autocomplete";
-
-/**
- * Componente - `Autocomplete`
- *
- * Define as configurações do modo principal do autocomplete.
- */
-export function autocompleCore(
-    props: AutocompleteProps
-): Partial<AutoCompletePrimeReact.AutoCompleteProps> {
-
-    const itemTemplate: Partial<AutoCompletePrimeReact.AutoCompleteProps> = props.dataTemplate
-        ? { itemTemplate: props.dataTemplate } : {};
-
+import type { AutocompleteProps } from "../@types";
+import { autocompleteVariants } from "../variants";
+import type { AutoCompleteProps } from "primereact/autocomplete";
+/** Core - `autocompleCore`: configura o campo preservando o helper existente. */
+export function autocompleCore(props: AutocompleteProps<"Controlled"> | AutocompleteProps<"HookForm">): Partial<AutoCompleteProps> {
+    const styles = autocompleteVariants({ invalid: Boolean(props.error) });
+    const id = props.id ?? props.name;
     return {
-        id: props.id,
+        unstyled: true,
         field: "name",
+        inputId: id,
+        inputRef: props.ref,
         name: props.name,
         forceSelection: props.forceSelect ?? true,
-        style: props.css ?? {},
         disabled: props.disabled,
+        readOnly: props.readonly,
         required: props.required,
         placeholder: props.placeholder,
-        inputClassName: "form-control",
         appendTo: props.appendTo ?? "self",
-        className: "autocomplete-primereact w-100",
-        ...itemTemplate
+        itemTemplate: props.dataTemplate,
+        className: styles.root(),
+        inputClassName: styles.input(),
+        "aria-describedby": id ? `${id}-feedback` : undefined,
+        "aria-invalid": Boolean(props.error) || undefined,
+        pt: {
+            panel: { className: styles.panel() },
+            list: { className: styles.list() },
+            item: { className: styles.item() },
+            emptyMessage: { className: styles.emptyMessage() },
+            loadingIcon: { className: styles.loadingIcon() },
+        },
     };
 }

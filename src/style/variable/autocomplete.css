@@ -1,0 +1,19 @@
+@theme {
+    --color-autocomplete-item-hover: var(--color-neutral-100);
+    --color-autocomplete-item-selected: var(--color-primary-50);
+    --color-autocomplete-item-selected-text: var(--color-primary-900);
+    --color-autocomplete-text: var(--color-text);
+    --color-autocomplete-border: var(--color-border);
+    --color-autocomplete-panel-background: var(--color-white);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-autocomplete-item-hover: var(--color-neutral-800);
+        --color-autocomplete-item-selected: rgba(from var(--color-neutral-800) r g b / 0.3);
+        --color-autocomplete-item-selected-text: var(--color-primary-50);
+        --color-autocomplete-text: var(--color-text);
+        --color-autocomplete-border: var(--color-border);
+        --color-autocomplete-panel-background: var(--color-neutral-900);
+    }
+}

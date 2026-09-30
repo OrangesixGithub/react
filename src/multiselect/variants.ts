@@ -30,7 +30,7 @@ export const multiselectVariants = tv({
         closeButton: "flex h-4 w-4 text-xs shrink-0 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent " +
             "text-multiselect-text hover:bg-multiselect-item-hover focus-visible:outline-none focus-visible:ring-3 " +
             "focus-visible:ring-multiselect-focus-ring",
-        wrapper: "overflow-x-hidden overflow-y-auto [scrollbar-width:thin] [scrollbar-color:var(--color-multiselect-border)_transparent]",
+        wrapper: "overflow-x-hidden overflow-y-auto scrollbar-themed",
         list: "m-0 flex list-none flex-col gap-1 p-1",
         item: "flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm outline-none " +
             "hover:bg-multiselect-item-hover aria-selected:bg-multiselect-item-selected " +
