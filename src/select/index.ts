@@ -1,2 +1,2 @@
-export * from "./select";
-export * from "./@types/index";
+export { Select } from "./select";
+export type { SelectProps, SelectOptionsProps } from "./@types";

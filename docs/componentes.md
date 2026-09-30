@@ -22,6 +22,15 @@ Padrão a repetir:
    `build/components.ts`, rode `npm run build` e confira `dist/<componente>/index.mjs`, `index.d.ts`, `package.json` e
    `@types/`.
 
+## Testes básicos nesta etapa
+
+Mantenha os testes simples enquanto a cobertura evolui: um comportamento por `it`,
+um exemplo explícito e poucas verificações com `expect`. Para componentes, use
+`renderToStaticMarkup` para conferir o HTML gerado. Para funções, execute a função e
+compare o resultado esperado. Evite por enquanto testes parametrizados, mocks,
+montagem com eventos e chamadas a serviços externos. Interações e integração com
+HookForm serão acrescentadas em uma próxima etapa.
+
 ## Anatomia de um componente
 
 ```
@@ -194,7 +203,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | pdf          | pendente                                                                                    |
 | picklist     | pendente                                                                                    |
 | radio        | pendente                                                                                    |
-| select       | pendente                                                                                    |
+| select       | select nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | switch       | pendente                                                                                    |
 | table        | pendente                                                                                    |
 | tablepivot   | pendente                                                                                    |

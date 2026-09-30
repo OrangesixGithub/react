@@ -11,6 +11,9 @@ Um ambiente Vite para ver e testar os componentes em tempo real enquanto eles s�
 
 Enquanto `input` estiver desligado em `build/components.ts`, a página dele usa `../react/src/input` também no modo `dev:package`; valide seu visual com `npm run dev`, que compila o CSS do fonte. Quando `dist/input` existir, o sandbox passa a usar automaticamente a versão compilada.
 
+A mesma regra vale para `select`: enquanto `dist/select` não existir, a página usa `../react/src/select`.
+Valide os estilos novos do select nativo com `npm run dev`. A habilitação no build depende da validação visual pelo dono.
+
 ## Como o modo `dev` liga o sandbox à lib
 
 Em `react-sandbox/vite.config.ts`:

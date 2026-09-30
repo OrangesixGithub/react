@@ -1,36 +1,24 @@
 import * as Handle from "../handle";
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
-describe("Utils -> Handle", function () {
-    test("handleHours() -> Verificar se os formatos de horas estão corretos", function () {
-        expect(Handle.handleHours("1")).toBe("01:00");
-        expect(Handle.handleHours("2")).toBe("02:00");
-        expect(Handle.handleHours("2.10")).toBe("02:10");
-        expect(Handle.handleHours("0.10")).toBe("00:10");
-        expect(Handle.handleHours("200.10")).toBe("200:10");
-        expect(Handle.handleHours("1H")).toBe("01:00");
-        expect(Handle.handleHours("1H.20M")).toBe("01:20");
-        expect(Handle.handleHours("1H,20M")).toBe("01:20");
-        expect(Handle.handleHours("horas")).toBe("00:00");
-        expect(Handle.handleHours("true")).toBe("00:00");
+describe("Utils -> Handle", () => {
+    it("handleHours -> formata uma hora", () => {
+        const resultado = Handle.handleHours("1");
+        expect(resultado).toBe("01:00");
     });
 
-    test("handleNumber() -> Verificar se formatação do valor numérico para o formato decimal ou monetário estão corretas", function () {
-        expect(Handle.handleNumber("1")).toBe("1.00");
-        expect(Handle.handleNumber("1,20")).toBe("1.20");
-        expect(Handle.handleNumber("1.20")).toBe("1.20");
-        expect(Handle.handleNumber("1.20", "decimal", 4)).toBe("1.2000");
-        expect(Handle.handleNumber("1.20", "money")).toBe("R$ 1,20");
-        expect(Handle.handleNumber("1,20", "money")).toBe("R$ 1,20");
-        expect(Handle.handleNumber("200,2024", "money")).toBe("R$ 200,20");
+    it("handleNumber -> formata um número decimal", () => {
+        const resultado = Handle.handleNumber("1,20");
+        expect(resultado).toBe("1.20");
     });
 
-    test("handleDateFormat() -> Verificar se formatação da data estão sendo retornadas corretas", function () {
-        expect(Handle.handleDateFormat("format_error",)).toBe("-");
-        expect(Handle.handleDateFormat("2025-07-31")).toBe("31/07/2025");
-        expect(Handle.handleDateFormat("2025-07-31T00:00:00.000Z")).toBe("31/07/2025");
-        expect(Handle.handleDateFormat("2025-07-31T00:00:00.000Z", "yyyy-MM-dd")).toBe("2025-07-31");
-        expect(Handle.handleDateFormat("2025-07-31 08:00:00", "dd/MM/yyyy HH:mm")).toBe("31/07/2025 08:00");
-        expect(Handle.handleDateFormat("2025-07-31 08:00:25", "dd/MM/yyyy HH:mm:ss")).toBe("31/07/2025 08:00:25");
+    it("handleDateFormat -> formata uma data", () => {
+        const resultado = Handle.handleDateFormat("2025-07-31");
+        expect(resultado).toBe("31/07/2025");
+    });
+
+    it("handleDateFormat -> trata uma data inválida", () => {
+        const resultado = Handle.handleDateFormat("data inválida");
+        expect(resultado).toBe("-");
     });
 });

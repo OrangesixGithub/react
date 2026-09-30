@@ -1,19 +1,14 @@
-import React from "react";
-import { SelectProps } from "..";
+import { SelectField } from "./field";
 import { InputFeedback } from "../../api";
+import type { SelectProps } from "../@types";
 
 /**
  * Core - `SelectControlled`
- * Define o componente controlled
+ * Renderiza a seleção controlada pelo consumidor.
  */
-export function SelectControlled(props: SelectProps<"Controlled"> & { mode?: any }) {
-    let init = !props.init
-        ? null
-        : (typeof props.init === "boolean"
-            ? <option value=''>Selecione {props.label?.toLowerCase() ?? ""}</option>
-            : <option value=''>{props.init}</option>);
-    let sizes = props.sizes === "small" ? "form-select-sm" : props.sizes === "large" ? "form-select-lg" : "";
-
+export function SelectControlled(props: SelectProps<"Controlled">) {
+    const readonlyLabel = props.readonly && props.readonlyType === "label";
+    const selected = props.options.find(option => String(option.id) === String(props.value));
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -21,26 +16,16 @@ export function SelectControlled(props: SelectProps<"Controlled"> & { mode?: any
     */
     return (
         <>
-            <select className={`form-select ${sizes}`}
-                disabled={props.disabled}
-                id={props.id}
-                name={props.name}
-                ref={props.ref}
-                required={props.required}
-                value={props.value}
-                onChange={event => {
-                    if (props.onChange) {
-                        props.onChange(event.target.value);
-                    }
-                }}>
-                {init}
-                {props.options.map((item) => (
-                    <option disabled={item.disabled}
-                        key={item.id}
-                        value={item.id}>{item.name}</option>
-                ))}
-            </select>
+            {readonlyLabel
+                ? <p className={props.readonlyClassName}>{selected?.name ?? String(props.value ?? "")}</p>
+                : <SelectField
+                    {...props}
+                    invalid={Boolean(props.error)}
+                    onFieldBlur={value => props.onBlur?.(value)}
+                    onValueChange={value => props.onChange?.(value)}/>}
             <InputFeedback {...props}/>
         </>
     );
 }
+
+SelectControlled.displayName = "SelectControlled";

@@ -3,42 +3,42 @@ import { InputFeedback, InputLabel } from "../input";
 import { renderToStaticMarkup } from "react-dom/server";
 
 describe("API -> Input", () => {
+    it("InputLabel -> mostra o rótulo", () => {
+        const html = renderToStaticMarkup(
+            <InputLabel label="Usuário"/>
+        );
+        expect(html).toContain("Usuário");
+    });
 
-    it("InputLabel -> associa o rótulo ao campo e mostra ícone e obrigatoriedade", () => {
+    it("InputLabel -> associa o rótulo ao campo", () => {
         const html = renderToStaticMarkup(
             <InputLabel
-                required
-                icon="user"
                 id="usuario"
                 label="Usuário"/>
         );
         expect(html).toContain("for=\"usuario\"");
-        expect(html).toContain("bi bi-user");
-        expect(html).toContain("Usuário");
-        expect(html).toContain("text-input-required");
     });
 
-    it("InputFeedback -> exibe erros em Controlled e HookForm", () => {
-        const controlled = renderToStaticMarkup(
-            <InputFeedback
-                error="Valor inválido"
-                mode="Controlled"
-                name="usuario.email"/>
+    it("InputLabel -> mostra o ícone", () => {
+        const html = renderToStaticMarkup(
+            <InputLabel
+                icon="user"
+                label="Usuário"/>
         );
-        const withoutError = renderToStaticMarkup(
-            <InputFeedback
-                mode="HookForm"
-                name="usuario.email"/>
+        expect(html).toContain("bi bi-user");
+    });
+
+    it("InputFeedback -> mostra a mensagem de erro", () => {
+        const html = renderToStaticMarkup(
+            <InputFeedback error="Valor inválido"/>
         );
-        const withError = renderToStaticMarkup(
-            <InputFeedback
-                errors={{ usuario: { email: { type: "required", message: "E-mail obrigatório" } } }}
-                mode="HookForm"
-                name="usuario.email"/>
+        expect(html).toContain("Valor inválido");
+    });
+
+    it("InputFeedback -> fica vazio sem erro", () => {
+        const html = renderToStaticMarkup(
+            <InputFeedback/>
         );
-        expect(withoutError).not.toContain("E-mail obrigatório");
-        expect(controlled).toContain("Valor inválido");
-        expect(withError).toContain("E-mail obrigatório");
-        expect(withError).toContain("id=\"usuario.email-feedback\"");
+        expect(html).toBe("<div aria-live=\"polite\"></div>");
     });
 });

@@ -1,0 +1,33 @@
+@theme {
+    --color-select-text: var(--color-text);
+    --color-select-icon: var(--color-placeholder);
+    --color-select-placeholder: var(--color-placeholder);
+    --color-select-border: var(--color-border);
+    --color-select-background: var(--color-background);
+    --color-select-focus-border: var(--color-focus);
+    --color-select-focus-ring: var(--color-focus-ring);
+    --color-select-readonly-background: var(--color-background-readonly);
+    --color-select-disabled-background: var(--color-background-disabled);
+    --color-select-disabled-text: var(--color-text-disabled);
+    --color-select-invalid-border: var(--color-invalid);
+    --color-select-invalid-ring: var(--color-invalid-ring);
+    --color-select-option-background: var(--color-white);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-select-text: var(--color-text);
+        --color-select-icon: var(--color-placeholder);
+        --color-select-placeholder: var(--color-placeholder);
+        --color-select-border: var(--color-border);
+        --color-select-background: var(--color-background);
+        --color-select-focus-border: var(--color-focus);
+        --color-select-focus-ring: var(--color-focus-ring);
+        --color-select-readonly-background: var(--color-background-readonly);
+        --color-select-disabled-background: var(--color-background-disabled);
+        --color-select-disabled-text: var(--color-text-disabled);
+        --color-select-invalid-border: var(--color-invalid);
+        --color-select-invalid-ring: var(--color-invalid-ring);
+        --color-select-option-background: var(--color-neutral-900);
+    }
+}
