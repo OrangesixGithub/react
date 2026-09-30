@@ -1,37 +1,34 @@
-import React from "react";
 import { Box } from "../box";
-import { RadioProps } from ".";
-import { ApiFieldModeProps } from "../api";
-import { InputLabel, InputProps } from "../api";
+import { InputLabel } from "../api";
+import type { RadioProps } from "./@types";
+import type { ApiFieldModeProps } from "../api";
 import { RadioHookForm } from "./core/hookForm";
+import type { FieldValues } from "react-hook-form";
 import { RadioControlled } from "./core/controlled";
 
 /**
  * Componente - `Radio`
  *
- * Um componente versátil que é utilizado para entrada de dados de multipla escolha.
+ * Seleciona uma opção com o input radio nativo do HTML e a API Orange Six.
  */
-export function Radio<T extends ApiFieldModeProps = "Controlled">(props: RadioProps<T> & { mode?: T }) {
-    let propsCore = props as any;
-    let core = {
-        ...InputProps(propsCore)
-    };
-
+export function Radio<T extends ApiFieldModeProps = "Controlled", TValues extends FieldValues = FieldValues>(props: RadioProps<T, TValues> & { mode?: T }) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
     return (
-        <Box className={props.className}
+        <Box
+            className={props.className}
             css={props.css}
+            direction="column"
             size={props.size ?? "100"}>
-            <InputLabel {...props}/>
-            {!props.mode || props.mode === "Controlled"
-                ? <RadioControlled core={core}
-                    {...propsCore}/>
-                : <RadioHookForm core={core}
-                    {...propsCore}/>}
+            <InputLabel
+                {...props}
+                id={`${props.id ?? props.name}-${props.options[0]?.value ?? ""}`}/>
+            {props.mode === "HookForm"
+                ? <RadioHookForm {...props as RadioProps<"HookForm">}/>
+                : <RadioControlled {...props as RadioProps<"Controlled">}/>}
         </Box>
     );
 }

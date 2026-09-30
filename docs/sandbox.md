@@ -14,6 +14,9 @@ Enquanto `input` estiver desligado em `build/components.ts`, a página dele usa 
 A mesma regra vale para `select`: enquanto `dist/select` não existir, a página usa `../react/src/select`.
 Valide os estilos novos do select nativo com `npm run dev`. A habilitação no build depende da validação visual pelo dono.
 
+A mesma regra vale para `radio`: enquanto `dist/radio` não existir, a página usa `../react/src/radio`.
+Valide o visual com `npm run dev`; a habilitação no build depende da validação pelo dono.
+
 ## Como o modo `dev` liga o sandbox à lib
 
 Em `react-sandbox/vite.config.ts`:

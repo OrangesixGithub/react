@@ -1,0 +1,24 @@
+@theme {
+    --color-radio-text: var(--color-text);
+    --color-radio-disabled-text: var(--color-text-disabled);
+    --color-radio-border: var(--color-border);
+    --color-radio-background: var(--color-background);
+    --color-radio-selected: var(--color-primary-500);
+    --color-radio-dot: var(--color-white);
+    --color-radio-focus: var(--color-focus);
+    --color-radio-focus-ring: var(--color-focus-ring);
+    --color-radio-invalid: var(--color-invalid);
+    --color-radio-invalid-ring: var(--color-invalid-ring);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-radio-text: var(--color-text);
+        --color-radio-disabled-text: var(--color-text-disabled);
+        --color-radio-border: var(--color-border);
+        --color-radio-background: var(--color-background);
+        --color-radio-focus-ring: var(--color-focus-ring);
+        --color-radio-invalid: var(--color-invalid);
+        --color-radio-invalid-ring: var(--color-invalid-ring);
+    }
+}

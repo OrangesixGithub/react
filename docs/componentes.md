@@ -202,7 +202,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | multiselect  | pendente                                                                                    |
 | pdf          | pendente                                                                                    |
 | picklist     | pendente                                                                                    |
-| radio        | pendente                                                                                    |
+| radio        | radio nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | select       | select nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | switch       | pendente                                                                                    |
 | table        | pendente                                                                                    |

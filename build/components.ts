@@ -24,7 +24,7 @@ export const components: string[] = [
     // "multiselect",
     // "pdf",
     // "picklist",
-    // "radio",
+    "radio",
     "select",
     // "switch",
     // "table",
