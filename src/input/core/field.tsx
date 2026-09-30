@@ -33,12 +33,12 @@ export function InputField(props: InputFieldProps) {
     return props.mask !== undefined
         ? <InputMasked
             {...props}
-            className={classes}
+            className={clsx(classes, props.inputClassName)}
             value={textValue}/>
         : props.type === "password"
             ? <InputPassword
                 {...props}
-                className={classes}
+                className={clsx(classes, props.inputClassName)}
                 value={textValue}/>
             : props.type === "number"
                 ? <InputNumber

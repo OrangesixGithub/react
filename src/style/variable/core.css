@@ -13,7 +13,7 @@
 }
 
 @theme {
-    --color-text: var(--color-neutral-700);
+    --color-text: var(--color-neutral-900);
     --color-text-label: var(--color-neutral-500);
     --color-text-disabled: var(--color-neutral-500);
     --color-border: var(--color-neutral-300);
