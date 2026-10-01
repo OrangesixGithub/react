@@ -1,4 +1,4 @@
-import { LocaleOptions } from "primereact/api";
+import type { LocaleOptions } from "primereact/api";
 
 export const localePT_BR: LocaleOptions = {
     firstDayOfWeek: 0,

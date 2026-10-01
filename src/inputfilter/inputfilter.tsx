@@ -1,38 +1,40 @@
+import clsx from "clsx";
 import { Box } from "../box";
 import { Text } from "./core/text";
 import { Date } from "./core/date";
-import { InputLabel } from "../api";
 import { Number } from "./core/number";
+import { inputfilterVariants } from "./variants";
 import * as handle from "./function/handle";
-import { classNames } from "primereact/utils";
 import { Autocomplete } from "./core/autocomplete";
-import React, { useState, useEffect } from "react";
+import { InputFeedback, InputLabel } from "../api";
+import { useState, useEffect } from "react";
 import { optionsDefault, optionsLabel } from "./const";
-import { InputFilterOptionsMap, InputFilterProps } from ".";
+import type { InputFilterOptionsMap, InputFilterProps } from "./@types";
 
 /**
  * Componente - `InputFilter`
  *
  * Um componente utilizado para montar o objeto de pesquisa de dados.
- * Permite alterar o seu tipo através do type: `text`, `date`, `autocomplete`.
+ * Permite alterar o seu tipo através do type: `text`, `date`, `number`, `autocomplete`.
  */
 export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ...props }: InputFilterProps<T>) {
-
-    const options: any[] = (props.options ?? optionsDefault).sort((a, b) => a.length - b.length);
+    const styles = inputfilterVariants({ invalid: Boolean(props.error) });
+    const options: any[] = [...(props.options ?? optionsDefault)].sort((a, b) => a.length - b.length);
     const selectOptions = optionsLabel.filter(item => options?.includes(item.options as any));
     const [select, setSelect] = useState<string>(handle.handleGetOption<T>(props.value, options));
+    const id = props.id ?? "input-filter";
 
     useEffect(() => {
         if (!props.type || props.type === "text") {
-            let value = handle.handleGetValueText(props.value, options);
+            const value = handle.handleGetValueText(props.value, options);
             if (value !== null) {
                 props.onChange(value + select);
             } else {
                 props.onChange(null);
             }
         } else if (props.type === "date") {
-            let date = handle.handleGetValueDate(props.value, options, select);
-            let setDate = handle.handleSetValueDate("0", null, date);
+            const date = handle.handleGetValueDate(props.value, options, select);
+            const setDate = handle.handleSetValueDate("0", null, date);
 
             if (select === "{}" && setDate === "0/0/0{}0/0/0") {
                 props.onChange(null);
@@ -44,10 +46,10 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
                 }
             }
         } else if (props.type === "autocomplete") {
-            let value = handle.handleGetValueAutocomplete(props.value, options, props.data);
+            const value = handle.handleGetValueAutocomplete(props.value, options, props.data);
             props.onChange(handle.handleSetValueAutocomplete(value, select));
         } else if (props.type === "number") {
-            let value = handle.handleGetValueNumber(props.value, options);
+            const value = handle.handleGetValueNumber(props.value, options);
             if (value !== "") {
                 props.onChange(value + select);
             } else {
@@ -62,39 +64,57 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
     |------------------------------------------
     */
     return (
-        <Box {...props}
-            className={classNames([props.className, "input-filter-container"])}>
+        <Box
+            className={clsx(styles.container(), props.className)}
+            css={props.css}
+            direction="column"
+            size={props.size ?? "100"}>
             <InputLabel {...props}/>
-            <div className="input-filter-content"
-                id={props.id ?? "input-filter"}>
-                <select className="form-select input-filter-select"
-                    disabled={props.disabled}
-                    id={(props.id ?? "input-filter") + "-select"}
-                    name={(props.name ?? "input-filter") + "-select"}
-                    value={select}
-                    onChange={event => setSelect(event.target.value)}>
-                    {selectOptions?.map(item => (
-                        <option key={item.options}
-                            value={item.options}>{item.label}</option>
-                    ))}
-                </select>
+            <div
+                className={styles.content()}
+                id={id}>
+                <div className={styles.selectWrapper()}>
+                    <select
+                        aria-invalid={Boolean(props.error) || undefined}
+                        className={styles.select()}
+                        disabled={props.disabled || props.readonly}
+                        id={id + "-select"}
+                        name={(props.name ?? "input-filter") + "-select"}
+                        value={select}
+                        onChange={event => setSelect(event.target.value)}>
+                        {selectOptions?.map(item => (
+                            <option
+                                className={styles.selectOption()}
+                                key={item.options}
+                                value={item.options}>{item.label}</option>
+                        ))}
+                    </select>
+                    <i
+                        aria-hidden="true"
+                        className={`${props.iconPrefix ?? "bi bi-"}chevron-down ${styles.selectIcon()}`}/>
+                </div>
                 {(!props.type || props.type === "text")
-                    && <Text<"text"> {...props as InputFilterProps<"text">}
+                    && <Text<"text">
+                        {...props as InputFilterProps<"text">}
                         options={options}
                         select={select}/>}
                 {props.type === "date"
-                    && <Date<"date"> {...props as InputFilterProps<"date">}
+                    && <Date<"date">
+                        {...props as InputFilterProps<"date">}
                         options={options}
                         select={select}/>}
                 {props.type === "autocomplete"
-                    && <Autocomplete<"autocomplete"> {...props as InputFilterProps<"autocomplete">}
+                    && <Autocomplete
+                        {...props as InputFilterProps<"autocomplete">}
                         options={options}
                         select={select}/>}
                 {props.type === "number"
-                    && <Number<"number"> {...props}
+                    && <Number<"number">
+                        {...props as InputFilterProps<"number">}
                         options={options}
                         select={select}/>}
             </div>
+            <InputFeedback {...props}/>
         </Box>
     );
 }

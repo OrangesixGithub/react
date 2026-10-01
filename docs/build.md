@@ -96,6 +96,8 @@ dist/
 ## CSS
 
 - A entrada é `src/style/style.css`. O `build/style.ts` usa a API do Tailwind (`@tailwindcss/node` + `@tailwindcss/oxide`), varre as classes usadas nos componentes habilitados e emite `style.css` minificado.
+- As regras compartilhadas de `src/style/mixins/field.css` são importadas pela entrada CSS.
+  Os `variants.ts` dos componentes selecionam suas classes sem módulos TypeScript intermediários.
 - As fontes do `primeicons` são emitidas em `fonts/`. O `style.css` as referencia como `./fonts/...`.
 - O consumidor importa **uma vez**: `@orangesix/react/style.css`.
 - Não usar a CLI do Tailwind nem scripts como `build:css`.

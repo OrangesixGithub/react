@@ -2,13 +2,10 @@ import { tv } from "tailwind-variants";
 import type { InputNumberProps } from "./@types";
 
 const field = tv({
-    base: "w-full min-h-10 rounded-lg border px-3 py-2 " +
-        "border-input-border bg-input-background text-input-text placeholder:text-input-placeholder outline-none " +
-        "transition-colors focus:border-input-focus-border focus:ring-3 focus:ring-input-focus-ring " +
-        "read-only:bg-input-readonly-background disabled:cursor-not-allowed disabled:bg-input-disabled-background disabled:text-input-disabled-text",
+    base: "os-field os-input w-full min-h-10",
     variants: {
         invalid: {
-            true: "border-input-invalid-border focus:border-input-invalid-border focus:ring-input-invalid-ring",
+            true: "os-field-invalid",
         },
         size: {
             small: "min-h-8 py-1 text-sm",
@@ -22,14 +19,8 @@ const number = tv({
         root: "inline-flex w-full min-w-0",
         input: "min-w-0 flex-1 relative focus:z-10",
         buttonGroup: "flex shrink-0 flex-col w-10",
-        incrementButton: "inline-flex shrink-0 cursor-pointer items-center justify-center border-0 p-0 " +
-            "text-input-number-button-text transition-colors focus-visible:z-20 focus-visible:outline-none " +
-            "focus-visible:ring-3 focus-visible:ring-input-number-button-focus-ring disabled:cursor-not-allowed " +
-            "disabled:opacity-50",
-        decrementButton: "inline-flex shrink-0 cursor-pointer items-center justify-center border-0 p-0 " +
-            "text-input-number-button-text transition-colors focus-visible:z-20 focus-visible:outline-none " +
-            "focus-visible:ring-3 focus-visible:ring-input-number-button-focus-ring disabled:cursor-not-allowed " +
-            "disabled:opacity-50",
+        incrementButton: "os-button os-button-focus os-input-number-button",
+        decrementButton: "os-button os-button-focus os-input-number-button",
         icon: "h-4 w-4",
     },
     variants: {
@@ -96,10 +87,13 @@ export function inputNumberVariants(props: InputNumberProps & { invalid?: boolea
         layout: props.numberButton ? props.numberButtonLayout ?? "stacked" : undefined,
         size: props.sizes
     });
-
     return {
         root: styles.root(),
-        input: field({ invalid: props.invalid, size: props.sizes, class: styles.input() }),
+        input: field({
+            invalid: props.invalid,
+            size: props.sizes,
+            class: styles.input()
+        }),
         buttonGroup: styles.buttonGroup(),
         incrementButton: styles.incrementButton(),
         decrementButton: styles.decrementButton(),

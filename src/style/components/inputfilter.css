@@ -1,0 +1,8 @@
+/* O seletor do filtro preserva os tokens de estado dos campos Input. */
+@layer components {
+    .os-inputfilter-select {
+        --os-field-readonly-background: var(--color-input-readonly-background);
+        --os-field-disabled-background: var(--color-input-disabled-background);
+        --os-field-disabled-text: var(--color-input-disabled-text);
+    }
+}

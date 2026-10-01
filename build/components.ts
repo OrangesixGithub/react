@@ -13,7 +13,7 @@ export const components: string[] = [
     "autocomplete",
     "box",
     "button",
-    // "calendar",
+    "calendar",
     "checkbox",
     "editor",
     "input",

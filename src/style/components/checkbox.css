@@ -1,4 +1,4 @@
-@theme {
+@theme static {
     --color-checkbox-text: var(--color-text);
     --color-checkbox-disabled-text: var(--color-text-disabled);
     --color-checkbox-border: var(--color-border);

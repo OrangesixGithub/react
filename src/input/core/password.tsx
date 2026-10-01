@@ -51,7 +51,7 @@ export function InputPassword(props: PasswordProps) {
                 {props.passwordShow
                     && <button
                         aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
-                        className="absolute right-3 top-1/2 text-lg -translate-y-1/2 text-input-password-toggle hover:text-input-password-toggle-hover"
+                        className="os-button os-button-focus os-input-password-button absolute right-3 top-1/2 text-lg -translate-y-1/2 text-input-password-toggle hover:text-input-password-toggle-hover"
                         disabled={props.disabled}
                         type="button"
                         onClick={() => setVisible(current => !current)}>

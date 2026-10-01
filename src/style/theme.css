@@ -50,8 +50,3 @@
     }
 }
 
-/* Barra de rolagem fina e temática, compartilhada pelos componentes com rolagem própria. */
-@utility scrollbar-themed {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
-}

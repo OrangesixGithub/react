@@ -3,7 +3,7 @@ import type { ColorProps } from "../api";
 import type { ButtonProps } from "./@types";
 
 const root = tv({
-    base: "inline-flex cursor-pointer items-center justify-center gap-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+    base: "os-button gap-2",
     variants: {
         rounded: {
             true: "rounded-full",

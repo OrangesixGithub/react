@@ -1,6 +1,6 @@
 import { validateDate } from "./validate";
 import { handleNumber } from "../../utils";
-import { InputFilterOptionsMap } from "..";
+import { InputFilterOptionsMap } from "../@types";
 
 /**
  * Obtém a opção de filtro correspondente ao valor fornecido.

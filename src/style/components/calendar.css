@@ -1,0 +1,29 @@
+@theme static {
+    --color-calendar-panel-background: var(--color-white);
+    --color-calendar-panel-border: initial;
+    --color-calendar-panel-text: initial;
+    --color-calendar-header-background: var(--color-neutral-100);
+    --color-calendar-header-text: initial;
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-calendar-panel-background: var(--color-neutral-900);
+        --color-calendar-header-background: var(--color-neutral-800);
+    }
+}
+
+@layer components {
+    .os-calendar-panel {
+        --os-panel-border: var(--color-calendar-panel-border, var(--color-input-border));
+        --os-panel-background: var(--color-calendar-panel-background);
+        --os-panel-text: var(--color-calendar-panel-text, var(--color-input-text));
+        --os-panel-header-background: var(--color-calendar-header-background);
+        --os-panel-header-text: var(--color-calendar-header-text, var(--color-input-text));
+    }
+
+    .os-calendar-table {
+        @apply mx-3 mb-2 border-collapse text-center;
+        width: calc(100% - var(--spacing) * 6);
+    }
+}

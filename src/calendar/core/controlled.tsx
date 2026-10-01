@@ -1,48 +1,30 @@
-import React from "react";
-import { CalendarProps } from "..";
+import { CalendarField } from "./field";
 import { InputFeedback } from "../../api";
-import { Calendar } from "primereact/calendar";
-import { handleResponse, handleValue } from "./handle";
-
-type Props = {
-    core: any & { ref: React.Ref<HTMLInputElement> | undefined },
-};
+import type { CalendarProps } from "../@types";
 
 /**
  * Core - `CalendarControlled`
- * Define o componente controlled
+ * Renderiza o campo com valor controlado pelo consumidor.
  */
-export function CalendarControlled({ core, ...props }: CalendarProps<"Controlled"> & Props) {
+export function CalendarControlled(props: CalendarProps<"Controlled">) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
-    return <>
-        <div className="w-100 d-flex flex-column">
-            <Calendar
-                {...core}
-                showButtonBar
-                appendTo={props.appendTo}
-                className="w-100 calendar"
-                dateFormat={props.format ?? "dd/mm/yy"}
-                locale="pt-BR"
-                numberOfMonths={props.numberMonths ?? 1}
-                panelClassName="calendar-panel"
-                value={handleValue(props.value)}
-                view={props.view ?? "date"}
-                onBlur={event => {
-                    if (props.onBlur) {
-                        props.onBlur(event.target);
-                    }
-                }}
-                onChange={event => {
-                    if (props.onChange) {
-                        props.onChange(handleResponse(event.target.value as Date));
-                    }
-                }}/>
+    return (
+        <>
+            {props.readonly && props.readonlyType === "label"
+                ? <p className={props.readonlyClassName}>{String(props.value ?? "")}</p>
+                : <CalendarField
+                    {...props}
+                    inputRef={props.ref}
+                    invalid={Boolean(props.error)}
+                    onFieldBlur={target => props.onBlur?.(target)}
+                    onValueChange={value => props.onChange?.(value)}/>}
             <InputFeedback {...props}/>
-        </div>
-        <InputFeedback {...props}/>
-    </>;
+        </>
+    );
 }
+
+CalendarControlled.displayName = "CalendarControlled";

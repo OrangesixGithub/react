@@ -1,0 +1,16 @@
+/* Painel flutuante e cabeçalho compartilhados; cada componente fornece seus tokens. */
+@layer components {
+    .os-panel {
+        @apply overflow-hidden rounded-lg border shadow-lg text-sm;
+        border-color: var(--os-panel-border);
+        background-color: var(--os-panel-background);
+        color: var(--os-panel-text);
+    }
+
+    .os-panel-header {
+        @apply flex items-center gap-2 border-b p-1;
+        border-color: var(--os-panel-border);
+        background-color: var(--os-panel-header-background);
+        color: var(--os-panel-header-text);
+    }
+}

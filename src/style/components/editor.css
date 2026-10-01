@@ -1,4 +1,4 @@
-@theme {
+@theme static {
     --color-editor-panel-background: var(--color-white);
     --color-editor-text: var(--color-text);
     --color-editor-border: var(--color-border);
@@ -23,5 +23,21 @@
         --color-editor-hover: var(--color-neutral-800);
         --color-editor-active: var(--color-primary-600);
         --color-editor-active-text: var(--color-primary-100);
+    }
+}
+
+@layer components {
+    .os-editor {
+        --os-field-text: var(--color-editor-text);
+        --os-field-border: var(--color-editor-border);
+        --os-field-background: var(--color-editor-background);
+        --os-field-placeholder: var(--color-input-placeholder);
+        --os-field-focus-border: var(--color-editor-focus-border);
+        --os-field-focus-ring: var(--color-editor-focus-ring);
+        --os-field-readonly-background: var(--color-input-readonly-background);
+        --os-field-disabled-background: var(--color-input-disabled-background);
+        --os-field-disabled-text: var(--color-input-disabled-text);
+        --os-field-invalid-border: var(--color-input-invalid-border);
+        --os-field-invalid-ring: var(--color-input-invalid-ring);
     }
 }

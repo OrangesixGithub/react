@@ -1,4 +1,4 @@
-@theme {
+@theme static {
     --color-input-text: var(--color-text);
     --color-input-border: var(--color-border);
     --color-input-background: var(--color-background);
@@ -47,5 +47,30 @@
         --color-input-password-toggle-hover: var(--color-white);
         --color-input-password-feedback: var(--color-slate-300);
         --color-input-feedback-error: var(--color-error);
+    }
+}
+
+@layer components {
+    .os-input-number-button {
+        @apply font-normal shrink-0 border-0 p-0 text-input-number-button-text focus-visible:z-20
+        focus-visible:ring-input-number-button-focus-ring;
+    }
+
+    .os-input-password-button {
+        @apply font-normal;
+    }
+
+    .os-input {
+        --os-field-text: var(--color-input-text);
+        --os-field-border: var(--color-input-border);
+        --os-field-background: var(--color-input-background);
+        --os-field-placeholder: var(--color-input-placeholder);
+        --os-field-focus-border: var(--color-input-focus-border);
+        --os-field-focus-ring: var(--color-input-focus-ring);
+        --os-field-readonly-background: var(--color-input-readonly-background);
+        --os-field-disabled-background: var(--color-input-disabled-background);
+        --os-field-disabled-text: var(--color-input-disabled-text);
+        --os-field-invalid-border: var(--color-input-invalid-border);
+        --os-field-invalid-ring: var(--color-input-invalid-ring);
     }
 }

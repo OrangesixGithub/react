@@ -1,19 +1,14 @@
-import React from "react";
-import { CalendarProps } from "..";
+import type { Ref } from "react";
+import { CalendarField } from "./field";
 import { InputFeedback } from "../../api";
 import { Controller } from "react-hook-form";
-import { Calendar } from "primereact/calendar";
-import { handleResponse, handleValue } from "./handle";
-
-type Props = {
-    core: any & { ref: React.Ref<HTMLInputElement> | undefined }
-};
+import type { CalendarProps } from "../@types";
 
 /**
  * Core - `CalendarHookForm`
- * Define o componente utilizando o HookForm
+ * Liga o campo ao React Hook Form e preserva os callbacks públicos.
  */
-export function CalendarHookForm({ core, ...props }: CalendarProps<"HookForm"> & Props) {
+export function CalendarHookForm(props: CalendarProps<"HookForm">) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -21,32 +16,38 @@ export function CalendarHookForm({ core, ...props }: CalendarProps<"HookForm"> &
     */
     return (
         <Controller
-            render={({ field, formState: { errors } }) => {
-                return (
-                    <div className="w-100 d-flex flex-column">
-                        <Calendar
-                            {...core}
-                            showButtonBar
-                            appendTo={props.appendTo}
-                            className="w-100 calendar"
-                            dateFormat={props.format ?? "dd/mm/yy"}
-                            invalid={!!errors[props.name]}
-                            locale="pt-BR"
-                            numberOfMonths={props.numberMonths ?? 1}
-                            panelClassName="calendar-panel"
-                            value={handleValue(field.value)}
-                            view={props.view ?? "date"}
-                            onChange={e => props.onChange !== undefined
-                                ? props.onChange(handleResponse(e.target.value as Date))
-                                : field.onChange(handleResponse(e.target.value as Date))}
-                            onBlur={e => props.onBlur ? props.onBlur(e.target.value) : field.onBlur()}/>
-                        <InputFeedback {...props}
-                            errors={errors}/>
-                    </div>
-                );
-            }}
+            render={({ field, fieldState, formState }) => (
+                <>
+                    <CalendarField
+                        {...props}
+                        inputRef={node => {
+                            field.ref(node);
+                            const inputRef: Ref<HTMLInputElement> | undefined = props.ref;
+                            if (typeof inputRef === "function") {
+                                inputRef(node);
+                            } else if (inputRef) {
+                                inputRef.current = node;
+                            }
+                        }}
+                        invalid={Boolean(fieldState.error || props.error)}
+                        value={field.value}
+                        onFieldBlur={target => {
+                            field.onBlur();
+                            props.onBlur?.(target.value);
+                        }}
+                        onValueChange={value => {
+                            field.onChange(value);
+                            props.onChange?.(value);
+                        }}/>
+                    <InputFeedback
+                        {...props}
+                        errors={formState.errors}/>
+                </>
+            )}
             control={props.control}
             name={props.name}
-            rules={{ required: !props.required ? false : "Campo obrigatório" }}/>
+            rules={{ required: props.required ? "Campo obrigatório" : false }}/>
     );
 }
+
+CalendarHookForm.displayName = "CalendarHookForm";

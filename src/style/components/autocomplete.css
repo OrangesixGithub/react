@@ -1,10 +1,18 @@
-@theme {
+@theme static {
     --color-autocomplete-item-hover: var(--color-neutral-100);
     --color-autocomplete-item-selected: var(--color-primary-50);
     --color-autocomplete-item-selected-text: var(--color-primary-900);
     --color-autocomplete-text: var(--color-text);
     --color-autocomplete-border: var(--color-border);
     --color-autocomplete-panel-background: var(--color-white);
+}
+
+@layer components {
+    .os-autocomplete-item {
+        --os-item-hover: var(--color-autocomplete-item-hover);
+        --os-item-selected: var(--color-autocomplete-item-selected);
+        --os-item-selected-text: var(--color-autocomplete-item-selected-text);
+    }
 }
 
 @layer theme {

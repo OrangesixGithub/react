@@ -1,32 +1,49 @@
-import React from "react";
-import { InputFilterCoreProps, InputFilterOptionsMap } from "..";
-import * as AutocompletePrimeReact from "primereact/autocomplete";
+import { AutoComplete } from "primereact/autocomplete";
+import { inputfilterVariants } from "../variants";
+import type { InputFilterCoreProps } from "../@types";
 import { handleGetValueAutocomplete, handleSetValueAutocomplete } from "../function/handle";
 
 /**
  * Core - `Autocomplete`
  * Campo do filtro tipo autocomplete
  */
-export function Autocomplete<T extends keyof InputFilterOptionsMap>(props: InputFilterCoreProps<"autocomplete">) {
+export function Autocomplete(props: InputFilterCoreProps<"autocomplete">) {
+    const styles = inputfilterVariants({ invalid: Boolean(props.error) });
     const value = handleGetValueAutocomplete(props.value, props.options, props.data);
-
+    const id = (props.id ?? "input-filter") + "-autocomplete";
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
     return (
-        <AutocompletePrimeReact.AutoComplete
+        <AutoComplete
             multiple
-            completeMethod={event => {
-                let ids = value.map(item => item.id);
-                props.onSearch(event.query, ids);
+            unstyled
+            pt={{
+                container: { className: styles.autocompleteContainer() },
+                token: { className: styles.autocompleteToken() },
+                removeTokenIcon: { className: styles.autocompleteRemove() },
+                inputToken: { className: styles.autocompleteInputToken() },
+                panel: { className: styles.panel() },
+                list: { className: styles.list() },
+                item: { className: styles.item() },
+                emptyMessage: { className: styles.emptyMessage() },
+                loadingIcon: { className: styles.loadingIcon() },
             }}
             appendTo="self"
-            className="w-100"
+            aria-invalid={Boolean(props.error) || undefined}
+            className={styles.autocomplete()}
+            completeMethod={event => props.onSearch(event.query, value.map(item => item.id))}
             disabled={props.disabled}
             emptyMessage="Não encontramos dados."
             field="label"
-            id={(props.id ?? "input-filter") + "-" + "autocomplete"}
-            inputClassName="form-control"
-            name={(props.name ?? "input-filter") + "-" + "autocomplete"}
-            panelClassName="input-filter-autocomplete-panel"
+            id={id}
+            inputClassName={styles.autocompleteInput()}
+            inputId={id + "-input"}
+            name={(props.name ?? "input-filter") + "-autocomplete"}
             placeholder={props.placeholder}
+            readOnly={props.readonly}
             required={props.required}
             scrollHeight={props.autocompleteScrollHeight}
             selectionLimit={props.autocompleteSelectLimit}
@@ -35,3 +52,5 @@ export function Autocomplete<T extends keyof InputFilterOptionsMap>(props: Input
             onChange={event => props.onChange(handleSetValueAutocomplete(event.value, props.select))}/>
     );
 }
+
+Autocomplete.displayName = "Autocomplete";

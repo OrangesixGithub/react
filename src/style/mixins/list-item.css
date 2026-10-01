@@ -1,0 +1,9 @@
+/* Base dos itens de listas de seleção; cada componente fornece seus tokens de cor. */
+@layer components {
+    .os-list-item {
+        @apply cursor-pointer rounded-md px-3 py-2 text-sm outline-none
+        hover:bg-[var(--os-item-hover)]
+        aria-selected:bg-[var(--os-item-selected)] aria-selected:text-[color:var(--os-item-selected-text)]
+        data-[p-focused=true]:bg-[var(--os-item-hover)];
+    }
+}

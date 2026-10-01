@@ -1,43 +1,35 @@
-import React from "react";
+import clsx from "clsx";
 import { Box } from "../box";
-import { CalendarProps } from ".";
-import { ApiFieldModeProps } from "../api";
-import { localePT_BR } from "./core/locale";
-import { InputLabel, InputProps } from "../api";
-import { addLocale, locale } from "primereact/api";
+import { InputLabel } from "../api";
+import type { CalendarProps } from "./@types";
+import type { ApiFieldModeProps } from "../api";
+import type { FieldValues } from "react-hook-form";
 import { CalendarHookForm } from "./core/hookForm";
 import { CalendarControlled } from "./core/controlled";
-
-addLocale("pt-BR", localePT_BR);
-locale("pt-BR");
 
 /**
  * Componente - `Calendar`
  *
- * Um componente versátil que é utilizado para entrada de dados do formator de data.
+ * Um componente versátil que é utilizado para entrada de texto com múltiplas linhas.
  */
-export function Calendar<T extends ApiFieldModeProps = "Controlled">(props: CalendarProps<T> & { mode?: T }) {
-    let propsCore = props as any;
-    let core = { ...InputProps(propsCore) };
-
+export function Calendar<T extends ApiFieldModeProps = "Controlled", TValues extends FieldValues = FieldValues>(props: CalendarProps<T, TValues> & {
+    mode?: T
+}) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
     |------------------------------------------
     */
     return (
-        <Box className={props.className}
+        <Box
+            className={clsx("min-w-0 max-w-full", props.className)}
             css={props.css}
+            direction="column"
             size={props.size ?? "100"}>
             <InputLabel {...props}/>
-            {!props.mode || props.mode === "Controlled"
-                ? <CalendarControlled
-                    core={core}
-                    {...propsCore}/>
-                : <CalendarHookForm
-                    core={core}
-                    {...propsCore}/>
-            }
+            {props.mode === "HookForm"
+                ? <CalendarHookForm {...props as CalendarProps<"HookForm">}/>
+                : <CalendarControlled {...props as CalendarProps<"Controlled">}/>}
         </Box>
     );
 }

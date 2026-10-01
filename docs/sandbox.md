@@ -2,6 +2,17 @@
 
 Um ambiente Vite para ver e testar os componentes em tempo real enquanto eles são desenvolvidos. O sandbox tem o próprio `AGENTS.md`, com o padrão de código dele.
 
+## Padrão das páginas de campos
+
+- A prévia apresenta dois exemplos: `<Componente> controlado` (`Controlled`) e `<Componente> com HookForm` (`HookForm`), quando o componente suporta ambos os modos.
+- Os valores começam vazios, usando o valor vazio adequado ao componente (`""`, `null` ou lista vazia).
+- Cada exemplo exibe logo abaixo o valor atual, com `JSON.stringify`: `Valor do state:` ou `Valor do HookForm:`.
+- Preserve o layout dos demais campos: seção em coluna com `gap-6` e cada exemplo em coluna com `gap-2`.
+- Não acrescente exemplos extras de variações, tamanhos, múltiplos meses ou estados (`disabled`, `readonly`, erro) à página padrão, salvo solicitação do dono do projeto. Esses cenários continuam fazendo parte da validação da migração.
+- Mantenha a referência de props na seção de documentação e o menu de componentes em ordem alfabética, inclusive na busca.
+
+Use `src/components/input/Stage.tsx` e `src/components/calendar/Stage.tsx` do sandbox como referências.
+
 ## Modos
 
 | Comando (em `react-sandbox/`) | Fonte dos componentes | Uso |
@@ -38,7 +49,7 @@ Em `react-sandbox/vite.config.ts`:
 - O sandbox instala o PrimeReact 10.9.9 como consumidor e configura `PrimeReactProvider` de `primereact/api`, com `value={{ unstyled: true }}`, em `src/main.tsx`.
 - `server.fs.allow` libera a leitura da pasta `../react`.
 - As bordas dos painéis do sandbox usam `--color-shell-border`. Não reutilize `--color-border` nesse layout:
-  esse token pertence ao tema dos componentes e uma definição no sandbox sobrescreve o valor de `core.css`.
+  esse token pertence ao tema dos componentes e uma definição no sandbox sobrescreve o valor de `theme.css`.
 
 No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não o alias curto dos consumidores (`@orangesix/button`).
 
@@ -55,3 +66,8 @@ Valide os modos Controlled e HookForm, sugestões, template e estados com `npm r
 
 A mesma regra vale para `editor`: enquanto `dist/editor` não existir, a página usa `../react/src/editor`.
 Valide o modo Controlled e as opções da barra com `npm run dev`; a habilitação depende da validação pelo dono.
+
+A mesma regra vale para `inputfilter`: enquanto `dist/inputfilter` não existir, a página usa `../react/src/inputfilter`.
+Valide os tipos `text`, `number`, `date` e `autocomplete`, o erro e o estado desabilitado com `npm run dev`; a habilitação depende da validação pelo dono e de `utils` estar habilitado no build.
+
+O Calendar está disponível no modo `npm run dev`, com os exemplos Controlled e HookForm, seguindo o padrão das páginas dos demais campos. Permanece fora do build até validação visual pelo dono.

@@ -1,0 +1,12 @@
+@import "./components/box.css";
+@import "./components/input.css";
+@import "./components/textarea.css";
+@import "./components/calendar.css";
+@import "./components/select.css";
+@import "./components/inputfilter.css";
+@import "./components/checkbox.css";
+@import "./components/radio.css";
+@import "./components/switch.css";
+@import "./components/multiselect.css";
+@import "./components/autocomplete.css";
+@import "./components/editor.css";

@@ -1,0 +1,48 @@
+@layer components {
+
+    .os-field {
+        @apply rounded-lg border px-3 py-2 border-[color:var(--os-field-border)] bg-[var(--os-field-background)]
+        text-[color:var(--os-field-text)] placeholder:text-[color:var(--os-field-placeholder)] outline-none
+        transition-colors focus:border-[color:var(--os-field-focus-border)] focus:ring-3
+        focus:ring-[var(--os-field-focus-ring)]
+        disabled:cursor-not-allowed disabled:bg-[var(--os-field-disabled-background)] disabled:text-[color:var(--os-field-disabled-text)];
+    }
+
+    .os-field:is(input, textarea):read-only:not(:disabled) {
+        @apply bg-[var(--os-field-readonly-background)];
+    }
+
+    .os-field.os-field-disabled {
+        @apply cursor-not-allowed bg-[var(--os-field-disabled-background)] text-[color:var(--os-field-disabled-text)];
+    }
+
+    .os-field.os-field-readonly {
+        @apply bg-[var(--os-field-readonly-background)];
+    }
+
+    .os-field.os-field-readonly:not(.os-field-disabled) {
+        @apply text-[color:var(--os-field-text)];
+    }
+
+    .os-field-group {
+        @apply focus-within:border-[color:var(--os-field-focus-border)] focus-within:ring-3
+        focus-within:ring-[var(--os-field-focus-ring)];
+    }
+
+    .os-field[aria-expanded="true"] {
+        @apply border-[color:var(--os-field-focus-border)] ring-3 ring-[var(--os-field-focus-ring)];
+    }
+
+    .os-field-invalid {
+        @apply border-[color:var(--os-field-invalid-border)] focus:border-[color:var(--os-field-invalid-border)]
+        focus:ring-[var(--os-field-invalid-ring)];
+    }
+
+    .os-field-group.os-field-invalid {
+        @apply focus-within:border-[color:var(--os-field-invalid-border)] focus-within:ring-[var(--os-field-invalid-ring)];
+    }
+
+    .os-field.os-field-invalid[aria-expanded="true"] {
+        @apply border-[color:var(--os-field-invalid-border)] ring-[var(--os-field-invalid-ring)];
+    }
+}

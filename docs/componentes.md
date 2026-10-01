@@ -22,6 +22,13 @@ Padrão a repetir:
 
 ## Validação durante a refatoração
 
+O Calendar aceita `selectionMode="single"` (padrão, retorno ISO ou `null`) e `selectionMode="multiple"`
+(retorno `string[]` em ISO local; limpar retorna `[]`), nos modos Controlled e HookForm.
+`minDate` e `maxDate` aceitam `Date` ou string ISO e restringem ambos os modos de seleção.
+O sandbox permite alternar a seleção e reinicia os valores ao trocar de modo.
+`range` tem efeito apenas com `selectionMode="multiple"`: retorna `[início, fim]` ISO,
+com fim `null` enquanto incompleto, ou `[]` ao limpar. Em seleção única, `range` é ignorado.
+
 Os testes automatizados e o Vitest foram removidos por decisão do dono do projeto.
 A implementação de testes fica para depois da refatoração completa, com explicação
 gradual dos conceitos. Nesta etapa, valide os componentes com ESLint, checagem de
@@ -46,6 +53,44 @@ src/<componente>/
 - O nome da pasta é minúsculo, sem hífen, e é o nome público do import (`@orangesix/<pasta>`).
 - Mantenha classes e decisões de estilo em `variants.ts`, usando `tv` de `tailwind-variants`; o componente apenas
   seleciona as variantes e renderiza o resultado.
+- Estilos compartilhados ficam em `src/style/mixins/field.css`, nas classes `os-field` e `os-field-invalid`.
+  As regras de foco, erro e estados nativos
+  desabilitado/somente leitura ficam em `mixins/field.css`, na camada `components`, antes dos utilitários.
+  As classes `os-input` e `os-textarea`, definidas em `style/components/`, conectam as variáveis internas
+  `--os-field-*` aos tokens `--color-input-*` ou `--color-textarea-*` sem classes arbitrárias no HTML.
+  Os `variants.ts` selecionam diretamente essas classes, tamanhos e estado inválido; alturas, largura
+  e comportamento específico continuam no componente. Não há receitas TypeScript intermediárias em `mixins/`.
+  Os tokens opcionais do Textarea ficam em `src/style/components/textarea.css`. O padrão `initial` ativa o fallback
+  para os tokens do Input no próprio campo, preservando personalizações em `:root`, contêineres e temas escuros.
+  Para personalizar só o Textarea, sobrescreva, por exemplo, `--color-textarea-text` e `--color-textarea-background`.
+  Placeholder, foco, erro, somente leitura e desabilitado seguem o mesmo padrão. Label e feedback continuam
+  usando os tokens compartilhados dos helpers de `src/api/`.
+  Componentes com slots ou estados controlados precisam adaptar a receita ao elemento que desenha o campo.
+- `os-field-group` adiciona foco interno (`focus-within`) em campos compostos; `os-field-invalid` funciona
+  também com essa classe. `os-field-disabled` e `os-field-readonly` representam estados controlados em
+  contêineres. O estado nativo `:read-only` é restrito a `input`/`textarea`, pois também corresponde a
+  elementos não editáveis, como `div` e `select`.
+- Botões do pacote usam `os-button`, definida em `src/style/mixins/button.css`, para alinhamento, cursor,
+  transição de cores, `font-medium`, foco visível com anel de 2px/afastamento de 2px e estado nativo desabilitado.
+  Cores, tamanhos e bordas ficam nas variants de cada componente. Utilitários podem ajustar a base, como
+  `font-normal`, `focus-visible:ring-3`, `focus-visible:ring-offset-0`, `flex` e `justify-start` em botões internos.
+- `os-button-focus` concentra o foco dos botões internos: anel de 3px, afastamento zero e cor
+  `--color-input-focus-ring` como padrão. Editor, MultiSelect e botões numéricos preservam suas cores
+  específicas. Botões que usam anel de 2px continuam com o padrão de `os-button`.
+- `os-list-item`, em `style/mixins/list-item.css`, compartilha espaçamento, tipografia, arredondamento,
+  hover, seleção ARIA e foco do PrimeReact entre Autocomplete, MultiSelect e o autocomplete do InputFilter.
+  `os-autocomplete-item` e `os-multiselect-item` conectam `--os-item-*` aos tokens individuais de cada
+  componente. O layout com checkbox e o estado desabilitado do MultiSelect continuam nas variants.
+- `os-checkbox`, em `style/mixins/checkbox.css`, é a base nativa usada por Checkbox e MultiSelect
+  através de `checkboxVariants`. As classes `os-checkbox-checked`, `os-checkbox-invalid`,
+  `os-checkbox-readonly` e `os-checkbox-disabled` controlam os estados; tamanhos e rótulos ficam nas variants.
+  `os-multiselect-checkbox` conecta o fundo do checkbox ao token do filtro sem classe arbitrária no HTML.
+- `os-panel` e `os-panel-header`, em `style/mixins/panel.css`, compartilham borda, fundo, sombra,
+  arredondamento e cabeçalho destacado entre Calendar e MultiSelect. `os-calendar-panel` e
+  `os-multiselect-panel` conectam os tokens `--os-panel-*`. No Calendar, personalize o cabeçalho com
+  `--color-calendar-header-background` e `--color-calendar-header-text`; o corpo mantém o token
+  `--color-calendar-panel-background` e o espaçamento próprio das datas/meses/anos.
+
 - No PhpStorm, `src/style/tailwind.editor.css` ativa o Language Server do Tailwind v4 sem alterar o CSS publicado. Em
   **Settings → Languages & Frameworks → Style Sheets → Tailwind CSS → Configuration**, adicione
   `"classFunctions": ["tv"]` para completar classes dentro de `tv(...)`; depois reinicie o serviço Tailwind CSS pelo
@@ -65,11 +110,30 @@ src/<componente>/
   criam providers internos e usam `unstyled` para manter seus estilos Tailwind.
 - Importações entre componentes são relativas (`import { Box } from "../box";`).
 
+### Revisão dos estilos compartilhados
+
+| Componentes | Aplicação da base compartilhada |
+|---|---|
+| Input e Textarea | `os-field` com tokens próprios; botões numéricos usam `os-button os-input-number-button` |
+| Autocomplete e Calendar | Campos usam `os-field os-input`; listas/painel com rolagem usam `scrollbar-themed` |
+| Select | `os-field os-select`, com estados e tokens próprios preservados |
+| MultiSelect | `os-field-group` no contêiner, `os-field` no filtro e `os-button` nas ações de fechar/remover |
+| Editor | `os-field-group` na área composta, `os-field` nos campos de link/dimensões e `os-button` nas ações |
+| InputFilter | `os-field` em texto/número/data/seletor e `os-field-group` no autocomplete múltiplo |
+| Checkbox | `os-checkbox` e classes de estado, também usadas pelo MultiSelect; não usa a base de campos textuais |
+| Radio e Switch | Mantêm estilos próprios para marcação, seleção e foco; não usam a base de campos textuais |
+| API e Box | Helpers e layout; não precisam de `os-field` ou `os-button` |
+
+As conexões de tokens ficam em `style/components/`: `os-select`, `os-multiselect`,
+`os-multiselect-filter` e `os-editor`. Editor mantém os tokens Input já usados para erro e estados
+desabilitado/somente leitura. Campos de texto do Autocomplete, Calendar e InputFilter mantêm os tokens Input.
+Essa revisão não habilita componentes no build nem substitui a validação visual pelo dono no sandbox.
+
 ## Encapsulando o PrimeReact 10.9.9
 
 ### Espaçamento horizontal do Box
 
-O token Tailwind `--spacing-box`, em `src/style/variable/box.css`, define o espaço horizontal total de cada
+O token Tailwind `--spacing-box`, em `src/style/components/box.css`, define o espaço horizontal total de cada
 `Box` (padrão: `0px`, preservando os layouts existentes). A largura passa a ser
 `calc(percentual - var(--spacing-box))`, inclusive nos breakpoints, e cada lado recebe metade desse valor
 como margem. Para quatro caixas de 25%, com espaço equivalente a `gap-2`:
@@ -98,13 +162,13 @@ automático e precisam considerar as margens.
 - Não usar dependências `@primereact/*`, APIs compostas da v11 ou configuração de chave PrimeUI.
 - Estilo: **Tailwind v4**. Não usar classes Bootstrap (`me-1`, `w-100`, `text-danger`, `form-label`,
   `justify-content-*`...).
-- As cores compartilhadas ficam em `../src/style/variable/core.css`, como `--color-text`, `--color-text-disabled`
+- As cores compartilhadas ficam em `../src/style/theme.css`, como `--color-text`, `--color-text-disabled`
   e `--color-border`. Os arquivos de cada componente usam esses tokens como padrão e mantêm variáveis próprias
-  para personalização individual. `root.css` importa primeiro `core.css` e depois os arquivos dos componentes.
+  para personalização individual. `style.css` importa primeiro `theme.css` e depois `components/root.css` com os arquivos dos componentes.
 - A escala `--color-primary-50` a `--color-primary-950` define a cor base da UI, usando o azul do Tailwind como
   padrão. O tom `500` é a cor principal; o botão `primary` usa `700` no hover e `300` no anel de foco. O foco dos
   campos também usa essa paleta. A escala completa é publicada por `@theme static`; cada tom pode ser personalizado.
-- Todas as cores do `Input` ficam em `../src/style/variable/input.css`, em variáveis `--color-input-*` para campo,
+- Todas as cores do `Input` ficam em `../src/style/components/input.css`, em variáveis `--color-input-*` para campo,
   foco, erro, estados desabilitado e somente leitura, botões numéricos, senha, rótulo e feedback. O consumidor pode
   sobrescrevê-las em `:root` ou em um contêiner do formulário. Os valores padrão preservam os temas claro e escuro.
   As cores de obrigatoriedade e feedback vêm dos helpers compartilhados de `src/api/` e usam os mesmos tokens.
@@ -200,11 +264,11 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | autocomplete | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | box          | modernizado com Tailwind; habilitado no build                                               |
 | button       | adaptado para PrimeReact 10.9.9 unstyled; habilitado no build; revalidar visual no sandbox  |
-| calendar     | pendente                                                                                    |
+| calendar     | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build                                                                                    |
 | checkbox     | checkbox nativo HTML com Tailwind, valor em lista (`[1, 2, 3]`); validado no sandbox; habilitado no build |
 | editor       | TipTap com Tailwind, tabelas e alinhamento; somente Controlled; aguarda validação visual pelo dono; fora do build |
 | input        | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
-| inputfilter  | pendente                                                                                    |
+| inputfilter  | select nativo + campos Tailwind (tokens `--color-input-*`), autocomplete PrimeReact unstyled; depende de `utils` (pendente); aguarda validação visual pelo dono; fora do build |
 | lightbox     | pendente                                                                                    |
 | loading      | pendente                                                                                    |
 | message      | pendente                                                                                    |
@@ -218,6 +282,6 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | table        | pendente                                                                                    |
 | tablepivot   | pendente                                                                                    |
 | tabview      | pendente                                                                                    |
-| textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-input-*`); aguarda validação visual pelo dono; fora do build |
+| textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-textarea-*` com fallback para Input); aguarda validação visual pelo dono; fora do build |
 | tooltip      | pendente                                                                                    |
 | utils        | pendente                                                                                    |

@@ -1,4 +1,4 @@
-@theme {
+@theme static {
     --multiselect-color-scheme: light;
     --color-multiselect-selected: var(--color-primary-500);
     --color-multiselect-chip-background: var(--color-primary-100);
@@ -28,7 +28,7 @@
     .dark, [data-theme="dark"] {
         --multiselect-color-scheme: dark;
         --color-multiselect-chip-background: var(--color-primary-500);
-        --color-multiselect-chip-text: var(--color-primary-50);
+        --color-multiselect-chip-text: var(--color-primary-950);
         --color-multiselect-item-hover: var(--color-neutral-800);
         --color-multiselect-item-selected: rgba(from var(--color-neutral-800) r g b / 0.3);
         --color-multiselect-item-selected-text: var(--color-primary-50);
@@ -48,5 +48,54 @@
         --color-multiselect-header-background: var(--color-neutral-800);
         --color-multiselect-header-text: var(--color-placeholder);
         --color-multiselect-filter-background: var(--color-background);
+    }
+}
+
+@layer components {
+    .os-multiselect-panel {
+        --os-panel-border: var(--color-multiselect-border);
+        --os-panel-background: var(--color-multiselect-panel-background);
+        --os-panel-text: var(--color-multiselect-text);
+        --os-panel-header-background: var(--color-multiselect-header-background);
+        --os-panel-header-text: var(--color-multiselect-header-text);
+    }
+
+    .os-multiselect-checkbox {
+        --color-checkbox-background: var(--color-multiselect-filter-background);
+    }
+
+    .os-multiselect-item {
+        --os-item-hover: var(--color-multiselect-item-hover);
+        --os-item-selected: var(--color-multiselect-item-selected);
+        --os-item-selected-text: var(--color-multiselect-item-selected-text);
+    }
+
+    .os-multiselect {
+        @apply cursor-pointer;
+        --os-field-text: var(--color-multiselect-text);
+        --os-field-border: var(--color-multiselect-border);
+        --os-field-background: var(--color-multiselect-background);
+        --os-field-placeholder: var(--color-multiselect-placeholder);
+        --os-field-focus-border: var(--color-multiselect-focus-border);
+        --os-field-focus-ring: var(--color-multiselect-focus-ring);
+        --os-field-readonly-background: var(--color-multiselect-readonly-background);
+        --os-field-disabled-background: var(--color-multiselect-disabled-background);
+        --os-field-disabled-text: var(--color-multiselect-disabled-text);
+        --os-field-invalid-border: var(--color-multiselect-invalid-border);
+        --os-field-invalid-ring: var(--color-multiselect-invalid-ring);
+    }
+
+    .os-multiselect-filter {
+        --os-field-text: var(--color-multiselect-text);
+        --os-field-border: var(--color-multiselect-border);
+        --os-field-background: var(--color-multiselect-filter-background);
+        --os-field-placeholder: var(--color-multiselect-placeholder);
+        --os-field-focus-border: var(--color-multiselect-focus-border);
+        --os-field-focus-ring: var(--color-multiselect-focus-ring);
+        --os-field-readonly-background: var(--color-multiselect-readonly-background);
+        --os-field-disabled-background: var(--color-multiselect-disabled-background);
+        --os-field-disabled-text: var(--color-multiselect-disabled-text);
+        --os-field-invalid-border: var(--color-multiselect-invalid-border);
+        --os-field-invalid-ring: var(--color-multiselect-invalid-ring);
     }
 }

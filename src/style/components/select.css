@@ -1,4 +1,4 @@
-@theme {
+@theme static {
     --color-select-text: var(--color-text);
     --color-select-icon: var(--color-placeholder);
     --color-select-placeholder: var(--color-placeholder);
@@ -29,5 +29,22 @@
         --color-select-invalid-border: var(--color-invalid);
         --color-select-invalid-ring: var(--color-invalid-ring);
         --color-select-option-background: var(--color-neutral-900);
+    }
+}
+
+@layer components {
+    .os-select {
+        @apply cursor-pointer;
+        --os-field-text: var(--color-select-text);
+        --os-field-border: var(--color-select-border);
+        --os-field-background: var(--color-select-background);
+        --os-field-placeholder: var(--color-select-placeholder);
+        --os-field-focus-border: var(--color-select-focus-border);
+        --os-field-focus-ring: var(--color-select-focus-ring);
+        --os-field-readonly-background: var(--color-select-readonly-background);
+        --os-field-disabled-background: var(--color-select-disabled-background);
+        --os-field-disabled-text: var(--color-select-disabled-text);
+        --os-field-invalid-border: var(--color-select-invalid-border);
+        --os-field-invalid-ring: var(--color-select-invalid-ring);
     }
 }

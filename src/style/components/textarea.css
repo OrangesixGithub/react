@@ -1,0 +1,30 @@
+/* Tokens opcionais: initial ativa a herança dos tokens do Input no próprio campo. */
+@theme static {
+    --color-textarea-text: initial;
+    --color-textarea-border: initial;
+    --color-textarea-background: initial;
+    --color-textarea-placeholder: initial;
+    --color-textarea-focus-border: initial;
+    --color-textarea-focus-ring: initial;
+    --color-textarea-readonly-background: initial;
+    --color-textarea-disabled-background: initial;
+    --color-textarea-disabled-text: initial;
+    --color-textarea-invalid-border: initial;
+    --color-textarea-invalid-ring: initial;
+}
+
+@layer components {
+    .os-textarea {
+        --os-field-text: var(--color-textarea-text,var(--color-input-text));
+        --os-field-border: var(--color-textarea-border,var(--color-input-border));
+        --os-field-background: var(--color-textarea-background,var(--color-input-background));
+        --os-field-placeholder: var(--color-textarea-placeholder,var(--color-input-placeholder));
+        --os-field-focus-border: var(--color-textarea-focus-border,var(--color-input-focus-border));
+        --os-field-focus-ring: var(--color-textarea-focus-ring,var(--color-input-focus-ring));
+        --os-field-readonly-background: var(--color-textarea-readonly-background,var(--color-input-readonly-background));
+        --os-field-disabled-background: var(--color-textarea-disabled-background,var(--color-input-disabled-background));
+        --os-field-disabled-text: var(--color-textarea-disabled-text,var(--color-input-disabled-text));
+        --os-field-invalid-border: var(--color-textarea-invalid-border,var(--color-input-invalid-border));
+        --os-field-invalid-ring: var(--color-textarea-invalid-ring,var(--color-input-invalid-ring));
+    }
+}

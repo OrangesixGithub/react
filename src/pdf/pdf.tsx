@@ -63,7 +63,7 @@ export function PDF(props: PDFProps) {
                             event.preventDefault();
                             setActive(true);
                         }}>
-                        <button className="pdf-page"
+                        <button className="os-button pdf-page"
                             disabled={currentPage === 1}
                             onClick={event => {
                                 event.preventDefault();
@@ -72,7 +72,7 @@ export function PDF(props: PDFProps) {
                                 }
                             }}><i className="bi bi-chevron-double-left"/></button>
                         <span>{currentPage} de {page}</span>
-                        <button className="pdf-page"
+                        <button className="os-button pdf-page"
                             disabled={currentPage === page}
                             onClick={event => {
                                 event.preventDefault();
