@@ -1,0 +1,25 @@
+/* Base dos chips (itens selecionados) de campos de seleção; cada componente pode sobrescrever as variáveis `--os-chip-*`. */
+@theme static {
+    --color-chip-background: var(--color-primary-100);
+    --color-chip-text: var(--color-primary-900);
+}
+
+@layer components {
+    .os-chip {
+        @apply inline-flex max-w-full items-center gap-1 rounded-md px-2 py-0.5 text-sm
+        bg-[var(--os-chip-background,var(--color-chip-background))]
+        text-[color:var(--os-chip-text,var(--color-chip-text))];
+    }
+
+    .os-chip-remove {
+        @apply shrink-0 text-xs font-normal leading-none focus-visible:ring-offset-0
+        focus-visible:ring-[color:var(--os-chip-focus-ring,var(--color-focus-ring))];
+    }
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-chip-background: var(--color-primary-500);
+        --color-chip-text: var(--color-primary-950);
+    }
+}

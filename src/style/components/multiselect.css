@@ -83,6 +83,9 @@
         --os-field-disabled-text: var(--color-multiselect-disabled-text);
         --os-field-invalid-border: var(--color-multiselect-invalid-border);
         --os-field-invalid-ring: var(--color-multiselect-invalid-ring);
+        --os-chip-background: var(--color-multiselect-chip-background);
+        --os-chip-text: var(--color-multiselect-chip-text);
+        --os-chip-focus-ring: var(--color-multiselect-focus-ring);
     }
 
     .os-multiselect-filter {
@@ -97,5 +100,8 @@
         --os-field-disabled-text: var(--color-multiselect-disabled-text);
         --os-field-invalid-border: var(--color-multiselect-invalid-border);
         --os-field-invalid-ring: var(--color-multiselect-invalid-ring);
+        --os-chip-background: var(--color-multiselect-chip-background);
+        --os-chip-text: var(--color-multiselect-chip-text);
+        --os-chip-focus-ring: var(--color-multiselect-focus-ring);
     }
 }

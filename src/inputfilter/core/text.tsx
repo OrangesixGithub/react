@@ -3,10 +3,10 @@ import { handleGetValueText } from "../function/handle";
 import type { InputFilterCoreProps, InputFilterOptionsMap } from "../@types";
 
 /**
- * Core - `Text`
+ * Core - `TextField`
  * Campo do filtro tipo texto
  */
-export function Text<T extends keyof InputFilterOptionsMap>(props: InputFilterCoreProps<T>) {
+export function TextField<T extends keyof InputFilterOptionsMap>(props: InputFilterCoreProps<T>) {
     const styles = inputfilterVariants({ invalid: Boolean(props.error) });
     const id = (props.id ?? "input-filter") + "-text";
     /*
@@ -29,4 +29,4 @@ export function Text<T extends keyof InputFilterOptionsMap>(props: InputFilterCo
     );
 }
 
-Text.displayName = "Text";
+TextField.displayName = "TextField";

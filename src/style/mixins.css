@@ -1,5 +1,6 @@
 @import "./mixins/field.css";
 @import "./mixins/button.css";
 @import "./mixins/list-item.css";
+@import "./mixins/chip.css";
 @import "./mixins/checkbox.css";
 @import "./mixins/panel.css";

@@ -1,3 +1,3 @@
-export type * from "./@types";
 export * from "./legend";
+export type * from "./@types";
 export { InputFilter } from "./inputfilter";

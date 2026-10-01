@@ -1,14 +1,13 @@
 import clsx from "clsx";
 import { Box } from "../box";
-import { Text } from "./core/text";
-import { Date } from "./core/date";
-import { Number } from "./core/number";
+import { TextField } from "./core/text";
+import { DateField } from "./core/date";
+import { NumberField } from "./core/number";
 import { inputfilterVariants } from "./variants";
-import * as handle from "./function/handle";
-import { Autocomplete } from "./core/autocomplete";
 import { InputFeedback, InputLabel } from "../api";
-import { useState, useEffect } from "react";
 import { optionsDefault, optionsLabel } from "./const";
+import { useInputFilter } from "./hooks/useInputFilter";
+import { AutocompleteField } from "./core/autocomplete";
 import type { InputFilterOptionsMap, InputFilterProps } from "./@types";
 
 /**
@@ -21,42 +20,15 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
     const styles = inputfilterVariants({ invalid: Boolean(props.error) });
     const options: any[] = [...(props.options ?? optionsDefault)].sort((a, b) => a.length - b.length);
     const selectOptions = optionsLabel.filter(item => options?.includes(item.options as any));
-    const [select, setSelect] = useState<string>(handle.handleGetOption<T>(props.value, options));
+
+    const [select, setSelect] = useInputFilter<T>(props, options);
     const id = props.id ?? "input-filter";
-
-    useEffect(() => {
-        if (!props.type || props.type === "text") {
-            const value = handle.handleGetValueText(props.value, options);
-            if (value !== null) {
-                props.onChange(value + select);
-            } else {
-                props.onChange(null);
-            }
-        } else if (props.type === "date") {
-            const date = handle.handleGetValueDate(props.value, options, select);
-            const setDate = handle.handleSetValueDate("0", null, date);
-
-            if (select === "{}" && setDate === "0/0/0{}0/0/0") {
-                props.onChange(null);
-            } else {
-                if (date[0] == 0 && date[1] == 0 && date[2] == 0) {
-                    props.onChange(null);
-                } else {
-                    props.onChange(setDate);
-                }
-            }
-        } else if (props.type === "autocomplete") {
-            const value = handle.handleGetValueAutocomplete(props.value, options, props.data);
-            props.onChange(handle.handleSetValueAutocomplete(value, select));
-        } else if (props.type === "number") {
-            const value = handle.handleGetValueNumber(props.value, options);
-            if (value !== "") {
-                props.onChange(value + select);
-            } else {
-                props.onChange(null);
-            }
-        }
-    }, [select]);
+    const fieldIds = {
+        text: id + "-text",
+        number: id + "-number",
+        date: id + "-0",
+        autocomplete: id + "-autocomplete-input"
+    };
 
     /*
     |------------------------------------------
@@ -69,7 +41,9 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
             css={props.css}
             direction="column"
             size={props.size ?? "100"}>
-            <InputLabel {...props}/>
+            <InputLabel
+                {...props}
+                id={fieldIds[props.type ?? "text"]}/>
             <div
                 className={styles.content()}
                 id={id}>
@@ -94,22 +68,22 @@ export function InputFilter<T extends keyof InputFilterOptionsMap = "text">({ ..
                         className={`${props.iconPrefix ?? "bi bi-"}chevron-down ${styles.selectIcon()}`}/>
                 </div>
                 {(!props.type || props.type === "text")
-                    && <Text<"text">
+                    && <TextField<"text">
                         {...props as InputFilterProps<"text">}
                         options={options}
                         select={select}/>}
                 {props.type === "date"
-                    && <Date<"date">
+                    && <DateField<"date">
                         {...props as InputFilterProps<"date">}
                         options={options}
                         select={select}/>}
                 {props.type === "autocomplete"
-                    && <Autocomplete
+                    && <AutocompleteField
                         {...props as InputFilterProps<"autocomplete">}
                         options={options}
                         select={select}/>}
                 {props.type === "number"
-                    && <Number<"number">
+                    && <NumberField<"number">
                         {...props as InputFilterProps<"number">}
                         options={options}
                         select={select}/>}

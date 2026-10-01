@@ -3,10 +3,10 @@ import type { InputFilterCoreProps, InputFilterOptionsMap } from "../@types";
 import { handleGetValueDate, handleSetValueDate } from "../function/handle";
 
 /**
- * Core - `Date`
+ * Core - `DateField`
  * Campo do filtro tipo data
  */
-export function Date<T extends keyof InputFilterOptionsMap>(props: InputFilterCoreProps<T>) {
+export function DateField<T extends keyof InputFilterOptionsMap>(props: InputFilterCoreProps<T>) {
     const styles = inputfilterVariants({ invalid: Boolean(props.error) });
     const date = handleGetValueDate(props.value, props.options, props.select);
 
@@ -24,7 +24,6 @@ export function Date<T extends keyof InputFilterOptionsMap>(props: InputFilterCo
         }
     }
 
-    /** Renderiza os campos de dia, mês e ano do índice `start` até `end`. */
     function handleFields(start: number, end: number) {
         return date.slice(start, end + 1).map((item, offset) => {
             const index = start + offset;
@@ -38,7 +37,6 @@ export function Date<T extends keyof InputFilterOptionsMap>(props: InputFilterCo
                     inputMode="numeric"
                     key={index}
                     name={(props.name ?? "input-filter") + "-" + index}
-                    placeholder={props.placeholder}
                     readOnly={props.readonly}
                     value={item === 0 ? "" : item}
                     onChange={event => handleChangeValue(handleSetValueDate(event.target.value, index, date))}/>
@@ -64,4 +62,4 @@ export function Date<T extends keyof InputFilterOptionsMap>(props: InputFilterCo
     );
 }
 
-Date.displayName = "Date";
+DateField.displayName = "DateField";

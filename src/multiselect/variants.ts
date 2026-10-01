@@ -8,9 +8,9 @@ export const multiselectVariants = tv({
         labelContainer: "min-w-0 flex-1 overflow-hidden",
         label: "flex min-h-10 flex-wrap items-center gap-1 px-3 py-1.5",
         placeholder: "flex min-h-10 items-center px-3 py-2 text-multiselect-placeholder",
-        token: "inline-flex max-w-full items-center gap-1 rounded-md bg-multiselect-chip-background px-2 py-0.5 text-sm text-multiselect-chip-text",
+        token: "os-chip",
         tokenLabel: "truncate",
-        removeTokenIcon: "os-button font-normal shrink-0 text-xs focus-visible:ring-offset-0 focus-visible:ring-multiselect-focus-ring",
+        removeTokenIcon: "os-button os-chip-remove",
         trigger: "flex w-10 shrink-0 items-center justify-center text-multiselect-placeholder",
         triggerIcon: "text-sm",
         panel: "os-panel os-multiselect-panel absolute z-50 min-w-full text-base " +

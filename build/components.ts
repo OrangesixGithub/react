@@ -17,7 +17,7 @@ export const components: string[] = [
     "checkbox",
     "editor",
     "input",
-    // "inputfilter",
+    "inputfilter",
     // "lightbox",
     // "loading",
     // "message",

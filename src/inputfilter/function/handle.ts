@@ -133,6 +133,16 @@ export function handleGetValueAutocomplete(
 }
 
 /**
+ * Obtém os ids selecionados do autocomplete diretamente da string de valor, sem depender das sugestões atuais.
+ *
+ * @param value - String contendo os IDs dos itens selecionados, separados por ponto e vírgula.
+ * @returns Array com os ids selecionados.
+ */
+export function handleGetIdsAutocomplete(value: string | undefined): number[] {
+    return value?.split(";").map(item => parseInt(item)).filter(item => !isNaN(item)) ?? [];
+}
+
+/**
  * Converte os valores selecionados do autocomplete em uma string formatada para o filtro.
  *
  * @param value - Array de objetos selecionados no autocomplete.
@@ -140,11 +150,21 @@ export function handleGetValueAutocomplete(
  * @returns String formatada com os IDs dos itens selecionados e a opção de filtro.
  */
 export function handleSetValueAutocomplete(
-    value: Array<{ id: number, label: string }>,
+    value: Array<{ id: number }>,
     select: string,
 ): string | null {
     let ids = value.map(item => item.id);
     return ids.length === 0 ? null : ids.join(";") + select;
+}
+
+/**
+ * Mantém apenas os dígitos digitados no filtro tipo `Number`, sem arredondar o valor.
+ *
+ * @param value - O texto digitado no campo.
+ * @returns Os dígitos do texto, ou string vazia.
+ */
+export function handleDigits(value: string): string {
+    return value.replace(/D/g, "");
 }
 
 /**
