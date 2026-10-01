@@ -23,8 +23,11 @@ export function TextareaHookForm(props: TextareaProps<"HookForm">) {
                         inputRef={node => {
                             field.ref(node);
                             const inputRef: Ref<HTMLTextAreaElement> | undefined = props.ref;
-                            if (typeof inputRef === "function") inputRef(node);
-                            else if (inputRef) inputRef.current = node;
+                            if (typeof inputRef === "function") {
+                                inputRef(node);
+                            } else if (inputRef) {
+                                inputRef.current = node;
+                            }
                         }}
                         invalid={Boolean(fieldState.error || props.error)}
                         value={field.value}

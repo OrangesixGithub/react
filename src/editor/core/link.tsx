@@ -1,54 +1,73 @@
-import { EditorCoreProps } from "..";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { EditorButton } from "./button";
+import { editorVariants } from "../variants";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Link`
- * Extensão para formatar adicionar link no documento
- */
-export const Link = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    const [open, setOpen] = useState<boolean>(false);
-    const [link, setLink] = useState<string>("");
-
-    useEffect(() => {
-        setLink("");
-    }, [open]);
-
-    function handleLink() {
-        if (link === "") {
-            editor.chain().focus().extendMarkRange("link").unsetLink().run();
+/** Core - `Link`: insere e remove links HTTP e HTTPS. */
+export function Link(props: EditorCoreProps & { active: boolean }) {
+    const [open, setOpen] = useState(false);
+    const [link, setLink] = useState("");
+    const styles = editorVariants();
+    function saveLink() {
+        if (!props.editor.isEditable) {
+            return;
+        }
+        const href = link.trim();
+        if (href && !/^https?:\/\//i.test(href)) {
+            return;
+        }
+        if (href) {
+            props.editor.chain().focus().extendMarkRange("link").setLink({ href }).run();
         } else {
-            editor.chain().focus().extendMarkRange("link").setLink({ href: link }).run();
+            props.editor.chain().focus().extendMarkRange("link").unsetLink().run();
         }
         setOpen(false);
     }
-
-    return active && (
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
         <>
-            <a className={"editor-menu-item" + (editor.isActive("link") ? " active" : "")}
-                href="#"
-                onClick={event => {
-                    event.preventDefault();
-                    if (!editor.isActive("link")) {
-                        setOpen(!open);
+            <EditorButton
+                {...props}
+                icon="link"
+                label="Inserir ou remover link"
+                primeIcon="link"
+                selected={props.editor.isActive("link")}
+                onClick={() => {
+                    if (props.editor.isActive("link")) {
+                        props.editor.chain().focus().unsetLink().run();
                     } else {
-                        editor.chain().focus().unsetLink().run();
+                        setLink("");
+                        setOpen(!open);
                     }
-                }}><i className="bi bi-link"/></a>
-            {open && <div className="editor-link">
-                <input className="form-control form-control-sm"
+                }}/>
+            {open && <div className={styles.link()}>
+                <input
+                    aria-label="Endereço do link"
+                    className={styles.linkInput()}
                     placeholder="https://example.com.br"
-                    style={{ fontSize: ".8em", flex: 1 }}
-                    type="text"
+                    type="url"
                     value={link}
+                    onKeyDown={event => {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            saveLink();
+                        }
+                        if (event.key === "Escape") {
+                            setOpen(false);
+                        }
+                    }}
                     onChange={event => setLink(event.target.value)}/>
-                <a className="text-primary ms-2"
-                    href="#"
-                    style={{ fontSize: ".8em" }}
-                    onClick={event => {
-                        event.preventDefault();
-                        handleLink();
-                    }}><i className="bi bi-save me-1"/>Save</a>
+                <button
+                    className={styles.button()}
+                    type="button"
+                    onClick={saveLink}>Salvar</button>
             </div>}
         </>
     );
-};
+}
+
+Link.displayName = "Link";

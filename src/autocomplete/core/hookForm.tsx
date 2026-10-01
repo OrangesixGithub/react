@@ -15,8 +15,11 @@ export function AutocompleteHookForm(props: AutocompleteProps<"HookForm">) {
                     {...props}
                     ref={node => {
                         field.ref(node);
-                        if (typeof props.ref === "function") props.ref(node);
-                        else if (props.ref) props.ref.current = node;
+                        if (typeof props.ref === "function") {
+                            props.ref(node);
+                        } else if (props.ref) {
+                            props.ref.current = node;
+                        }
                     }}
                     error={props.error ?? fieldState.error?.message}
                     mode="Controlled"

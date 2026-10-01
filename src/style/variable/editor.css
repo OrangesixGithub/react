@@ -1,0 +1,27 @@
+@theme {
+    --color-editor-panel-background: var(--color-white);
+    --color-editor-text: var(--color-text);
+    --color-editor-border: var(--color-border);
+    --color-editor-background: var(--color-background);
+    --color-editor-focus-border: var(--color-focus);
+    --color-editor-focus-ring: var(--color-focus-ring);
+    --color-editor-toolbar-background: var(--color-background);
+    --color-editor-hover: var(--color-neutral-100);
+    --color-editor-active: var(--color-primary-100);
+    --color-editor-active-text: var(--color-primary-900);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-editor-text: var(--color-text);
+        --color-editor-border: var(--color-border);
+        --color-editor-background: var(--color-background);
+        --color-editor-focus-border: var(--color-focus);
+        --color-editor-focus-ring: var(--color-focus-ring);
+        --color-editor-toolbar-background: var(--color-background);
+        --color-editor-panel-background: var(--color-neutral-900);
+        --color-editor-hover: var(--color-neutral-800);
+        --color-editor-active: var(--color-primary-600);
+        --color-editor-active-text: var(--color-primary-100);
+    }
+}

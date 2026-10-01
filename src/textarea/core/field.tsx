@@ -25,8 +25,11 @@ export function TextareaField(props: TextareaFieldProps) {
             unstyled
             ref={(node: unknown) => {
                 const textarea = node as HTMLTextAreaElement | null;
-                if (typeof props.inputRef === "function") props.inputRef(textarea);
-                else if (props.inputRef) props.inputRef.current = textarea;
+                if (typeof props.inputRef === "function") {
+                    props.inputRef(textarea);
+                } else if (props.inputRef) {
+                    props.inputRef.current = textarea;
+                }
             }}
             aria-describedby={id ? `${id}-feedback` : undefined}
             aria-invalid={props.invalid || undefined}

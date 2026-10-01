@@ -1,35 +1,25 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Text`
- * Extensão para formatar o texto com tamanho específico
- */
-export const Text = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-
-    return active && (
+/** Core - `Text`: títulos de nível 1, 2 e 3. */
+export function Text(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
         <>
-            <a className={"editor-menu-item" + (editor.isActive("heading", { level: 1 }) ? " active" : "")}
-                href="#"
-                style={{ fontSize: ".975em" }}
-                onClick={event => {
-                    event.preventDefault();
-                    editor.chain().focus().toggleHeading({ level: 1 }).run();
-                }}><i className="bi bi-type-h1"/></a>
-            <a className={"editor-menu-item" + (editor.isActive("heading", { level: 2 }) ? " active" : "")}
-                href="#"
-                style={{ fontSize: ".975em" }}
-                onClick={event => {
-                    event.preventDefault();
-                    editor.chain().focus().toggleHeading({ level: 2 }).run();
-                }}><i className="bi bi-type-h2"/></a>
-            <a className={"editor-menu-item" + (editor.isActive("heading", { level: 3 }) ? " active" : "")}
-                href="#"
-                style={{ fontSize: ".975em" }}
-                onClick={event => {
-                    event.preventDefault();
-                    editor.chain().focus().toggleHeading({ level: 3 }).run();
-                }}><i className="bi bi-type-h3"/></a>
+            {([1, 2, 3] as const).map(level => <EditorButton
+                {...props}
+                icon={"type-h" + level}
+                key={level}
+                label={"Título " + level}
+                primeIcon="align-left"
+                selected={props.editor.isActive("heading", { level })}
+                onClick={() => props.editor.chain().focus().toggleHeading({ level }).run()}/>)}
         </>
     );
-};
+}
+
+Text.displayName = "Text";

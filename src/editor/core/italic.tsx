@@ -1,17 +1,22 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Italic`
- * Extensão para renderizar texto em itálico
- */
-export const Italic = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
-        <a className={"editor-menu-item" + (editor.isActive("italic") ? " active" : "")}
-            href="#"
-            onClick={event => {
-                event.preventDefault();
-                editor.chain().focus().toggleItalic().run();
-            }}><i className="bi bi-type-italic"/></a>
+/** Core - `Italic`: itálico no conteúdo selecionado. */
+export function Italic(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <EditorButton
+            {...props}
+            icon="type-italic"
+            label="Itálico"
+            primeIcon="italic"
+            selected={props.editor.isActive("italic")}
+            onClick={() => props.editor.chain().focus().toggleItalic().run()}/>
     );
-};
+}
+
+Italic.displayName = "Italic";

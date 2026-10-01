@@ -23,8 +23,11 @@ export function InputMasked(props: MaskedProps) {
             unstyled
             ref={node => {
                 const input = (node && "getElement" in node ? node.getElement() : node) as unknown as HTMLInputElement | null;
-                if (typeof props.inputRef === "function") props.inputRef(input);
-                else if (props.inputRef) props.inputRef.current = input;
+                if (typeof props.inputRef === "function") {
+                    props.inputRef(input);
+                } else if (props.inputRef) {
+                    props.inputRef.current = input;
+                }
             }}
             aria-invalid={props.invalid || undefined}
             autoClear={props.maskAutoClear ?? true}

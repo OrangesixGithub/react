@@ -1,17 +1,22 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Orderlist`
- * Extensão para renderizar texto em lista ordenada
- */
-export const Orderlist = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
-        <a className={"editor-menu-item" + (editor.isActive("orderedList") ? " active" : "")}
-            href="#"
-            onClick={event => {
-                event.preventDefault();
-                editor.chain().focus().toggleOrderedList().run();
-            }}><i className="bi bi-list-ol"/></a>
+/** Core - `Orderlist`: lista ordenada no conteúdo selecionado. */
+export function Orderlist(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <EditorButton
+            {...props}
+            icon="list-ol"
+            label="Lista ordenada"
+            primeIcon="sort-numeric-down"
+            selected={props.editor.isActive("orderedList")}
+            onClick={() => props.editor.chain().focus().toggleOrderedList().run()}/>
     );
-};
+}
+
+Orderlist.displayName = "Orderlist";

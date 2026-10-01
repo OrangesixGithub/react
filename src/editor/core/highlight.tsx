@@ -1,18 +1,22 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Highlight`
- * Extensão para marcar texto no formato de marca texto
- */
-export const Highlight = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
-        <a className={"editor-menu-item" + (editor.isActive("highlight") ? " active" : "")}
-            href="#"
-            style={{ fontSize: ".975em" }}
-            onClick={event => {
-                event.preventDefault();
-                editor.chain().focus().toggleHighlight().run();
-            }}><i className="bi bi-highlighter"/></a>
+/** Core - `Highlight`: destaque no conteúdo selecionado. */
+export function Highlight(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <EditorButton
+            {...props}
+            icon="highlighter"
+            label="Destaque"
+            primeIcon="pencil"
+            selected={props.editor.isActive("highlight")}
+            onClick={() => props.editor.chain().focus().toggleHighlight().run()}/>
     );
-};
+}
+
+Highlight.displayName = "Highlight";

@@ -1,18 +1,22 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Code`
- * Extensão para renderizar texto em formato de código
- */
-export const Code = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
-        <a className={"editor-menu-item" + (editor.isActive("code") ? " active" : "")}
-            href="#"
-            style={{ fontSize: ".975em" }}
-            onClick={event => {
-                event.preventDefault();
-                editor.chain().focus().toggleCode().run();
-            }}><i className="bi bi-code-slash"/></a>
+/** Core - `Code`: código no conteúdo selecionado. */
+export function Code(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <EditorButton
+            {...props}
+            icon="code-slash"
+            label="Código"
+            primeIcon="code"
+            selected={props.editor.isActive("code")}
+            onClick={() => props.editor.chain().focus().toggleCode().run()}/>
     );
-};
+}
+
+Code.displayName = "Code";

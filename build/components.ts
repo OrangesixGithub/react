@@ -15,7 +15,7 @@ export const components: string[] = [
     "button",
     // "calendar",
     "checkbox",
-    // "editor",
+    "editor",
     "input",
     // "inputfilter",
     // "lightbox",

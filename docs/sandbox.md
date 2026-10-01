@@ -52,3 +52,6 @@ No sandbox os imports usam o nome do pacote (`@orangesix/react/button`), e não 
 
 A mesma regra vale para `autocomplete`: enquanto `dist/autocomplete` não existir, a página usa `../react/src/autocomplete`.
 Valide os modos Controlled e HookForm, sugestões, template e estados com `npm run dev`; a habilitação depende da validação pelo dono.
+
+A mesma regra vale para `editor`: enquanto `dist/editor` não existir, a página usa `../react/src/editor`.
+Valide o modo Controlled e as opções da barra com `npm run dev`; a habilitação depende da validação pelo dono.

@@ -1,2 +1,2 @@
-export * from "./editor";
-export * from "./@types/index";
+export type * from "./@types";
+export { Editor } from "./editor";

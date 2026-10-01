@@ -48,8 +48,11 @@ export function InputField(props: InputFieldProps) {
                     unstyled
                     ref={(node: unknown) => {
                         const input = node as HTMLInputElement | null;
-                        if (typeof props.inputRef === "function") props.inputRef(input);
-                        else if (props.inputRef) props.inputRef.current = input;
+                        if (typeof props.inputRef === "function") {
+                            props.inputRef(input);
+                        } else if (props.inputRef) {
+                            props.inputRef.current = input;
+                        }
                     }}
                     aria-invalid={props.invalid || undefined}
                     className={clsx(classes, props.inputClassName)}

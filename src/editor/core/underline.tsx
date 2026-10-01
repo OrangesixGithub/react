@@ -1,17 +1,22 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Underline`
- * Extensão para renderizar texto em underline text
- */
-export const Underline = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
-        <a className={"editor-menu-item" + (editor.isActive("underline") ? " active" : "")}
-            href="#"
-            onClick={event => {
-                event.preventDefault();
-                editor.chain().focus().toggleUnderline().run();
-            }}><i className="bi bi-type-underline"/></a>
+/** Core - `Underline`: sublinhado no conteúdo selecionado. */
+export function Underline(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <EditorButton
+            {...props}
+            icon="type-underline"
+            label="Sublinhado"
+            primeIcon="underline"
+            selected={props.editor.isActive("underline")}
+            onClick={() => props.editor.chain().focus().toggleUnderline().run()}/>
     );
-};
+}
+
+Underline.displayName = "Underline";

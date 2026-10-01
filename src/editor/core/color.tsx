@@ -1,22 +1,23 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { editorVariants } from "../variants";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Color`
- * Extensão para formatar o texto com cor especifica
- */
-export const Color = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
+/** Core - `Color`: seletor da cor do texto. */
+export function Color(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
         <input
-            style={{
-                width: "22px",
-                height: "20px",
-                borderRadius: "5px",
-                margin: "auto 2.5px",
-                border: "2px solid var(--editor-border-color)",
-            }}
+            aria-label="Cor do texto"
+            className={editorVariants().color()}
+            disabled={!props.editor.isEditable}
+            title="Cor do texto"
             type="color"
-            value={editor.getAttributes("textStyle").color ?? "#000000"}
-            onChange={event => editor.chain().focus().setColor(event.target.value).run()}/>
+            value={props.editor.getAttributes("textStyle").color ?? "#000000"}
+            onChange={event => props.editor.chain().focus().setColor(event.target.value).run()}/>
     );
-};
+}
+
+Color.displayName = "Color";

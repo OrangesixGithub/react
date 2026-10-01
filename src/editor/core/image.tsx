@@ -1,58 +1,79 @@
-import { EditorCoreProps } from "..";
-import React, { useEffect, useState } from "react";
+import { EditorButton } from "./button";
+import { useEffect, useRef } from "react";
+import { editorVariants } from "../variants";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Image`
- * Extensão para adicionar imagem no documento
- */
-export const Image = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    const [file, setFile] = useState<any>(null);
-
-    const handlePaste = (event: any) => {
-        const items = (event.clipboardData || event.originalEvent.clipboardData).items;
-        for (const item of items) {
-            if (item.type.indexOf("image") === 0) {
-                const file = item.getAsFile();
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    editor.chain().focus().setImage({ src: event?.target?.result as string }).run();
-                };
-                reader.readAsDataURL(file);
+/** Core - `Image`: insere imagens por arquivo ou pela área de transferência. */
+export function Image(props: EditorCoreProps & { active: boolean }) {
+    const input = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        const element = props.editor.view.dom;
+        const readers = new Set<FileReader>();
+        function insert(file: File) {
+            const reader = new FileReader();
+            readers.add(reader);
+            reader.onload = () => {
+                readers.delete(reader);
+                if (!props.editor.isDestroyed && props.editor.isEditable && typeof reader.result === "string") {
+                    props.editor.chain().focus().setImage({ src: reader.result }).run();
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+        function paste(event: ClipboardEvent) {
+            if (!props.active || !props.editor.isEditable) {
+                return;
+            }
+            const files = Array.from(event.clipboardData?.items ?? [])
+                .filter(item => item.type.startsWith("image/"))
+                .map(item => item.getAsFile()).filter((file): file is File => file !== null);
+            if (!files.length) {
+                return;
+            }
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            files.forEach(insert);
+        }
+        function change() {
+            const file = input.current?.files?.[0];
+            if (file && props.editor.isEditable) {
+                insert(file);
+            }
+            if (input.current) {
+                input.current.value = "";
             }
         }
-    };
-
-    useEffect(() => {
-        if (editor.view.dom.parentNode !== null && active) {
-            editor.view.dom.parentNode.addEventListener("paste", handlePaste);
-        }
+        const fileInput = input.current;
+        element.addEventListener("paste", paste, true);
+        fileInput?.addEventListener("change", change);
         return () => {
-            editor.view.dom.parentNode?.removeEventListener("paste", handlePaste);
+            element.removeEventListener("paste", paste, true);
+            fileInput?.removeEventListener("change", change);
+            readers.forEach(reader => reader.abort());
         };
-    }, []);
-
-    useEffect(() => {
-        if (file?.name !== undefined) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                editor.chain().focus().setImage({ src: reader.result as string }).run();
-            };
-        }
-    }, [file]);
-
-    return active && (
-        <div className="editor-image">
-            <input accept="image/png, image/jpeg"
-                name="editor-image"
-                type="file"
-                onChange={event => setFile(event.target.files?.[0])}/>
-            <a className={"editor-menu-item" + (editor.isActive("link") ? " active" : "")}
-                href="#"
-                style={{ fontSize: ".975em" }}
-                onClick={event => {
-                    event.preventDefault();
-                }}><i className="bi bi-image"/></a>
+    }, [props.editor, props.active]);
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <div className={editorVariants().image()}>
+            <input
+                accept="image/png, image/jpeg"
+                aria-label="Arquivo de imagem"
+                className={editorVariants().file()}
+                ref={input}
+                tabIndex={-1}
+                type="file"/>
+            <EditorButton
+                {...props}
+                icon="image"
+                label="Inserir imagem"
+                primeIcon="image"
+                onClick={() => input.current?.click()}/>
         </div>
     );
-};
+}
+
+Image.displayName = "Image";

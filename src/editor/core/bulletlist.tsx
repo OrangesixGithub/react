@@ -1,17 +1,22 @@
-import React from "react";
-import { EditorCoreProps } from "..";
+import { EditorButton } from "./button";
+import type { EditorCoreProps } from "../@types";
 
-/**
- * Core - `Bulletlist`
- * Extensão para renderizar texto em lista
- */
-export const Bulletlist = ({ editor, active }: EditorCoreProps & { active: boolean }) => {
-    return active && (
-        <a className={"editor-menu-item" + (editor.isActive("bulletList") ? " active" : "")}
-            href="#"
-            onClick={event => {
-                event.preventDefault();
-                editor.chain().focus().toggleBulletList().run();
-            }}><i className="bi bi-list-task"/></a>
+/** Core - `Bulletlist`: lista não ordenada no conteúdo selecionado. */
+export function Bulletlist(props: EditorCoreProps & { active: boolean }) {
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
+    return props.active && (
+        <EditorButton
+            {...props}
+            icon="list-task"
+            label="Lista não ordenada"
+            primeIcon="list"
+            selected={props.editor.isActive("bulletList")}
+            onClick={() => props.editor.chain().focus().toggleBulletList().run()}/>
     );
-};
+}
+
+Bulletlist.displayName = "Bulletlist";

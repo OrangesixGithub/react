@@ -115,6 +115,19 @@ automático e precisam considerar as margens.
 
 ## Padrão de código
 
+### Condicionais com chaves
+
+Use sempre chaves nos blocos de `if`, `else if` e `else`, mesmo quando houver apenas uma instrução.
+Esse é o padrão para todo o pacote.
+
+```tsx
+if (typeof props.inputRef === "function") {
+    props.inputRef(node ?? null);
+} else if (props.inputRef) {
+    props.inputRef.current = node ?? null;
+}
+```
+
 ### Imports em escada
 
 Ordene os imports pelo comprimento da linha completa: o mais curto em cima, o mais longo embaixo.
@@ -189,7 +202,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | button       | adaptado para PrimeReact 10.9.9 unstyled; habilitado no build; revalidar visual no sandbox  |
 | calendar     | pendente                                                                                    |
 | checkbox     | checkbox nativo HTML com Tailwind, valor em lista (`[1, 2, 3]`); validado no sandbox; habilitado no build |
-| editor       | pendente                                                                                    |
+| editor       | TipTap com Tailwind, tabelas e alinhamento; somente Controlled; aguarda validação visual pelo dono; fora do build |
 | input        | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
 | inputfilter  | pendente                                                                                    |
 | lightbox     | pendente                                                                                    |
