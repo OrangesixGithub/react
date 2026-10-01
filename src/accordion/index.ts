@@ -1,2 +1,2 @@
-export * from "./accordion";
-export * from "./@types/index";
+export { Accordion } from "./accordion";
+export type { AccordionProps, AccordionTabProps } from "./@types";

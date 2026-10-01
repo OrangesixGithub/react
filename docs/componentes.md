@@ -259,7 +259,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 
 | Componente   | Status                                                                                      |
 |--------------|---------------------------------------------------------------------------------------------|
-| accordion    | pendente                                                                                    |
+| accordion    | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-accordion-*`); aguarda validação visual pelo dono; fora do build |
 | api          | migrado; build validado                                                                     |
 | autocomplete | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | box          | modernizado com Tailwind; habilitado no build                                               |

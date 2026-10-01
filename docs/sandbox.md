@@ -70,4 +70,7 @@ Valide o modo Controlled e as opções da barra com `npm run dev`; a habilitaç�
 A mesma regra vale para `inputfilter`: enquanto `dist/inputfilter` não existir, a página usa `../react/src/inputfilter`.
 Valide os tipos `text`, `number`, `date` e `autocomplete`, o erro e o estado desabilitado com `npm run dev`; a habilitação depende da validação pelo dono e de `utils` estar habilitado no build.
 
+A mesma regra vale para `accordion`: enquanto `dist/accordion` não existir, a página usa `../react/src/accordion`.
+Valide abrir/fechar, `multiple`, aba desabilitada e os temas claro/escuro com `npm run dev`; a habilitação depende da validação pelo dono.
+
 O Calendar está disponível no modo `npm run dev`, com os exemplos Controlled e HookForm, seguindo o padrão das páginas dos demais campos. Permanece fora do build até validação visual pelo dono.

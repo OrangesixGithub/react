@@ -1,0 +1,73 @@
+@theme static {
+    --color-accordion-text: var(--color-text);
+    --color-accordion-border: var(--color-border);
+    --color-accordion-background: var(--color-white);
+    --color-accordion-header-background: var(--color-neutral-50);
+    --color-accordion-header-selected-background: var(--color-neutral-100);
+    --color-accordion-header-hover: var(--color-neutral-100);
+    --color-accordion-header-text: var(--color-text);
+    --color-accordion-icon: var(--color-placeholder);
+    --color-accordion-disabled-text: var(--color-text-disabled);
+    --color-accordion-focus-ring: var(--color-focus-ring);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-accordion-text: var(--color-text);
+        --color-accordion-border: var(--color-border);
+        --color-accordion-background: var(--color-neutral-900);
+        --color-accordion-header-background: var(--color-neutral-800);
+        --color-accordion-header-selected-background: var(--color-neutral-700);
+        --color-accordion-header-hover: var(--color-neutral-700);
+        --color-accordion-header-text: var(--color-text);
+        --color-accordion-icon: var(--color-placeholder);
+        --color-accordion-disabled-text: var(--color-text-disabled);
+        --color-accordion-focus-ring: var(--color-focus-ring);
+    }
+}
+
+@layer components {
+    .os-accordion {
+        --os-panel-border: var(--color-accordion-border);
+        --os-panel-background: var(--color-accordion-background);
+        --os-panel-text: var(--color-accordion-text);
+        @apply shadow-none;
+    }
+
+    .os-accordion-content-enter-active {
+        animation: os-accordion-open 200ms ease-out;
+    }
+
+    .os-accordion-content-exit-active {
+        animation: os-accordion-close 200ms ease-in forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .os-accordion-content-enter-active,
+        .os-accordion-content-exit-active {
+            animation: none;
+        }
+    }
+}
+
+@keyframes os-accordion-open {
+    from {
+        grid-template-rows: 0fr;
+        opacity: 0;
+    }
+    to {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+}
+
+@keyframes os-accordion-close {
+    from {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+    to {
+        grid-template-rows: 0fr;
+        opacity: 0;
+    }
+}
