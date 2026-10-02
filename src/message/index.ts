@@ -1,2 +1,2 @@
-export * from "./message";
-export * from "./@types/index";
+export { Message } from "./message";
+export type { MessageModeProps, MessageProps } from "./@types";

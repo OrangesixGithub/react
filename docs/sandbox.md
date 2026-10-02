@@ -1,5 +1,10 @@
 # Sandbox (`../react-sandbox`)
 
+O Lightbox está disponível em `npm run dev`, com a galeria Lightbox3 e seu CSS original incorporado ao `style.css` da biblioteca.
+O `main.tsx` inicializa o host com `initializeLightbox()`: clicar nas imagens da prévia em iframe
+abre o overlay no documento principal. Confira navegação, legendas, fechamento e retorno do foco ao iframe.
+Valide abertura, Escape, clique na máscara, foco e temas claro/escuro; permanece fora do build até validação pelo dono.
+
 Um ambiente Vite para ver e testar os componentes em tempo real enquanto eles são desenvolvidos. O sandbox tem o próprio `AGENTS.md`, com o padrão de código dele.
 
 ## Padrão das páginas de campos
@@ -73,4 +78,13 @@ Valide os tipos `text`, `number`, `date` e `autocomplete`, o erro e o estado des
 A mesma regra vale para `accordion`: enquanto `dist/accordion` não existir, a página usa `../react/src/accordion`.
 Valide abrir/fechar, `multiple`, aba desabilitada e os temas claro/escuro com `npm run dev`; a habilitação depende da validação pelo dono.
 
+A mesma regra vale para `tabview`: enquanto `dist/tabview` não existir, a página usa `../react/src/tabview`.
+Valide troca de aba, ícones, aba desabilitada/fechável, `tabActiveRender` e os temas claro/escuro com `npm run dev`; a habilitação depende da validação pelo dono.
+
 O Calendar está disponível no modo `npm run dev`, com os exemplos Controlled e HookForm, seguindo o padrão das páginas dos demais campos. Permanece fora do build até validação visual pelo dono.
+
+O Message está disponível no sandbox com confirmação modal e conteúdo HTML. Valide confirmar, cancelar, fechamento por Escape/botão, foco e temas claro/escuro. Permanece fora do build até validação pelo dono.
+
+A mesma regra vale para `loading`: enquanto `dist/loading` não existir, a página usa `../react/src/loading`.
+Valide o anel (`border`), os pontos (`grow`), `text`, cores, `opacity`, `fullscreen` e o centro personalizado com `motion`
+(instalado apenas no sandbox, que faz o papel do consumidor) com `npm run dev`; a habilitação depende da validação pelo dono.

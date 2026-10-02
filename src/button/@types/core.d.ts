@@ -3,6 +3,9 @@ import type { ApiComponentProps, ColorProps } from "../../api";
 
 /** Propriedades públicas do componente Button. */
 export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
+    /** Classes adicionais. A largura padrão acompanha o conteúdo; use `w-full` para ocupar toda a largura. */
+    className?: string;
+
     /** Referência para o botão HTML. */
     ref?: Ref<any>;
 
@@ -18,7 +21,7 @@ export interface ButtonProps extends Omit<ApiComponentProps, "size"> {
     /** Desabilita a ação do botão. */
     disabled?: boolean;
 
-    /** Tamanho do botão. */
+    /** Tamanho visual com a mesma escala do Input: pequeno (32 px), padrão (40 px) ou grande (44 px) de altura mínima. */
     size?: "small" | "large";
 
     /** Deixa o botão totalmente arredondado. */

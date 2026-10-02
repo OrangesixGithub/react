@@ -3,7 +3,7 @@ import type { ColorProps } from "../api";
 import type { ButtonProps } from "./@types";
 
 const root = tv({
-    base: "os-button gap-2",
+    base: "os-button w-fit shrink-0 select-none gap-2 leading-none duration-150 motion-reduce:transition-none",
     variants: {
         rounded: {
             true: "rounded-full",
@@ -15,18 +15,18 @@ const root = tv({
             large: "min-h-11 px-5 py-2.5 text-lg",
         },
         color: {
-            primary: "bg-primary-500 text-white hover:bg-primary-700 focus-visible:ring-primary-300",
-            secondary: "bg-slate-500 text-white hover:bg-slate-700 focus-visible:ring-slate-300",
-            success: "bg-green-500 text-white hover:bg-green-700 focus-visible:ring-green-300",
-            danger: "bg-red-500 text-white hover:bg-red-700 focus-visible:ring-red-300",
-            light: "bg-slate-100 text-slate-900 hover:bg-slate-200 focus-visible:ring-slate-300",
-            warning: "bg-amber-500 text-slate-950 hover:bg-amber-600 focus-visible:ring-amber-300",
-            gray: "bg-gray-500 text-white hover:bg-gray-600 focus-visible:ring-gray-300",
-            info: "bg-cyan-500 text-slate-950 hover:bg-cyan-700 focus-visible:ring-cyan-300",
-            dark: "bg-slate-900 text-white hover:bg-slate-800 focus-visible:ring-slate-500",
-            help: "bg-violet-500 text-white hover:bg-violet-700 focus-visible:ring-violet-300",
-            contrast: "bg-black text-white hover:bg-neutral-800 focus-visible:ring-neutral-400",
-            white: "bg-white text-slate-900 hover:bg-slate-100 focus-visible:ring-slate-300",
+            primary: "bg-primary-500 text-white hover:bg-primary-500/50 focus-visible:ring-primary-300",
+            secondary: "bg-slate-500 text-white hover:bg-slate-500/50 focus-visible:ring-slate-300",
+            success: "bg-green-500 text-white hover:bg-green-500/50 focus-visible:ring-green-300",
+            danger: "bg-red-500 text-white hover:bg-red-500/50 focus-visible:ring-red-300",
+            light: "bg-slate-100 text-slate-900 hover:bg-slate-100/50 focus-visible:ring-slate-300",
+            warning: "bg-amber-500 text-slate-950 hover:bg-amber-500/50 focus-visible:ring-amber-300",
+            gray: "bg-gray-500 text-white hover:bg-gray-500/50 focus-visible:ring-gray-300",
+            info: "bg-cyan-500 text-slate-950 hover:bg-cyan-500/50 focus-visible:ring-cyan-300",
+            dark: "bg-slate-900 text-white hover:bg-slate-900/50 focus-visible:ring-slate-500",
+            help: "bg-violet-500 text-white hover:bg-violet-500/50 focus-visible:ring-violet-300",
+            contrast: "bg-black text-white hover:bg-black/50 focus-visible:ring-neutral-400",
+            white: "bg-white text-slate-900 hover:bg-white/50 focus-visible:ring-slate-300",
         } satisfies Record<ColorProps, string>,
         linkColor: {
             primary: "text-primary-600 hover:text-primary-700",

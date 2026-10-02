@@ -46,6 +46,49 @@ O alias cai direto na **pasta** do componente. A partir daí:
 
 ## Migração 2.x → 3.x no consumidor
 
+### Lightbox em rotas abertas por iframe
+
+Na entrada principal da aplicação Inertia (fora dos iframes), inicialize o host uma vez:
+
+```ts
+import "@orangesix/react/style.css";
+import { initializeLightbox } from "@orangesix/lightbox";
+
+initializeLightbox();
+```
+
+O componente mantém `<Lightbox html={html}/>` dentro de cada rota. Ao clicar numa imagem,
+encaminha a galeria à janela ancestral mais alta que inicializou o host e é acessível pela
+política de mesma origem. O overlay da Lightbox3 é criado no documento dessa janela,
+preservando navegação e legendas. As URLs são resolvidas na rota de origem antes do envio.
+Ao fechar, o foco retorna ao link original; ao desmontar ou trocar o HTML, a galeria aberta é fechada.
+Sem host acessível (inclusive em iframe de outra origem), a galeria continua abrindo localmente.
+O CSS do pacote deve estar importado também na janela principal.
+
+A prop `appendTo` permite escolher o destino explicitamente, no padrão dos overlays do PrimeReact:
+
+```tsx
+// Body local, mesmo dentro de um iframe.
+<Lightbox html={html} appendTo={() => document.body}/>
+
+// Documento principal (mesma origem; host inicializado nele).
+<Lightbox html={html} appendTo={() => window.top?.document.body ?? document.body}/>
+
+// Elemento específico, resolvido ao clicar na imagem.
+<Lightbox html={html} appendTo={() => document.getElementById("overlays")}/>
+
+// Contêiner do próprio componente.
+<Lightbox html={html} appendTo="self"/>
+```
+
+Também aceita um `HTMLElement` diretamente. Callback que retorna `null` usa o body local.
+Sem `appendTo`, mantém a escolha automática do host ancestral ou do body local.
+A prop define onde o overlay é inserido; o posicionamento original da Lightbox3 continua
+fixo em relação ao viewport da janela de destino. Destino em outra janela sem host
+inicializado não abre a galeria e registra uma mensagem no console.
+
+### Estilos e provider
+
 Remover:
 ```scss
 @import "../../../../node_modules/@orangesix/react/style/scss/bootstrap";

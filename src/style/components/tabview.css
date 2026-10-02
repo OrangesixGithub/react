@@ -1,0 +1,27 @@
+@theme static {
+    --color-tabview-text: var(--color-text);
+    --color-tabview-border: var(--color-neutral-200);
+    --color-tabview-header-text: var(--color-neutral-500);
+    --color-tabview-header-hover: var(--color-neutral-100);
+    --color-tabview-selected-text: var(--color-text);
+    --color-tabview-selected-background: var(--color-neutral-100);
+    --color-tabview-panel-background: var(--color-accordion-background);
+    --color-tabview-icon: var(--color-placeholder);
+    --color-tabview-disabled-text: var(--color-text-disabled);
+    --color-tabview-focus-ring: var(--color-focus-ring);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-tabview-text: var(--color-text);
+        --color-tabview-border: var(--color-neutral-800);
+        --color-tabview-header-text: var(--color-neutral-400);
+        --color-tabview-header-hover: var(--color-neutral-800);
+        --color-tabview-selected-text: var(--color-text);
+        --color-tabview-selected-background: var(--color-neutral-800);
+        --color-tabview-panel-background: var(--color-accordion-background);
+        --color-tabview-icon: var(--color-placeholder);
+        --color-tabview-disabled-text: var(--color-text-disabled);
+        --color-tabview-focus-ring: var(--color-focus-ring);
+    }
+}

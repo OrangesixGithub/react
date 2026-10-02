@@ -110,7 +110,19 @@ src/<componente>/
   criam providers internos e usam `unstyled` para manter seus estilos Tailwind.
 - Importações entre componentes são relativas (`import { Box } from "../box";`).
 
+A base de diálogos fica em `style/mixins/modal.css`: `os-modal`, `os-modal-mask`,
+`os-modal-header`, `os-modal-title`, `os-modal-close`, `os-modal-content`,
+`os-modal-description` e `os-modal-actions`. Os tokens `--color-modal-*` definem o padrão
+claro/escuro. Cada componente pode conectar `--os-modal-*` aos seus tokens específicos,
+como `os-message`. Largura e alinhamento das ações continuam nas variants do componente.
+
 ### Revisão dos estilos compartilhados
+
+O hook interno `src/api/hooks/useDialogDrag.ts` é compartilhado por Message e Modal.
+Ele usa `ownerDocument` e Pointer Events para arrastar no documento de destino do `appendTo`,
+mantém a janela no viewport e limpa os listeners ao fechar ou desmontar. O arraste nativo
+do PrimeReact fica desativado; `draggable` controla o hook (padrão `true`). No Modal,
+maximizar desativa o arraste. Portais para outro documento exigem mesma origem.
 
 | Componentes | Aplicação da base compartilhada |
 |---|---|
@@ -269,9 +281,9 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | editor       | TipTap com Tailwind, tabelas e alinhamento; somente Controlled; aguarda validação visual pelo dono; fora do build |
 | input        | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
 | inputfilter  | select nativo + campos Tailwind (tokens `--color-input-*`), autocomplete PrimeReact unstyled; depende de `utils` (pendente); aguarda validação visual pelo dono; fora do build |
-| lightbox     | pendente                                                                                    |
-| loading      | pendente                                                                                    |
-| message      | pendente                                                                                    |
+| lightbox     | Lightbox3 com CSS original incorporado ao style.css e contêiner Tailwind; aguarda validação visual pelo dono; fora do build |
+| loading      | Tailwind puro, sem PrimeReact (anel/pontos em CSS, `fullscreen` e `children` para centro personalizado, ex.: `motion` no consumidor); aguarda validação visual pelo dono; fora do build |
+| message      | Dialog PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | modal        | pendente                                                                                    |
 | multiselect  | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | pdf          | pendente                                                                                    |
@@ -281,7 +293,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | switch       | checkbox nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | table        | pendente                                                                                    |
 | tablepivot   | pendente                                                                                    |
-| tabview      | pendente                                                                                    |
+| tabview      | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-tabview-*`); aguarda validação visual pelo dono; fora do build |
 | textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-textarea-*` com fallback para Input); aguarda validação visual pelo dono; fora do build |
 | tooltip      | pendente                                                                                    |
 | utils        | pendente                                                                                    |

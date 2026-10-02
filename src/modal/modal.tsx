@@ -1,7 +1,8 @@
-import { ModalProps } from ".";
+import type { ModalProps } from ".";
 import { modalCore } from "./core/core";
 import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
+import { useDialogDrag } from "../api/hooks/useDialogDrag";
 
 /**
  * Componente - `Modal`
@@ -14,6 +15,8 @@ export function Modal(props: ModalProps) {
             : props.sizes === "medium" ? "500px"
                 : props.sizes === "large" ? "800px" : "80%";
     const [maximized, setMaximized] = useState(props.maximized ?? false);
+    const draggable = (props.draggable ?? true) && !maximized;
+    const drag = useDialogDrag({ visible: props.visible, enabled: draggable });
 
     /*
     |------------------------------------------
@@ -21,14 +24,20 @@ export function Modal(props: ModalProps) {
     |------------------------------------------
     */
     return (
-        <Dialog style={!maximized ? { width: sizes } : {}}
+        <Dialog
             {...modalCore(props)}
             breakpoints={{
                 "768px": "80%",
                 "576px": "90%",
             }}
+            pt={{ header: {
+                className: draggable ? "cursor-move touch-none" : undefined,
+                onPointerDown: drag.onPointerDown,
+            } }}
             className={props.className}
+            draggable={false}
             maximized={maximized}
+            style={!maximized ? { width: sizes } : {}}
             onMaximize={() => setMaximized(!maximized)}>
             {props.children}
         </Dialog>

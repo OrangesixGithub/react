@@ -1,2 +1,2 @@
-export * from "./loading";
-export * from "./@types/index";
+export { Loading } from "./loading";
+export type { LoadingProps } from "./@types";

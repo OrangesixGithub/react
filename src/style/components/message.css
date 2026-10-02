@@ -1,0 +1,31 @@
+@theme static {
+    --color-message-text: var(--color-modal-text);
+    --color-message-description: var(--color-modal-description);
+    --color-message-cancel-background: var(--color-neutral-200);
+    --color-message-cancel-hover: var(--color-neutral-300);
+    --color-message-border: var(--color-modal-border);
+    --color-message-background: var(--color-modal-background);
+    --color-message-mask: var(--color-modal-mask);
+    --color-message-close-hover: var(--color-modal-close-hover);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-message-text: var(--color-modal-text);
+        --color-message-border: var(--color-neutral-800);
+        --color-message-background: var(--color-modal-background);
+        --color-message-cancel-background: var(--color-neutral-100);
+        --color-message-cancel-hover: var(--color-neutral-300);
+    }
+}
+
+@layer components {
+    .os-message {
+        --os-modal-text: var(--color-message-text);
+        --os-modal-description: var(--color-message-description);
+        --os-modal-border: var(--color-message-border);
+        --os-modal-background: var(--color-message-background);
+        --os-modal-mask: var(--color-message-mask);
+        --os-modal-close-hover: var(--color-message-close-hover);
+    }
+}

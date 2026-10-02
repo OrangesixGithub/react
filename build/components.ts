@@ -18,9 +18,9 @@ export const components: string[] = [
     "editor",
     "input",
     "inputfilter",
-    // "lightbox",
+    "lightbox",
     // "loading",
-    // "message",
+    "message",
     // "modal",
     "multiselect",
     // "pdf",
@@ -33,7 +33,7 @@ export const components: string[] = [
     // "tabview",
     "textarea",
     // "tooltip",
-    // "utils",
+    "utils",
 ];
 
 /**

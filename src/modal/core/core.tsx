@@ -1,6 +1,6 @@
 import React from "react";
-import { ModalProps } from "..";
-import { DialogProps } from "primereact/dialog";
+import type { ModalProps } from "..";
+import type { DialogProps } from "primereact/dialog";
 
 /**
  * `Core`
@@ -15,7 +15,7 @@ export function modalCore(
         : props.header;
 
     return {
-        appendTo: "self",
+        appendTo: props.appendTo === undefined ? "self" : props.appendTo,
         visible: props.visible,
         onHide() {
             props.onVisible(!props.visible);

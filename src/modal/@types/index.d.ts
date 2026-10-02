@@ -1,7 +1,13 @@
 import React from "react";
-import { DialogProps } from "primereact/dialog";
+import type { DialogProps } from "primereact/dialog";
 
 export interface ModalProps extends Pick<DialogProps, "maximizable" | "maximized" | "draggable" | "closable" | "position"> {
+    /** Permite arrastar pelo cabeçalho no documento de destino. Padrão: `true`. */
+    draggable?: boolean;
+
+    /** Destino do diálogo. Padrão: `self`; aceita elemento, função ou `null` (body). */
+    appendTo?: DialogProps["appendTo"]
+
     /**
      * Conteúdo que será exibido dentro da modal
      */

@@ -1,0 +1,47 @@
+@theme static {
+    --color-loading-text: currentColor;
+}
+
+@layer components {
+    .os-loading {
+        animation: os-loading-enter 200ms ease-out;
+    }
+
+    .os-loading-dot {
+        animation: os-loading-dot 1s ease-in-out infinite;
+    }
+
+    .os-loading-dot:nth-child(2) {
+        animation-delay: 150ms;
+    }
+
+    .os-loading-dot:nth-child(3) {
+        animation-delay: 300ms;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .os-loading {
+            animation: none;
+        }
+    }
+}
+
+@keyframes os-loading-enter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes os-loading-dot {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.6);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

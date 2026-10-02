@@ -1,2 +1,2 @@
-export * from "./tabview";
-export * from "./@types/index";
+export { Tabview } from "./tabview";
+export type { TabViewProps, TabViewTabProps } from "./@types";

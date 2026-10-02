@@ -1,14 +1,28 @@
-import React from "react";
 import { Box } from "../box";
-import { LightboxProps } from ".";
+import type { LightboxProps } from "./@types";
 import { handleLightbox } from "./core/handle";
+import { lightboxVariants } from "./variants";
+import { useEffect, useId, useMemo, useRef } from "react";
+import { connectLightbox, initializeLightbox } from "./core/host";
 
 /**
  * Componente - `Lightbox`
  *
- * Cria uma camada (overlay) semi-transparente para visualização de imagem ampliada.
+ * Exibe conteúdo HTML com a galeria e os estilos originais da Lightbox3.
  */
-export const Lightbox = ({ html, ...props }: LightboxProps) => {
+export function Lightbox(props: LightboxProps) {
+    const styles = lightboxVariants();
+    const galleryId = useId();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const html = useMemo(() => handleLightbox(props.html, galleryId), [props.html, galleryId]);
+
+    useEffect(() => {
+        initializeLightbox();
+        if (containerRef.current) {
+            return connectLightbox(containerRef.current, props.appendTo);
+        }
+    }, [html, props.appendTo]);
+
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -21,10 +35,11 @@ export const Lightbox = ({ html, ...props }: LightboxProps) => {
             id={props.id}
             size={props.size}>
             <div
-                className="w-100 p-2 d-flex flex-wrap justify-content-start lightbox-container"
-                dangerouslySetInnerHTML={{ __html: handleLightbox(html) }}/>
+                className={styles.container({ className: props.containerClassName })}
+                dangerouslySetInnerHTML={{ __html: html }}
+                ref={containerRef}/>
         </Box>
     );
-};
+}
 
 Lightbox.displayName = "Lightbox";

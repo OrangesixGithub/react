@@ -14,7 +14,7 @@
 @layer theme {
     .dark, [data-theme="dark"] {
         --color-accordion-text: var(--color-text);
-        --color-accordion-border: var(--color-border);
+        --color-accordion-border: var(--color-neutral-800);
         --color-accordion-background: var(--color-neutral-900);
         --color-accordion-header-background: var(--color-neutral-800);
         --color-accordion-header-selected-background: var(--color-neutral-700);
