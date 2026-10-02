@@ -34,10 +34,11 @@ export interface LoadingProps extends Omit<ApiComponentProps, "size" | "id"> {
     opacity?: string
 
     /**
-     * Define o tipo do loading: `border` exibe um anel girando e `grow` exibe pontos pulsando.
+     * Define o indicador padrão do loading: `border` (anel girando), `grow` (pontos pulsando),
+     * `bars` (barras oscilando), `pulse` (círculo com onda) ou `orbit` (dois anéis em sentidos opostos).
      * É ignorado quando `children` é informado.
      */
-    type?: "border" | "grow"
+    type?: "border" | "grow" | "bars" | "pulse" | "orbit"
 
     /**
      * Define a mensagem do load

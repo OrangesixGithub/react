@@ -282,7 +282,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | input        | adaptado para PrimeReact 10.9.9 unstyled; aguarda validação visual pelo dono; fora do build |
 | inputfilter  | select nativo + campos Tailwind (tokens `--color-input-*`), autocomplete PrimeReact unstyled; depende de `utils` (pendente); aguarda validação visual pelo dono; fora do build |
 | lightbox     | Lightbox3 com CSS original incorporado ao style.css e contêiner Tailwind; aguarda validação visual pelo dono; fora do build |
-| loading      | Tailwind puro, sem PrimeReact (anel/pontos em CSS, `fullscreen` e `children` para centro personalizado, ex.: `motion` no consumidor); aguarda validação visual pelo dono; fora do build |
+| loading      | Tailwind puro, sem PrimeReact (cinco indicadores em `template/` escolhidos por `type`: `border`, `grow`, `bars`, `pulse`, `orbit`; `fullscreen` e `children` para centro personalizado, ex.: `motion` no consumidor); aguarda validação visual pelo dono; fora do build |
 | message      | Dialog PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | modal        | pendente                                                                                    |
 | multiselect  | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |

@@ -11,12 +11,26 @@
         animation: os-loading-dot 1s ease-in-out infinite;
     }
 
-    .os-loading-dot:nth-child(2) {
+    .os-loading-bar {
+        animation: os-loading-bar 1s ease-in-out infinite;
+    }
+
+    .os-loading-orbit-inner {
+        animation: os-loading-orbit 1s linear infinite;
+    }
+
+    .os-loading-dot:nth-child(2),
+    .os-loading-bar:nth-child(2) {
         animation-delay: 150ms;
     }
 
-    .os-loading-dot:nth-child(3) {
+    .os-loading-dot:nth-child(3),
+    .os-loading-bar:nth-child(3) {
         animation-delay: 300ms;
+    }
+
+    .os-loading-bar:nth-child(4) {
+        animation-delay: 450ms;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -43,5 +57,22 @@
     50% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes os-loading-bar {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scaleY(0.4);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+@keyframes os-loading-orbit {
+    to {
+        transform: rotate(-360deg);
     }
 }

@@ -19,7 +19,7 @@ export const components: string[] = [
     "input",
     "inputfilter",
     "lightbox",
-    // "loading",
+    "loading",
     "message",
     // "modal",
     "multiselect",

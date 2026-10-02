@@ -1,13 +1,10 @@
 import { tv } from "tailwind-variants";
 import type { ColorProps } from "../api";
 
-/** Estilos Tailwind do Loading, do indicador padrão e da mensagem. */
+/** Estilos do contêiner e da mensagem do Loading. */
 export const loadingVariants = tv({
     slots: {
         root: "os-loading inset-0 flex flex-col gap-2",
-        ring: "size-10 animate-spin rounded-full border-4 border-current/25 border-t-current",
-        dots: "flex items-center gap-2",
-        dot: "os-loading-dot size-3 rounded-full bg-current",
         text: "m-0 text-base text-loading-text",
     },
     variants: {

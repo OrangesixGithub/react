@@ -1,5 +1,6 @@
 import { loadingVariants } from "./variants";
 import type { LoadingProps } from "./@types";
+import { loadingTemplates } from "./template";
 
 /**
  * Componente - `Loading`
@@ -11,22 +12,13 @@ export function Loading({ opacity = "0.5", ...props }: LoadingProps) {
     if (!props.visible) {
         return null;
     }
-
     const styles = loadingVariants({
         color: props.color ?? "white",
         fullscreen: props.fullscreen ?? false,
     });
     const align = Array.isArray(props.align) ? props.align.join(" ") : props.align ?? "items-center";
     const justify = Array.isArray(props.justify) ? props.justify.join(" ") : props.justify ?? "justify-center";
-    const indicator = props.type === "grow"
-        ? (
-            <span className={styles.dots()}>
-                <span className={styles.dot()}/>
-                <span className={styles.dot()}/>
-                <span className={styles.dot()}/>
-            </span>
-        )
-        : <span className={styles.ring()}/>;
+    const Indicator = loadingTemplates[props.type ?? "border"] ?? loadingTemplates.border;
 
     /*
     |------------------------------------------
@@ -40,7 +32,7 @@ export function Loading({ opacity = "0.5", ...props }: LoadingProps) {
             className={styles.root({ className: [align, justify, props.className] })}
             role="status"
             style={{ zIndex: props.zindex ?? 1, background: `rgba(0,0,0, ${opacity})`, ...props.css }}>
-            {props.children ?? indicator}
+            {props.children ?? <Indicator/>}
             {props.text
                 ? <p className={styles.text()}>{props.text}</p>
                 : <span className="sr-only">Carregando...</span>}
