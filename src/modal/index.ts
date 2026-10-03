@@ -1,2 +1,3 @@
-export * from "./modal";
-export * from "./@types/index";
+export { Modal } from "./modal";
+export { useModalTransiction } from "./hooks/useModalTransiction";
+export type { ModalProps, ModalTransition } from "./@types";

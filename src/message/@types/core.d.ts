@@ -1,4 +1,5 @@
 import type { DialogProps } from "primereact/dialog";
+import type { ModalTransition } from "../../modal/@types";
 
 /**
  * Define o tipo de message
@@ -70,6 +71,9 @@ interface MessageBaseProps {
  * Define as propriedades do component do tipo MODAL
  */
 interface MessageModalProps {
+    /** Animação de abertura e fechamento. Padrão: `zoom`. */
+    transition?: ModalTransition;
+
     /** Permite arrastar a modal pelo cabeçalho no documento de destino. Padrão: `true`. */
     draggable?: boolean
 

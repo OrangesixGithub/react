@@ -1,43 +1,30 @@
-import React from "react";
-import { Checkbox } from "primereact/checkbox";
-import { PickListDataProps, PickListProps } from "..";
-import * as PickListPrimeReact from "primereact/picklist";
+import { picklistVariants } from "../variants";
+import type { PickListItemProps } from "../@types/core";
+import { checkboxVariants } from "../../checkbox/variants";
 
 /**
- * `Template`
- * Define o template padrão dos item do PickList
+ * Core - `PickListItem`
+ * Template padrão dos itens: checkbox de seleção e label.
  */
-function pickListItemTemplate(
-    item: PickListDataProps & { selected?: boolean }
-) {
+export function PickListItem(props: PickListItemProps) {
+    const styles = picklistVariants();
+    /*
+    |------------------------------------------
+    | render() - Renderização do componente
+    |------------------------------------------
+    */
     return (
-        <div className="w-100 d-flex px-2 align-items-center">
-            <Checkbox checked={item.selected ?? false}
-                className="me-2"
-                defaultChecked={item.selected}/>
-            <p className="m-0">{item.label}</p>
+        <div className={styles.itemContent()}>
+            <input
+                readOnly
+                aria-hidden="true"
+                checked={props.selected}
+                className={checkboxVariants({ checked: props.selected }).input({ className: styles.itemCheckbox() })}
+                tabIndex={-1}
+                type="checkbox"/>
+            <p className={styles.itemLabel()}>{props.item.label}</p>
         </div>
     );
 }
 
-/**
- * `Core`
- * Define as propriedades base para funcionamento do picklist
- */
-export function pickListCore(
-    props: PickListProps
-): PickListPrimeReact.PickListProps {
-    return {
-        dataKey: props.dataKey ?? "id",
-        showSourceControls: false,
-        showTargetControls: false,
-        sourceHeader: props.sourceHeader,
-        targetHeader: props.targetHeader,
-        itemTemplate: pickListItemTemplate,
-
-        filter: props.filter ?? undefined,
-        filterBy: props.filter ? (props.filterBy ?? "label") : undefined,
-        sourceFilterPlaceholder: "Pesquisa pelo nome",
-        targetFilterPlaceholder: "Pesquisa pelo nome",
-    };
-}
+PickListItem.displayName = "PickListItem";

@@ -2,17 +2,17 @@ import { useEffect, useRef } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 
 /** Opções internas do arraste compartilhado dos diálogos. */
-interface DialogDragOptions {
+interface ModalDragOptions {
     visible: boolean;
     enabled: boolean;
 }
 
 /**
- * API - `useDialogDrag`
+ * Core - `useModalDrag`
  *
  * Arrasta o diálogo no documento de destino do portal, inclusive fora do iframe de origem.
  */
-export function useDialogDrag(props: DialogDragOptions) {
+export function useModalDrag(props: ModalDragOptions) {
     const cleanup = useRef<(() => void) | null>(null);
 
     useEffect(() => {

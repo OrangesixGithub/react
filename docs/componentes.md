@@ -118,11 +118,15 @@ como `os-message`. Largura e alinhamento das ações continuam nas variants do c
 
 ### Revisão dos estilos compartilhados
 
-O hook interno `src/api/hooks/useDialogDrag.ts` é compartilhado por Message e Modal.
+O hook interno `src/modal/hooks/useModalDrag.ts` é compartilhado por Message e Modal.
 Ele usa `ownerDocument` e Pointer Events para arrastar no documento de destino do `appendTo`,
 mantém a janela no viewport e limpa os listeners ao fechar ou desmontar. O arraste nativo
-do PrimeReact fica desativado; `draggable` controla o hook (padrão `true`). No Modal,
+do PrimeReact fica desativado; `draggable` controla o hook (padrão `true` no Message e `false` no Modal). No Modal,
 maximizar desativa o arraste. Portais para outro documento exigem mesma origem.
+
+O hook `src/modal/hooks/useModalTransiction.ts`, exportado pela pasta `modal`, seleciona
+a animação de entrada e saída. A prop `transition` da Modal e do Message aceita `zoom` (padrão),
+`fade` e `slide`; os três efeitos respeitam `prefers-reduced-motion`.
 
 | Componentes | Aplicação da base compartilhada |
 |---|---|
@@ -284,10 +288,10 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | lightbox     | Lightbox3 com CSS original incorporado ao style.css e contêiner Tailwind; aguarda validação visual pelo dono; fora do build |
 | loading      | Tailwind puro, sem PrimeReact (cinco indicadores em `template/` escolhidos por `type`: `border`, `grow`, `bars`, `pulse`, `orbit`; `fullscreen` e `children` para centro personalizado, ex.: `motion` no consumidor); aguarda validação visual pelo dono; fora do build |
 | message      | Dialog PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
-| modal        | pendente                                                                                    |
+| modal        | Dialog PrimeReact 10.9.9 unstyled com Tailwind, base compartilhada com Message; aguarda validação visual pelo dono; fora do build |
 | multiselect  | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | pdf          | pendente                                                                                    |
-| picklist     | pendente                                                                                    |
+| picklist     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-picklist-*`, base `os-panel`/`os-list-item`/`os-checkbox`); aguarda validação visual pelo dono; fora do build |
 | radio        | radio nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | select       | select nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | switch       | checkbox nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |

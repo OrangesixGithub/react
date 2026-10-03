@@ -85,6 +85,13 @@ O Calendar está disponível no modo `npm run dev`, com os exemplos Controlled e
 
 O Message está disponível no sandbox com confirmação modal e conteúdo HTML. Valide confirmar, cancelar, fechamento por Escape/botão, foco e temas claro/escuro. Permanece fora do build até validação pelo dono.
 
+O Modal está disponível no sandbox com cabeçalho, conteúdo e rodapé, usando a mesma base visual do Message.
+Valide arraste, maximizar/restaurar, tamanhos, posições, clique na máscara, Escape, foco e temas claro/escuro.
+Permanece fora do build até validação pelo dono.
+
+A mesma regra vale para `picklist`: enquanto `dist/picklist` não existir, a página usa `../react/src/picklist`.
+Valide seleção, os quatro botões de transferência, filtro, `disabled`, layout em coluna abaixo de `md` e os temas claro/escuro com `npm run dev`; a habilitação depende da validação pelo dono.
+
 A mesma regra vale para `loading`: enquanto `dist/loading` não existir, a página usa `../react/src/loading`.
 Valide os cinco indicadores (`border`, `grow`, `bars`, `pulse`, `orbit`), `text`, cores, `opacity`, `fullscreen` e o centro personalizado com `motion`
 (instalado apenas no sandbox, que faz o papel do consumidor) com `npm run dev`; a habilitação depende da validação pelo dono.
