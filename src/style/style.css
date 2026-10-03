@@ -4,6 +4,8 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "primeicons/primeicons.css";
 @import "lightbox3/style.css" layer(components);
+@import "react-pdf/dist/Page/AnnotationLayer.css" layer(components);
+@import "react-pdf/dist/Page/TextLayer.css" layer(components);
 
 @import "./theme.css";
 @import "./mixins.css";

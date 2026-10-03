@@ -1,0 +1,17 @@
+@theme static {
+    --color-pdf-background: var(--color-background);
+    --color-pdf-border: var(--color-border);
+    --color-pdf-text: var(--color-text);
+    --color-pdf-toolbar: var(--color-neutral-50);
+    --color-pdf-button-hover: var(--color-primary-100);
+}
+
+@layer components {
+    :root.dark, .dark, [data-theme="dark"] {
+        --color-pdf-background: var(--color-background);
+        --color-pdf-border: var(--color-border);
+        --color-pdf-text: var(--color-text);
+        --color-pdf-toolbar: var(--color-neutral-900);
+        --color-pdf-button-hover: var(--color-neutral-700);
+    }
+}

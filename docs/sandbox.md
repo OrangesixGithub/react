@@ -1,5 +1,13 @@
 # Sandbox (`../react-sandbox`)
 
+O PDF está disponível em `npm run dev`, com URL editável e seleção dos modos `total` e `pagination`.
+O exemplo usa `appendTo` apontando para o body da janela principal (mesma origem), para manter
+a paginação visível também ao rolar a página externa ao iframe. Sem a prop, mantém sticky local.
+Valide navegação por clique/teclado, limites da primeira/última página, troca de arquivo,
+redimensionamento, seleção de texto, links, mensagens de erro e temas claro/escuro.
+O worker e os recursos PDF.js continuam sendo carregados do unpkg, na versão usada pelo react-pdf.
+Permanece fora do build até validação visual pelo dono.
+
 O Lightbox está disponível em `npm run dev`, com a galeria Lightbox3 e seu CSS original incorporado ao `style.css` da biblioteca.
 O `main.tsx` inicializa o host com `initializeLightbox()`: clicar nas imagens da prévia em iframe
 abre o overlay no documento principal. Confira navegação, legendas, fechamento e retorno do foco ao iframe.

@@ -290,7 +290,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | message      | Dialog PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | modal        | Dialog PrimeReact 10.9.9 unstyled com Tailwind, base compartilhada com Message; aguarda validação visual pelo dono; fora do build |
 | multiselect  | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
-| pdf          | pendente                                                                                    |
+| pdf          | react-pdf com Tailwind (tokens `--color-pdf-*`), modos total/pagination, largura responsiva e `appendTo` para paginação fora do iframe; aguarda validação visual pelo dono; fora do build |
 | picklist     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-picklist-*`, base `os-panel`/`os-list-item`/`os-checkbox`); aguarda validação visual pelo dono; fora do build |
 | radio        | radio nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | select       | select nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |

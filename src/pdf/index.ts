@@ -1,2 +1,2 @@
-export * from "./pdf";
-export * from "./@types/index";
+export { PDF } from "./pdf";
+export type * from "./@types";

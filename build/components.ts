@@ -23,7 +23,7 @@ export const components: string[] = [
     "message",
     "modal",
     "multiselect",
-    // "pdf",
+    "pdf",
     "picklist",
     "radio",
     "select",
