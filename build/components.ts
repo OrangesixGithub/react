@@ -32,7 +32,7 @@ export const components: string[] = [
     // "tablepivot",
     "tabview",
     "textarea",
-    // "tooltip",
+    "tooltip",
     "utils",
 ];
 

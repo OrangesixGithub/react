@@ -1,0 +1,11 @@
+@theme static {
+    --color-tooltip-background: var(--color-neutral-800);
+    --color-tooltip-text: var(--color-white);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-tooltip-background: var(--color-neutral-100);
+        --color-tooltip-text: var(--color-neutral-900);
+    }
+}

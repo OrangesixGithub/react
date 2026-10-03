@@ -299,5 +299,5 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | tablepivot   | pendente                                                                                    |
 | tabview      | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-tabview-*`); aguarda validação visual pelo dono; fora do build |
 | textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-textarea-*` com fallback para Input); aguarda validação visual pelo dono; fora do build |
-| tooltip      | pendente                                                                                    |
+| tooltip      | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-tooltip-*`), conteúdo React, alvo direto e transições `zoom`/`fade`/`slide`; aguarda validação visual pelo dono; fora do build |
 | utils        | pendente                                                                                    |

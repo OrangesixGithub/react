@@ -103,3 +103,11 @@ Valide seleção, os quatro botões de transferência, filtro, `disabled`, layou
 A mesma regra vale para `loading`: enquanto `dist/loading` não existir, a página usa `../react/src/loading`.
 Valide os cinco indicadores (`border`, `grow`, `bars`, `pulse`, `orbit`), `text`, cores, `opacity`, `fullscreen` e o centro personalizado com `motion`
 (instalado apenas no sandbox, que faz o papel do consumidor) com `npm run dev`; a habilitação depende da validação pelo dono.
+
+O Tooltip está disponível em `npm run dev`, com texto e conteúdo React. Valide hover, foco por Tab, `event="focus"`/`"both"`, as cinco posições, `disabled`, callbacks, `renderTo` e temas claro/escuro. Permanece fora do build até validação visual pelo dono.
+
+Nas bordas da janela, inclusive dentro de iframe, o painel local permanece no eixo solicitado e pode inverter para o lado oposto quando falta espaço. Painel e seta usam as medidas do alvo no próprio documento, considerando também ancestrais posicionados quando `renderTo="self"`. Confira especialmente o exemplo superior da prévia no iframe, onde o painel é limitado pela borda horizontal e passa para baixo do botão.
+
+O exemplo com Modal usa `appendTo={window.parent === window ? "self" : () => window.parent.document.body}`. O Tooltip recebe o elemento alvo diretamente, preservando os eventos quando a modal criada pelo iframe é renderizada no documento principal. A posição usa o `ownerDocument` do alvo e respeita os contêineres que recortam o painel. Valide hover e foco no botão interno nas duas prévias.
+
+O seletor Transição permite validar `zoom` (padrão), `fade` e `slide` na prévia e no tooltip da modal. A entrada dura 300 ms e a saída 150 ms; a preferência por movimento reduzido elimina as animações. Voltar ao alvo durante a saída cancela o fechamento. A animação é aplicada ao painel inteiro para mover conteúdo e seta juntos; o posicionamento usa as dimensões de layout, sem a transformação da animação.
