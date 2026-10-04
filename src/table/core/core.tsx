@@ -1,24 +1,17 @@
-import { TableProps } from "..";
-import { DataTableBaseProps } from "primereact/datatable";
+import type { TableProps } from "../@types";
+import type { DataTableBaseProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `Table`
  *
- * Define as configurações do modo principal da tabela.
+ * Configuração dos dados, templates e comportamento visual.
  */
-export function tableCore(
-    props: TableProps<any>
-): Partial<DataTableBaseProps<any>> {
-
-    const cellRender = (isRender?: boolean) => {
-        return isRender === undefined ? {} : {
-            cellMemo: props.cellRender ?? undefined
-        };
-    };
-
+export function tableCore(props: TableProps<any>): Partial<DataTableBaseProps<any[]>> {
     return {
-        dataKey: "id",
-        value: props.data as any,
+        id: props.id,
+        style: props.css,
+        dataKey: props.dataKey ?? "id",
+        value: props.data,
         lazy: props.lazy !== undefined,
         resizableColumns: props.styleResizable ?? false,
         columnResizeMode: "expand",
@@ -28,6 +21,7 @@ export function tableCore(
         stripedRows: props.styleStriped,
         size: props.styleSize,
         showGridlines: props.styleType === "bordered",
-        ...cellRender(props.cellRender)
+        ...(props.cellRender === undefined ? {} : { cellMemo: props.cellRender }),
+        scrollable: props.column.some(column => column.frozen === true),
     };
 }

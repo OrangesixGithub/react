@@ -1,4 +1,4 @@
-import { DataTableRowClickEvent } from "primereact/datatable";
+import type { DataTableRowClickEvent } from "primereact/datatable";
 
 export interface TableClickProps {
     /**

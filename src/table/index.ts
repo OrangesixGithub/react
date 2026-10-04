@@ -1,2 +1,2 @@
-export * from "./table";
-export * from "./@types/index";
+export { Table } from "./table";
+export type * from "./@types/index";

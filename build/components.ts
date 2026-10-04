@@ -28,7 +28,7 @@ export const components: string[] = [
     "radio",
     "select",
     "switch",
-    // "table",
+    "table",
     // "tablepivot",
     "tabview",
     "textarea",

@@ -1,5 +1,14 @@
 # Sandbox (`../react-sandbox`)
 
+O Table está disponível em `npm run dev`, com seleção simples/checkbox,
+expansão, edição, reordenação, grupos e simulação de paginação/ordenação remotas.
+Os cenários de ordenação múltipla local e remota mostram os critérios em ordem
+de prioridade e permitem adicionar colunas com Ctrl/⌘ + clique.
+Confira arraste de linhas/colunas, redimensionamento, teclado, coluna congelada,
+estado vazio e temas claro/escuro nas prévias normal e iframe.
+Os detalhes da API e do estado de validação ficam em [table.md](table.md).
+Permanece fora do build até validação visual pelo dono.
+
 O PDF está disponível em `npm run dev`, com URL editável e seleção dos modos `total` e `pagination`.
 O exemplo usa `appendTo` apontando para o body da janela principal (mesma origem), para manter
 a paginação visível também ao rolar a página externa ao iframe. Sem a prop, mantém sticky local.
@@ -25,6 +34,9 @@ Um ambiente Vite para ver e testar os componentes em tempo real enquanto eles s�
 - Mantenha a referência de props na seção de documentação e o menu de componentes em ordem alfabética, inclusive na busca.
 
 Use `src/components/input/Stage.tsx` e `src/components/calendar/Stage.tsx` do sandbox como referências.
+Na página Input, o controle “Exibir label” alterna `showLabel` nos exemplos
+Controlled e HookForm, também na prévia em iframe. O label oculto continua
+acessível e não reserva espaço; a prop é compartilhada pelos componentes de campo.
 
 ## Modos
 

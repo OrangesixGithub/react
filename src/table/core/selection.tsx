@@ -1,25 +1,33 @@
-import { TableProps } from "..";
-import { DataTableProps, DataTableSelectionSingleChangeEvent } from "primereact/datatable";
+import type { TableProps } from "../@types";
+import type { DataTableProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `TableSelection`
  *
- * Define as configurações do modo de seleção de dados.
+ * Mantém os eventos de seleção simples e por checkbox tipados pela API do PrimeReact.
  */
-export function tableSelection(
-    props: TableProps<any>
-): Partial<DataTableProps<any>> {
-
-    function onSelect(e: DataTableSelectionSingleChangeEvent<any>) {
-        if (props.onSelection) {
-            props.onSelection(e.value);
-        }
+export function tableSelection(props: TableProps<any>): DataTableProps<any[]> {
+    const events = {
+        onRowSelect: props.onRowSelect,
+        onRowUnselect: props.onRowUnselect,
+    };
+    if (props.onSelection === undefined) {
+        return events;
     }
-
+    if (props.selectionMode === "checkbox") {
+        return {
+            ...events,
+            selectionMode: "checkbox",
+            selection: props.selection ?? [],
+            metaKeySelection: false,
+            onSelectionChange: event => props.onSelection?.(event.value),
+        };
+    }
     return {
-        metaKeySelection: props.onSelection !== undefined,
-        selection: props.selection,
-        selectionMode: props.onSelection !== undefined ? (props.selectionMode as any ?? "single") : undefined,
-        onSelectionChange: onSelect,
+        ...events,
+        selectionMode: "single",
+        selection: props.selection ?? null,
+        metaKeySelection: true,
+        onSelectionChange: event => props.onSelection?.(event.value),
     };
 }

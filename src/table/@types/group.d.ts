@@ -5,9 +5,9 @@ export interface TableGroupProps {
     rowGroup?: string
 
     /**
-     * Define o tipo de agrupamento da tabela
+     * Define o agrupamento: subheader cria cabeçalhos; rowgroup é o alias legado de rowspan
      */
-    rowGroupMode?: "subheader" | "rowgroup"
+    rowGroupMode?: "subheader" | "rowgroup" | "rowspan"
 
     /**
      * Define o template do agrupamento - Header

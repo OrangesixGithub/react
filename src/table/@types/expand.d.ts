@@ -1,6 +1,5 @@
-import * as React from "react";
-import {
-    DataTableRowData,
+import type * as React from "react";
+import type {
     DataTableRowEvent,
     DataTableValueArray,
     DataTableExpandedRows,
@@ -8,9 +7,10 @@ import {
     DataTableRowExpansionTemplate,
 } from "primereact/datatable";
 
-export interface TableExpandProps {
+export interface TableExpandProps<T = any> {
     /**
-     * Define o state de expansão da tabela
+     * Estado de expansão: lista de registros ou mapa de chaves para linhas.
+     * Em grupos subheader, use uma lista; mapa só quando dataKey for igual a rowGroup.
      */
     rowExpandable?: DataTableValueArray | DataTableExpandedRows
 
@@ -22,7 +22,7 @@ export interface TableExpandProps {
     /**
      * Função que define o template de expansão
      */
-    rowExpansionTemplate?(data: DataTableRowData<any>, options: DataTableRowExpansionTemplate): React.ReactNode
+    rowExpansionTemplate?(data: T, options: DataTableRowExpansionTemplate): React.ReactNode
 
     /**
      * Função para atualizar o state de expansão

@@ -1,0 +1,75 @@
+@theme static {
+    --color-table-text: var(--color-text);
+    --color-table-text-strong: var(--color-text);
+    --color-table-border: var(--color-border);
+    --color-table-background: var(--color-white);
+    --color-table-header-background: color-mix(in oklab, var(--color-border) 25%, var(--color-white));
+    --color-table-header-text: var(--color-placeholder);
+    --color-table-footer-background: var(--color-neutral-50);
+    --color-table-striped: color-mix(in oklab, var(--color-border) 15%, var(--color-white));
+    --color-table-hover: color-mix(in oklab, var(--color-border) 25%, var(--color-white));
+    --color-table-selected: color-mix(in oklab, var(--color-primary-500) 8%, var(--color-table-background));
+    --color-table-selected-text: var(--color-primary-500);
+    --color-table-focus-ring: var(--color-focus-ring);
+    --color-table-focus-background: color-mix(in oklab, var(--color-primary-500) 8%, var(--color-table-background));
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-table-text: var(--color-text);
+        --color-table-text-strong: var(--color-slate-200);
+        --color-table-border: color-mix(in oklab, var(--color-white) 8%, #101119);
+        --color-table-header-text: var(--color-placeholder);
+        --color-table-header-background: color-mix(in oklab, var(--color-white) 8%, #101119);
+        --color-table-focus-ring: var(--color-focus-ring);
+        --color-table-background: #101119;
+        --color-table-focus-background: color-mix(in oklab, var(--color-primary-500) 8%, var(--color-table-background));
+        --color-table-footer-background: #11121b;
+        --color-table-striped: color-mix(in oklab, var(--color-border) 10%, #101119);
+        --color-table-hover: color-mix(in oklab, var(--color-white) 15%, #101119);
+        --color-table-selected: color-mix(in oklab, var(--color-primary-500) 8%, var(--color-table-background));
+        --color-table-selected-text: var(--color-primary-500);
+    }
+}
+
+@layer components {
+    .os-table {
+        /* A grade depende do contêiner para atualizar também as células memoizadas. */
+
+        &.os-table-bordered > [data-pc-section="wrapper"] > table {
+            @apply border border-table-border;
+
+            > :is(thead, tbody, tfoot) > tr > :is(th, td) {
+                @apply border border-table-border;
+            }
+        }
+
+        [data-pc-section="rowgroupheader"] > td,
+        [data-pc-section="rowgroupfooter"] > td {
+            @apply border-b border-table-border px-3 py-2.5;
+        }
+
+        [data-pc-section="bodyrow"][aria-selected="true"] {
+            @apply bg-table-selected text-table-selected-text;
+        }
+
+        [data-p-frozen-column="true"] {
+            @apply sticky z-10;
+            background: inherit;
+        }
+
+        th[data-p-frozen-column="true"] {
+            @apply bg-table-header-background;
+        }
+
+        [data-pc-section="footercell"][data-p-frozen-column="true"] {
+            @apply bg-table-footer-background;
+        }
+
+        [data-pc-section="headercheckbox"],
+        [data-pc-section="checkbox"] {
+            @apply align-middle;
+        }
+    }
+}
+

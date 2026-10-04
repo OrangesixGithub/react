@@ -4,9 +4,9 @@ import type { ApiComponentProps, ApiFieldComponentProps } from "./@types";
 /**
  * API - `InputLabel`
  *
- * Exibe o rótulo e indica visualmente quando o campo é obrigatório.
+ * Exibe o rótulo e indica quando o campo é obrigatório; showLabel=false mantém só o rótulo acessível.
  */
-export function InputLabel({ id, name, label, icon, iconPrefix = "bi bi-", required }: ApiFieldComponentProps) {
+export function InputLabel({ id, name, label, icon, iconPrefix = "bi bi-", required, showLabel = true }: ApiFieldComponentProps) {
     /*
     |------------------------------------------
     | render() - Renderização do componente
@@ -14,7 +14,7 @@ export function InputLabel({ id, name, label, icon, iconPrefix = "bi bi-", requi
     */
     return label && (
         <label
-            className="mb-1 block text-sm font-medium text-input-label"
+            className={showLabel ? "mb-1 block text-sm font-medium text-input-label" : "sr-only"}
             htmlFor={id ?? name}>
             {icon && <i
                 aria-hidden="true"

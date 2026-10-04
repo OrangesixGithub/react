@@ -8,7 +8,13 @@ export interface TablePaginationProps {
     /**
      * Define o numero de elemento por página
      */
-    paginatorRow?: 5 | 10 | 15 | 20 | 25 | 50 | 100
+    paginatorRow?: number
+
+    /**
+     * Quantidades disponíveis no seletor de registros por página.
+     * @default [5, 10, 15, 20, 25, 50, 100]
+     */
+    rowsPerPageOptions?: number[]
 
     /**
      * Define o alinhamento da paginação

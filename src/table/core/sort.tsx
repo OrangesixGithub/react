@@ -1,24 +1,25 @@
-import { TableProps } from "..";
-import { DataTableProps, DataTableStateEvent } from "primereact/datatable";
+import type { TableProps } from "../@types";
+import type { DataTableBaseProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `TableSort`
  *
- * Define as configurações do modo de ordenação de resultado.
+ * Adapta ordenação simples ou múltipla, local ou controlada pelo consumidor.
  */
-export function tableSort(
-    props: TableProps<any>
-): Partial<DataTableProps<any>> {
-
-    function onSort(event: DataTableStateEvent) {
-        if (props.onSort) {
-            props.onSort(event.sortField, event.sortOrder);
-        }
-    }
-
+export function tableSort(props: TableProps<any>): Partial<DataTableBaseProps<any[]>> {
+    const multiple = props.sortMode === "multiple";
+    const controlled = props.lazy !== undefined || (multiple && props.onMultiSort !== undefined);
     return {
+        sortMode: props.sortMode ?? "single",
         sortField: props.lazy?.sortField,
-        sortOrder: props.lazy?.sortOrder ?? null,
-        onSort: props.lazy !== undefined ? onSort : undefined
+        sortOrder: props.lazy?.sortOrder,
+        multiSortMeta: props.lazy?.multiSortMeta ?? props.multiSortMeta,
+        onSort: controlled ? event => {
+            if (multiple) {
+                props.onMultiSort?.(event.multiSortMeta ?? []);
+            } else {
+                props.onSort?.(event.sortField, event.sortOrder);
+            }
+        } : undefined,
     };
 }

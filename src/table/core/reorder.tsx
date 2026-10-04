@@ -1,31 +1,18 @@
-import { TableProps } from "..";
-import { DataTableProps, DataTableRowReorderEvent } from "primereact/datatable";
+import type { TableProps } from "../@types";
+import type { DataTableBaseProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `TableReorder`
  *
- * Define as configurações do modo de ordenação colunas e tabelas.
+ * Reordena os registros sem modificar os objetos recebidos pelo consumidor.
  */
-export function tableReorder(
-    props: TableProps<any>
-): Partial<DataTableProps<any>> {
-
-    function onReorder(e: DataTableRowReorderEvent<any>) {
-        if (props.onReorder) {
-            let attr = props.reorderRowsAttr ?? "order";
-            let data: any = [...e.value];
-
-            data.forEach((item: any, index: number) => {
-                item[attr] = index + 1;
-            });
-
-            return props.onReorder(data);
-        }
-    }
-
+export function tableReorder(props: TableProps<any>): Partial<DataTableBaseProps<any[]>> {
     return {
         reorderableColumns: props.reorder === "all" || props.reorder === "columns",
         reorderableRows: props.reorder === "all" || props.reorder === "rows",
-        onRowReorder: onReorder
+        onRowReorder: event => {
+            const attr = props.reorderRowsAttr ?? "order";
+            props.onReorder?.(event.value.map((item, index) => ({ ...item, [attr]: index + 1 })));
+        },
     };
 }

@@ -26,6 +26,13 @@ export interface ApiFieldComponentProps {
     label?: string
 
     /**
+     * Exibe o rótulo do campo. false oculta visualmente label, ícone e indicação de obrigatório,
+     * sem reservar espaço, preservando o rótulo para leitores de tela.
+     * @default true
+     */
+    showLabel?: boolean
+
+    /**
      * Mensagem de validação exibida no feedback do campo, inclusive no modo `Controlled`.
      */
     error?: string

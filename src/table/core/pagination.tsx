@@ -1,41 +1,66 @@
 import React from "react";
-import { TableProps } from "..";
-import { DataTableBaseProps, DataTableStateEvent } from "primereact/datatable";
+import { tableVariants } from "../variants";
+import type { TableProps } from "../@types";
+import type { DataTableBaseProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `TablePagination`
  *
- * Define as configurações do modo de paginação de resultado.
+ * Paginação local do PrimeReact ou paginação remota controlada pelo consumidor.
  */
-export function tablePagination(
-    props: TableProps<any>
-): Partial<DataTableBaseProps<any>> {
-
-    function onPage(event: DataTableStateEvent) {
-        let paginationPage = event.first / (props.paginatorRow ?? 10);
-        if (props.onPaginator) {
-            props.onPaginator(paginationPage + 1, event.rows);
-        }
-    }
-
+export function tablePagination(props: TableProps<any>): Partial<DataTableBaseProps<any[]>> {
+    const styles = tableVariants();
+    const rows = props.paginatorRow ?? 10;
     return {
         paginator: props.paginator ?? false,
-        totalRecords: props?.lazy?.paginationTotal ?? undefined,
-        first: props?.lazy?.paginationPage === undefined ? 0 : ((props?.lazy?.paginationPage ?? 0) - 1) * (props.paginatorRow ?? 10),
-        rows: props.paginator ? (props.paginatorRow ?? 10) : undefined,
-        rowsPerPageOptions: [5, 10, 15, 20, 50, 100],
+        totalRecords: props.lazy?.paginationTotal,
+        first: props.lazy === undefined ? 0 : (Math.max(1, props.lazy.paginationPage ?? 1) - 1) * rows,
+        rows: props.paginator ? rows : undefined,
+        rowsPerPageOptions: props.rowsPerPageOptions ?? [5, 10, 15, 20, 25, 50, 100],
         paginatorTemplate: {
-            layout: "RowsPerPageDropdown FirstPageLink PageLinks LastPageLink CurrentPageReport",
-            CurrentPageReport: options => {
-                return (
-                    <span
-                        className="ms-2">{props.paginatorTotalElementsLabel ?? "Total"}: {options.totalRecords}</span>
-                );
-            },
+            layout: "RowsPerPageDropdown PrevPageLink PageLinks NextPageLink CurrentPageReport",
+            PrevPageLink: options => (
+                <button
+                    aria-label="Página anterior"
+                    className={styles.pageNavigation()}
+                    disabled={options.disabled}
+                    type="button"
+                    onClick={options.onClick}>Anterior</button>
+            ),
+            NextPageLink: options => (
+                <button
+                    aria-label="Próxima página"
+                    className={styles.pageNavigation()}
+                    disabled={options.disabled}
+                    type="button"
+                    onClick={options.onClick}>Próxima</button>
+            ),
+            RowsPerPageDropdown: options => (
+                <select
+                    aria-label="Registros por página"
+                    className={styles.pageSelect()}
+                    disabled={options.disabled}
+                    value={options.value}
+                    onChange={event => {
+                        const rows = Number(event.target.value);
+                        // A declaração v10 usa string, mas o paginator exige rows numérico em runtime.
+                        options.onChange({ originalEvent: event, value: rows, target: { name: "rows", id: "rows", value: rows } } as unknown as Parameters<typeof options.onChange>[0]);
+                    }}>
+                    {options.options.map(option => (
+                        <option
+                            key={option.value}
+                            value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+            ),
+            CurrentPageReport: options => (
+                <span className={styles.pageReport()}>
+                    {props.paginatorTotalElementsLabel ?? "Total"}: {options.totalRecords}
+                </span>
+            ),
         },
-        paginatorDropdownAppendTo: "self",
-        paginatorRight: props.templatePaginationRight,
         paginatorLeft: props.templatePaginationLeft,
-        onPage: props.lazy !== undefined ? onPage : undefined,
+        paginatorRight: props.templatePaginationRight,
+        onPage: props.lazy === undefined ? undefined : event => props.onPaginator?.(Math.floor(event.first / event.rows) + 1, event.rows),
     };
 }

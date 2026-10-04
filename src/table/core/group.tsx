@@ -1,15 +1,15 @@
-import { TableProps } from "..";
-import { DataTableBaseProps } from "primereact/datatable";
+import type { TableProps } from "../@types";
+import type { DataTableBaseProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `TableGroup`
  *
- * Define as configurações de agrupamento da tabela.
+ * Adapta o nome legado rowgroup ao modo rowspan do PrimeReact.
  */
-export function tableGroup(props: TableProps<any>): Partial<DataTableBaseProps<any>> {
+export function tableGroup(props: TableProps<any>): Partial<DataTableBaseProps<any[]>> {
     return {
         groupRowsBy: props.rowGroup,
-        rowGroupMode: props.rowGroupMode,
+        rowGroupMode: props.rowGroupMode === "rowgroup" ? "rowspan" : props.rowGroupMode,
         rowGroupHeaderTemplate: props.rowGroupHeaderTemplate,
         rowGroupFooterTemplate: props.rowGroupFooterTemplate,
     };

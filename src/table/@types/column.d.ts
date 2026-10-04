@@ -1,5 +1,7 @@
-import React, { CSSProperties } from "react";
-import { ColumnBodyOptions, ColumnEditorOptions, ColumnEvent, ColumnHeaderOptions } from "primereact/column";
+import type React from "react";
+import type { CSSProperties } from "react";
+import type { ColumnProps } from "primereact/column";
+import type { ColumnBodyOptions, ColumnEditorOptions, ColumnEvent, ColumnHeaderOptions } from "primereact/column";
 
 export interface TableColumnProps {
 
@@ -12,6 +14,9 @@ export interface TableColumnProps {
      * Conteúdo do cabeçalho da tabela.
      */
     header: React.ReactNode | ((options: ColumnHeaderOptions) => React.ReactNode)
+
+    /** Conteúdo do rodapé da coluna, por exemplo um total calculado pelo consumidor. */
+    footer?: ColumnProps["footer"];
 
     /**
      * Alinha o conteúdo da coluna, os valores válidos são à esquerda, à direita e ao centro.

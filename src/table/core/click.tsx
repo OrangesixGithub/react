@@ -1,22 +1,11 @@
-import { TableProps } from "..";
-import { DataTableProps, DataTableRowClickEvent, DataTableSelectionSingleChangeEvent } from "primereact/datatable";
+import type { TableProps } from "../@types";
+import type { DataTableBaseProps } from "primereact/datatable";
 
 /**
- * Componente - `Table`
+ * Core - `TableClick`
  *
- * Define as configurações do modo de seleção de dados.
+ * Encaminha o duplo clique na linha.
  */
-export function tableClick(
-    props: TableProps<any>
-): Partial<DataTableProps<any>> {
-
-    function onDoubleClick(e: DataTableRowClickEvent) {
-        if (props.onDoubleClick) {
-            props.onDoubleClick(e);
-        }
-    }
-
-    return {
-        onRowDoubleClick: onDoubleClick
-    };
+export function tableClick(props: TableProps<any>): Partial<DataTableBaseProps<any[]>> {
+    return { onRowDoubleClick: props.onDoubleClick };
 }

@@ -102,6 +102,10 @@ src/<componente>/
 - Um componente só vai para o `dist/` quando estiver habilitado em `build/components.ts` (ver `docs/build.md`).
 - Tipos compartilhados ficam em `src/api/` (`ApiComponentProps`, `ApiFieldComponentProps`, `ApiFieldControlledProps`,
   `ApiFieldHookFormProps`...). Helpers de campo (`InputLabel`, `InputFeedback`) também ficam lá.
+  `showLabel` é compartilhada por Input, Textarea, Select, MultiSelect, Autocomplete, Calendar,
+  Checkbox, Radio, Switch, Editor e InputFilter nos modos suportados. O padrão é `true`;
+  `showLabel={false}` oculta visualmente o rótulo, ícone e asterisco sem reservar espaço,
+  mantendo o label acessível. Em Checkbox/Radio, os textos das opções continuam visíveis.
 - A largura compartilhada `size` é definida em `src/api/@types/size.d.ts`: aceita um percentual como `"50"` ou um
   objeto como `{ base: "100", md: "50", xl: "25" }`. Componentes que herdam `ApiComponentProps` e encaminham `size`
   ao `Box` recebem o mesmo comportamento responsivo. `BoxSize` e `BoxResponsiveSize` continuam exportados como aliases.
@@ -295,7 +299,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | radio        | radio nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | select       | select nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
 | switch       | checkbox nativo HTML com Tailwind; aguarda validação visual pelo dono; fora do build |
-| table        | pendente                                                                                    |
+| table        | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-table-*`), API 2.x preservada; ordenação simples/múltipla local e remota; cenários no sandbox; aguarda validação visual pelo dono; fora do build |
 | tablepivot   | pendente                                                                                    |
 | tabview      | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-tabview-*`); aguarda validação visual pelo dono; fora do build |
 | textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-textarea-*` com fallback para Input); aguarda validação visual pelo dono; fora do build |
