@@ -119,3 +119,18 @@ import { PrimeReactProvider } from "primereact/api";
 Outros requisitos da 3.x: **React 19** (versão atualmente adotada pela Orange Six) e `react-hook-form` ^7.
 
 Não importar temas ou `primereact/resources/primereact.min.css`: os estilos dos componentes modernizados vêm do Tailwind v4 da Orange Six.
+
+### Utils (`@orangesix/utils`)
+
+Os nomes e as assinaturas continuam iguais. Mudanças de comportamento em relação à 2.x:
+
+- **Sem jQuery.** O pacote não depende mais de `jquery`. `getElementDOM(seletor, timeout, true)` retorna `Element[]` em vez de um objeto jQuery. Com `all = false`, continua retornando o elemento.
+- **`windowMessageEvent()`** aceita só mensagens da mesma origem e registra um único listener, mesmo se for chamado várias vezes. Ele retorna uma função que remove o listener. **`sendMessage`** envia só para a mesma origem: a janela principal e o iframe precisam estar no mesmo domínio.
+- **Snackbar.** O card novo (ícone, título e texto) escapa o HTML de `message.title`, `message.text` e `message.message`. O CSS da node-snackbar já vem no `style.css`. No SweetAlert, o título passou a ser texto puro (`titleText`); para HTML, passe `options.html`.
+- **SweetAlert como toast.** `post(rota, body, form, { messageLibrary: "sweetAlert" })` mostra o `message` da resposta como toast do SweetAlert no canto, no mesmo card da snackbar, com a barra de tempo na cor do tipo. O padrão continua sendo a snackbar. `response(data, form, "sweetAlert")` faz o mesmo. Chamar `message({ library: "sweetAlert", type: "toast" })` sem `options` também usa esse card novo; com `options`, mantém a configuração do consumidor, como na 2.x.
+- **`response()`.** Os erros aparecem nos campos 3.x (`{name}-feedback`) e no padrão 2.x (`#j_feedback`). `field` (`messageType` e `disabled`) agora é tratado. `redirect` só aceita `http(s)` e caminhos relativos.
+- **`post()`** não registra mais interceptors no axios global. As metas `react-base` e `csrf-token` são lidas a cada chamada. Sem `react-base`, a URL é relativa (`/rota`).
+- **`handleNumber`** entende o formato BR (`"1.234,56"` → `1234.56`). O modo `money` usa o padrão pt-BR (`R$ 1.234,56`, e não mais `R$ 1 234,56`). Entrada vazia retorna `""`, e o sinal negativo é mantido.
+- **`handleDateFormat`** aceita data sem hora em padrões com hora e timestamps do Laravel (`...T10:30:00.000000Z`). **`handleHours`** completa os minutos (`"8.3"` → `08:30`).
+- **`getCep`** usa `fetch`, sem os headers padrão do axios do projeto. CEP inválido ou inexistente retorna o objeto vazio, sem fazer a requisição. O tipo novo é `IUtilsHelperResponse["cep"]`; `gep_cep` continua como `@deprecated`.
+- Herdado da 2.x, sem mudança: uma falha de rede no `post` não mostra mensagem, e `errors: null` na resposta suprime a snackbar de `message`.

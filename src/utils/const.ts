@@ -1,8 +1,9 @@
-import { getMetaContent } from "./helper";
+import { getMetaContentDocument } from "./core/document";
 
-export const USER: string | null = getMetaContent("auth");
-export const BASE: string | null = getMetaContent("react-base");
-export const TOKEN: string | null = getMetaContent("csrf-token");
+// Lidos uma vez, no import. Fora do navegador (SSR, testes sem DOM) ficam null.
+export const USER: string | null = getMetaContentDocument("auth");
+export const BASE: string | null = getMetaContentDocument("react-base");
+export const TOKEN: string | null = getMetaContentDocument("csrf-token");
 
 export const MES: Array<{ id: number, name: string }> = [
     { id: 1, name: "Janeiro" },

@@ -1,3 +1,5 @@
+import type { IUtilsMessageOptions } from "./message";
+
 /**
  * Retorna os tipos do arquivo <b>request.ts</b>
  *
@@ -20,4 +22,9 @@ export interface IUtilsRequestPostOptions {
      * Replace the BASE url with the absolute url provided
      */
     url?: string
+
+    /**
+     * Biblioteca da mensagem (`message`) da resposta: "snackbar" (padrão) ou "sweetAlert" (toast no canto).
+     */
+    messageLibrary?: keyof IUtilsMessageOptions
 }

@@ -1,64 +1,60 @@
 import axios from "axios";
-import { BASE, TOKEN } from "./const";
+import { getMetaContentDocument } from "./core/document";
 import { messageFieldClear, response } from "./response";
 import { IUtilsRequestPostOptions, IUtilsResponseType } from ".";
 
 /**
+ * Requisições em andamento por URL, usadas pelo `blockedToManyRequest`.
+ */
+const pending = new Map<string, number>();
+
+/**
  * Simplifica a solicitação POST HTTP usando a biblioteca axios
  */
-export function post<TypeDataResponse = IUtilsResponseType<any>>(
+export async function post<TypeDataResponse = IUtilsResponseType<any>>(
     route: string,
     body: any,
     form?: string,
     options?: IUtilsRequestPostOptions
 ): Promise<TypeDataResponse> {
-    return new Promise((resolve, reject) => {
-        let url = BASE + (route.startsWith("/") ? "" : "/") + route;
-        messageFieldClear(form);
-        handleToManyRequest(options?.url ?? url, options?.blockedToManyRequest ?? false);
-        axios<TypeDataResponse>({
-            method: "post",
-            url: options?.url ?? url,
-            headers: { "X-CSRF-TOKEN": TOKEN },
-            data: !body ? {} : body,
-        }).then(data => {
-            if (data?.data !== undefined) {
-                resolve(data.data);
-            }
-            if (typeof options?.blockedResponse !== "boolean" || options?.blockedResponse === false) {
-                response<TypeDataResponse>((data?.data as IUtilsResponseType<TypeDataResponse>), form);
-            }
-        }).catch(error => {
-            response<TypeDataResponse>(error.response?.data, form);
-            reject(error);
-        });
-    });
-}
+    const base = getMetaContentDocument("react-base") ?? "";
+    const token = getMetaContentDocument("csrf-token");
+    const url = options?.url ?? base + (route.startsWith("/") ? "" : "/") + route;
 
-/**
- * Bloqueia várias solicitações simultâneas
- */
-function handleToManyRequest(
-    url: string,
-    blocked: boolean
-): void {
-    let requestCount = 0;
-    axios.interceptors.request.use(config => {
-        requestCount = requestCount + 1;
-        if (requestCount > 1 && axios.getUri(config) === url && blocked) {
-            return Promise.reject(new Error("Requisições bloqueadas!"));
-        }
-        return config;
-    });
-    if (!blocked) {
-        axios.interceptors.request.clear();
+    messageFieldClear(form);
+    if (options?.blockedToManyRequest && (pending.get(url) ?? 0) > 0) {
+        throw new Error("Requisições bloqueadas!");
     }
 
-    axios.interceptors.response.use(response => {
-        requestCount = requestCount - 1;
-        return response;
-    }, function (error) {
-        requestCount = requestCount - 1;
-        return Promise.reject(error);
-    });
+    pending.set(url, (pending.get(url) ?? 0) + 1);
+    let data: TypeDataResponse;
+    try {
+        const result = await axios<TypeDataResponse>({
+            method: "post",
+            url,
+            headers: token ? { "X-CSRF-TOKEN": token } : undefined,
+            data: !body ? {} : body,
+        });
+        data = result.data;
+    } catch (error: any) {
+        response<TypeDataResponse>(error?.response?.data, form, options?.messageLibrary);
+        throw error;
+    } finally {
+        const count = (pending.get(url) ?? 1) - 1;
+        if (count > 0) {
+            pending.set(url, count);
+        } else {
+            pending.delete(url);
+        }
+    }
+
+    if (options?.blockedResponse !== true) {
+        try {
+            response<TypeDataResponse>((data as IUtilsResponseType<TypeDataResponse>), form, options?.messageLibrary);
+        } catch (error) {
+            // Na 2.x a promise já estava resolvida neste ponto: uma falha aqui não rejeita o post
+            console.error(error);
+        }
+    }
+    return data;
 }

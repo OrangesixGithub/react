@@ -1,6 +1,5 @@
-import $ from "jquery";
-import axios from "axios";
 import { message } from "./message";
+import * as Document from "./core/document";
 import { IUtilsHelperResponse } from ".";
 
 /**
@@ -8,84 +7,83 @@ import { IUtilsHelperResponse } from ".";
  * <meta id="???" name="???" content="your-url">
  */
 export function getMetaContent(id: string): string | null {
-    const element = document.querySelector(`meta#${id}`);
-    if (!element) {
-        return null;
-    }
-
-    const content = element.getAttribute("content");
-    if (!content) {
-        return null;
-    }
-
-    return content.replace(/\/$/, "");
+    return Document.getMetaContentDocument(id);
 }
 
 /**
  * Realiza a pesquisa do CEP na API pública "https://viacep.com.br/ws/"
+ *
+ * Usa `fetch`, e não o axios global, para não enviar os headers padrão do projeto (ex.: CSRF) a terceiros.
+ * CEP inválido, não encontrado ou falha de rede retornam o objeto vazio.
  */
-export async function getCep(value: string): Promise<IUtilsHelperResponse["gep_cep"]> {
-    let cep = value.length === 0 ? "00000000" : value.replace("-", "");
+export async function getCep(value: string): Promise<IUtilsHelperResponse["cep"]> {
+    const empty: IUtilsHelperResponse["cep"] = {
+        cep: "",
+        logradouro: "",
+        complemento: "",
+        bairro: "",
+        localidade: "",
+        uf: ""
+    };
+
+    const cep = (value ?? "").replace(/\D/g, "");
+    if (cep.length !== 8) {
+        return empty;
+    }
+
     try {
-        return await axios.get<IUtilsHelperResponse["gep_cep"]>("https://viacep.com.br/ws/" + cep + "/json/")
-            .then(data => data.data);
-    } catch (error) {
-        return new Promise((resolve) => {
-            resolve({
-                cep: "",
-                logradouro: "",
-                complemento: "",
-                bairro: "",
-                localidade: "",
-                uf: ""
-            });
-        });
+        const response = await fetch("https://viacep.com.br/ws/" + cep + "/json/");
+        if (!response.ok) {
+            return empty;
+        }
+        const data = await response.json();
+        return data?.erro ? empty : { ...empty, ...data };
+    } catch {
+        return empty;
     }
 }
 
 /**
  * Realiza a pesquisa do elemento na árvore DOM
+ *
+ * Busca no documento atual e, dentro de um iframe, também na janela pai; depois de `preloadTimeOut`,
+ * tenta dentro dos iframes. Com `all`, retorna um array com todos os elementos encontrados.
  */
 export async function getElementDOM<T>(
     element: string = "body",
     preloadTimeOut: number = 300,
     all: boolean = false
 ): Promise<T | null> {
-    return new Promise((resolve) => {
-        // @ts-ignore
-        let body = window.self === window.top ? $("body") : $(window.frameElement).parents("body");
-        if (element === "body") {
-            resolve(all ? body : body[0]);
-        }
-
-        let elementFind = body.find(element);
-        if (elementFind.length > 0) {
-            resolve(all ? elementFind : elementFind[0]);
-        } else {
-            setTimeout(() => {
-                let iframe = body.find("iframe").contents();
-                if (iframe.length === 0) {
-                    resolve(null);
-                }
-                elementFind = iframe.find(element);
-                if (elementFind.length > 0) {
-                    resolve(all ? elementFind : elementFind[0]);
-                }
-                resolve(null);
-            }, preloadTimeOut);
-        }
-    });
+    return await Document.findElementDocument(element, preloadTimeOut, all) as T | null;
 }
+
+/**
+ * Remove o listener registrado por `windowMessageEvent`, quando houver.
+ */
+let removeMessageListener: (() => void) | null = null;
 
 /**
  * Permite à comunicação de origem cruzada entre objetos do Windows.<br>
  * Exemplo: Comunicação entre iframe e corpo principal
+ *
+ * Aceita somente mensagens da mesma origem e registra um único listener, mesmo se chamada várias vezes.
+ * Retorna a função que remove o listener.
  */
-export function windowMessageEvent(): void {
-    window.addEventListener("message", function (event: MessageEvent) {
-        if (event.data?.type === "message") {
-            let data = event.data;
-            message<any>({ ...data.params });
+export function windowMessageEvent(): () => void {
+    if (removeMessageListener) {
+        return removeMessageListener;
+    }
+
+    const listener = (event: MessageEvent) => {
+        if (event.origin === window.location.origin && event.data?.type === "message") {
+            message<any>({ ...event.data.params });
         }
-    });
+    };
+    window.addEventListener("message", listener);
+
+    removeMessageListener = () => {
+        window.removeEventListener("message", listener);
+        removeMessageListener = null;
+    };
+    return removeMessageListener;
 }

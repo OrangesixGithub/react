@@ -53,7 +53,7 @@ src/<componente>/
 - O nome da pasta é minúsculo, sem hífen, e é o nome público do import (`@orangesix/<pasta>`).
 - Mantenha classes e decisões de estilo em `variants.ts`, usando `tv` de `tailwind-variants`; o componente apenas
   seleciona as variantes e renderiza o resultado.
-- Estilos compartilhados ficam em `src/style/mixins/field.css`, nas classes `os-field` e `os-field-invalid`.
+- Estilos compartilhados ficam em `src/style/mixins/field.css`, nas classes `os-field`, `os-field-invalid` e `os-field-valid` (borda verde aplicada pelo `response()` do utils, com os tokens `--color-valid`/`--color-valid-ring` de `theme.css`, sobrescrevíveis por `--os-field-valid-border`/`--os-field-valid-ring`).
   As regras de foco, erro e estados nativos
   desabilitado/somente leitura ficam em `mixins/field.css`, na camada `components`, antes dos utilitários.
   As classes `os-input` e `os-textarea`, definidas em `style/components/`, conectam as variáveis internas
@@ -304,4 +304,4 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | tabview      | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-tabview-*`); aguarda validação visual pelo dono; fora do build |
 | textarea     | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-textarea-*` com fallback para Input); aguarda validação visual pelo dono; fora do build |
 | tooltip      | PrimeReact 10.9.9 unstyled com Tailwind (tokens `--color-tooltip-*`), conteúdo React, alvo direto e transições `zoom`/`fade`/`slide`; aguarda validação visual pelo dono; fora do build |
-| utils        | pendente                                                                                    |
+| utils        | sem jQuery; `post`/`response` com feedback 3.x e 2.x, `field` (`messageType`/`disabled`), sem interceptors globais; snackbar em card (tokens `--color-snackbar-*`, CSS da node-snackbar no style.css) com HTML escapado; toast do SweetAlert no mesmo card (`post` com `messageLibrary: "sweetAlert"`, estilos em `style/components/sweetalert.css`); `windowMessageEvent`/`sendMessage` só na mesma origem; `redirect` só http(s); `handle*` e `getCep` corrigidos; tipos publicados válidos com `skipLibCheck: false`; DOM em `core/document.ts`; `modal` ainda ignorado; aguarda validação pelo dono (mudanças de comportamento em [compatibilidade.md](compatibilidade.md)) |

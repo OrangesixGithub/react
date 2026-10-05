@@ -14,18 +14,42 @@ export function handleNumber(
     format: "money" | "decimal" = "decimal",
     decimals: number = 2
 ): string {
-    let value = valor.replace(/[^0-9.,]/g, "");
-    if (format === "decimal") {
-        if (value.length > 0) {
-            return parseFloat(value.replace(",", ".").replace(/(\..*)\./g, "$1")).toFixed(decimals);
-        }
+    const number = parseNumber(valor);
+    if (number === null) {
         return "";
     }
-    return parseFloat(value.replace(",", "."))
-        .toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        }).replace(".", " ");
+    if (format === "decimal") {
+        return number.toFixed(decimals);
+    }
+    return number.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+/**
+ * Converte o texto em número aceitando o formato BR ("1.234,56") e o do banco ("1234.56").
+ * - Com vírgula: os pontos são separadores de milhar e a última vírgula é a decimal.
+ * - Sem vírgula: um único ponto é decimal; vários pontos são separadores de milhar ("1.234.567").
+ * Retorna `null` quando não há número.
+ */
+function parseNumber(valor: string): number | null {
+    const text = String(valor ?? "").trim();
+    const negative = text.startsWith("-");
+    let value = text.replace(/[^0-9.,]/g, "");
+
+    if (value.includes(",")) {
+        const last = value.lastIndexOf(",");
+        value = value.slice(0, last).replace(/[.,]/g, "") + "." + value.slice(last + 1).replace(/[.,]/g, "");
+    } else if ((value.match(/\./g) ?? []).length > 1) {
+        value = value.replace(/\./g, "");
+    }
+
+    const number = parseFloat(value);
+    if (Number.isNaN(number)) {
+        return null;
+    }
+    return negative ? -number : number;
 }
 
 /**
@@ -35,21 +59,17 @@ export function handleNumber(
  * @returns O valor formatado como string no formato de horas.
  */
 export function handleHours(valor: string): string {
-    let value = valor.replace(/[^\d.]/g, "");
-    const parts = value.split(".");
-    if (parts.length > 1) {
-        parts[1] = parts[1].substring(0, 2);
+    const [whole, fraction] = String(valor ?? "").replace(/[^\d.]/g, "").split(".");
+
+    // "8.30" / "8.3": o ponto separa horas e minutos (minutos sempre com 2 dígitos)
+    if (fraction !== undefined) {
+        return `${(whole || "0").padStart(2, "0")}:${fraction.substring(0, 2).padEnd(2, "0")}`;
     }
-    value = parts.join(".");
-    if (value.length > 2) {
-        value = value.substring(0, value.length - 2) + ":" + value.substring(value.length - 2);
-    } else {
-        value = value + ":00";
+    // "830" -> 08:30; "8" -> 08:00
+    if (whole.length > 2) {
+        return `${whole.slice(0, -2).padStart(2, "0")}:${whole.slice(-2)}`;
     }
-    let hours = value.replace(".", "");
-    let hoursParts = hours.split(":");
-    hoursParts[0] = hoursParts[0].padStart(2, "0");
-    return `${hoursParts[0]}:${hoursParts[1]}`;
+    return `${whole.padStart(2, "0")}:00`;
 }
 
 /**
@@ -85,7 +105,8 @@ export function handleDateFormat(
         if (pattern.includes("HH") || pattern.includes("mm") || pattern.includes("ss")) {
             const [datePart, timePart] = date.split(/[T ]/);
             const [year, month, day] = datePart.split("-").map(Number);
-            const [hour, minute, second] = timePart ? timePart.split(":").map(Number) : [0, 0];
+            // parseInt aceita "00.000000Z" (timestamps do Laravel); sem hora, usa 00:00:00
+            const [hour = 0, minute = 0, second = 0] = timePart ? timePart.split(":").map(part => parseInt(part, 10) || 0) : [];
 
             formattedDate = new Date(year, month - 1, day, hour, minute, second);
         } else {

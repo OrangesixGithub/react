@@ -1,0 +1,62 @@
+@theme static {
+    --color-snackbar-text: var(--color-neutral-600);
+
+    --color-snackbar-success-title: var(--color-green-700);
+    --color-snackbar-success-background: var(--color-green-50);
+    --color-snackbar-success-border: var(--color-green-200);
+
+    --color-snackbar-warning-title: var(--color-amber-700);
+    --color-snackbar-warning-background: var(--color-amber-50);
+    --color-snackbar-warning-border: var(--color-amber-200);
+
+    --color-snackbar-error-title: var(--color-red-700);
+    --color-snackbar-error-background: var(--color-red-50);
+    --color-snackbar-error-border: var(--color-red-200);
+
+    --color-snackbar-info-title: var(--color-blue-700);
+    --color-snackbar-info-background: var(--color-blue-50);
+    --color-snackbar-info-border: var(--color-blue-200);
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-snackbar-text: var(--color-neutral-300);
+
+        --color-snackbar-success-title: var(--color-green-400);
+        --color-snackbar-success-background: color-mix(in oklab, var(--color-green-500) 14%, var(--color-neutral-900));
+        --color-snackbar-success-border: color-mix(in oklab, var(--color-green-500) 22%, var(--color-neutral-900));
+
+        --color-snackbar-warning-title: var(--color-amber-400);
+        --color-snackbar-warning-background: color-mix(in oklab, var(--color-amber-500) 14%, var(--color-neutral-900));
+        --color-snackbar-warning-border: color-mix(in oklab, var(--color-amber-500) 22%, var(--color-neutral-900));
+
+        --color-snackbar-error-title: var(--color-red-400);
+        --color-snackbar-error-background: color-mix(in oklab, var(--color-red-500) 14%, var(--color-neutral-900));
+        --color-snackbar-error-border: color-mix(in oklab, var(--color-red-500) 22%, var(--color-neutral-900));
+
+        --color-snackbar-info-title: var(--color-blue-400);
+        --color-snackbar-info-background: color-mix(in oklab, var(--color-blue-500) 14%, var(--color-neutral-900));
+        --color-snackbar-info-border: color-mix(in oklab, var(--color-blue-500) 22%, var(--color-neutral-900));
+    }
+}
+
+@layer components {
+
+    /* Contêiner da node-snackbar: o card (variants do utils) desenha fundo, borda e sombra */
+    .snackbar-container.os-snackbar {
+        @apply m-4 min-h-0 p-0 shadow-none;
+        background: transparent;
+        font-family: inherit;
+    }
+
+    /* A node-snackbar grava `width: auto` inline; no desktop o card tem largura fixa */
+    @media (min-width: 640px) {
+        .snackbar-container.os-snackbar {
+            @apply w-96! max-w-[calc(100vw-2rem)] min-w-0;
+        }
+    }
+
+    .snackbar-container.os-snackbar > p {
+        @apply w-full;
+    }
+}

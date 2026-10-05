@@ -45,4 +45,13 @@
     .os-field.os-field-invalid[aria-expanded="true"] {
         @apply border-[color:var(--os-field-invalid-border)] ring-[var(--os-field-invalid-ring)];
     }
+
+    .os-field-valid {
+        @apply border-[color:var(--os-field-valid-border,var(--color-valid))] focus:border-[color:var(--os-field-valid-border,var(--color-valid))]
+        focus:ring-[var(--os-field-valid-ring,var(--color-valid-ring))];
+    }
+
+    .os-field-group.os-field-valid {
+        @apply focus-within:border-[color:var(--os-field-valid-border,var(--color-valid))] focus-within:ring-[var(--os-field-valid-ring,var(--color-valid-ring))];
+    }
 }

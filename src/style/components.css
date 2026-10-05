@@ -17,4 +17,6 @@
 @import "./components/picklist.css";
 @import "./components/pdf.css";
 @import "./components/tooltip.css";
+@import "./components/snackbar.css";
+@import "./components/sweetalert.css";
 @import "./components/table.css";

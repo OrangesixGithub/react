@@ -25,6 +25,8 @@
     --color-focus-ring: color-mix(in oklab, var(--color-primary-500) 10%, transparent);
     --color-invalid: var(--color-red-500);
     --color-invalid-ring: color-mix(in oklab, var(--color-red-500) 20%, transparent);
+    --color-valid: var(--color-green-600);
+    --color-valid-ring: color-mix(in oklab, var(--color-green-600) 20%, transparent);
     --color-required: var(--color-red-600);
     --color-error: var(--color-red-600);
     --color-scrollbar-thumb: var(--color-border);
@@ -44,6 +46,8 @@
         --color-focus-ring: color-mix(in oklab, var(--color-primary-500) 35%, transparent);
         --color-invalid: var(--color-red-400);
         --color-invalid-ring: color-mix(in oklab, var(--color-red-400) 25%, transparent);
+        --color-valid: var(--color-green-400);
+        --color-valid-ring: color-mix(in oklab, var(--color-green-400) 25%, transparent);
         --color-error: var(--color-red-400);
         --color-scrollbar-thumb: var(--color-border);
         --color-scrollbar-track: transparent;

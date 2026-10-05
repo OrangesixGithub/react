@@ -1,0 +1,50 @@
+/*
+ * Toast do SweetAlert no tema da Orange Six (message com library "sweetAlert" e type "toast").
+ * O conteúdo é o mesmo card da snackbar (variants do utils, tokens --color-snackbar-*).
+ *
+ * Fora de @layer de propósito: o sweetalert2 injeta o próprio CSS sem camada, que venceria qualquer regra em camada.
+ */
+
+body.swal2-toast-shown .swal2-container:has(.os-swal-toast) {
+    width: 24rem;
+    max-width: calc(100vw - 2rem);
+    margin: 1rem;
+    padding: 0;
+}
+
+.swal2-container .swal2-popup.swal2-toast.os-swal-toast {
+    --swal2-background: transparent;
+    --swal2-toast-border: none;
+    --swal2-toast-box-shadow: none;
+    display: block;
+    padding: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.swal2-container .swal2-popup.swal2-toast.os-swal-toast .swal2-html-container {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    text-align: left;
+}
+
+.swal2-container .swal2-popup.os-swal-toast .swal2-timer-progress-bar-container {
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.swal2-container .swal2-popup.os-swal-success {
+    --swal2-timer-progress-bar-background: var(--color-snackbar-success-title);
+}
+
+.swal2-container .swal2-popup.os-swal-warning {
+    --swal2-timer-progress-bar-background: var(--color-snackbar-warning-title);
+}
+
+.swal2-container .swal2-popup.os-swal-error {
+    --swal2-timer-progress-bar-background: var(--color-snackbar-error-title);
+}
+
+.swal2-container .swal2-popup.os-swal-info {
+    --swal2-timer-progress-bar-background: var(--color-snackbar-info-title);
+}

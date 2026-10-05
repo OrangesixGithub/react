@@ -1,14 +1,26 @@
-import $ from "jquery";
 import { sendMessage } from "./message";
-import { getElementDOM } from "./helper";
-import { IUtilsResponseType, IUtilsResponseError } from ".";
+import * as Document from "./core/document";
+import { responseVariants } from "./variants";
+import { IUtilsMessageOptions, IUtilsResponseType, IUtilsResponseError, IUtilsResponseField } from ".";
+
+/**
+ * Atributo que identifica o que foi marcado pelo `response()`, para limpar só o que foi aplicado aqui.
+ */
+const MARK = "data-os-response";
+
+/**
+ * Classes do padrão 2.x (Bootstrap), mantidas para as telas que ainda não foram migradas.
+ */
+const LEGACY_CONTROL = ["is-invalid", "is-valid", "p-invalid"];
+const LEGACY_FEEDBACK = ["invalid-feedback", "valid-feedback"];
 
 /**
  * Realizei o gerenciamento do objeto de resposta
  */
 export function response<Type>(
     response: IUtilsResponseType<Type>,
-    form: string = ""
+    form: string = "",
+    library: keyof IUtilsMessageOptions = "snackbar"
 ): void {
     let data: IUtilsResponseType<Type> = response;
     if (!data) {
@@ -16,22 +28,52 @@ export function response<Type>(
     }
 
     if (data.redirect) {
-        window.location.href = data.redirect;
+        // Só http(s) e caminhos relativos: bloqueia "javascript:" e afins
+        Document.redirectDocument(data.redirect);
     }
 
     if (data.errors) {
-        messageField(data.errors, form.length === 0 ? "" : form);
+        messageField(data.errors, form);
     }
 
     if (data.accept) {
-        messageField(data.accept, form.length === 0 ? "" : form, "is-valid");
+        messageField(data.accept, form, "is-valid");
+    }
+
+    if (data.field) {
+        messageFieldResponse(data.field, form);
     }
 
     if (data.message && data?.errors === undefined) {
-        sendMessage<"snackbar">({
+        // SweetAlert aparece como toast no canto (mesmo card da snackbar)
+        sendMessage({
             message: { ...data.message },
-            type: "message",
-            library: "snackbar"
+            type: library === "sweetAlert" ? "toast" : "message",
+            library
+        });
+    }
+}
+
+/**
+ * Aplica o retorno `field`: mensagem no campo conforme `messageType` e, se informado, `disabled`.
+ */
+function messageFieldResponse(
+    field: IUtilsResponseField,
+    form: string = ""
+): void {
+    const message = typeof field.message === "string"
+        ? { [field.field]: [field.message] }
+        : field.message;
+
+    if (message) {
+        messageField(message, form, field.messageType === "is-valid" ? "is-valid" : "is-invalid");
+    }
+
+    if (typeof field.disabled === "boolean" && form.length > 0) {
+        Document.findFormDocument(form).then(formulario => {
+            if (formulario !== null) {
+                Document.disabledFieldDocument(formulario, field.field, field.disabled as boolean);
+            }
         });
     }
 }
@@ -44,85 +86,72 @@ export function messageField(
     form: string = "",
     type: string = "is-invalid"
 ): void {
-    if (form.length > 0) {
-        getElementDOM<HTMLFormElement>("#" + form)
-            .then(formulario => {
-                if (formulario === null) {
-                    return;
+    if (form.length === 0) {
+        return;
+    }
+
+    Document.findFormDocument(form).then(formulario => {
+        if (formulario === null) {
+            return;
+        }
+
+        const invalid = type === "is-invalid";
+        const styles = responseVariants({ type: invalid ? "is-invalid" : "is-valid" });
+        const opposite = responseVariants({ type: invalid ? "is-valid" : "is-invalid" });
+
+        Object.entries(data).forEach(([key, value]) => {
+            const name = CSS.escape(key);
+            const feedbacks = formulario.querySelectorAll<HTMLElement>(
+                `#j_feedback[data-name="${name}"], [id$="-feedback"][data-name="${name}"]`
+            );
+
+            // Campos do formulário (input, select, textarea) e os controles ligados ao feedback (aria-describedby)
+            const controls = new Set<Element>(formulario.querySelectorAll(`[name="${name}"]:not([type="hidden"])`));
+            feedbacks.forEach(feedback => {
+                if (feedback.id && feedback.id !== "j_feedback") {
+                    formulario.querySelectorAll(`[aria-describedby~="${CSS.escape(feedback.id)}"]`)
+                        .forEach(control => controls.add(control));
+                }
+            });
+
+            controls.forEach(control => {
+                control.classList.add(type);
+                Document.removeClassesDocument(control, opposite.control());
+                Document.addClassesDocument(control, styles.control());
+                if (invalid) {
+                    control.setAttribute("aria-invalid", "true");
+                } else {
+                    control.removeAttribute("aria-invalid");
+                }
+                control.setAttribute(MARK, "");
+            });
+
+            feedbacks.forEach(feedback => {
+                Document.setLinesDocument(feedback, Array.isArray(value) ? value : [String(value)]);
+                if (feedback.id === "j_feedback") {
+                    feedback.classList.add(type, invalid ? "invalid-feedback" : "valid-feedback");
+                    feedback.classList.remove(invalid ? "valid-feedback" : "invalid-feedback");
+                } else {
+                    Document.addClassesDocument(feedback, styles.feedback());
+                    feedback.setAttribute(MARK, "");
                 }
 
-                let form = $(formulario);
-                let validationFeedbackClass: string = type === "is-invalid" ? "invalid-feedback" : "valid-feedback";
-                let removeValidationFeedbackClass: string = type === "is-invalid" ? "is-valid" : "is-invalid";
+                // Destaca a aba (TabView) que contém o campo, quando ela não está selecionada
+                if (invalid) {
+                    const tab = Document.findTabDocument(formulario, feedback);
+                    if (tab) {
+                        Document.addClassesDocument(tab, styles.tab());
+                        tab.setAttribute(MARK, "");
 
-                $.each(data, (key: string, value) => {
-                    let text = "";
-                    value.forEach(value => text += value + "<br>");
-
-                    form.find("input[name='" + key + "']")
-                        .addClass(type)
-                        .parent()
-                        .find("#j_feedback[data-name='" + key + "']")
-                        .addClass(validationFeedbackClass)
-                        .removeClass(removeValidationFeedbackClass)
-                        .html(text);
-
-                    form.find("input[name='" + key + "']")
-                        .addClass(type)
-                        .parent()
-                        .parent()
-                        .find("#j_feedback[data-name='" + key + "']")
-                        .addClass(validationFeedbackClass)
-                        .removeClass(removeValidationFeedbackClass)
-                        .html(text);
-
-                    form.find("input[name='" + key + "']")
-                        .addClass(type)
-                        .parent()
-                        .parent()
-                        .parent()
-                        .find("#j_feedback[data-name='" + key + "']")
-                        .addClass(validationFeedbackClass)
-                        .removeClass(removeValidationFeedbackClass)
-                        .html(text);
-
-                    form.find("select[name='" + key + "']")
-                        .addClass(type)
-                        .parent()
-                        .find("#j_feedback[data-name='" + key + "']")
-                        .addClass(validationFeedbackClass)
-                        .removeClass(removeValidationFeedbackClass)
-                        .html(text);
-
-                    form.find("textarea[name='" + key + "']")
-                        .addClass(type)
-                        .parent()
-                        .find("#j_feedback[data-name='" + key + "']")
-                        .addClass(validationFeedbackClass)
-                        .removeClass(removeValidationFeedbackClass)
-                        .html(text);
-
-                    form.find("#j_feedback[data-name='" + key + "']")
-                        .addClass(type)
-                        .html(text);
-                });
-
-                //Realiza a resposta por TABVIEW
-                form.find("#j_feedback." + type).each(function (_, element) {
-                    let tabResponseId = ($(element)
-                        .closest("[class^='p-tabview-response-'], [class*=' p-tabview-response-']")
-                        .attr("class"))?.split(/\s+/)
-                        .find(value => value.startsWith("p-tabview-response-")) ?? null;
-                    let tabResponse = form.find(".p-tabview-nav")
-                        .find("." + tabResponseId)
-                        .not(".p-tabview-selected")
-                        .first();
-                    if (tabResponse.length > 0) {
-                        tabResponse.addClass(type);
+                        // 2.x: a classe ficava no <li> do cabeçalho
+                        const header = tab.closest("li") ?? tab;
+                        header.classList.add(type);
+                        header.setAttribute(MARK, "");
                     }
-                });
+                }
             });
-    }
+        });
+    });
 }
 
 /**
@@ -131,68 +160,42 @@ export function messageField(
 export function messageFieldClear(
     form: string = ""
 ): void {
-    if (form.length > 0) {
-        getElementDOM<HTMLFormElement>("#" + form)
-            .then(formulario => {
-                if (formulario === null) {
-                    return;
-                }
-
-                let form = $(formulario);
-                let validationClass: string[] = ["is-invalid", "is-valid", "p-invalid"];
-                let validationFeedbackClass: string[] = ["invalid-feedback", "valid-feedback"];
-
-                $.each(form.find("input"), function () {
-                    $(this)
-                        .removeClass(validationClass)
-                        .parent()
-                        .find("#j_feedback")
-                        .removeClass(validationFeedbackClass)
-                        .html("");
-
-                    $(this)
-                        .removeClass(validationClass)
-                        .parent()
-                        .parent()
-                        .find("#j_feedback")
-                        .removeClass(validationFeedbackClass)
-                        .html("");
-
-                    $(this)
-                        .removeClass(validationClass)
-                        .parent()
-                        .parent()
-                        .parent()
-                        .find("#j_feedback")
-                        .removeClass(validationFeedbackClass)
-                        .html("");
-                });
-
-                $.each(form.find("select"), function () {
-                    $(this)
-                        .removeClass(validationClass)
-                        .parent()
-                        .find("#j_feedback")
-                        .removeClass(validationFeedbackClass)
-                        .html("");
-                });
-
-                $.each(form.find("textarea"), function () {
-                    $(this)
-                        .removeClass(validationClass)
-                        .parent()
-                        .find("#j_feedback")
-                        .removeClass(validationFeedbackClass)
-                        .html("");
-                });
-
-                $.each(form.find("#j_feedback"), function () {
-                    $(this).removeClass(validationClass).html("");
-                });
-
-                $.each(form.find(".p-tabview-nav"), function () {
-                    $(this).find(".is-invalid").removeClass(validationClass);
-                });
-            });
+    if (form.length === 0) {
+        return;
     }
+
+    Document.findFormDocument(form).then(formulario => {
+        if (formulario === null) {
+            return;
+        }
+
+        const styles = [
+            responseVariants({ type: "is-invalid" }),
+            responseVariants({ type: "is-valid" }),
+        ];
+
+        formulario.querySelectorAll("input, select, textarea").forEach(control => {
+            control.classList.remove(...LEGACY_CONTROL);
+        });
+
+        formulario.querySelectorAll<HTMLElement>("#j_feedback").forEach(feedback => {
+            feedback.classList.remove(...LEGACY_CONTROL, ...LEGACY_FEEDBACK);
+            feedback.replaceChildren();
+        });
+
+        formulario.querySelectorAll<HTMLElement>(`[${MARK}]`).forEach(element => {
+            styles.forEach(style => {
+                Document.removeClassesDocument(element, style.control());
+                Document.removeClassesDocument(element, style.feedback());
+                Document.removeClassesDocument(element, style.tab());
+            });
+            element.classList.remove(...LEGACY_CONTROL);
+            if (element.id.endsWith("-feedback")) {
+                element.replaceChildren();
+            } else {
+                element.removeAttribute("aria-invalid");
+            }
+            element.removeAttribute(MARK);
+        });
+    });
 }

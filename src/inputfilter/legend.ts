@@ -1,4 +1,4 @@
-import { MES } from "../utils";
+import { MES } from "../utils/const";
 import { optionsLabel } from "./const";
 
 /**
