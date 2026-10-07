@@ -6,9 +6,11 @@ export const radioVariants = tv({
         group: "flex w-full flex-wrap gap-3",
         option: "flex items-center gap-2",
         label: "cursor-pointer text-sm text-radio-text",
-        input: "m-0 h-5 w-5 shrink-0 appearance-none cursor-pointer rounded-full border border-radio-border bg-radio-background " +
-            "outline-none transition-colors focus-visible:border-radio-focus focus-visible:ring-3 focus-visible:ring-radio-focus-ring " +
+        input: [
+            "m-0 h-5 w-5 shrink-0 appearance-none cursor-pointer rounded-full border border-radio-border bg-radio-background",
+            "outline-none transition-colors focus-visible:border-radio-focus focus-visible:ring-3 focus-visible:ring-radio-focus-ring",
             "forced-colors:appearance-auto",
+        ],
     },
     variants: {
         size: {

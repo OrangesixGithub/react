@@ -4,8 +4,10 @@ import { tv } from "tailwind-variants";
 export const selectVariants = tv({
     slots: {
         wrapper: "group relative w-full min-w-0",
-        root: "os-field os-select block box-border w-full min-w-0 h-10 appearance-none pr-10 " +
+        root: [
+            "os-field os-select block box-border w-full min-w-0 h-10 appearance-none pr-10",
             "font-[inherit] text-base leading-normal",
+        ],
         icon: "pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm leading-none text-select-icon transition-colors group-focus-within:text-select-focus-border",
         option: "bg-select-option-background text-select-text disabled:text-select-disabled-text",
     },

@@ -62,12 +62,14 @@ export function ModalMessage({ confirm = true, cancel = true, ...props }: Messag
                 {confirm && <Button
                     className={styles.confirm()}
                     color="primary"
+                    icon={props.confirmIcon}
                     isLoading={props.isLoading ?? false}
                     label={props.confirmLabel ?? "Confirmar"}
                     onClick={() => props.onConfirm?.()}/>}
                 {cancel && <Button
                     className={styles.cancel()}
                     color="secondary"
+                    icon={props.cancelIcon}
                     label={props.cancelarLabel ?? "Cancelar"}
                     onClick={() => {
                         if (props.onCancel) {

@@ -118,7 +118,7 @@ A publicação é disparada **somente por push nas branches `master` e `beta`**.
 
 | Branch | Versão exigida | NPM dist-tag | GitHub |
 |---|---|---|---|
-| `beta` | com sufixo (`3.0.0-beta.2`) | `beta` | tag + pré-release |
+| `beta` | com sufixo (`3.0.0-beta.2`) | `beta` | sem tag e sem release |
 | `master` | final (`3.0.0`) | `latest` | tag + release |
 
 Para publicar:
@@ -126,10 +126,15 @@ Para publicar:
 2. Leve o commit para `beta` ou `master` (merge/push).
 
 O workflow então:
-- **valida a versão para a branch** e falha se `master` tiver sufixo ou se `beta` não tiver;
-- **pula tudo se a versão já estiver publicada no NPM**. Um push sem mudar a versão não publica e não dá erro;
+- **valida a versão para a branch** e falha se `master` tiver sufixo ou se `beta` não tiver sufixo `-beta.`;
+- **pula a publicação se a versão já estiver publicada no NPM**. Na `beta`, ainda executa a limpeza, permitindo repetir uma remoção que falhou;
 - instala com `npm ci`, roda `lint` e `build`;
 - publica o `dist/` no NPM com o dist-tag da branch;
-- cria a tag `<versão>` e o release no GitHub.
+- somente na `master`, cria a tag `<versão>` e o release final no GitHub;
+- na `beta`, remove as betas anteriores do NPM após a publicação, sem criar tag Git nem release no GitHub.
 
-Não crie tags de versão manualmente: o workflow cria.
+A regra do pacote é manter **apenas uma versão beta** no NPM. A limpeza preserva a versão atual e remove somente versões com identificador de pré-release `beta`, inclusive de outras versões-base; versões finais e outros canais são preservados. Antes de remover, confirma que a beta atual existe no registry e que o dist-tag `beta` aponta para ela. Se a publicação falhar, a limpeza não executa.
+
+A remoção usa `npm unpublish <pacote>@<versão>` e depende das permissões do `NPM_TOKEN` e da [política de unpublish do npm](https://docs.npmjs.com/policies/unpublish/). Se alguma remoção for recusada, o workflow falha informando as versões restantes, mas mantém a nova beta publicada. A exclusão é definitiva e o número da versão removida não pode ser reutilizado.
+
+Não crie tags de versão manualmente: o workflow cria as tags das versões finais na `master`.

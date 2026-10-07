@@ -47,9 +47,19 @@ interface MessageBaseProps {
     confirmLabel?: string
 
     /**
+     * Nome do ícone do botão de confirmação, sem o prefixo `bi bi-`. Sem ícone por padrão.
+     */
+    confirmIcon?: string
+
+    /**
      * Define o label do botão de cancelar
      */
     cancelarLabel?: string
+
+    /**
+     * Nome do ícone do botão de cancelar, sem o prefixo `bi bi-`. Sem ícone por padrão.
+     */
+    cancelIcon?: string
 
     /**
      * Define o metodo de confirmação

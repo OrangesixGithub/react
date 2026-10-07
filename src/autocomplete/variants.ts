@@ -5,8 +5,10 @@ export const autocompleteVariants = tv({
     slots: {
         root: "relative inline-flex w-full min-w-0",
         input: "os-field os-input box-border w-full min-w-0",
-        panel: "absolute z-50 min-w-full overflow-hidden rounded-lg border border-autocomplete-border " +
+        panel: [
+            "absolute z-50 min-w-full overflow-hidden rounded-lg border border-autocomplete-border",
             "bg-autocomplete-panel-background text-autocomplete-text shadow-lg",
+        ],
         list: "m-0 max-h-60 list-none overflow-y-auto p-1 scrollbar-themed",
         item: "os-list-item os-autocomplete-item",
         emptyMessage: "px-3 py-2 text-sm text-input-placeholder",

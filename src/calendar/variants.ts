@@ -6,8 +6,10 @@ const button = tv({
 });
 
 const cell = tv({
-    base: "os-button font-normal rounded-lg p-2 text-xs outline-none hover:bg-input-readonly-background " +
+    base: [
+        "os-button font-normal rounded-lg p-2 text-xs outline-none hover:bg-input-readonly-background",
         "os-button-focus",
+    ],
     variants: {
         selected: { true: "bg-primary-500 text-white hover:bg-primary-600" },
         today: { true: "ring-1 ring-primary-500" },

@@ -4,11 +4,13 @@ import { tv } from "tailwind-variants";
 export const switchVariants = tv({
     slots: {
         wrapper: "flex w-full items-center gap-2",
-        input: "m-0 h-6 w-11 shrink-0 appearance-none cursor-pointer rounded-full border border-switch-border bg-switch-background " +
-            "bg-[radial-gradient(circle,var(--color-switch-thumb)_0_55%,transparent_60%)] bg-size-[22px_22px] bg-left bg-no-repeat " +
-            "outline-none transition-[background-position,background-color,border-color] duration-150 " +
-            "focus-visible:border-switch-focus focus-visible:ring-3 focus-visible:ring-switch-focus-ring " +
+        input: [
+            "m-0 h-6 w-11 shrink-0 appearance-none cursor-pointer rounded-full border border-switch-border bg-switch-background",
+            "bg-[radial-gradient(circle,var(--color-switch-thumb)_0_55%,transparent_60%)] bg-size-[22px_22px] bg-left bg-no-repeat",
+            "outline-none transition-[background-position,background-color,border-color] duration-150",
+            "focus-visible:border-switch-focus focus-visible:ring-3 focus-visible:ring-switch-focus-ring",
             "forced-colors:appearance-auto",
+        ],
         legend: "cursor-pointer text-sm text-switch-text",
     },
     variants: {

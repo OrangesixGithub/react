@@ -13,8 +13,10 @@ export const multiselectVariants = tv({
         removeTokenIcon: "os-button os-chip-remove",
         trigger: "flex w-10 shrink-0 items-center justify-center text-multiselect-placeholder",
         triggerIcon: "text-sm",
-        panel: "os-panel os-multiselect-panel absolute z-50 min-w-full text-base " +
+        panel: [
+            "os-panel os-multiselect-panel absolute z-50 min-w-full text-base",
             "[color-scheme:var(--multiselect-color-scheme)] [&_[data-p-hidden-focusable=true]]:sr-only",
+        ],
         header: "os-panel-header gap-3",
         headerCheckboxContainer: "flex shrink-0 items-center gap-2",
         headerSelectAllLabel: "cursor-pointer text-sm text-multiselect-header-text",
@@ -23,13 +25,17 @@ export const multiselectVariants = tv({
         filterContainer: "relative min-w-0 flex-1",
         filterInput: "os-field os-multiselect-filter box-border w-full rounded-md py-1.5 pl-3 pr-8 text-sm",
         filterIcon: "pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-multiselect-placeholder",
-        closeButton: "os-button font-normal flex h-4 w-4 text-xs shrink-0 rounded-md border-0 bg-transparent " +
-            "text-multiselect-text hover:bg-multiselect-item-hover os-button-focus " +
+        closeButton: [
+            "os-button font-normal flex h-4 w-4 text-xs shrink-0 rounded-md border-0 bg-transparent",
+            "text-multiselect-text hover:bg-multiselect-item-hover os-button-focus",
             "focus-visible:ring-multiselect-focus-ring",
+        ],
         wrapper: "overflow-x-hidden overflow-y-auto scrollbar-themed",
         list: "m-0 flex list-none flex-col gap-1 p-1",
-        item: "os-list-item os-multiselect-item flex items-center gap-2 " +
+        item: [
+            "os-list-item os-multiselect-item flex items-center gap-2",
             "data-[p-disabled=true]:cursor-not-allowed data-[p-disabled=true]:opacity-50",
+        ],
         checkboxContainer: "flex shrink-0 items-center",
         emptyMessage: "px-3 py-2 text-sm text-multiselect-placeholder",
     },

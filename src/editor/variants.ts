@@ -5,22 +5,26 @@ export const editorVariants = tv({
     slots: {
         root: "os-field os-field-group os-editor w-full min-w-0 p-0",
         content: "min-w-0 overflow-x-auto scrollbar-themed",
-        editable: "w-full min-w-0 box-border px-3 py-1 outline-none whitespace-pre-wrap break-words " +
-            "[&_p]:my-2 [&_h1]:my-3 [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:my-3 [&_h2]:text-2xl [&_h2]:font-bold " +
-            "[&_h3]:my-2 [&_h3]:text-xl [&_h3]:font-bold [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 " +
-            "[&_blockquote]:border-l-4 [&_blockquote]:border-editor-border [&_blockquote]:pl-3 " +
-            "[&_a]:text-primary-500 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto " +
-            "[&_code]:rounded [&_code]:bg-editor-hover [&_code]:px-1 [&_pre]:overflow-x-auto [&_pre]:rounded [&_pre]:bg-editor-hover [&_pre]:p-3 " +
-            "[&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_table]:my-3 " +
-            "[&_td]:relative [&_td]:border [&_td]:border-editor-border [&_td]:p-2 [&_td]:align-top " +
-            "[&_th]:relative [&_th]:border [&_th]:border-editor-border [&_th]:bg-editor-hover [&_th]:p-2 [&_th]:font-bold " +
-            "[&_.selectedCell]:bg-editor-active " +
+        editable: [
+            "w-full min-w-0 box-border px-3 py-1 outline-none whitespace-pre-wrap break-words",
+            "[&_p]:my-2 [&_h1]:my-3 [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:my-3 [&_h2]:text-2xl [&_h2]:font-bold",
+            "[&_h3]:my-2 [&_h3]:text-xl [&_h3]:font-bold [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6",
+            "[&_blockquote]:border-l-4 [&_blockquote]:border-editor-border [&_blockquote]:pl-3",
+            "[&_a]:text-primary-500 [&_a]:underline [&_img]:max-w-full [&_img]:h-auto",
+            "[&_code]:rounded [&_code]:bg-editor-hover [&_code]:px-1 [&_pre]:overflow-x-auto [&_pre]:rounded [&_pre]:bg-editor-hover [&_pre]:p-3",
+            "[&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_table]:my-3",
+            "[&_td]:relative [&_td]:border [&_td]:border-editor-border [&_td]:p-2 [&_td]:align-top",
+            "[&_th]:relative [&_th]:border [&_th]:border-editor-border [&_th]:bg-editor-hover [&_th]:p-2 [&_th]:font-bold",
+            "[&_.selectedCell]:bg-editor-active",
             "[&_hr]:border-editor-border [&_strong]:font-bold [&_em]:italic [&_s]:line-through",
+        ],
         toolbar: "flex flex-wrap items-center gap-1 border-b border-editor-border bg-editor-toolbar-background py-1 px-2",
         group: "flex flex-wrap items-center gap-1",
-        button: "os-button font-normal h-6 min-w-6 rounded-md border-0 bg-transparent " +
-            "text-sm text-editor-text hover:bg-editor-hover os-button-focus focus-visible:ring-editor-focus-ring " +
+        button: [
+            "os-button font-normal h-6 min-w-6 rounded-md border-0 bg-transparent",
+            "text-sm text-editor-text hover:bg-editor-hover os-button-focus focus-visible:ring-editor-focus-ring",
             "aria-pressed:bg-editor-active aria-pressed:text-editor-active-text",
+        ],
         tablePicker: "relative inline-flex",
         tablePanel: "absolute right-0 top-full z-50 mt-1 w-56 max-w-[calc(100vw-3rem)] rounded-lg border border-editor-border bg-editor-panel-background p-3 text-editor-text shadow-lg",
         tableGrid: "grid grid-cols-8 gap-1",
