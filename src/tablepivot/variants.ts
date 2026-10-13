@@ -43,7 +43,7 @@ export const tablePivotVariants = tv({
             "os-pivot relative flex w-full flex-col overflow-hidden rounded-md border",
             "border-pivot-border bg-pivot-background text-pivot-text",
         ],
-        grid: "relative min-h-0 flex-1",
+        grid: "relative h-20 min-h-0 flex-auto",
         viewer: "os-pivot-viewer absolute inset-0",
         empty: "absolute inset-0 z-10 flex items-center justify-center text-sm text-pivot-label",
     },

@@ -10,6 +10,9 @@ export interface TablePivotToolbarProps {
     expandable: boolean
     /** Indica se todos os níveis da hierarquia estão expandidos. */
     expanded: boolean
+    /** Indica se há regras de formatação condicional aplicadas à tabela. */
+    formattingActive: boolean
+    onFormatting: () => void
     onFields: () => void
     onExpand: () => void
     onCollapse: () => void

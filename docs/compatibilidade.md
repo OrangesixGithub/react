@@ -157,6 +157,30 @@ consumidores ajustam o uso ao migrar. O WebDataRocks foi substituído pelo [Pers
   pelos imports `?url` do pacote, sem configuração extra no modo dev (validado no sandbox).
 - O usuário configura o pivot pelo botão **Campos** (Filtros, Colunas, Linhas e Valores, com arrastar e soltar,
   ordenação, filtro de valores e operações). A hierarquia de linhas começa recolhida no primeiro nível.
+- **Formatação condicional:** o botão com ícone de paleta abre o editor de regras numéricas. Cada regra escolhe um
+  campo ou todos os valores, comparação, limite/intervalo e estilo. Aplicar confirma as alterações; Cancelar e Escape
+  descartam o rascunho. Aplicar sem regras remove a formatação. A última regra correspondente tem prioridade.
+  A família e o tamanho da fonte seguem sempre o tema.
+  As regras não alteram os dados nem o CSV; styleCell continua disponível e é executado depois da classificação.
+  Para salvar, use onConditionalFormattingChange e reaplique pela prop conditionalFormatting:
+
+  ```tsx
+  <TablePivot
+      conditionalFormatting={[{
+          field: "valor",
+          operator: "lt",
+          value: 1000,
+          includeTotals: false,
+          style: { color: "#dc2626", bold: true },
+      }]}
+      data={vendas}
+      rows={["regiao"]}
+      values={["valor"]}
+      onConditionalFormattingChange={regras => salvar(regras)}/>
+  ```
+
+- height define a altura máxima do componente (padrão: 500), incluindo a barra. Com poucas linhas, a tabela
+  ocupa somente a altura necessária; ao atingir o limite, a grade mantém sua rolagem. Tela cheia usa a altura do viewport.
 - Exportação: CSV. Excel e PDF não fazem parte desta versão.
 
 ### Utils (`@orangesix/utils`)

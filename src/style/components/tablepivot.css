@@ -38,6 +38,11 @@
 }
 
 @layer components {
+    .os-pivot:fullscreen {
+        max-height: none !important;
+        height: 100dvh;
+    }
+
     /* Liga o tema do Perspective (`pro.css`) aos tokens do pacote; o modo escuro acompanha os tokens. */
     perspective-viewer.os-pivot-viewer {
         @apply scrollbar-themed;

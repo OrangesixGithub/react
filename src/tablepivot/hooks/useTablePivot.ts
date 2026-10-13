@@ -4,7 +4,7 @@ import { useTablePivotEffects } from "./useTablePivotEffects";
 import { useTablePivotToolbar } from "./useTablePivotToolbar";
 import { configHasIntegerHierarchy } from "../function/config";
 import { useImperativeHandle, useMemo, useRef, useState } from "react";
-import type { TablePivotLayout, TablePivotProps, TablePivotRef } from "../@types";
+import type { TablePivotConditionalRule, TablePivotLayout, TablePivotProps, TablePivotRef } from "../@types";
 import type { Client, HTMLPerspectiveViewerElement, PivotDepth, PivotSource, Table } from "../@types/perspective";
 
 /**
@@ -43,6 +43,10 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
     const [rendered, setRendered] = useState(false);
     // Controla a abertura da lista de campos
     const [fieldList, setFieldList] = useState(false);
+    // Controla a abertura do painel de formatação condicional
+    const [formatting, setFormatting] = useState(false);
+    // Guarda as regras aplicadas aos valores da grade
+    const [formattingRules, setFormattingRules] = useState<TablePivotConditionalRule[]>(props.conditionalFormatting ?? []);
     // Usa uma lista vazia quando não houver dados
     const data = props.data ?? [];
     // Disponibiliza o esquema dos campos da tabela atual
@@ -84,14 +88,14 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
 
     // Registra os efeitos de carregamento e sincronização da grade
     useTablePivotEffects({
-        props, id, hostRef, viewerRef, tableRef, retiredRef, closingRef, styleCellRef,
+        props, formattingRules, setFormattingRules, id, hostRef, viewerRef, tableRef, retiredRef, closingRef, styleCellRef,
         client, error, source, layout, expand, rendered,
         setClient, setError, setSource, setLayout, setExpand, setRendered, applyDepth, relabel,
     });
 
     // Prepara as ações executadas pelos botões da barra
-    const { expandAll, collapseAll, exportCsv, openFields, fullscreen } = useTablePivotToolbar({
-        rootRef, viewerRef, setExpand, setFieldList,
+    const { expandAll, collapseAll, exportCsv, openFields, openFormatting, fullscreen } = useTablePivotToolbar({
+        rootRef, viewerRef, setExpand, setFieldList, setFormatting,
     });
 
     // Disponibiliza as ações e os acessos avançados pela ref pública
@@ -110,6 +114,17 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
     // Fecha a lista de campos
     function closeFields() {
         setFieldList(false);
+    }
+
+    // Fecha o painel sem alterar as regras aplicadas
+    function closeFormatting() {
+        setFormatting(false);
+    }
+
+    // Aplica as regras e permite que o consumidor salve a configuração
+    function changeFormatting(rules: TablePivotConditionalRule[]) {
+        setFormattingRules(rules);
+        props.onConditionalFormattingChange?.(rules);
     }
 
     // Atualiza o layout e informa a alteração ao consumidor
@@ -138,6 +153,7 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
 
     return {
         hostRef, rootRef, client, error, source, layout, expand, fieldList, data, schema,
+        formatting, formattingRules, openFormatting, closeFormatting, changeFormatting,
         expandAll, collapseAll, exportCsv, openFields, closeFields, changeLayout, loadMembers, fullscreen,
     };
 }

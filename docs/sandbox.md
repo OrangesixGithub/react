@@ -15,6 +15,10 @@ grande (200 mil linhas, ~33 MB em JSON, acima do limite do WebDataRocks) e sem d
 Valide a lista de campos (botão **Campos**): marcar/desmarcar campos, arrastar entre Filtros/Colunas/Linhas/Valores,
 "Mover para", ordenação, filtro de membros, operações, "Adiar atualização", Aplicar/Cancelar/Escape, expandir/recolher,
 CSV, tela cheia e temas claro/escuro. O motor do Perspective é carregado só nessa página.
+O botão **Formatação condicional** abre um painel compacto com regras por campo ou para todos os valores,
+comparações e intervalos, cores de texto/fundo, negrito, itálico, sublinhado e prévia.
+Valide Aplicar/Cancelar/Escape, intervalos inválidos, múltiplas regras (a última correspondente prevalece),
+remoção de todas as condições, inclusão/exclusão dos totais gerais, troca de dados/layout e rolagem da grade.
 Permanece fora do build até validação visual pelo dono.
 
 O PDF está disponível em `npm run dev`, com URL editável e seleção dos modos `total` e `pagination`.

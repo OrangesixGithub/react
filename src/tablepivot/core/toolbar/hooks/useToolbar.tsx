@@ -47,15 +47,16 @@ export function useToolbar(props: TablePivotToolbarProps) {
     }
 
     // Renderiza uma ação com ícone e tooltip; bloqueia o clique quando houver um motivo de desabilitação
-    function action(label: string, icon: string, onClick: () => void, color: "primary" | "secondary" = "secondary", hint?: string) {
+    function action(label: string, icon: string, onClick: () => void, color: "primary" | "secondary" = "secondary", hint?: string, active?: boolean) {
         return (
             <Tooltip
-                content={hint ?? label}
+                content={hint ?? (active ? label + " aplicada" : label)}
                 event="both"
                 position="bottom">
                 <button
                     aria-disabled={hint ? true : undefined}
                     aria-label={label}
+                    aria-pressed={active}
                     className={styles.icon({ color, disabled: !!hint })}
                     type="button"
                     onClick={() => !hint && onClick()}>

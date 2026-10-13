@@ -5,7 +5,7 @@ import type { PivotToolbarOptions } from "../@types/perspective";
  *
  * Reúne as ações de expansão, exportação, lista de campos e tela cheia da barra.
  */
-export function useTablePivotToolbar({ rootRef, viewerRef, setExpand, setFieldList }: PivotToolbarOptions) {
+export function useTablePivotToolbar({ rootRef, viewerRef, setExpand, setFieldList, setFormatting }: PivotToolbarOptions) {
     // Baixa os dados exibidos na grade em CSV
     function exportCsv() {
         viewerRef.current?.download({ method: "csv" }).catch(() => undefined);
@@ -26,6 +26,11 @@ export function useTablePivotToolbar({ rootRef, viewerRef, setExpand, setFieldLi
         setFieldList(true);
     }
 
+    // Abre o painel de formatação condicional
+    function openFormatting() {
+        setFormatting(true);
+    }
+
     // Alterna o componente entre tela cheia e modo normal
     function fullscreen() {
         if (document.fullscreenElement) {
@@ -35,5 +40,5 @@ export function useTablePivotToolbar({ rootRef, viewerRef, setExpand, setFieldLi
         }
     }
 
-    return { expandAll, collapseAll, exportCsv, openFields, fullscreen };
+    return { expandAll, collapseAll, exportCsv, openFields, openFormatting, fullscreen };
 }

@@ -1,7 +1,7 @@
 import type { Client, Table } from "@perspective-dev/client";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import type { HTMLPerspectiveViewerElement } from "@perspective-dev/viewer";
-import type { TablePivotAggregation, TablePivotCellMeta, TablePivotLayout, TablePivotProps } from "./core";
+import type { TablePivotAggregation, TablePivotCellMeta, TablePivotConditionalRule, TablePivotLayout, TablePivotProps } from "./core";
 
 export type { Client, Table } from "@perspective-dev/client";
 export type { HTMLPerspectiveViewerElement, ViewerConfigUpdate } from "@perspective-dev/viewer";
@@ -78,6 +78,8 @@ export interface PivotDatagridPlugin {
  */
 export interface PivotEffectsOptions {
     props: TablePivotProps
+    formattingRules: TablePivotConditionalRule[]
+    setFormattingRules: Dispatch<SetStateAction<TablePivotConditionalRule[]>>
     id: string
     hostRef: RefObject<HTMLDivElement | null>
     viewerRef: RefObject<HTMLPerspectiveViewerElement | null>
@@ -109,4 +111,5 @@ export interface PivotToolbarOptions {
     viewerRef: RefObject<HTMLPerspectiveViewerElement | null>
     setExpand: Dispatch<SetStateAction<boolean>>
     setFieldList: Dispatch<SetStateAction<boolean>>
+    setFormatting: Dispatch<SetStateAction<boolean>>
 }

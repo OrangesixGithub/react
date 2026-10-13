@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import type { TablePivotCellMeta } from "../@types";
 import { initializePerspective } from "../core/engine";
 import { configLayout, configPerspective } from "../function/config";
+import { formattingCell, formattingCss } from "../function/formatting";
 import { tablePivotGridStyles, tablePivotVariants } from "../variants";
 import type { PivotDatagridPlugin, PivotEffectsOptions, PivotSchema, Table } from "../@types/perspective";
 
@@ -31,7 +32,7 @@ function blockContextMenu(event: Event) {
  * Sincroniza o motor, os dados, o layout e a personalização da grade.
  */
 export function useTablePivotEffects({
-    props, id, hostRef, viewerRef, tableRef, retiredRef, closingRef, styleCellRef,
+    props, formattingRules, setFormattingRules, id, hostRef, viewerRef, tableRef, retiredRef, closingRef, styleCellRef,
     client, error, source, layout, expand, rendered,
     setClient, setError, setSource, setLayout, setExpand, setRendered, applyDepth, relabel,
 }: PivotEffectsOptions) {
@@ -40,6 +41,14 @@ export function useTablePivotEffects({
     const layoutKey = JSON.stringify([props.rows, props.columns, props.values, props.filters, props.sort]);
     // Compara os rótulos pelo conteúdo para evitar restaurações desnecessárias
     const labelsKey = JSON.stringify(props.labels ?? {});
+
+    const formattingKey = JSON.stringify(formattingRules);
+    const formattingPropsKey = JSON.stringify(props.conditionalFormatting ?? []);
+
+    // Sincroniza as regras quando a configuração recebida pelas props muda
+    useEffect(() => {
+        setFormattingRules(props.conditionalFormatting ?? []);
+    }, [formattingPropsKey]);
 
     // Sincroniza a expansão quando a prop expanded muda
     useEffect(() => setExpand(props.expanded ?? false), [props.expanded]);
@@ -131,6 +140,9 @@ export function useTablePivotEffects({
         if (viewerRef.current) {
             viewerRef.current.hidden = !source || !!error;
         }
+        if (hostRef.current && (!source || error)) {
+            hostRef.current.style.height = "80px";
+        }
     }, [source, error]);
 
     // Aplica o layout na grade sempre que ele, os dados ou os nomes dos campos mudarem.
@@ -170,7 +182,7 @@ export function useTablePivotEffects({
     // Liga o `styleCell` ao desenho da grade (regular-table do plugin Datagrid) e traduz o rótulo do total.
     useEffect(() => {
         const viewer = viewerRef.current;
-        if (!viewer || !rendered) {
+        if (!viewer || !rendered || !source) {
             return;
         }
 
@@ -184,15 +196,56 @@ export function useTablePivotEffects({
             }
             // Aplica o cabeçalho destacado e a rolagem do sistema dentro do shadow DOM
             gridStyles = grid.ownerDocument.createElement("style");
-            gridStyles.textContent = tablePivotGridStyles;
+            gridStyles.textContent = tablePivotGridStyles + "\n" + formattingCss(formattingRules, grid.ownerDocument);
             grid.parentNode?.appendChild(gridStyles);
+
+            let measuring = false;
+            let pending = false;
+
+            // Calcula a altura de todas as linhas, incluindo as que a grade virtualizada ainda não desenhou
+            const resizeHeight = async () => {
+                pending = true;
+                if (measuring) {
+                    return;
+                }
+                measuring = true;
+                try {
+                    do {
+                        pending = false;
+                        const view = await viewer.getView();
+                        const rows = await view.num_rows();
+                        const host = hostRef.current;
+                        if (cancelled || !host) {
+                            return;
+                        }
+                        const rowHeight = grid.querySelector("tbody tr")?.getBoundingClientRect().height ?? 23;
+                        const headerHeight = grid.querySelector("thead")?.getBoundingClientRect().height ?? 0;
+                        const hostRect = host.getBoundingClientRect();
+                        const gridRect = grid.getBoundingClientRect();
+                        const offset = Math.max(0, gridRect.top - hostRect.top);
+                        const bottom = Math.max(0, hostRect.bottom - gridRect.bottom);
+                        const scrollbar = Math.max(0, grid.offsetHeight - grid.clientHeight);
+                        const height = Math.ceil(offset + headerHeight + rows * rowHeight + scrollbar + bottom);
+                        const next = Math.max(1, height) + "px";
+                        if (host.style.height !== next) {
+                            host.style.height = next;
+                        }
+                    } while (pending && !cancelled);
+                } finally {
+                    measuring = false;
+                }
+            };
+
             unsubscribe = grid.addStyleListener(() => {
                 grid.querySelectorAll<HTMLTableCellElement>("td, th").forEach((cell: HTMLTableCellElement) => {
                     if (cell.tagName === "TH") {
                         relabel(cell);
                     }
-                    styleCellRef.current?.(cell, (grid.getMeta(cell) ?? {}) as TablePivotCellMeta);
+                    const meta = (grid.getMeta(cell) ?? {}) as TablePivotCellMeta;
+                    formattingCell(cell, meta, formattingRules, layout, props.labels);
+                    styleCellRef.current?.(cell, meta);
                 });
+                resizeHeight().catch(() => undefined);
             });
             // O primeiro desenho acontece antes do registro; redesenha para aplicar os rótulos e o `styleCell`.
             grid.draw();
@@ -203,6 +256,6 @@ export function useTablePivotEffects({
             unsubscribe?.();
             gridStyles?.remove();
         };
-    }, [rendered]);
+    }, [rendered, source, formattingKey, layout, labelsKey]);
 
 }

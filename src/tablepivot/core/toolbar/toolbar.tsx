@@ -33,6 +33,7 @@ export function TablePivotToolbar(props: TablePivotToolbarProps) {
                 {action("Campos", "sliders", props.onFields, "primary")}
                 {action("Expandir tudo", "arrows-expand", props.onExpand, "secondary", expandHint)}
                 {action("Recolher tudo", "arrows-collapse", props.onCollapse, "secondary", collapseHint)}
+                {action("Formatação condicional", "palette", props.onFormatting, props.formattingActive ? "primary" : "secondary", undefined, props.formattingActive)}
                 {action("Exportar CSV", "download", props.onExport)}
                 {action("Tela cheia", "arrows-fullscreen", props.onFullscreen)}
             </div>

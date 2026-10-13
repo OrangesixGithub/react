@@ -5,6 +5,7 @@ import { tablePivotVariants } from "./variants";
 import { TablePivotToolbar } from "./core/toolbar";
 import { useTablePivot } from "./hooks/useTablePivot";
 import { TablePivotFieldList } from "./core/fieldlist";
+import { TablePivotFormatting } from "./core/formatting";
 import type { TablePivotProps, TablePivotRef } from "./@types";
 
 const styles = tablePivotVariants();
@@ -19,6 +20,7 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
     ({ toolbar = true, id = "pivotTable", height = 500, ...props }, ref) => {
         const {
             hostRef, rootRef, client, error, source, layout, expand, fieldList, data, schema,
+            formatting, formattingRules, openFormatting, closeFormatting, changeFormatting,
             expandAll, collapseAll, exportCsv, openFields, closeFields, changeLayout, loadMembers, fullscreen,
         } = useTablePivot(props, id, ref);
 
@@ -36,11 +38,12 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                 <div
                     className={styles.root()}
                     ref={rootRef}
-                    style={{ height }}>
+                    style={{ maxHeight: height }}>
                     {toolbar && source && layout && (
                         <TablePivotToolbar
                             expandable={layout.rows.length > 1}
                             expanded={expand}
+                            formattingActive={formattingRules.length > 0}
                             labels={props.labels}
                             layout={layout}
                             title={props.title}
@@ -48,6 +51,7 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                             onExpand={expandAll}
                             onExport={exportCsv}
                             onFields={openFields}
+                            onFormatting={openFormatting}
                             onFullscreen={fullscreen}/>
                     )}
                     {fieldList && source && layout && (
@@ -59,6 +63,14 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                             onApply={changeLayout}
                             onClose={closeFields}/>
                     )}
+                    {formatting && layout && (
+                        <TablePivotFormatting
+                            labels={props.labels}
+                            layout={layout}
+                            rules={formattingRules}
+                            onApply={changeFormatting}
+                            onClose={closeFormatting}/>
+                    )}
                     <div
                         className={styles.grid()}
                         ref={hostRef}>
@@ -67,7 +79,9 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                         {(!error && client && data.length === 0)
                             && <div className={styles.empty()}>Nenhum dado para exibir.</div>}
                         <Loading
-                            type="border"
+                            opacity="0.2"
+                            text="Carregando..."
+                            type="bars"
                             visible={!error && data.length > 0 && !source}/>
                     </div>
                 </div>
