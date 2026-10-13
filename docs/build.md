@@ -127,14 +127,12 @@ Para publicar:
 
 O workflow então:
 - **valida a versão para a branch** e falha se `master` tiver sufixo ou se `beta` não tiver sufixo `-beta.`;
-- **pula a publicação se a versão já estiver publicada no NPM**. Na `beta`, ainda executa a limpeza, permitindo repetir uma remoção que falhou;
+- **pula a publicação se a versão já estiver publicada no NPM**. Um push sem mudar a versão não publica novamente;
 - instala com `npm ci`, roda `lint` e `build`;
 - publica o `dist/` no NPM com o dist-tag da branch;
 - somente na `master`, cria a tag `<versão>` e o release final no GitHub;
-- na `beta`, remove as betas anteriores do NPM após a publicação, sem criar tag Git nem release no GitHub.
+- na `beta`, encerra após a publicação no NPM, sem criar tag Git nem release no GitHub.
 
-A regra do pacote é manter **apenas uma versão beta** no NPM. A limpeza preserva a versão atual e remove somente versões com identificador de pré-release `beta`, inclusive de outras versões-base; versões finais e outros canais são preservados. Antes de remover, confirma que a beta atual existe no registry e que o dist-tag `beta` aponta para ela. Se a publicação falhar, a limpeza não executa.
-
-A remoção usa `npm unpublish <pacote>@<versão>` e depende das permissões do `NPM_TOKEN` e da [política de unpublish do npm](https://docs.npmjs.com/policies/unpublish/). Se alguma remoção for recusada, o workflow falha informando as versões restantes, mas mantém a nova beta publicada. A exclusão é definitiva e o número da versão removida não pode ser reutilizado.
+As versões anteriores permanecem disponíveis no NPM. Cada nova publicação na `beta` atualiza o dist-tag `beta` para a versão publicada. A consulta inicial usa `--prefer-online` para revalidar o cache no registry.
 
 Não crie tags de versão manualmente: o workflow cria as tags das versões finais na `master`.

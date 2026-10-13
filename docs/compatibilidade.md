@@ -120,6 +120,45 @@ Outros requisitos da 3.x: **React 19** (versão atualmente adotada pela Orange S
 
 Não importar temas ou `primereact/resources/primereact.min.css`: os estilos dos componentes modernizados vêm do Tailwind v4 da Orange Six.
 
+### TablePivot (`@orangesix/tablepivot`): API nova, sem compatibilidade com a 2.x
+
+Exceção à regra de preservar a API 2.x, por decisão do dono do projeto: o TablePivot ganhou uma API mais simples e os
+consumidores ajustam o uso ao migrar. O WebDataRocks foi substituído pelo [Perspective](https://perspective-dev.github.io/)
+(Apache-2.0), sem o bloqueio da versão gratuita para dados acima de ~10 MB. O import continua o mesmo.
+
+```tsx
+<TablePivot
+    data={vendas}
+    rows={["regiao", "estado"]}
+    columns={["ano"]}
+    values={["valor", { field: "quantidade", aggregation: "avg" }]}
+    filters={{ regiao: ["Sul", "Sudeste"] }}
+    labels={{ regiao: "Região", valor: "Faturamento" }}
+    title="Vendas por região"
+    onChange={layout => salvar(layout)}/>
+```
+
+| 2.x | 3.x |
+|---|---|
+| `pivotDataSource` | `data` |
+| `pivotSlice.rows` / `columns` (`{ uniqueName }`) | `rows` / `columns` (lista de campos) |
+| `pivotSlice.measures` | `values`: `"campo"` ou `{ field, aggregation }` (`sum`, `count`, `avg`, `min`, `max`, `distinct`) |
+| `caption` | `labels` (`{ campo: "Nome" }`) |
+| `sort` na hierarquia | `sort` (`{ campo: "desc" }`) |
+| `pivotOptions.grid.title` | `title` |
+| `expands.expandAll` | `expanded` |
+| `pivotCustomizeCell` | `styleCell(cell, meta)` |
+| `ref.webdatarocks.expandAllData` / `collapseAllData` | `ref.expandAll()` / `ref.collapseAll()` (também `ref.exportCsv()`) |
+| `ref.webdatarocks.updateData` / `setReport` | atualizar as props `data` e `rows`/`columns`/`values` |
+| `toolbarOptions`, demais `pivotOptions` | removidos (`toolbar={false}` oculta a barra) |
+
+- `onChange` devolve `{ rows, columns, values, filters, sort }` no mesmo formato das props: basta salvar e reaplicar.
+- O motor (WASM) só é baixado nas telas que usam o pivot. No Vite do consumidor, os arquivos `.wasm` são resolvidos
+  pelos imports `?url` do pacote, sem configuração extra no modo dev (validado no sandbox).
+- O usuário configura o pivot pelo botão **Campos** (Filtros, Colunas, Linhas e Valores, com arrastar e soltar,
+  ordenação, filtro de valores e operações). A hierarquia de linhas começa recolhida no primeiro nível.
+- Exportação: CSV. Excel e PDF não fazem parte desta versão.
+
 ### Utils (`@orangesix/utils`)
 
 Os nomes e as assinaturas continuam iguais. Mudanças de comportamento em relação à 2.x:

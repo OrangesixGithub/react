@@ -4,7 +4,7 @@ name: Publish
 # Qualquer outra branch (ex.: 3.0) não dispara nada.
 #   master → versão final (ex.: 3.0.0)        → npm dist-tag "latest" + tag + release
 #   beta   → versão com sufixo (ex.: 3.0.0-beta.2) → somente npm dist-tag "beta"
-# Se a versão já estiver publicada, não publica novamente; na beta, tenta a limpeza das betas anteriores.
+# Se a versão já estiver publicada, não publica novamente.
 on:
   push:
     branches: [ master, beta ]
@@ -55,7 +55,7 @@ jobs:
             echo "dist-tag=beta" >> "$GITHUB_OUTPUT"
           fi
 
-          if npm view "$NAME@$VERSION" version > /dev/null 2>&1; then
+          if npm view "$NAME@$VERSION" version --prefer-online > /dev/null 2>&1; then
             echo "::notice::$NAME@$VERSION já está publicado. Publicação ignorada."
             echo "publish=false" >> "$GITHUB_OUTPUT"
           else
@@ -84,44 +84,6 @@ jobs:
         run: npm publish --access public --tag ${{ steps.version.outputs.dist-tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # Mantém apenas a beta atual, após publicar ou ao repetir a limpeza de uma versão já publicada.
-      - name: Remove previous beta versions
-        if: github.ref_name == 'beta'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          import { execFileSync } from "node:child_process";
-
-          const { name, version } = JSON.parse(fs.readFileSync("package.json", "utf8"));
-          const npmJson = (...args) => JSON.parse(execFileSync("npm", [...args, "--json"], { encoding: "utf8" }));
-          const published = npmJson("view", name, "versions");
-          const versions = Array.isArray(published) ? published : [published];
-          const currentBeta = npmJson("view", name, "dist-tags.beta");
-
-          if (!versions.includes(version) || currentBeta !== version) {
-              throw new Error(`Limpeza cancelada: ${name}@${version} precisa estar publicado e apontado pelo dist-tag beta.`);
-          }
-
-          const previousBetas = versions.filter(candidate => candidate !== version && /^\d+\.\d+\.\d+-beta(?:\.|$)/.test(candidate));
-          const failures = [];
-
-          for (const previousBeta of previousBetas) {
-              const target = `${name}@${previousBeta}`;
-              console.log(`Removendo ${target}`);
-              try {
-                  execFileSync("npm", ["unpublish", target], { stdio: "inherit" });
-              } catch {
-                  failures.push(target);
-              }
-          }
-
-          if (failures.length > 0) {
-              throw new Error(`A beta atual foi preservada, mas o npm recusou a remoção de: ${failures.join(", ")}. Confira as permissões do token e a política de unpublish do npm.`);
-          }
-          NODE
 
       # Gera a tag e o release no GitHub somente na master
       - name: Create Release

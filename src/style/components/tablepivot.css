@@ -1,0 +1,71 @@
+@theme static {
+    --color-pivot-text: var(--color-text);
+    --color-pivot-content-text: color-mix(in srgb, var(--color-pivot-text) 75%, transparent);
+    --color-pivot-label: var(--color-neutral-600);
+    --color-pivot-border: var(--color-border);
+    --color-pivot-background: var(--color-white);
+    --color-pivot-toolbar-background: color-mix(in oklab, var(--color-border) 15%, var(--color-white));
+    --color-pivot-header-background: color-mix(in oklab, var(--color-border) 25%, var(--color-white));
+    --color-pivot-chip-text: var(--color-text);
+    --color-pivot-chip-border: var(--color-border);
+    --color-pivot-chip-background: var(--color-white);
+    --color-pivot-chip-hover: color-mix(in oklab, var(--color-border) 40%, var(--color-white));
+    --color-pivot-active: var(--color-primary-500);
+    --color-pivot-drop: color-mix(in oklab, var(--color-primary-500) 8%, var(--color-white));
+    --color-pivot-negative: var(--color-red-600);
+    --color-pivot-positive: var(--color-pivot-text);
+    --color-pivot-grid-line: color-mix(in oklab, var(--color-border) 45%, var(--color-white));
+}
+
+@layer theme {
+    .dark, [data-theme="dark"] {
+        --color-pivot-text: var(--color-text);
+        --color-pivot-content-text: color-mix(in srgb, var(--color-pivot-text) 65%, transparent);
+        --color-pivot-label: var(--color-text-label);
+        --color-pivot-border: color-mix(in oklab, var(--color-white) 8%, #101119);
+        --color-pivot-background: #101119;
+        --color-pivot-toolbar-background: #11121b;
+        --color-pivot-header-background: color-mix(in oklab, var(--color-white) 2%, #101119);
+        --color-pivot-chip-text: var(--color-text);
+        --color-pivot-chip-border: color-mix(in oklab, var(--color-white) 15%, #101119);
+        --color-pivot-chip-background: color-mix(in oklab, var(--color-white) 5%, #101119);
+        --color-pivot-chip-hover: color-mix(in oklab, var(--color-white) 15%, #101119);
+        --color-pivot-negative: var(--color-red-400);
+        --color-pivot-positive: var(--color-pivot-text);
+        --color-pivot-drop: color-mix(in oklab, var(--color-primary-500) 15%, #101119);
+        --color-pivot-grid-line: color-mix(in oklab, var(--color-white) 5%, #101119);
+    }
+}
+
+@layer components {
+    /* Liga o tema do Perspective (`pro.css`) aos tokens do pacote; o modo escuro acompanha os tokens. */
+    perspective-viewer.os-pivot-viewer {
+        @apply scrollbar-themed;
+        font-family: inherit;
+        --psp--color: var(--color-pivot-text);
+        --psp--background-color: var(--color-pivot-background);
+        --psp-active--color: var(--color-pivot-active);
+        --psp-inactive--color: var(--color-pivot-label);
+        --psp-inactive--border-color: var(--color-pivot-grid-line);
+        --psp-datagrid--border-color: var(--color-pivot-grid-line);
+        --psp-datagrid--hover--border-color: var(--color-pivot-border);
+        --psp-datagrid--neg-cell--color: var(--color-pivot-negative);
+        --psp-datagrid--pos-cell--color: var(--color-pivot-positive);
+        /* Interface avançada do Perspective oculta: a configuração fica na barra simples do pacote. */
+        --psp-top-panel-row--display: none;
+        --psp-status-bar--display: none;
+        --psp-close-button--display: none;
+        --psp-panel-titlebar--height: 0px;
+        color: var(--color-pivot-text);
+        background-color: var(--color-pivot-background);
+
+        > perspective-viewer-tab,
+        > perspective-viewer-datagrid-toolbar {
+            display: none;
+        }
+
+        &[hidden] {
+            display: none;
+        }
+    }
+}

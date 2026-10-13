@@ -7,6 +7,8 @@
 @import "node-snackbar/dist/snackbar.css" layer(components);
 @import "react-pdf/dist/Page/AnnotationLayer.css" layer(components);
 @import "react-pdf/dist/Page/TextLayer.css" layer(components);
+@import "@perspective-dev/viewer/dist/css/pro.css" layer(components);
+@import "@perspective-dev/viewer/dist/css/intl/pt.css" layer(components);
 
 @import "./theme.css";
 @import "./mixins.css";

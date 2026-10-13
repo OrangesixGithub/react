@@ -9,6 +9,14 @@ estado vazio e temas claro/escuro nas prévias normal e iframe.
 Os detalhes da API e do estado de validação ficam em [table.md](table.md).
 Permanece fora do build até validação visual pelo dono.
 
+O TablePivot está disponível em `npm run dev`, com os cenários simples, linhas + colunas + valores, volume
+grande (200 mil linhas, ~33 MB em JSON, acima do limite do WebDataRocks) e sem dados, além dos botões "Novos dados"
+(troca `data`) e "Trocar layout" (troca `rows`/`columns`/`values` pelas props) e do JSON emitido por `onChange`.
+Valide a lista de campos (botão **Campos**): marcar/desmarcar campos, arrastar entre Filtros/Colunas/Linhas/Valores,
+"Mover para", ordenação, filtro de membros, operações, "Adiar atualização", Aplicar/Cancelar/Escape, expandir/recolher,
+CSV, tela cheia e temas claro/escuro. O motor do Perspective é carregado só nessa página.
+Permanece fora do build até validação visual pelo dono.
+
 O PDF está disponível em `npm run dev`, com URL editável e seleção dos modos `total` e `pagination`.
 O exemplo usa `appendTo` apontando para o body da janela principal (mesma origem), para manter
 a paginação visível também ao rolar a página externa ao iframe. Sem a prop, mantém sticky local.

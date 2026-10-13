@@ -29,7 +29,7 @@ export const components: string[] = [
     "select",
     "switch",
     "table",
-    // "tablepivot",
+    "tablepivot",
     "tabview",
     "textarea",
     "tooltip",
