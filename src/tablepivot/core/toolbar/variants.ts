@@ -19,7 +19,7 @@ export const tablePivotToolbarVariants = tv({
             "border-pivot-chip-border bg-pivot-chip-background text-pivot-chip-text",
         ],
         none: "text-xs text-pivot-label",
-        actions: "ml-auto flex flex-wrap items-center gap-1.5",
+        actions: "flex flex-wrap items-center gap-1.5",
         icon: [
             "os-button inline-flex size-7 shrink-0 items-center justify-center rounded-md border",
             "duration-150 motion-reduce:transition-none",
@@ -42,6 +42,11 @@ export const tablePivotToolbarVariants = tv({
         },
         disabled: {
             true: { icon: "cursor-not-allowed opacity-50 hover:bg-pivot-chip-background" },
+        },
+        /** Ações em uma linha própria (barra quebrada): ocupam a largura toda e ficam centralizadas. */
+        wrapped: {
+            true: { actions: "w-full justify-center" },
+            false: { actions: "ml-auto" },
         },
     },
 });

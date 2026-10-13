@@ -1,8 +1,11 @@
 import type { ForwardedRef } from "react";
+import { copyTable } from "../function/copy";
 import { pivotIntegerLabel } from "../core/const";
+import { useTablePivotViews } from "./useTablePivotViews";
 import { useTablePivotEffects } from "./useTablePivotEffects";
 import { useTablePivotToolbar } from "./useTablePivotToolbar";
 import { configHasIntegerHierarchy } from "../function/config";
+import { exportTableCsv, exportTableXlsx } from "../function/export";
 import { useImperativeHandle, useMemo, useRef, useState } from "react";
 import type { TablePivotConditionalRule, TablePivotLayout, TablePivotProps, TablePivotRef } from "../@types";
 import type { Client, HTMLPerspectiveViewerElement, PivotDepth, PivotSource, Table } from "../@types/perspective";
@@ -47,10 +50,21 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
     const [formatting, setFormatting] = useState(false);
     // Guarda as regras aplicadas aos valores da grade
     const [formattingRules, setFormattingRules] = useState<TablePivotConditionalRule[]>(props.conditionalFormatting ?? []);
+    // Indica por alguns segundos que a tabela foi copiada
+    const [copied, setCopied] = useState(false);
     // Usa uma lista vazia quando não houver dados
     const data = props.data ?? [];
     // Disponibiliza o esquema dos campos da tabela atual
     const schema = useMemo(() => source?.schema ?? {}, [source]);
+    // Mantém layout, regras e rótulos atuais para as ações chamadas pela ref
+    const layoutRef = useRef(layout);
+    const formattingRef = useRef(formattingRules);
+    const labelsRef = useRef(props.labels);
+    const titleRef = useRef(props.title);
+    layoutRef.current = layout;
+    formattingRef.current = formattingRules;
+    labelsRef.current = props.labels;
+    titleRef.current = props.title;
     styleCellRef.current = props.styleCell;
     depthRef.current = {
         collapsed: !expand && (layout?.rows.length ?? 0) > 1,
@@ -68,6 +82,9 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
         const view = await viewer.getView();
         await view.set_depth(collapsed ? 0 : levels);
         const plugin = await viewer.getPlugin("Datagrid");
+        // Recalcula a largura das colunas pelo conteúdo atual: sem isso, a grade mantém as larguras do desenho
+        // anterior (ex.: hierarquia expandida ou outros campos) e corta rótulos e valores.
+        plugin.regular_table?.resetAutoSize?.();
         await plugin.draw(view);
     }
 
@@ -94,15 +111,54 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
     });
 
     // Prepara as ações executadas pelos botões da barra
-    const { expandAll, collapseAll, exportCsv, openFields, openFormatting, fullscreen } = useTablePivotToolbar({
+    const { expandAll, collapseAll, openFields, openFormatting, fullscreen } = useTablePivotToolbar({
         rootRef, viewerRef, setExpand, setFieldList, setFormatting,
     });
+
+    // Salva e reaplica visões do pivot no navegador
+    const { views, viewsOpen, viewsError, openViews, closeViews, saveView, applyView, deleteView, resetView } = useTablePivotViews({
+        props, storageKey: props.storageKey ?? id, layout, schema, expand, formattingRules,
+        setLayout, setExpand, setFormattingRules,
+    });
+
+    // Copia a tabela exibida (com cabeçalhos, totais e formatação) para colar no Excel
+    async function copy() {
+        const viewer = viewerRef.current;
+        if (!viewer || !layoutRef.current) {
+            return;
+        }
+        await copyTable(viewer, layoutRef.current, formattingRef.current, labelsRef.current);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    }
+
+    // Baixa a tabela exibida em CSV, com a mesma estrutura e formatação dos dados da cópia
+    function exportCsv() {
+        const viewer = viewerRef.current;
+        if (!viewer || !layoutRef.current) {
+            return;
+        }
+        exportTableCsv(viewer, layoutRef.current, formattingRef.current, labelsRef.current, titleRef.current)
+            .catch(() => undefined);
+    }
+
+    // Baixa a tabela exibida em Excel (.xlsx), com números, cabeçalhos mesclados e formatação condicional
+    function exportXlsx() {
+        const viewer = viewerRef.current;
+        if (!viewer || !layoutRef.current) {
+            return;
+        }
+        exportTableXlsx(viewer, layoutRef.current, formattingRef.current, labelsRef.current, titleRef.current)
+            .catch(() => undefined);
+    }
 
     // Disponibiliza as ações e os acessos avançados pela ref pública
     useImperativeHandle(ref, () => ({
         expandAll,
         collapseAll,
         exportCsv,
+        exportXlsx,
+        copy,
         get viewer() {
             return viewerRef.current;
         },
@@ -155,5 +211,7 @@ export function useTablePivot(props: TablePivotProps, id: string, ref: Forwarded
         hostRef, rootRef, client, error, source, layout, expand, fieldList, data, schema,
         formatting, formattingRules, openFormatting, closeFormatting, changeFormatting,
         expandAll, collapseAll, exportCsv, openFields, closeFields, changeLayout, loadMembers, fullscreen,
+        copy, copied, exportXlsx,
+        views, viewsOpen, viewsError, openViews, closeViews, saveView, applyView, deleteView, resetView,
     };
 }

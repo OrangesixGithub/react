@@ -11,7 +11,9 @@ import type { TablePivotToolbarProps } from "./@types";
 export function TablePivotToolbar(props: TablePivotToolbarProps) {
 
     const styles = tablePivotToolbarVariants();
-    const { group, action, filters, columns, rows, values, expandHint, collapseHint } = useToolbar(props);
+    const {
+        summaryRef, actionsRef, wrapped, group, action, filters, columns, rows, values, expandHint, collapseHint,
+    } = useToolbar(props);
     
     /*
     |------------------------------------------
@@ -23,18 +25,24 @@ export function TablePivotToolbar(props: TablePivotToolbarProps) {
             {props.title && <span className={styles.title()}>{props.title}</span>}
             <div
                 className={styles.summary()}
+                ref={summaryRef}
                 onClick={props.onFields}>
                 {group("Filtros", "bi bi-funnel", filters)}
                 {group("Colunas", "bi bi-layout-three-columns", columns)}
                 {group("Linhas", "bi bi-list-nested", rows)}
                 {group("Valores", "bi bi-calculator", values)}
             </div>
-            <div className={styles.actions()}>
+            <div
+                className={styles.actions({ wrapped })}
+                ref={actionsRef}>
                 {action("Campos", "sliders", props.onFields, "primary")}
+                {action(props.viewsCount > 0 ? `Visões salvas (${props.viewsCount})` : "Visões salvas", props.viewsCount > 0 ? "bookmarks-fill" : "bookmarks", props.onViews)}
                 {action("Expandir tudo", "arrows-expand", props.onExpand, "secondary", expandHint)}
                 {action("Recolher tudo", "arrows-collapse", props.onCollapse, "secondary", collapseHint)}
                 {action("Formatação condicional", "palette", props.onFormatting, props.formattingActive ? "primary" : "secondary", undefined, props.formattingActive)}
-                {action("Exportar CSV", "download", props.onExport)}
+                {action(props.copied ? "Tabela copiada" : "Copiar tabela", props.copied ? "clipboard-check" : "clipboard", props.onCopy)}
+                {action("Exportar CSV", "filetype-csv", props.onExport)}
+                {action("Exportar Excel (.xlsx)", "file-earmark-excel", props.onExportExcel)}
                 {action("Tela cheia", "arrows-fullscreen", props.onFullscreen)}
             </div>
         </div>

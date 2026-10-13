@@ -30,11 +30,11 @@ export function message<T extends keyof IUtilsMessageOptions>(params: IUtilsMess
     library = library ?? "snackbar";
     switch (library) {
         case "sweetAlert":
-            // titleText/text são texto puro (title do SweetAlert2 aceita HTML); options pode sobrescrever, ex.: html
+            // Título e conteúdo aceitam HTML; options pode sobrescrever os valores padrão.
             let swal: SweetAlertOptions = {
                 icon: message.type,
-                titleText: message.title,
-                text: message.text ?? message.message
+                title: message.title,
+                html: message.text ?? message.message
             };
             if (type === "toast") {
                 if (options !== undefined) {
@@ -83,7 +83,7 @@ function snackbarType(message: IUtilsResponseMessage): keyof typeof snackbarIcon
 }
 
 /**
- * Monta o card da snackbar (também usado no toast do SweetAlert): ícone, título (opcional) e texto, escapados.
+ * Monta o card da snackbar (também usado no toast do SweetAlert), preservando HTML no título e conteúdo.
  */
 function snackbarHtml(message: IUtilsResponseMessage): string {
     const type = snackbarType(message);
@@ -94,13 +94,13 @@ function snackbarHtml(message: IUtilsResponseMessage): string {
     return "<div class=\"" + styles.root() + "\" role=\"status\">"
         + "<i aria-hidden=\"true\" class=\"" + escapeHtml(styles.icon() + " " + (message.icon ?? snackbarIcons[type])) + "\"></i>"
         + "<div class=\"" + styles.content() + "\">"
-        + (title ? "<strong class=\"" + styles.title() + "\">" + escapeHtml(title) + "</strong>" : "")
-        + (text ? "<span class=\"" + styles.text() + "\">" + escapeHtml(text) + "</span>" : "")
+        + (title ? "<strong class=\"" + styles.title() + "\">" + title + "</strong>" : "")
+        + (text ? "<span class=\"" + styles.text() + "\">" + text + "</span>" : "")
         + "</div></div>";
 }
 
 /**
- * Escapa o texto antes de ir para o HTML da snackbar (o node-snackbar usa innerHTML).
+ * Escapa os valores inseridos nos atributos HTML do card.
  */
 function escapeHtml(value: string): string {
     return String(value)

@@ -51,8 +51,11 @@ export interface IUtilsResponseModal {
 
 export interface IUtilsResponseMessage {
     type?: "success" | "warning" | "error" | "info"
+    /** Título da notificação; aceita HTML. */
     title?: string
+    /** Conteúdo da notificação; aceita HTML. */
     message?: string
+    /** Conteúdo alternativo da notificação; aceita HTML. */
     text?: string
     icon?: string
 }

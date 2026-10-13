@@ -64,6 +64,12 @@ export interface PivotRegularTable extends HTMLElement {
     addStyleListener: (listener: () => void) => (() => void) | undefined
     getMeta: (cell: HTMLTableCellElement) => TablePivotCellMeta | undefined
     draw: () => void | Promise<void>
+    /** Descarta as larguras calculadas; o próximo `draw` mede as colunas pelo conteúdo. */
+    resetAutoSize?: () => void
+    /** Larguras definidas manualmente, por índice da coluna. */
+    saveColumnSizes: () => Record<number, number>
+    /** Aplica larguras por índice da coluna (usado para alargar a coluna da hierarquia). */
+    restoreColumnSizes: (sizes: Record<number, number>) => void
 }
 
 /**

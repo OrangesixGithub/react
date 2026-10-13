@@ -98,6 +98,24 @@ export interface TablePivotProps extends ApiComponentProps {
 
     /** Executado ao aplicar regras no painel, permitindo salvar e reaplicá-las. */
     onConditionalFormattingChange?: (rules: TablePivotConditionalRule[]) => void
+
+    /**
+     * Chave das visões salvas no `localStorage` do navegador. Use um valor por tela para não misturar as visões de
+     * pivots diferentes. Padrão: o `id` do componente.
+     */
+    storageKey?: string
+}
+
+/**
+ * Visão salva pelo usuário: layout, formatação condicional e expansão das linhas.
+ */
+export interface TablePivotView {
+    name: string
+    layout: TablePivotLayout
+    conditionalFormatting: TablePivotConditionalRule[]
+    expanded: boolean
+    /** Data em que a visão foi salva (ISO). */
+    savedAt: string
 }
 
 export interface TablePivotCellMeta {
@@ -138,6 +156,16 @@ export interface TablePivotRef {
      * Baixa os dados exibidos em CSV.
      */
     exportCsv: () => void
+
+    /**
+     * Copia a tabela exibida (cabeçalhos, totais e formatação) para a área de transferência, pronta para colar no Excel.
+     */
+    copy: () => Promise<void>
+
+    /**
+     * Baixa a tabela exibida em Excel (.xlsx), com cabeçalhos mesclados, totais e formatação condicional.
+     */
+    exportXlsx: () => void
 
     /**
      * Acesso avançado ao `<perspective-viewer>` (disponível depois do carregamento do motor).

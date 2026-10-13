@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { TablePivotCellMeta } from "../@types";
-import { initializePerspective } from "../core/engine";
+import { initializePerspectiveFor } from "../core/engine";
 import { configLayout, configPerspective } from "../function/config";
 import { formattingCell, formattingCss } from "../function/formatting";
 import { tablePivotGridStyles, tablePivotVariants } from "../variants";
@@ -39,6 +39,8 @@ export function useTablePivotEffects({
     const data = props.data ?? [];
     // Compara o layout pelo conteúdo para evitar restaurações a cada renderização
     const layoutKey = JSON.stringify([props.rows, props.columns, props.values, props.filters, props.sort]);
+    // Guarda o layout das props já aplicado, para diferenciar troca de props de troca de dados
+    const appliedKeyRef = useRef<string | null>(null);
     // Compara os rótulos pelo conteúdo para evitar restaurações desnecessárias
     const labelsKey = JSON.stringify(props.labels ?? {});
 
@@ -53,24 +55,30 @@ export function useTablePivotEffects({
     // Sincroniza a expansão quando a prop expanded muda
     useEffect(() => setExpand(props.expanded ?? false), [props.expanded]);
 
-    // Monta o layout a partir das props quando elas ou os campos dos dados mudam.
+    // Monta o layout a partir das props quando elas mudam. Com dados novos e as mesmas props, mantém o layout atual
+    // (alterado pela lista de campos ou por uma visão salva), descartando os campos que não existem mais.
     useEffect(() => {
-        if (source) {
-            setLayout(configLayout(props, source.schema));
+        if (!source) {
+            return;
         }
+        const propsChanged = appliedKeyRef.current !== layoutKey;
+        appliedKeyRef.current = layoutKey;
+        setLayout(current => configLayout(propsChanged || !current ? props : current, source.schema));
     }, [source, layoutKey]);
 
     // Cria o `<perspective-viewer>` e carrega o motor. Na desmontagem, libera a memória WASM do viewer.
     useEffect(() => {
         let disposed = false;
         closingRef.current = null;
-        const viewer = document.createElement("perspective-viewer");
+        // Cria o viewer no documento do contêiner: dentro de um iframe, uma modal pode renderizar na janela principal.
+        const owner = hostRef.current?.ownerDocument ?? document;
+        const viewer = owner.createElement("perspective-viewer");
         viewer.className = styles.viewer();
         viewer.addEventListener("contextmenu", blockContextMenu, { capture: true });
         hostRef.current?.append(viewer);
         viewerRef.current = viewer;
 
-        initializePerspective()
+        initializePerspectiveFor(owner.defaultView ?? window)
             .then(async loaded => {
                 if (disposed) {
                     return;
@@ -106,7 +114,10 @@ export function useTablePivotEffects({
 
         let disposed = false;
         let created: Table | null = null;
-        const pending = client.table(data as Record<string, unknown>[], { name: tableName(id) })
+        // Em outra janela, copia os dados para o contexto dela, onde está o motor do Perspective.
+        const owner = hostRef.current?.ownerDocument.defaultView ?? window;
+        const rows = owner === window ? data : owner.structuredClone(data);
+        const pending = client.table(rows as Record<string, unknown>[], { name: tableName(id) })
             .then(async table => {
                 created = table;
                 const columns = await table.schema();
@@ -229,11 +240,38 @@ export function useTablePivotEffects({
                         const next = Math.max(1, height) + "px";
                         if (host.style.height !== next) {
                             host.style.height = next;
+                            // Redesenha com o novo espaço: sem isso, a grade virtualizada mantém só as linhas antigas.
+                            await viewer.resize();
                         }
                     } while (pending && !cancelled);
                 } finally {
                     measuring = false;
                 }
+            };
+
+            let fitting = false;
+
+            // Alarga a última coluna da hierarquia quando algum rótulo de linha não cabe. Com a hierarquia recolhida,
+            // os rótulos ocupam várias colunas (colspan) e a grade não os considera ao calcular as larguras.
+            const fitRowHeaders = () => {
+                if (fitting) {
+                    return;
+                }
+                const labels = [...grid.querySelectorAll<HTMLTableCellElement>("tbody th.psp-tree-label, tbody th.psp-tree-leaf")];
+                const missing = Math.max(0, ...labels.map(cell => cell.scrollWidth - cell.clientWidth));
+                const corners = [...grid.querySelectorAll<HTMLTableCellElement>("thead tr:last-child th.psp-header-corner")];
+                const last = corners[corners.length - 1];
+                const index = Number(last?.className.match(/rt-col-(\d+)/)?.[1]);
+                if (missing <= 1 || !last || Number.isNaN(index)) {
+                    return;
+                }
+                fitting = true;
+                const sizes = grid.saveColumnSizes();
+                sizes[index] = Math.ceil(last.getBoundingClientRect().width) + missing + 8;
+                grid.restoreColumnSizes(sizes);
+                Promise.resolve(grid.draw()).finally(() => {
+                    fitting = false;
+                });
             };
 
             unsubscribe = grid.addStyleListener(() => {
@@ -245,6 +283,7 @@ export function useTablePivotEffects({
                     formattingCell(cell, meta, formattingRules, layout, props.labels);
                     styleCellRef.current?.(cell, meta);
                 });
+                fitRowHeaders();
                 resizeHeight().catch(() => undefined);
             });
             // O primeiro desenho acontece antes do registro; redesenha para aplicar os rótulos e o `styleCell`.

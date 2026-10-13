@@ -1,6 +1,7 @@
 import { Box } from "../box";
 import { Loading } from "../loading";
 import React, { forwardRef } from "react";
+import { TablePivotViews } from "./core/views";
 import { tablePivotVariants } from "./variants";
 import { TablePivotToolbar } from "./core/toolbar";
 import { useTablePivot } from "./hooks/useTablePivot";
@@ -22,6 +23,8 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
             hostRef, rootRef, client, error, source, layout, expand, fieldList, data, schema,
             formatting, formattingRules, openFormatting, closeFormatting, changeFormatting,
             expandAll, collapseAll, exportCsv, openFields, closeFields, changeLayout, loadMembers, fullscreen,
+            copy, copied, exportXlsx,
+            views, viewsOpen, viewsError, openViews, closeViews, saveView, applyView, deleteView, resetView,
         } = useTablePivot(props, id, ref);
 
         /*
@@ -41,18 +44,23 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                     style={{ maxHeight: height }}>
                     {toolbar && source && layout && (
                         <TablePivotToolbar
+                            copied={copied}
                             expandable={layout.rows.length > 1}
                             expanded={expand}
                             formattingActive={formattingRules.length > 0}
                             labels={props.labels}
                             layout={layout}
                             title={props.title}
+                            viewsCount={views.length}
                             onCollapse={collapseAll}
+                            onCopy={() => copy().catch(() => undefined)}
                             onExpand={expandAll}
                             onExport={exportCsv}
+                            onExportExcel={exportXlsx}
                             onFields={openFields}
                             onFormatting={openFormatting}
-                            onFullscreen={fullscreen}/>
+                            onFullscreen={fullscreen}
+                            onViews={openViews}/>
                     )}
                     {fieldList && source && layout && (
                         <TablePivotFieldList
@@ -62,6 +70,17 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                             schema={schema}
                             onApply={changeLayout}
                             onClose={closeFields}/>
+                    )}
+                    {viewsOpen && (
+                        <TablePivotViews
+                            error={viewsError}
+                            labels={props.labels}
+                            views={views}
+                            onApply={applyView}
+                            onClose={closeViews}
+                            onDelete={deleteView}
+                            onReset={resetView}
+                            onSave={saveView}/>
                     )}
                     {formatting && layout && (
                         <TablePivotFormatting

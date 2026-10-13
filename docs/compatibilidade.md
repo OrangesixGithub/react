@@ -153,6 +153,23 @@ consumidores ajustam o uso ao migrar. O WebDataRocks foi substituído pelo [Pers
 | `toolbarOptions`, demais `pivotOptions` | removidos (`toolbar={false}` oculta a barra) |
 
 - `onChange` devolve `{ rows, columns, values, filters, sort }` no mesmo formato das props: basta salvar e reaplicar.
+- **Visões salvas.** O botão **Visões** salva o layout, a formatação condicional e a expansão no `localStorage` do
+  navegador, para reabrir na próxima sessão; "Restaurar padrão" volta às props. Informe `storageKey` (uma por tela)
+  para não misturar as visões de pivots diferentes; sem a prop, a chave é o `id`. Aplicar uma visão chama `onChange`
+  e `onConditionalFormattingChange`. Dados novos mantêm o layout atual; só a troca das props de layout o redefine.
+- **Modal fora do iframe.** Um pivot criado em um iframe e renderizado na janela principal (ex.: `Modal` com
+  `appendTo={() => window.parent.document.body}`) precisa do motor dessa janela, porque o elemento e os estilos do
+  Perspective pertencem ao documento que os cria. Na entrada da aplicação principal (fora dos iframes), chame uma vez:
+
+  ```ts
+  import "@orangesix/react/style.css";
+  import { initializeTablePivot } from "@orangesix/tablepivot";
+
+  initializeTablePivot();
+  ```
+
+  O WASM continua sendo baixado só quando um pivot é exibido. Sem essa chamada, o pivot mostra um aviso no lugar da
+  grade. Com `appendTo="self"` (modal dentro do próprio iframe), nada muda.
 - O motor (WASM) só é baixado nas telas que usam o pivot. No Vite do consumidor, os arquivos `.wasm` são resolvidos
   pelos imports `?url` do pacote, sem configuração extra no modo dev (validado no sandbox).
 - O usuário configura o pivot pelo botão **Campos** (Filtros, Colunas, Linhas e Valores, com arrastar e soltar,
@@ -181,7 +198,9 @@ consumidores ajustam o uso ao migrar. O WebDataRocks foi substituído pelo [Pers
 
 - height define a altura máxima do componente (padrão: 500), incluindo a barra. Com poucas linhas, a tabela
   ocupa somente a altura necessária; ao atingir o limite, a grade mantém sua rolagem. Tela cheia usa a altura do viewport.
-- Exportação: CSV. Excel e PDF não fazem parte desta versão.
+- Exportação: **CSV** (estrutura e números no padrão pt-BR, `;`, UTF-8 com BOM; sem cores, por ser texto puro) e
+  **Excel .xlsx** (números como número, cabeçalhos mesclados, hierarquia com recuo, total e formatação condicional;
+  biblioteca ExcelJS carregada só ao exportar). **Copiar tabela** leva a tabela com a formatação para colar no Excel.
 
 ### Utils (`@orangesix/utils`)
 
@@ -189,7 +208,7 @@ Os nomes e as assinaturas continuam iguais. Mudanças de comportamento em relaç
 
 - **Sem jQuery.** O pacote não depende mais de `jquery`. `getElementDOM(seletor, timeout, true)` retorna `Element[]` em vez de um objeto jQuery. Com `all = false`, continua retornando o elemento.
 - **`windowMessageEvent()`** aceita só mensagens da mesma origem e registra um único listener, mesmo se for chamado várias vezes. Ele retorna uma função que remove o listener. **`sendMessage`** envia só para a mesma origem: a janela principal e o iframe precisam estar no mesmo domínio.
-- **Snackbar.** O card novo (ícone, título e texto) escapa o HTML de `message.title`, `message.text` e `message.message`. O CSS da node-snackbar já vem no `style.css`. No SweetAlert, o título passou a ser texto puro (`titleText`); para HTML, passe `options.html`.
+- **Snackbar.** O card novo (ícone, título e texto) renderiza o HTML de `message.title`, `message.text` e `message.message`. O CSS da node-snackbar já vem no `style.css`. O SweetAlert também aceita HTML no título e no conteúdo, inclusive nos toasts. Os atributos do ícone continuam escapados.
 - **SweetAlert como toast.** `post(rota, body, form, { messageLibrary: "sweetAlert" })` mostra o `message` da resposta como toast do SweetAlert no canto, no mesmo card da snackbar, com a barra de tempo na cor do tipo. O padrão continua sendo a snackbar. `response(data, form, "sweetAlert")` faz o mesmo. Chamar `message({ library: "sweetAlert", type: "toast" })` sem `options` também usa esse card novo; com `options`, mantém a configuração do consumidor, como na 2.x.
 - **`response()`.** Os erros aparecem nos campos 3.x (`{name}-feedback`) e no padrão 2.x (`#j_feedback`). `field` (`messageType` e `disabled`) agora é tratado. `redirect` só aceita `http(s)` e caminhos relativos.
 - **`post()`** não registra mais interceptors no axios global. As metas `react-base` e `csrf-token` são lidas a cada chamada. Sem `react-base`, a URL é relativa (`/rota`).
