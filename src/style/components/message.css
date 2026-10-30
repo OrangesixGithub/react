@@ -7,6 +7,10 @@
     --color-message-background: var(--color-modal-background);
     --color-message-mask: var(--color-modal-mask);
     --color-message-close-hover: var(--color-modal-close-hover);
+    --color-message-danger: var(--color-error);
+    --color-message-danger-text: var(--color-white);
+    --color-message-warning: var(--color-amber-500);
+    --color-message-warning-text: var(--color-neutral-950);
 }
 
 @layer theme {
@@ -16,6 +20,8 @@
         --color-message-background: var(--color-modal-background);
         --color-message-cancel-background: var(--color-neutral-100);
         --color-message-cancel-hover: var(--color-neutral-300);
+        --color-message-danger: var(--color-error);
+        --color-message-warning: var(--color-amber-400);
     }
 }
 

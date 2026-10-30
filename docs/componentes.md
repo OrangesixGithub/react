@@ -132,6 +132,11 @@ O hook `src/modal/hooks/useModalTransiction.ts`, exportado pela pasta `modal`, s
 a animação de entrada e saída. A prop `transition` da Modal e do Message aceita `zoom` (padrão),
 `fade` e `slide`; os três efeitos respeitam `prefers-reduced-motion`.
 
+No Message, o `Dialog` fica sempre `closable` e o X é controlado por `showCloseIcon` (`modalClosable`).
+Assim `closeOnEscape` (padrão: valor de `modalClosable`) e `dismissableMask` (padrão `false`) funcionam sem o X.
+`autoFocus` foca o botão no `onShow`, antes do foco padrão do PrimeReact no X. Enquanto `visible` é `false`,
+título, ícone, labels, mensagem e variante usam os últimos valores exibidos, para a animação de saída não trocar o conteúdo.
+
 | Componentes | Aplicação da base compartilhada |
 |---|---|
 | Input e Textarea | `os-field` com tokens próprios; botões numéricos usam `os-button os-input-number-button` |
@@ -291,7 +296,7 @@ Rode `npx eslint <arquivo>` em todo arquivo alterado.
 | inputfilter  | select nativo + campos Tailwind (tokens `--color-input-*`), autocomplete PrimeReact unstyled; depende de `utils` (pendente); aguarda validação visual pelo dono; fora do build |
 | lightbox     | Lightbox3 com CSS original incorporado ao style.css e contêiner Tailwind; aguarda validação visual pelo dono; fora do build |
 | loading      | Tailwind puro, sem PrimeReact (cinco indicadores em `template/` escolhidos por `type`: `border`, `grow`, `bars`, `pulse`, `orbit`; `fullscreen` e `children` para centro personalizado, ex.: `motion` no consumidor); aguarda validação visual pelo dono; fora do build |
-| message      | Dialog PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
+| message      | Dialog PrimeReact 10.9.9 unstyled com Tailwind; `className`/`maskClassName`, `variant` (`confirmation`, `danger`, `warning`; tokens `--color-message-danger*`/`--color-message-warning*`), `cancelDisabled`, `autoFocus`, `closeOnEscape` e `dismissableMask` independentes do X, conteúdo congelado durante o fechamento; aguarda validação visual pelo dono; fora do build |
 | modal        | Dialog PrimeReact 10.9.9 unstyled com Tailwind, base compartilhada com Message; aguarda validação visual pelo dono; fora do build |
 | multiselect  | PrimeReact 10.9.9 unstyled com Tailwind; aguarda validação visual pelo dono; fora do build |
 | pdf          | react-pdf com Tailwind (tokens `--color-pdf-*`), modos total/pagination, largura responsiva e `appendTo` para paginação fora do iframe; aguarda validação visual pelo dono; fora do build |

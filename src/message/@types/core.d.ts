@@ -7,6 +7,11 @@ import type { ModalTransition } from "../../modal/@types";
 export type MessageModeProps = "modal";
 
 /**
+ * Variante visual da message: `confirmation` (padrão), `danger` (ações destrutivas) ou `warning` (alertas).
+ */
+export type MessageVariant = "confirmation" | "danger" | "warning";
+
+/**
  * Define as propriedades padrão do component
  */
 interface MessageBaseProps {
@@ -25,6 +30,30 @@ interface MessageBaseProps {
      * Define se componente está no estado de carregando
      */
     isLoading?: boolean
+
+    /**
+     * Classes adicionais aplicadas na raiz da message, junto com as classes padrão.
+     */
+    className?: string
+
+    /**
+     * Variante visual: pinta o ícone e o botão de confirmação. Padrão: `confirmation`.
+     * `danger` usa o token `--color-message-danger` (erro) e `warning` usa `--color-message-warning`.
+     */
+    variant?: MessageVariant
+
+    /**
+     * Desabilita o botão de cancelar. Padrão: `false`, inclusive com `isLoading`.
+     * Para bloquear o cancelamento enquanto a ação roda, informe `cancelDisabled={isLoading}`.
+     */
+    cancelDisabled?: boolean
+
+    /**
+     * Botão que recebe o foco ao abrir: `confirm` ou `cancel`.
+     * Sem valor, mantém o padrão (foco no botão de fechar, quando existir).
+     * Um botão desabilitado não recebe foco.
+     */
+    autoFocus?: "confirm" | "cancel"
 
     /**
      * Define o titulo da message
@@ -113,6 +142,21 @@ interface MessageModalProps {
      * Define se modal de mensagem vai ter botão de fechar
      */
     modalClosable?: boolean
+
+    /**
+     * Fecha a message ao pressionar Esc, independente do botão de fechar. Padrão: valor de `modalClosable` (`true`).
+     */
+    closeOnEscape?: boolean
+
+    /**
+     * Fecha a message ao clicar no fundo (máscara). Padrão: `false`.
+     */
+    dismissableMask?: boolean
+
+    /**
+     * Classes adicionais aplicadas na máscara (fundo) da message.
+     */
+    maskClassName?: string
 
     /**
      * Define o zindex da modal de message

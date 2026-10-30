@@ -7,6 +7,7 @@ export const messageVariants = tv({
         mask: "os-modal-mask os-message",
         header: "os-modal-header",
         title: "os-modal-title",
+        icon: "",
         close: "os-button os-button-focus os-modal-close",
         content: "scrollbar-themed os-modal-content",
         body: "os-modal-description",
@@ -20,6 +21,17 @@ export const messageVariants = tv({
             center: { actions: "justify-center" },
             end: { actions: "justify-end" },
         },
+        variant: {
+            confirmation: {},
+            danger: {
+                icon: "text-message-danger",
+                confirm: "bg-message-danger text-message-danger-text hover:bg-message-danger/80 focus-visible:ring-message-danger/40",
+            },
+            warning: {
+                icon: "text-message-warning",
+                confirm: "bg-message-warning text-message-warning-text hover:bg-message-warning/80 focus-visible:ring-message-warning/40",
+            },
+        },
     },
-    defaultVariants: { position: "end" },
+    defaultVariants: { position: "end", variant: "confirmation" },
 });
