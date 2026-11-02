@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { ApiComponentProps } from "../../api";
 import type { Table } from "@perspective-dev/client";
 import type { HTMLPerspectiveViewerElement } from "@perspective-dev/viewer";
@@ -28,6 +29,9 @@ export interface TablePivotLayout {
 }
 
 export interface TablePivotProps extends ApiComponentProps {
+    /** Renderiza os painéis de campos, visões e formatação em um contêiner ou portal da aplicação. */
+    renderOverlay?: (content: ReactNode) => ReactNode
+
     /**
      * Registros do pivot (lista de objetos).
      */

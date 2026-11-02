@@ -11,6 +11,10 @@ import type { TablePivotProps, TablePivotRef } from "./@types";
 
 const styles = tablePivotVariants();
 
+function renderOverlay(content: React.ReactNode) {
+    return content;
+}
+
 /**
  * Componente - `TablePivot`
  *
@@ -18,7 +22,7 @@ const styles = tablePivotVariants();
  * linhas e valores pela lista de campos.
  */
 export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
-    ({ toolbar = true, id = "pivotTable", height = 500, ...props }, ref) => {
+    ({ toolbar = true, id = "pivotTable", height = 500, renderOverlay: renderPanel = renderOverlay, ...props }, ref) => {
         const {
             hostRef, rootRef, client, error, source, layout, expand, fieldList, data, schema,
             formatting, formattingRules, openFormatting, closeFormatting, changeFormatting,
@@ -62,7 +66,7 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                             onFullscreen={fullscreen}
                             onViews={openViews}/>
                     )}
-                    {fieldList && source && layout && (
+                    {fieldList && source && layout && renderPanel(
                         <TablePivotFieldList
                             labels={props.labels}
                             layout={layout}
@@ -71,7 +75,7 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                             onApply={changeLayout}
                             onClose={closeFields}/>
                     )}
-                    {viewsOpen && (
+                    {viewsOpen && renderPanel(
                         <TablePivotViews
                             error={viewsError}
                             labels={props.labels}
@@ -82,7 +86,7 @@ export const TablePivot = forwardRef<TablePivotRef, TablePivotProps>(
                             onReset={resetView}
                             onSave={saveView}/>
                     )}
-                    {formatting && layout && (
+                    {formatting && layout && renderPanel(
                         <TablePivotFormatting
                             labels={props.labels}
                             layout={layout}

@@ -2,7 +2,7 @@
   "name": "@orangesix/react",
   "private": true,
   "type": "module",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-beta.5",
   "description": "Biblioteca de components React UI.",
   "keywords": [
     "react",
