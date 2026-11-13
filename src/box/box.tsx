@@ -28,7 +28,7 @@ export function Box<T extends keyof HTMLElementTagNameMap = "div">({
     });
 
     const classes = clsx(
-        "flex",
+        "os-box flex",
         "box-border mx-[calc(var(--spacing-box,0px)/2)]",
         "w-[calc(var(--box-width)-var(--spacing-box,0px))]",
         sizes.sm && "sm:w-[calc(var(--box-width-sm)-var(--spacing-box,0px))]",

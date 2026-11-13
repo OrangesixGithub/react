@@ -10,7 +10,7 @@ export const modalVariants = tv({
         icons: "flex shrink-0 items-center gap-1",
         close: "os-button os-button-focus os-modal-close",
         content: "scrollbar-themed os-modal-content min-h-0 flex-1",
-        footer: "shrink-0 px-4 pb-4",
+        footer: "os-modal-footer shrink-0 px-4 pb-4",
     },
     variants: {
         sizes: {

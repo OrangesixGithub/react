@@ -54,6 +54,8 @@ export function Modal(props: ModalProps) {
                 footer: { className: styles.footer() },
             }}
             className={styles.root({ className: props.className })}
+            data-maximized={maximized ? "true" : undefined}
+            data-size={props.sizes}
             draggable={false}
             maximized={maximized}
             resizable={false}

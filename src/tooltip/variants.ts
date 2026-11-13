@@ -28,7 +28,7 @@ const arrow = tv({
 });
 
 const text = tv({
-    base: "rounded-md bg-tooltip-background px-3 py-2 text-sm leading-relaxed whitespace-pre-line wrap-break-word text-tooltip-text shadow-md",
+    base: "os-tooltip-text rounded-md bg-tooltip-background px-3 py-2 text-sm leading-relaxed whitespace-pre-line wrap-break-word text-tooltip-text shadow-md",
 });
 
 /** Classes do painel, seta e conteúdo conforme a posição efetiva do PrimeReact. */

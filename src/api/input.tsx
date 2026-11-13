@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { FieldErrors } from "react-hook-form";
 import type { ApiComponentProps, ApiFieldComponentProps } from "./@types";
 
@@ -51,7 +52,7 @@ export function InputFeedback({ error, errors, id, name, className }: ApiFieldCo
     return (
         <div
             aria-live="polite"
-            className={feedback ? (className ?? "mt-1 text-xs text-input-feedback-error") : undefined}
+            className={clsx("os-field-feedback", feedback && (className ?? "mt-1 text-xs text-input-feedback-error"))}
             data-name={name}
             id={id || name ? `${id ?? name}-feedback` : undefined}>
             {feedback}

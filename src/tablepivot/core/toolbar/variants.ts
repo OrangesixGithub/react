@@ -4,12 +4,12 @@ import { tv } from "tailwind-variants";
 export const tablePivotToolbarVariants = tv({
     slots: {
         root: [
-            "flex flex-wrap items-center gap-x-4 gap-y-2 border-b px-2 py-1 text-sm",
+            "os-pivot-toolbar flex flex-wrap items-center gap-x-4 gap-y-2 border-b px-2 py-1 text-sm",
             "border-pivot-border bg-pivot-toolbar-background",
         ],
         title: "font-semibold text-pivot-text",
         summary: [
-            "flex min-w-0 cursor-pointer flex-wrap items-center gap-x-4 gap-y-1.5 rounded-md p-1 transition-colors",
+            "os-pivot-fields flex min-w-0 cursor-pointer flex-wrap items-center gap-x-4 gap-y-1.5 rounded-md p-1 transition-colors",
             "hover:bg-pivot-chip-hover",
         ],
         group: "flex flex-wrap items-center gap-1.5",
@@ -19,9 +19,9 @@ export const tablePivotToolbarVariants = tv({
             "border-pivot-chip-border bg-pivot-chip-background text-pivot-chip-text",
         ],
         none: "text-xs text-pivot-label",
-        actions: "flex flex-wrap items-center gap-1.5",
+        actions: "os-pivot-actions flex flex-wrap items-center gap-1.5",
         icon: [
-            "os-button inline-flex size-7 shrink-0 items-center justify-center rounded-md border",
+            "os-pivot-action os-button inline-flex size-7 shrink-0 items-center justify-center rounded-md border",
             "duration-150 motion-reduce:transition-none",
         ],
     },

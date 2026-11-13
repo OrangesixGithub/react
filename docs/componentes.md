@@ -156,6 +156,24 @@ Essa revisão não habilita componentes no build nem substitui a validação vis
 
 ## Encapsulando o PrimeReact 10.9.9
 
+### Seletores públicos para CSS
+
+| Componente | Seletor e elemento |
+|---|---|
+| Box | `.os-box` no contêiner, inclusive nos Boxes usados por TabView, PickList e Lightbox |
+| TabView | `.os-tabview` na raiz; `.os-tabview-nav-container`, `.os-tabview-nav-content` e `.os-tabview-nav` na navegação; `.os-tabview-tab` na ação da aba; `.os-tabview-title` no título; `.os-tabview-panel` no contêiner dos painéis e `.os-tabview-content` em cada painel |
+| Table | `.os-table-element` no elemento `table`; `.os-table-header-cell`, `.os-table-header-title`, `.os-table-sort-icon` e `.os-table-column-resizer` no cabeçalho; `.os-table-row` nas linhas de dados; `.os-table-cell` e `.os-table-footer-cell` nas células; `.os-table-empty` na linha do estado vazio |
+| Paginação da Table | `.os-paginator` no contêiner; `.os-table-page` no número da página; `.os-paginator-nav` nos botões Anterior e Próxima; `.os-paginator-rows` no seletor de tamanho; `.os-paginator-total` no total; `.os-paginator-end` no contêiner do conteúdo à direita |
+| PickList | `.os-picklist-root` na raiz; `.os-picklist-controls` nos grupos de botões; `.os-picklist-header`, `.os-picklist-filter-container`, `.os-picklist-filter-icon` e `.os-picklist-list` em cada lista |
+| Modal | `.os-modal-footer` no rodapé; `[data-size]` na raiz quando `sizes` é informado; `[data-maximized=true]` enquanto maximizada |
+| Button | `[data-color]` com a cor efetiva (padrão `primary`); `[data-link=true]` para link; `[data-rounded=true]` quando arredondado |
+| Tooltip | `.os-tooltip-text` no contêiner de texto |
+| Input e outros campos com InputFeedback | `.os-field-feedback` na região que anuncia a mensagem, inclusive enquanto vazia |
+| TablePivot | `.os-pivot-toolbar` na barra, `.os-pivot-fields` no resumo que abre a lista de campos, `.os-pivot-actions` no grupo de ações e `.os-pivot-action` nos botões |
+
+Em um `headerTemplate` personalizado do TabView, aplique `className` e `titleClassName` recebidos aos
+elementos correspondentes para incluir os seletores da aba e do título.
+
 ### Espaçamento horizontal do Box
 
 O token Tailwind `--spacing-box`, em `src/style/components/box.css`, define o espaço horizontal total de cada

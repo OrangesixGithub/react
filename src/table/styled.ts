@@ -74,8 +74,9 @@ export function tableStyle(props: TableProps<any>): DataTablePassThroughOptions 
                 }),
             }),
             columnTitle: { className: "hidden" },
+            headerTitle: { className: styles.headerTitle() },
             sortIcon: options => ({
-                className: styles.icon({ sorted: options?.context?.sorted ?? false }),
+                className: styles.icon({ sortIcon: true, sorted: options?.context?.sorted ?? false }),
             }),
             sortBadge: { className: styles.sortBadge() },
             rowToggler: { className: styles.control() },
@@ -98,7 +99,7 @@ export function tableStyle(props: TableProps<any>): DataTablePassThroughOptions 
             nextPageIcon: { className: styles.icon() },
             lastPageIcon: { className: styles.icon() },
             left: { className: styles.pageSide() },
-            end: { className: styles.pageSide() },
+            end: { className: styles.pageSide({ className: "os-paginator-end" }) },
         },
     };
 }

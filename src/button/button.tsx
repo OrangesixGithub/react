@@ -36,6 +36,9 @@ export function Button({ ...props }: ButtonProps) {
             }}
             aria-busy={props.isLoading || undefined}
             className={buttonVariants(props)}
+            data-color={props.color ?? "primary"}
+            data-link={props.isLink ? "true" : undefined}
+            data-rounded={props.rounded ? "true" : undefined}
             disabled={props.disabled || props.isLoading}
             id={props.id}
             style={props.css}
